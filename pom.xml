@@ -4,7 +4,7 @@
 
     <groupId>uaihebert.com</groupId>
     <artifactId>uaiMockServer</artifactId>
-    <version>1.0.1</version>
+    <version>1.0.2-SNAPSHOT</version>
 
     <name>uaiMockServer</name>
     <description>uaiMockServer project that helps with http tests, mocking the services using only a config file
@@ -200,8 +200,9 @@
 
     <profiles>
         <profile>
-            <id>standAlone</id>
+            <id>standalone</id>
             <build>
+                <finalName>${project.name}-${project.version}.Standalone</finalName>
                 <plugins>
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
@@ -216,6 +217,7 @@
                             <descriptorRefs>
                                 <descriptorRef>jar-with-dependencies</descriptorRef>
                             </descriptorRefs>
+                            <appendAssemblyId>false</appendAssemblyId>
                         </configuration>
                         <executions>
                             <execution>
