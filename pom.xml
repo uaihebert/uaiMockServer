@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>uaihebert.com</groupId>
     <artifactId>uaiMockServer</artifactId>
-    <version>1.0.1-SNAPSHOT</version>
+    <version>1.0.1</version>
 
     <name>uaiMockServer</name>
     <description>uaiMockServer project that helps with http tests, mocking the services using only a config file
@@ -35,10 +33,11 @@
     </licenses>
 
     <scm>
-        <connection>scm:git:github.com/uaihebert/uaiMockServer.git</connection>
-        <developerConnection>scm:git:github.com/uaihebert/uaiMockServer.git</developerConnection>
+        <connection>scm:git://github.com/uaihebert/uaiMockServer.git</connection>
+        <developerConnection>scm:git://github.com/uaihebert/uaiMockServer.git</developerConnection>
         <url>https://github.com/uaihebert/uaiMockServer</url>
-    </scm>
+      <tag>1.0.1</tag>
+  </scm>
 
     <properties>
         <jersey.version>2.6</jersey.version>
@@ -139,7 +138,7 @@
                         <format>xml</format>
                         <format>html</format>
                     </formats>
-                    <check/>
+                    <check />
                     <instrumentation>
                         <excludes>
                             <exclude>
