@@ -33,8 +33,8 @@
     </licenses>
 
     <scm>
-        <connection>scm:git://github.com/uaihebert/uaiMockServer.git</connection>
-        <developerConnection>scm:git://github.com/uaihebert/uaiMockServer.git</developerConnection>
+        <connection>scm:git:git://github.com/uaihebert/uaiMockServer.git</connection>
+        <developerConnection>scm:git:git://github.com/uaihebert/uaiMockServer.git</developerConnection>
         <url>https://github.com/uaihebert/uaiMockServer</url>
       <tag>1.0.1</tag>
   </scm>
