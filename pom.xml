@@ -4,7 +4,7 @@
 
     <groupId>uaihebert.com</groupId>
     <artifactId>uaiMockServer</artifactId>
-    <version>1.0.1</version>
+    <version>1.0.1-SNAPSHOT</version>
 
     <name>uaiMockServer</name>
     <description>uaiMockServer project that helps with http tests, mocking the services using only a config file
@@ -258,6 +258,14 @@
                                 </goals>
                             </execution>
                         </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>external.atlassian.jgitflow</groupId>
+                        <artifactId>jgitflow-maven-plugin</artifactId>
+                        <version>1.0-m3</version>
+                        <configuration>
+                            <noDeploy>true</noDeploy>
+                        </configuration>
                     </plugin>
                 </plugins>
             </build>
