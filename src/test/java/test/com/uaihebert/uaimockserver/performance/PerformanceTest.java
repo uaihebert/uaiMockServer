@@ -63,7 +63,7 @@ public class PerformanceTest {
 
         final long timeLapse = endTime - startTime;
 
-        assertTrue("making sure that we have a fast response", timeLapse < 5000);
+        assertTrue("making sure that we have a fast response", timeLapse < 10000);
     }
 
     private void executeGetRequest() {
