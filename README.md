@@ -15,7 +15,7 @@ This code can create a Standalone jar or you could add the project in your pom.x
 * If you want to create the Standalone jar, run the command: `mvn clean install -Pstandalone`
  
 
-####About eh configuration
+####About the configuration
 You will find a configuration sample in the sourceforge link above. In the project site you will find all the values allowed in a configuration file.
 The configuration utilization vary depending on the approache used:
 * If you will use the Standalone file, by default the file must be in the same folder of the Jar
