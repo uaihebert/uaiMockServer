@@ -46,7 +46,6 @@ public class PerformanceTest {
         uaiMockServer.shutdown();
     }
 
-
     @Test
     public void isWithGoodPerformance() {
         // just a metric to make sure that we are not slowing down the processing

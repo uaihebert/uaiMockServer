@@ -31,15 +31,15 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 public class UaiMockServerTest extends TestAbstract {
-@Test
-public void isGetRootReturning200() {
-    final String url = "http://localhost:1234/uaiMockServer/";
+    @Test
+    public void isGetRootReturning200() {
+        final String url = "http://localhost:1234/uaiMockServer/";
 
-    Client client = ClientBuilder.newClient();
-    Response response = client.target(url).request().get();
+        Client client = ClientBuilder.newClient();
+        Response response = client.target(url).request().get();
 
-    assertEquals(200, response.getStatus());
-}
+        assertEquals(200, response.getStatus());
+    }
 
     @Test
     public void isPutReturning201() {

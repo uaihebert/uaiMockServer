@@ -16,9 +16,25 @@
 package test.com.uaihebert.uaimockserver.util;
 
 import com.uaihebert.uaimockserver.facade.RequestValidatorFacade;
-import com.uaihebert.uaimockserver.factory.*;
-import com.uaihebert.uaimockserver.util.*;
-import com.uaihebert.uaimockserver.validator.*;
+import com.uaihebert.uaimockserver.factory.LogFactory;
+import com.uaihebert.uaimockserver.factory.TypeSafeConfigFactory;
+import com.uaihebert.uaimockserver.factory.UaiHeaderFactory;
+import com.uaihebert.uaimockserver.factory.UaiQueryParamFactory;
+import com.uaihebert.uaimockserver.factory.UaiRequestFactory;
+import com.uaihebert.uaimockserver.factory.UaiResponseFactory;
+import com.uaihebert.uaimockserver.factory.UaiRouteFactory;
+import com.uaihebert.uaimockserver.util.ConfigKeyUtil;
+import com.uaihebert.uaimockserver.util.ExceptionUtil;
+import com.uaihebert.uaimockserver.util.HttpServerUtil;
+import com.uaihebert.uaimockserver.util.RequestHolder;
+import com.uaihebert.uaimockserver.util.RouteFinderUtil;
+import com.uaihebert.uaimockserver.util.RouteMapKeyUtil;
+import com.uaihebert.uaimockserver.util.RouteUtil;
+import com.uaihebert.uaimockserver.validator.BodyValidator;
+import com.uaihebert.uaimockserver.validator.ContentTypeValidator;
+import com.uaihebert.uaimockserver.validator.HeaderValidator;
+import com.uaihebert.uaimockserver.validator.RequestValidator;
+import com.uaihebert.uaimockserver.validator.UaiQueryParamValidator;
 import org.junit.Test;
 
 import java.lang.reflect.Constructor;
@@ -195,6 +211,15 @@ public class PrivateConstructorTest {
         constructor.setAccessible(true);
 
         final ContentTypeValidator createdObject = constructor.newInstance(new Object[0]);
+        assertNotNull(createdObject);
+    }
+
+    @Test
+    public void testRequestHolderConstructor() throws Exception {
+        final Constructor<RequestHolder> constructor = RequestHolder.class.getDeclaredConstructor(new Class[0]);
+        constructor.setAccessible(true);
+
+        final RequestHolder createdObject = constructor.newInstance(new Object[0]);
         assertNotNull(createdObject);
     }
 }

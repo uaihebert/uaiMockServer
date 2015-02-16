@@ -24,6 +24,7 @@ public enum RequestConstants {
     CONTENT_TYPE("requiredContentType"),
     IS_BODY_REQUIRED("isBodyRequired"),
     REQUIRED_HEADER_LIST("requiredHeaderList"),
+    HOLD_THE_REQUEST_IN_MILLI("holdTheRequestInMilli"),
     REQUIRED_QUERY_PARAM_LIST("requiredQueryParamList");
 
     private static final String REQUEST_PATH = "request.";

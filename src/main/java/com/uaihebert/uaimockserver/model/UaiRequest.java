@@ -26,15 +26,19 @@ public final class UaiRequest {
     public final String method;
     public final String requiredContentType;
 
+    public final long holdRequestInMilli;
+
     public final boolean isBodyRequired;
 
     public final List<UaiHeader> requiredHeaderList;
     public final List<UaiQueryParam> requiredQueryParamList;
 
-    public UaiRequest(final String path, final String method, final String requiredContentType, final boolean isBodyRequired, final List<UaiHeader> requiredHeaderList, final List<UaiQueryParam> requiredQueryParamList) {
+    public UaiRequest(final String path, final String method, final String requiredContentType, final long holdRequestInMilli, final boolean isBodyRequired, final List<UaiHeader> requiredHeaderList, final List<UaiQueryParam> requiredQueryParamList) {
         this.path = path;
         this.method = method;
         this.requiredContentType = requiredContentType;
+
+        this.holdRequestInMilli = holdRequestInMilli;
 
         this.isBodyRequired = isBodyRequired;
 

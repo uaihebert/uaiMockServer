@@ -51,6 +51,19 @@ public final class ConfigKeyUtil {
         return Boolean.valueOf(configAsString);
     }
 
+    // todo criar classe StringUtils
+    // todo fazer metodo silently retornar valor default
+
+    public static Long getLongSilently(final String key, final Config config) {
+        final String configAsString = getStringSilently(key, config);
+
+        if (configAsString == null) {
+            return 0L;
+        }
+
+        return Long.valueOf(configAsString);
+    }
+
     public static List<? extends Config> getConfigListSilently(final String key, final Config config) {
         try {
             return config.getConfigList(key);

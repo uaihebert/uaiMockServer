@@ -34,6 +34,8 @@ public final class UaiRequestFactory {
     public static UaiRequest create(final Config config) {
         final Boolean bodyRequired = ConfigKeyUtil.getBooleanSilently(RequestConstants.IS_BODY_REQUIRED.path, config);
 
+        final long holdRequestInMilli = ConfigKeyUtil.getLongSilently(RequestConstants.HOLD_THE_REQUEST_IN_MILLI.path, config);
+
         final String path = ConfigKeyUtil.getStringSilently(RequestConstants.PATH.path, config);
         final String method = ConfigKeyUtil.getStringSilently(RequestConstants.METHOD.path, config);
         final String contentType = ConfigKeyUtil.getStringSilently(RequestConstants.CONTENT_TYPE.path, config);
@@ -41,6 +43,6 @@ public final class UaiRequestFactory {
         final List<UaiHeader> requiredHeaderList = UaiHeaderFactory.create(config, RequestConstants.REQUIRED_HEADER_LIST.path);
         final List<UaiQueryParam> requiredQueryParamList = UaiQueryParamFactory.create(config);
 
-        return new UaiRequest(path, method, contentType, bodyRequired, requiredHeaderList, requiredQueryParamList);
+        return new UaiRequest(path, method, contentType, holdRequestInMilli, bodyRequired, requiredHeaderList, requiredQueryParamList);
     }
 }
