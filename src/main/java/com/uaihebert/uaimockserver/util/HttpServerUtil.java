@@ -17,27 +17,63 @@ package com.uaihebert.uaimockserver.util;
 
 import com.uaihebert.uaimockserver.model.UaiMockServerConfig;
 import com.uaihebert.uaimockserver.server.UaiMockServerHandler;
+import com.uaihebert.uaimockserver.servlet.FaviconServlet;
+import com.uaihebert.uaimockserver.servlet.UaiIndexServlet;
+import io.undertow.Handlers;
 import io.undertow.Undertow;
+import io.undertow.server.HttpHandler;
+import io.undertow.server.handlers.PathHandler;
+import io.undertow.servlet.Servlets;
+import io.undertow.servlet.api.DeploymentInfo;
+import io.undertow.servlet.api.DeploymentManager;
+
+import javax.servlet.ServletException;
+
+import static io.undertow.servlet.Servlets.servlet;
 
 /**
- * This class is responsible of the servlet server instantiation
+ * This class is responsible for the servlet server instantiation
  */
 public final class HttpServerUtil {
+    private static final String SERVLET_CONTEXT_PATH = "/uai-mock-server-gui";
+
     private HttpServerUtil() {
     }
 
     public static Undertow startHttpServer(final UaiMockServerConfig config) {
-        final Undertow httpServer = Undertow.builder()
-                .addHttpListener(config.port, config.host)
-                .setHandler(new UaiMockServerHandler(config))
-                .build();
+        final Undertow httpServer;
 
         try{
+            final PathHandler path = Handlers.path(Handlers.redirect(SERVLET_CONTEXT_PATH))
+                    .addPrefixPath(SERVLET_CONTEXT_PATH, createHtmlManager())
+                    .addPrefixPath("/", new UaiMockServerHandler(config));
+
+            httpServer = Undertow.builder()
+                    .addHttpListener(config.port, config.host)
+                    .setHandler(path)
+                    .build();
+
             httpServer.start();
-        } catch (final RuntimeException ex) {
+        } catch (final Exception ex) {
             throw new IllegalStateException("Could not start the uaiMockServer.", ex);
         }
 
         return httpServer;
+    }
+
+    private static HttpHandler createHtmlManager() throws ServletException {
+        final DeploymentInfo deploymentInfo = Servlets.deployment()
+                .setClassLoader(HttpServerUtil.class.getClassLoader())
+                .setContextPath(SERVLET_CONTEXT_PATH)
+                .setDeploymentName("uaiMockServer.war")
+                .addServlets(
+                        servlet("IndexServlet", UaiIndexServlet.class).addMapping("/index"),
+                        servlet("FaviconServlet", FaviconServlet.class).addMapping("/favicon")
+                );
+
+        final DeploymentManager manager = Servlets.defaultContainer().addDeployment(deploymentInfo);
+        manager.deploy();
+
+        return manager.start();
     }
 }
