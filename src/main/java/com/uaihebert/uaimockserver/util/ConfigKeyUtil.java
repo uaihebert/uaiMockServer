@@ -46,15 +46,19 @@ public final class ConfigKeyUtil {
         }
     }
 
-    public static Boolean getBooleanSilently(final String key, final Config config) {
+    public static boolean getBooleanSilently(final String key, final Config config) {
         final String configAsString = getStringSilently(key, config);
+
+        if (StringUtils.isEmpty(configAsString)) {
+            return false;
+        }
 
         return Boolean.valueOf(configAsString);
     }
 
     // todo fazer metodo silently retornar valor default
 
-    public static Long getLongSilently(final String key, final Config config) {
+    public static long getLongSilently(final String key, final Config config) {
         final String configAsString = getStringSilently(key, config);
 
         if (StringUtils.isEmpty(configAsString)) {
