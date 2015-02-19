@@ -17,6 +17,7 @@ package com.uaihebert.uaimockserver.util;
 
 import com.typesafe.config.Config;
 import com.typesafe.config.ConfigException;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.Collections;
 import java.util.List;
@@ -51,13 +52,12 @@ public final class ConfigKeyUtil {
         return Boolean.valueOf(configAsString);
     }
 
-    // todo criar classe StringUtils
     // todo fazer metodo silently retornar valor default
 
     public static Long getLongSilently(final String key, final Config config) {
         final String configAsString = getStringSilently(key, config);
 
-        if (configAsString == null) {
+        if (StringUtils.isEmpty(configAsString)) {
             return 0L;
         }
 

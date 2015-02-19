@@ -21,6 +21,7 @@ import com.uaihebert.uaimockserver.util.ExceptionUtil;
 import io.undertow.server.HttpServerExchange;
 import io.undertow.util.HeaderValues;
 import io.undertow.util.Headers;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * Will validate the request contentType if needed
@@ -34,7 +35,7 @@ public final class ContentTypeValidator {
     public static void validate(final UaiRequest uaiRequest, final HttpServerExchange exchange, final UaiMockServerConfig uaiMockServerConfig) {
         final String requiredContentType = uaiRequest.requiredContentType;
 
-        if (requiredContentType == null) {
+        if (StringUtils.isEmpty(requiredContentType)) {
             return;
         }
 
