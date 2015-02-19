@@ -34,7 +34,7 @@ public final class ConfigKeyUtil {
         try {
             return config.getString(key);
         } catch (final ConfigException ex) {
-            return null;
+            return StringUtils.EMPTY;
         }
     }
 
@@ -55,8 +55,6 @@ public final class ConfigKeyUtil {
 
         return Boolean.valueOf(configAsString);
     }
-
-    // todo fazer metodo silently retornar valor default
 
     public static long getLongSilently(final String key, final Config config) {
         final String configAsString = getStringSilently(key, config);
