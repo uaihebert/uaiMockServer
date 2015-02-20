@@ -2,7 +2,7 @@ package test.com.uaihebert.uaimockserver.gui;
 
 import com.uaihebert.uaimockserver.dto.model.*;
 import com.uaihebert.uaimockserver.dto.response.IndexResponseDTO;
-import org.apache.commons.lang3.StringUtils;
+import com.uaihebert.uaimockserver.util.StringUtils;
 
 import java.util.List;
 
@@ -29,9 +29,9 @@ public final class UaiRouteDTOTestValidator {
     }
 
     private static void validateRequest(final UaiRequestDTO request) {
-        assertTrue(StringUtils.isNotEmpty(request.getPath()));
-        assertTrue(StringUtils.isNotEmpty(request.getMethod()));
-        assertTrue(StringUtils.isNotEmpty(request.getRequiredContentType()));
+        assertTrue(StringUtils.isNotBlank(request.getPath()));
+        assertTrue(StringUtils.isNotBlank(request.getMethod()));
+        assertTrue(StringUtils.isNotBlank(request.getRequiredContentType()));
         assertTrue(request.getHoldRequestInMilli() > 0);
         assertTrue(request.isBodyRequired());
         validateHeader(request.getRequiredHeaderList());
@@ -43,7 +43,7 @@ public final class UaiRouteDTOTestValidator {
         assertNotNull("must have a requiredHeaderList", requiredHeaderList);
 
         for (UaiHeaderDTO uaiHeaderDTO : requiredHeaderList) {
-            assertTrue(StringUtils.isNotEmpty(uaiHeaderDTO.getName()));
+            assertTrue(StringUtils.isNotBlank(uaiHeaderDTO.getName()));
             assertNotNull("must have a valueList", uaiHeaderDTO.getValueList());
             assertFalse(uaiHeaderDTO.getValueList().isEmpty());
         }
@@ -53,15 +53,15 @@ public final class UaiRouteDTOTestValidator {
         assertNotNull("must have a requiredQueryParamList", requiredQueryParamList);
 
         for (UaiQueryParamDTO uaiQueryParamDTO : requiredQueryParamList) {
-            assertTrue(StringUtils.isNotEmpty(uaiQueryParamDTO.getName()));
+            assertTrue(StringUtils.isNotBlank(uaiQueryParamDTO.getName()));
             assertNotNull("must have a valueList", uaiQueryParamDTO.getValueList());
             assertFalse(uaiQueryParamDTO.getValueList().isEmpty());
         }
     }
 
     private static void validateResponse(final UaiResponseDTO response) {
-        assertTrue(StringUtils.isNotEmpty(response.getBody()));
-        assertTrue(StringUtils.isNotEmpty(response.getContentType()));
+        assertTrue(StringUtils.isNotBlank(response.getBody()));
+        assertTrue(StringUtils.isNotBlank(response.getContentType()));
         assertTrue(response.getStatusCode() > 0);
         assertFalse(response.getHeaderList().isEmpty());
     }

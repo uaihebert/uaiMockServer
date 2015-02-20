@@ -21,7 +21,7 @@ import com.uaihebert.uaimockserver.model.UaiHeader;
 import com.uaihebert.uaimockserver.model.UaiMockServerConfig;
 import com.uaihebert.uaimockserver.model.UaiResponse;
 import com.uaihebert.uaimockserver.util.ConfigKeyUtil;
-import org.apache.commons.lang3.StringUtils;
+import com.uaihebert.uaimockserver.util.StringUtils;
 
 import java.util.List;
 
@@ -46,7 +46,7 @@ public final class UaiResponseFactory {
     private static String defineBody(final Config routeConfig) {
         final String configBody = ConfigKeyUtil.getStringSilently(ResponseConstants.BODY.path, routeConfig);
 
-        if (StringUtils.isEmpty(configBody)) {
+        if (StringUtils.isBlank(configBody)) {
             return null;
         }
 
@@ -56,7 +56,7 @@ public final class UaiResponseFactory {
     private static String defineContentType(final Config routeConfig, final UaiMockServerConfig uaiMockServerConfig) {
         final String contentType = ConfigKeyUtil.getStringSilently(ResponseConstants.CONTENT_TYPE.path, routeConfig);
 
-        if (StringUtils.isEmpty(contentType)) {
+        if (StringUtils.isBlank(contentType)) {
             return uaiMockServerConfig.basicConfiguration.defaultContentType;
         }
 

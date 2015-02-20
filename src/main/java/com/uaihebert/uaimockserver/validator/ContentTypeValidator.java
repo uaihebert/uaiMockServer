@@ -18,10 +18,10 @@ package com.uaihebert.uaimockserver.validator;
 import com.uaihebert.uaimockserver.model.UaiMockServerConfig;
 import com.uaihebert.uaimockserver.model.UaiRequest;
 import com.uaihebert.uaimockserver.util.ExceptionUtil;
+import com.uaihebert.uaimockserver.util.StringUtils;
 import io.undertow.server.HttpServerExchange;
 import io.undertow.util.HeaderValues;
 import io.undertow.util.Headers;
-import org.apache.commons.lang3.StringUtils;
 
 /**
  * Will validate the request contentType if needed
@@ -35,7 +35,7 @@ public final class ContentTypeValidator {
     public static void validate(final UaiRequest uaiRequest, final HttpServerExchange exchange, final UaiMockServerConfig uaiMockServerConfig) {
         final String requiredContentType = uaiRequest.requiredContentType;
 
-        if (StringUtils.isEmpty(requiredContentType)) {
+        if (StringUtils.isBlank(requiredContentType)) {
             return;
         }
 

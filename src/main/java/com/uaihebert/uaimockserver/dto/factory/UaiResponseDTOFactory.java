@@ -22,4 +22,3 @@ public class UaiResponseDTOFactory {
         return uaiResponseDTO;
     }
 }
-// todo remove StringUtil from apache and create one in here. The size is to big for us to use only one method

@@ -252,4 +252,13 @@ public class PrivateConstructorTest {
         final UaiRouteDTOFactory createdObject = constructor.newInstance(new Object[0]);
         assertNotNull(createdObject);
     }
+
+    @Test
+    public void testStringUtilConstructor() throws Exception {
+        final Constructor<StringUtils> constructor = StringUtils.class.getDeclaredConstructor(new Class[0]);
+        constructor.setAccessible(true);
+
+        final StringUtils createdObject = constructor.newInstance(new Object[0]);
+        assertNotNull(createdObject);
+    }
 }
