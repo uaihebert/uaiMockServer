@@ -16,7 +16,6 @@
 package com.uaihebert.uaimockserver.validator;
 
 import com.uaihebert.uaimockserver.log.Log;
-import com.uaihebert.uaimockserver.model.UaiMockServerConfig;
 import com.uaihebert.uaimockserver.model.UaiQueryParam;
 import com.uaihebert.uaimockserver.model.UaiRequest;
 import com.uaihebert.uaimockserver.util.ExceptionUtil;
@@ -35,15 +34,15 @@ public final class UaiQueryParamValidator {
     private UaiQueryParamValidator() {
     }
 
-    public static void validate(final UaiRequest uaiRequest, final HttpServerExchange exchange, final UaiMockServerConfig uaiMockServerConfig) {
+    public static void validate(final UaiRequest uaiRequest, final HttpServerExchange exchange) {
         for (UaiQueryParam uaiQueryParam : uaiRequest.requiredQueryParamList) {
             final Map<String, Deque<String>> queryParameterMap = exchange.getQueryParameters();
 
-            validateQueryParam(uaiQueryParam, queryParameterMap, uaiMockServerConfig);
+            validateQueryParam(uaiQueryParam, queryParameterMap);
         }
     }
 
-    private static void validateQueryParam(final UaiQueryParam uaiQueryParam, final Map<String, Deque<String>> queryParameterMap, final UaiMockServerConfig uaiMockServerConfig) {
+    private static void validateQueryParam(final UaiQueryParam uaiQueryParam, final Map<String, Deque<String>> queryParameterMap) {
         final Deque<String> valueDeque = queryParameterMap.get(uaiQueryParam.name);
 
         if (valueDeque == null) {

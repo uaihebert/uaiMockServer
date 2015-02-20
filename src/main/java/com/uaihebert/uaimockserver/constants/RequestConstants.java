@@ -29,7 +29,7 @@ public enum RequestConstants {
 
     private static final String REQUEST_PATH = "request.";
 
-    public String path;
+    public final String path;
 
     private RequestConstants(final String path) {
         this.path = REQUEST_PATH + path;

@@ -24,7 +24,7 @@ public enum QueryParamConstants {
 
     private static final String REQUEST_PATH = "queryParam.";
 
-    public String path;
+    public final String path;
 
     private QueryParamConstants(final String path) {
         this.path = REQUEST_PATH + path;

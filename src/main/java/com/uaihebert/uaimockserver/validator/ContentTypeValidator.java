@@ -15,7 +15,6 @@
  * */
 package com.uaihebert.uaimockserver.validator;
 
-import com.uaihebert.uaimockserver.model.UaiMockServerConfig;
 import com.uaihebert.uaimockserver.model.UaiRequest;
 import com.uaihebert.uaimockserver.util.ExceptionUtil;
 import com.uaihebert.uaimockserver.util.StringUtils;
@@ -32,7 +31,7 @@ public final class ContentTypeValidator {
     private ContentTypeValidator() {
     }
 
-    public static void validate(final UaiRequest uaiRequest, final HttpServerExchange exchange, final UaiMockServerConfig uaiMockServerConfig) {
+    public static void validate(final UaiRequest uaiRequest, final HttpServerExchange exchange) {
         final String requiredContentType = uaiRequest.requiredContentType;
 
         if (StringUtils.isBlank(requiredContentType)) {

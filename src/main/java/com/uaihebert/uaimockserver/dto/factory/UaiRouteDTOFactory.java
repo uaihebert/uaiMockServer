@@ -13,7 +13,7 @@ public final class UaiRouteDTOFactory {
     private UaiRouteDTOFactory() {
     }
 
-    public static final List<UaiRouteDTO> create(final List<UaiRoute> uaiRouteList) {
+    public static List<UaiRouteDTO> create(final List<UaiRoute> uaiRouteList) {
         if (uaiRouteList == null) {
             return Collections.emptyList();
         }

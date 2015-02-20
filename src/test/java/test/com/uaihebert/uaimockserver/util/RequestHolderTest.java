@@ -15,7 +15,7 @@
  * */
 package test.com.uaihebert.uaimockserver.util;
 
-import com.uaihebert.uaimockserver.model.UaiMockServerConfig;
+import com.uaihebert.uaimockserver.log.LogBuilder;
 import com.uaihebert.uaimockserver.util.RequestHolder;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -23,8 +23,6 @@ import org.mockito.Mockito;
 import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
-
-import java.net.URL;
 
 @RunWith(PowerMockRunner.class)
 @PrepareForTest(RequestHolder.class)
@@ -37,9 +35,8 @@ public class RequestHolderTest {
         PowerMockito.doThrow(new InterruptedException()).when(Thread.class);
         Thread.sleep(Mockito.anyLong());
 
-        final URL resource = UaiMockServerConfig.class.getResource("/performanceTest.config");
-        UaiMockServerConfig uaiMockServerConfig = new UaiMockServerConfig(resource.getFile());
+        LogBuilder.createInstance(false, false);
 
-        RequestHolder.holdTheRequest(2L, uaiMockServerConfig);
+        RequestHolder.holdTheRequest(2L);
     }
 }

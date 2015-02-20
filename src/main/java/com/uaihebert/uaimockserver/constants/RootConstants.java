@@ -28,7 +28,7 @@ public enum RootConstants {
     MAPPING_ROUTES_FILE_LIST("mappingRoutesFileList"),
     DEFAULT_CONTENT_TYPE_RESPONSE("defaultContentTypeResponse");
 
-    public String path;
+    public final String path;
     private static final String PACKAGE = "com.uaihebert.uaimockserver.";
 
     private RootConstants(final String path) {

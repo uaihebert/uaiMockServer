@@ -52,7 +52,7 @@ public final class ConfigKeyUtil {
             return false;
         }
 
-        return Boolean.valueOf(configAsString);
+        return Boolean.parseBoolean(configAsString);
     }
 
     public static long getLongSilently(final String key, final Config config) {
@@ -62,7 +62,7 @@ public final class ConfigKeyUtil {
             return 0L;
         }
 
-        return Long.valueOf(configAsString);
+        return Long.parseLong(configAsString);
     }
 
     public static List<? extends Config> getConfigListSilently(final String key, final Config config) {

@@ -9,13 +9,13 @@ public final class RouteFinderUtil {
     private RouteFinderUtil() {
     }
 
-    public static UaiRoute findValidRoute(final UaiMockServerConfig uaiMockServerConfig, final HttpServerExchange exchange) {
+    public static UaiRoute findValidRoute(final HttpServerExchange exchange) {
         final String requestMethod = exchange.getRequestMethod().toString();
         final String requestURI = exchange.getRequestURI();
 
         final UaiRoute uaiRoute = UaiMockServerConfig.findRoute(requestMethod + "_" + requestURI);
 
-        RequestValidator.validateRequest(uaiRoute, exchange, uaiMockServerConfig);
+        RequestValidator.validateRequest(uaiRoute, exchange);
 
         return uaiRoute;
     }

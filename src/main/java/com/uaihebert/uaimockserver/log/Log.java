@@ -29,7 +29,7 @@ public final class Log {
 
     /**
      * This instance can only be set by the builder that will only the available in the same package
-     * @param log
+     * @param log the instance that will be used
      */
     static void setInstance(final LogWriter log) {
         INSTANCE = log;

@@ -12,7 +12,7 @@ import java.net.URL;
  */
 public final class TypeSafeConfigFactory {
     private static final String FILE_NOT_FOUND_EXCEPTION_MESSAGE = "We could not find the file: [%s]." +
-            "We looked into the same folder of the jar and we could not find it.\n" +
+            "We looked into the same folder of the jar and we could not find it. %n" +
             "Check if the is in the test/resources folder or in the same folder of the jar.";
 
     private TypeSafeConfigFactory() {

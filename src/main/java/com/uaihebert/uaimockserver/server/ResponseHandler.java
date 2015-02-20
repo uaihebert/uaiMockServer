@@ -17,29 +17,15 @@ package com.uaihebert.uaimockserver.server;
 
 import com.uaihebert.uaimockserver.log.Log;
 import com.uaihebert.uaimockserver.model.UaiHeader;
-import com.uaihebert.uaimockserver.model.UaiMockServerConfig;
 import com.uaihebert.uaimockserver.model.UaiResponse;
-import com.uaihebert.uaimockserver.model.UaiRoute;
 import io.undertow.server.HttpServerExchange;
 import io.undertow.util.Headers;
 import io.undertow.util.HttpString;
 
-public class ResponseHandler {
-    private final UaiMockServerConfig config;
-
-    public ResponseHandler(final UaiMockServerConfig config) {
-        this.config = config;
-    }
-
-    public void process(final HttpServerExchange exchange, final UaiRoute uaiRoute) {
-        final UaiResponse uaiResponse = uaiRoute.uaiResponse;
-
+class ResponseHandler {
+    public void process(final HttpServerExchange exchange, final UaiResponse uaiResponse) {
         Log.infoFormatted("Response that will be sent: [%s]", uaiResponse);
 
-        prepareResponse(exchange, uaiResponse);
-    }
-
-    private void prepareResponse(final HttpServerExchange exchange, final UaiResponse uaiResponse) {
         exchange.getResponseHeaders().put(Headers.CONTENT_TYPE, uaiResponse.contentType);
 
         exchange.setResponseCode(uaiResponse.statusCode);

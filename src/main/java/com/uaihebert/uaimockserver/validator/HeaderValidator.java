@@ -17,7 +17,6 @@ package com.uaihebert.uaimockserver.validator;
 
 import com.uaihebert.uaimockserver.log.Log;
 import com.uaihebert.uaimockserver.model.UaiHeader;
-import com.uaihebert.uaimockserver.model.UaiMockServerConfig;
 import com.uaihebert.uaimockserver.model.UaiRequest;
 import com.uaihebert.uaimockserver.util.ExceptionUtil;
 import io.undertow.server.HttpServerExchange;
@@ -28,7 +27,7 @@ import io.undertow.util.HeaderValues;
  * Will validate all the request headers if needed
  */
 public final class HeaderValidator {
-    private static final String HEADER_NOT_FOUND_MESSAGE = "We could not find the requested Header [%s] received in the request. \n " +
+    private static final String HEADER_NOT_FOUND_MESSAGE = "We could not find the requested Header [%s] received in the request. %n " +
             "If the header is not mandatory, remove it from the config file.";
 
     private static final String HEADER_VALUE_NOT_FOUND_MESSAGE = "The required value [%s] was not found in the header [%s]";
@@ -36,15 +35,15 @@ public final class HeaderValidator {
     private HeaderValidator() {
     }
 
-    public static void validate(final UaiRequest uaiRequest, final HttpServerExchange exchange, final UaiMockServerConfig uaiMockServerConfig) {
+    public static void validate(final UaiRequest uaiRequest, final HttpServerExchange exchange) {
         for (UaiHeader uaiHeader : uaiRequest.requiredHeaderList) {
             final HeaderMap requestHeaderMap = exchange.getRequestHeaders();
 
-            validateHeader(uaiHeader, requestHeaderMap, uaiMockServerConfig);
+            validateHeader(uaiHeader, requestHeaderMap);
         }
     }
 
-    private static void validateHeader(final UaiHeader uaiHeader, final HeaderMap requestHeaderMap, final UaiMockServerConfig uaiMockServerConfig) {
+    private static void validateHeader(final UaiHeader uaiHeader, final HeaderMap requestHeaderMap) {
         final HeaderValues headerValueList = requestHeaderMap.get(uaiHeader.name);
 
         if (headerValueList == null) {

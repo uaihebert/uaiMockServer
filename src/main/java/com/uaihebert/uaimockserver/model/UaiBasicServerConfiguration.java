@@ -11,15 +11,11 @@ public class UaiBasicServerConfiguration {
     public final String context;
     public final String defaultContentType;
 
-    // todo delete these configurations
-    public final boolean fileLog;
-    public final boolean consoleLog;
-
     public UaiBasicServerConfiguration(final Config config) {
-        fileLog = config.getBoolean(RootConstants.FILE_LOG.path);
-        consoleLog = config.getBoolean(RootConstants.CONSOLE_LOG.path);
+        final boolean fileLog = config.getBoolean(RootConstants.FILE_LOG.path);
+        final boolean consoleLog = config.getBoolean(RootConstants.CONSOLE_LOG.path);
 
-        LogBuilder.createInstance(this);
+        LogBuilder.createInstance(fileLog, consoleLog);
 
         port = config.getInt(RootConstants.PORT.path);
 

@@ -45,7 +45,7 @@ public final class HttpServerUtil {
         try{
             final PathHandler path = Handlers.path(Handlers.redirect(SERVLET_CONTEXT_PATH))
                     .addPrefixPath(SERVLET_CONTEXT_PATH, createHtmlManager())
-                    .addPrefixPath("/", new UaiMockServerHandler(config));
+                    .addPrefixPath("/", new UaiMockServerHandler());
 
             httpServer = Undertow.builder()
                     .addHttpListener(config.basicConfiguration.port, config.basicConfiguration.host)

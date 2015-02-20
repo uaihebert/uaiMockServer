@@ -16,7 +16,6 @@
 package com.uaihebert.uaimockserver.util;
 
 import com.uaihebert.uaimockserver.log.Log;
-import com.uaihebert.uaimockserver.model.UaiMockServerConfig;
 
 public final class RequestHolder {
     private static final String REQUEST_HOLDING_LOG = "Holding the request for [%s] milli seconds";
@@ -24,7 +23,7 @@ public final class RequestHolder {
     private RequestHolder() {
     }
 
-    public static void holdTheRequest(final long timeToHold, final UaiMockServerConfig uaiMockServerConfig) {
+    public static void holdTheRequest(final long timeToHold) {
         if (timeToHold < 1) {
             return;
         }

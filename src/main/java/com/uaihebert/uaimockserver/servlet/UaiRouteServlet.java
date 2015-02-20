@@ -1,6 +1,7 @@
 package com.uaihebert.uaimockserver.servlet;
 
 import com.google.gson.Gson;
+import com.uaihebert.uaimockserver.configuration.ProjectConfiguration;
 import com.uaihebert.uaimockserver.dto.factory.UaiRouteDTOFactory;
 import com.uaihebert.uaimockserver.dto.response.IndexResponseDTO;
 import com.uaihebert.uaimockserver.model.UaiMockServerConfig;
@@ -24,7 +25,7 @@ public class UaiRouteServlet extends AbstractServlet {
         final OutputStream outputStream = httpResponse.getOutputStream();
 
         try {
-            outputStream.write(body.getBytes());
+            outputStream.write(body.getBytes(ProjectConfiguration.ENCODING.value));
 
             outputStream.flush();
         } finally {

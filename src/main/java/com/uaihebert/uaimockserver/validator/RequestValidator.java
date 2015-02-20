@@ -16,7 +16,6 @@
 package com.uaihebert.uaimockserver.validator;
 
 import com.uaihebert.uaimockserver.facade.RequestValidatorFacade;
-import com.uaihebert.uaimockserver.model.UaiMockServerConfig;
 import com.uaihebert.uaimockserver.model.UaiRoute;
 import com.uaihebert.uaimockserver.util.ExceptionUtil;
 import io.undertow.server.HttpServerExchange;
@@ -25,19 +24,19 @@ import io.undertow.server.HttpServerExchange;
  * Will validate all data in the request
  */
 public final class RequestValidator {
-    private static final String URI_NOT_FOUND_MESSAGE = "We could not find the requested URI [%s] with the method [%s]. \n " +
-            "Check the config file and try to find the mapping. A \\ in the end of the URI will affect the result. \n";
+    private static final String URI_NOT_FOUND_MESSAGE = "We could not find the requested URI [%s] with the method [%s]. %n " +
+            "Check the config file and try to find the mapping. A \\ in the end of the URI will affect the result. %n";
 
     private RequestValidator() {
     }
 
-    public static void validateRequest(final UaiRoute uaiRoute, final HttpServerExchange exchange, final UaiMockServerConfig uaiMockServerConfig) {
+    public static void validateRequest(final UaiRoute uaiRoute, final HttpServerExchange exchange) {
         if (noRouteFound(uaiRoute)) {
             final String errorText = String.format(URI_NOT_FOUND_MESSAGE, exchange.getRequestURI(), exchange.getRequestMethod());
             ExceptionUtil.logBeforeThrowing(new IllegalArgumentException(errorText));
         }
 
-        RequestValidatorFacade.validateRequest(uaiRoute.uaiRequest, exchange, uaiMockServerConfig);
+        RequestValidatorFacade.validateRequest(uaiRoute.uaiRequest, exchange);
     }
 
     private static boolean noRouteFound(final UaiRoute uaiRoute) {

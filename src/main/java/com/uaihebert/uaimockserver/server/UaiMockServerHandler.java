@@ -16,7 +16,6 @@
 package com.uaihebert.uaimockserver.server;
 
 import com.uaihebert.uaimockserver.log.Log;
-import com.uaihebert.uaimockserver.model.UaiMockServerConfig;
 import com.uaihebert.uaimockserver.model.UaiRoute;
 import com.uaihebert.uaimockserver.util.RequestHolder;
 import com.uaihebert.uaimockserver.util.RouteFinderUtil;
@@ -29,23 +28,16 @@ import io.undertow.server.HttpServerExchange;
  * If there request is not found or have any kind of error, an InternalServerError will be sent
  */
 public class UaiMockServerHandler implements HttpHandler {
-    private final ResponseHandler responseHandler;
-    private final UaiMockServerConfig config;
-
-    public UaiMockServerHandler(final UaiMockServerConfig config) {
-        super();
-        this.config = config;
-        responseHandler = new ResponseHandler(config);
-    }
+    private final ResponseHandler responseHandler = new ResponseHandler();
 
     @Override
     public void handleRequest(final HttpServerExchange exchange) throws Exception {
         Log.infoFormatted("Incoming request: method [%s] URI [%s]", exchange.getRequestMethod(), exchange.getRequestURI());
 
-        final UaiRoute uaiRoute = RouteFinderUtil.findValidRoute(config, exchange);
+        final UaiRoute uaiRoute = RouteFinderUtil.findValidRoute(exchange);
 
-        RequestHolder.holdTheRequest(uaiRoute.uaiRequest.holdRequestInMilli, config);
+        RequestHolder.holdTheRequest(uaiRoute.uaiRequest.holdRequestInMilli);
 
-        responseHandler.process(exchange, uaiRoute);
+        responseHandler.process(exchange, uaiRoute.uaiResponse);
     }
 }

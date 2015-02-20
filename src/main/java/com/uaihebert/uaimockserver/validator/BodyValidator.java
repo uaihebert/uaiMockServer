@@ -15,7 +15,6 @@
  * */
 package com.uaihebert.uaimockserver.validator;
 
-import com.uaihebert.uaimockserver.model.UaiMockServerConfig;
 import com.uaihebert.uaimockserver.model.UaiRequest;
 import com.uaihebert.uaimockserver.util.ExceptionUtil;
 import io.undertow.server.HttpServerExchange;
@@ -24,12 +23,12 @@ import io.undertow.server.HttpServerExchange;
  * Will validate all the request body if needed
  */
 public final class BodyValidator {
-    private static final String BODY_VALIDATOR_ERROR_MESSAGE = "The Route [%s - %s] was defined with the body as mandatory. Send a body in your request or set the bodyRequired to false. \n";
+    private static final String BODY_VALIDATOR_ERROR_MESSAGE = "The Route [%s - %s] was defined with the body as mandatory. Send a body in your request or set the bodyRequired to false. %n";
 
     private BodyValidator() {
     }
 
-    public static void validate(final UaiRequest uaiRequest, final HttpServerExchange exchange, final UaiMockServerConfig uaiMockServerConfig) {
+    public static void validate(final UaiRequest uaiRequest, final HttpServerExchange exchange) {
         if (uaiRequest.isBodyRequired && exchange.getRequestContentLength() < 1) {
             final String errorText = String.format(BODY_VALIDATOR_ERROR_MESSAGE, uaiRequest.method, uaiRequest.path);
             ExceptionUtil.logBeforeThrowing(new IllegalArgumentException(errorText));

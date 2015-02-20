@@ -11,11 +11,8 @@ public final class StringUtils {
             return true;
         }
 
-        if (text.trim().length() == 0) {
-            return true;
-        }
+        return text.trim().length() == 0;
 
-        return false;
     }
 
     public static boolean isNotBlank(final String text) {

@@ -27,7 +27,7 @@ public enum ResponseConstants {
 
     private static final String REQUEST_PATH = "response.";
 
-    public String path;
+    public final String path;
 
     private ResponseConstants(final String path) {
         this.path = REQUEST_PATH + path;

@@ -3,7 +3,7 @@ package com.uaihebert.uaimockserver.log;
 /**
  * Will be the responsible for print the log data
  */
-public interface LogWriter {
+interface LogWriter {
 
     public abstract void info(final String text);
 
