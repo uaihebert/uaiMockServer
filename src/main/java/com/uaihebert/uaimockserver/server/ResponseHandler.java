@@ -33,7 +33,7 @@ public class ResponseHandler {
     public void process(final HttpServerExchange exchange, final UaiRoute uaiRoute) {
         final UaiResponse uaiResponse = uaiRoute.uaiResponse;
 
-        config.log.infoFormatted("Response that will be sent: [%s]", uaiResponse);
+        config.basicConfiguration.log.infoFormatted("Response that will be sent: [%s]", uaiResponse);
 
         prepareResponse(exchange, uaiResponse);
     }

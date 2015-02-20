@@ -16,31 +16,18 @@
 package com.uaihebert.uaimockserver.model;
 
 import com.typesafe.config.Config;
-import com.uaihebert.uaimockserver.constants.RootConstants;
-import com.uaihebert.uaimockserver.factory.LogFactory;
 import com.uaihebert.uaimockserver.factory.TypeSafeConfigFactory;
-import com.uaihebert.uaimockserver.log.Log;
 import com.uaihebert.uaimockserver.util.RouteUtil;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Class that will hold all the project configurations
  */
 public class UaiMockServerConfig {
-    public final int port;
+    public final UaiBasicServerConfiguration basicConfiguration;
 
-    public final Log log;
-
-    public final String host;
-    public final String context;
-    public final String defaultContentType;
-
-    public final boolean fileLog;
-    public final boolean consoleLog;
-
-    public final Map<String, UaiRoute> routeMap = new HashMap<String, UaiRoute>();
+    private static final Map<String, UaiRoute> routeMap = new HashMap<String, UaiRoute>();
 
     private static final String CONFIGURATION_FILE_NAME = "uaiMockServer.config";
 
@@ -51,19 +38,22 @@ public class UaiMockServerConfig {
     public UaiMockServerConfig(final String fileName) {
         final Config config = TypeSafeConfigFactory.loadConfiguration(fileName);
 
-        fileLog = config.getBoolean(RootConstants.FILE_LOG.path);
-        consoleLog = config.getBoolean(RootConstants.CONSOLE_LOG.path);
-
-        log = LogFactory.create(this);
-
-        port = config.getInt(RootConstants.PORT.path);
-
-        host = config.getString(RootConstants.HOST.path);
-        context = config.getString(RootConstants.CONTEXT.path);
-        defaultContentType = config.getString(RootConstants.DEFAULT_CONTENT_TYPE_RESPONSE.path);
+        basicConfiguration = new UaiBasicServerConfiguration(config);
 
         RouteUtil.configureRouteMap(config, this);
 
-        log.info(String.format("Configurations of the file [%s] was read with success", fileName));
+        basicConfiguration.log.info(String.format("Configurations of the file [%s] was read with success", fileName));
+    }
+
+    public static UaiRoute findRoute(final String key) {
+        return routeMap.get(key);
+    }
+
+    public static void addRoute(final String key, final UaiRoute uaiRoute){
+        routeMap.put(key, uaiRoute);
+    }
+
+    public static List<UaiRoute> listAllRoutes() {
+        return Collections.unmodifiableList(new ArrayList<UaiRoute>(routeMap.values()));
     }
 }

@@ -60,7 +60,7 @@ public final class RouteUtil {
             final UaiRoute uaiRoute = UaiRouteFactory.create(routeConfig, uaiMockServerConfig);
             final UaiRequest uaiRequest = uaiRoute.uaiRequest;
 
-            uaiMockServerConfig.routeMap.put(RouteMapKeyUtil.createKeyForMap(uaiRequest, uaiMockServerConfig), uaiRoute);
+            UaiMockServerConfig.addRoute(RouteMapKeyUtil.createKeyForMap(uaiRequest, uaiMockServerConfig), uaiRoute);
         }
     }
 

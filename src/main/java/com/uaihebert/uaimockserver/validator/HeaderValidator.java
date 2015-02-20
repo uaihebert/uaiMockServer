@@ -48,17 +48,17 @@ public final class HeaderValidator {
 
         if (headerValueList == null) {
             final String errorText = String.format(HEADER_NOT_FOUND_MESSAGE, uaiHeader.name);
-            ExceptionUtil.logBeforeThrowing(new IllegalArgumentException(errorText), uaiMockServerConfig.log);
+            ExceptionUtil.logBeforeThrowing(new IllegalArgumentException(errorText), uaiMockServerConfig.basicConfiguration.log);
         }
 
         if (uaiHeader.usingWildCard) {
-            uaiMockServerConfig.log.infoFormatted("The header [%s] is using the wildcard. Its content will not be checked.", uaiHeader.name);
+            uaiMockServerConfig.basicConfiguration.log.infoFormatted("The header [%s] is using the wildcard. Its content will not be checked.", uaiHeader.name);
             return;
         }
 
         if (!headerValueList.containsAll(uaiHeader.valueList)) {
             final String errorText = String.format(HEADER_VALUE_NOT_FOUND_MESSAGE, uaiHeader.name, uaiHeader.valueList);
-            ExceptionUtil.logBeforeThrowing(new IllegalArgumentException(errorText), uaiMockServerConfig.log);
+            ExceptionUtil.logBeforeThrowing(new IllegalArgumentException(errorText), uaiMockServerConfig.basicConfiguration.log);
         }
     }
 }

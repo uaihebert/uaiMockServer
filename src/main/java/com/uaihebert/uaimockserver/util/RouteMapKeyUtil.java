@@ -27,10 +27,11 @@ public final class RouteMapKeyUtil {
     }
 
     public static String createKeyForMap(final UaiRequest uaiRequest, final UaiMockServerConfig uaiMockServerConfig){
-        final String uri = uaiMockServerConfig.context + uaiRequest.path;
+        final String uri = uaiMockServerConfig.basicConfiguration.context + uaiRequest.path;
 
-        uaiMockServerConfig.log.infoFormatted("Route detected: method [%s] and URI [%s] ", uaiRequest.method, uri);
+        uaiMockServerConfig.basicConfiguration.log.infoFormatted("Route detected: method [%s] and URI [%s] ", uaiRequest.method, uri);
 
         return uaiRequest.method + "_" + uri;
     }
 }
+// TODO transform basicConfiguration into a context with Static attributes

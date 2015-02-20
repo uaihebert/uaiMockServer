@@ -47,17 +47,18 @@ public final class UaiQueryParamValidator {
 
         if (valueDeque == null) {
             final String errorText = String.format(QUERY_PARAM_NOT_FOUND_MESSAGE, uaiQueryParam.name);
-            ExceptionUtil.logBeforeThrowing(new IllegalArgumentException(errorText), uaiMockServerConfig.log);
+            ExceptionUtil.logBeforeThrowing(new IllegalArgumentException(errorText), uaiMockServerConfig.basicConfiguration.log);
         }
 
         if (uaiQueryParam.usingWildCard) {
-            uaiMockServerConfig.log.infoFormatted("The header [%s] is using the wildcard. Its content will not be checked.", uaiQueryParam.name);
+            uaiMockServerConfig.basicConfiguration.log.infoFormatted("The header [%s] is using the wildcard. Its content will not be checked.", uaiQueryParam.name);
             return;
         }
 
         if (!valueDeque.containsAll(uaiQueryParam.valueList)) {
             final String errorText = String.format(QUERY_PARAM_VALUE_NOT_FOUND_MESSAGE, uaiQueryParam.name, uaiQueryParam.valueList);
-            ExceptionUtil.logBeforeThrowing(new IllegalArgumentException(errorText), uaiMockServerConfig.log);
+            ExceptionUtil.logBeforeThrowing(new IllegalArgumentException(errorText), uaiMockServerConfig.basicConfiguration.log);
         }
     }
 }
+// todo transform log into context like: Log.info()

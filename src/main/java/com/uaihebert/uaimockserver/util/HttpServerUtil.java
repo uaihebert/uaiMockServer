@@ -17,10 +17,7 @@ package com.uaihebert.uaimockserver.util;
 
 import com.uaihebert.uaimockserver.model.UaiMockServerConfig;
 import com.uaihebert.uaimockserver.server.UaiMockServerHandler;
-import com.uaihebert.uaimockserver.servlet.CssServlet;
-import com.uaihebert.uaimockserver.servlet.FaviconServlet;
-import com.uaihebert.uaimockserver.servlet.JavascriptServlet;
-import com.uaihebert.uaimockserver.servlet.UaiIndexServlet;
+import com.uaihebert.uaimockserver.servlet.*;
 import io.undertow.Handlers;
 import io.undertow.Undertow;
 import io.undertow.server.HttpHandler;
@@ -51,7 +48,7 @@ public final class HttpServerUtil {
                     .addPrefixPath("/", new UaiMockServerHandler(config));
 
             httpServer = Undertow.builder()
-                    .addHttpListener(config.port, config.host)
+                    .addHttpListener(config.basicConfiguration.port, config.basicConfiguration.host)
                     .setHandler(path)
                     .build();
 
@@ -72,7 +69,8 @@ public final class HttpServerUtil {
                         servlet("IndexServlet", UaiIndexServlet.class).addMapping("/index"),
                         servlet("FaviconServlet", FaviconServlet.class).addMapping("/favicon"),
                         servlet("JavascriptServlet", JavascriptServlet.class).addMapping("/javascript"),
-                        servlet("CssServlet", CssServlet.class).addMapping("/css")
+                        servlet("CssServlet", CssServlet.class).addMapping("/css"),
+                        servlet("UaiRouteServlet", UaiRouteServlet.class).addMapping("/uaiRoute")
                 );
 
         final DeploymentManager manager = Servlets.defaultContainer().addDeployment(deploymentInfo);

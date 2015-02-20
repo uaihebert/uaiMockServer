@@ -57,7 +57,7 @@ public final class UaiResponseFactory {
         final String contentType = ConfigKeyUtil.getStringSilently(ResponseConstants.CONTENT_TYPE.path, routeConfig);
 
         if (StringUtils.isEmpty(contentType)) {
-            return uaiMockServerConfig.defaultContentType;
+            return uaiMockServerConfig.basicConfiguration.defaultContentType;
         }
 
         return contentType;

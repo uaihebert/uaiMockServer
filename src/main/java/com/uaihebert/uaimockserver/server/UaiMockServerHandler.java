@@ -39,7 +39,7 @@ public class UaiMockServerHandler implements HttpHandler {
 
     @Override
     public void handleRequest(final HttpServerExchange exchange) throws Exception {
-        config.log.infoFormatted("Incoming request: method [%s] URI [%s]", exchange.getRequestMethod(), exchange.getRequestURI());
+        config.basicConfiguration.log.infoFormatted("Incoming request: method [%s] URI [%s]", exchange.getRequestMethod(), exchange.getRequestURI());
 
         final UaiRoute uaiRoute = RouteFinderUtil.findValidRoute(config, exchange);
 

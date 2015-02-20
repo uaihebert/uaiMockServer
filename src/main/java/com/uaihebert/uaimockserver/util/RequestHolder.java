@@ -29,7 +29,7 @@ public final class RequestHolder {
         }
 
         try {
-            uaiMockServerConfig.log.info(String.format(REQUEST_HOLDING_LOG, timeToHold));
+            uaiMockServerConfig.basicConfiguration.log.info(String.format(REQUEST_HOLDING_LOG, timeToHold));
             Thread.sleep(timeToHold);
         } catch (InterruptedException e) {
             throw new IllegalStateException("error while holding the request ", e);

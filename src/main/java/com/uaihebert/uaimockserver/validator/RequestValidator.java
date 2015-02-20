@@ -34,7 +34,7 @@ public final class RequestValidator {
     public static void validateRequest(final UaiRoute uaiRoute, final HttpServerExchange exchange, final UaiMockServerConfig uaiMockServerConfig) {
         if (noRouteFound(uaiRoute)) {
             final String errorText = String.format(URI_NOT_FOUND_MESSAGE, exchange.getRequestURI(), exchange.getRequestMethod());
-            ExceptionUtil.logBeforeThrowing(new IllegalArgumentException(errorText), uaiMockServerConfig.log);
+            ExceptionUtil.logBeforeThrowing(new IllegalArgumentException(errorText), uaiMockServerConfig.basicConfiguration.log);
         }
 
         RequestValidatorFacade.validateRequest(uaiRoute.uaiRequest, exchange, uaiMockServerConfig);

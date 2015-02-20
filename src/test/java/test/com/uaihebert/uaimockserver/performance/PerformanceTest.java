@@ -17,8 +17,8 @@ package test.com.uaihebert.uaimockserver.performance;
 
 import com.uaihebert.uaimockserver.model.UaiMockServerConfig;
 import com.uaihebert.uaimockserver.server.UaiMockServer;
-import org.junit.After;
-import org.junit.Before;
+import org.junit.AfterClass;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 import javax.ws.rs.client.Client;
@@ -32,17 +32,17 @@ import static org.junit.Assert.assertTrue;
 
 public class PerformanceTest {
 
-    private UaiMockServer uaiMockServer;
+    private static UaiMockServer uaiMockServer;
 
-    @Before
-    public void before() {
+    @BeforeClass
+    public static void before() {
         final URL resource = UaiMockServerConfig.class.getResource("/performanceTest.config");
 
         uaiMockServer = UaiMockServer.start(resource.getFile());
     }
 
-    @After
-    public void after() {
+    @AfterClass
+    public static void after() {
         uaiMockServer.shutdown();
     }
 

@@ -32,7 +32,7 @@ public final class BodyValidator {
     public static void validate(final UaiRequest uaiRequest, final HttpServerExchange exchange, final UaiMockServerConfig uaiMockServerConfig) {
         if (uaiRequest.isBodyRequired && exchange.getRequestContentLength() < 1) {
             final String errorText = String.format(BODY_VALIDATOR_ERROR_MESSAGE, uaiRequest.method, uaiRequest.path);
-            ExceptionUtil.logBeforeThrowing(new IllegalArgumentException(errorText), uaiMockServerConfig.log);
+            ExceptionUtil.logBeforeThrowing(new IllegalArgumentException(errorText), uaiMockServerConfig.basicConfiguration.log);
         }
     }
 }

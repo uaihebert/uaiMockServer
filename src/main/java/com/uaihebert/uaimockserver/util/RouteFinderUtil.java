@@ -13,7 +13,7 @@ public final class RouteFinderUtil {
         final String requestMethod = exchange.getRequestMethod().toString();
         final String requestURI = exchange.getRequestURI();
 
-        final UaiRoute uaiRoute = uaiMockServerConfig.routeMap.get(requestMethod + "_" + requestURI);
+        final UaiRoute uaiRoute = UaiMockServerConfig.findRoute(requestMethod + "_" + requestURI);
 
         RequestValidator.validateRequest(uaiRoute, exchange, uaiMockServerConfig);
 
