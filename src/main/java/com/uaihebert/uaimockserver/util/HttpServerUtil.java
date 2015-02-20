@@ -18,6 +18,7 @@ package com.uaihebert.uaimockserver.util;
 import com.uaihebert.uaimockserver.model.UaiMockServerConfig;
 import com.uaihebert.uaimockserver.server.UaiMockServerHandler;
 import com.uaihebert.uaimockserver.servlet.FaviconServlet;
+import com.uaihebert.uaimockserver.servlet.JavascriptServlet;
 import com.uaihebert.uaimockserver.servlet.UaiIndexServlet;
 import io.undertow.Handlers;
 import io.undertow.Undertow;
@@ -68,7 +69,8 @@ public final class HttpServerUtil {
                 .setDeploymentName("uaiMockServer.war")
                 .addServlets(
                         servlet("IndexServlet", UaiIndexServlet.class).addMapping("/index"),
-                        servlet("FaviconServlet", FaviconServlet.class).addMapping("/favicon")
+                        servlet("FaviconServlet", FaviconServlet.class).addMapping("/favicon"),
+                        servlet("JavascriptServlet", JavascriptServlet.class).addMapping("/javascript")
                 );
 
         final DeploymentManager manager = Servlets.defaultContainer().addDeployment(deploymentInfo);

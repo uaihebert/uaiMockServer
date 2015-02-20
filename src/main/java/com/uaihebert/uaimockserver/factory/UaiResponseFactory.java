@@ -35,12 +35,22 @@ public final class UaiResponseFactory {
     public static UaiResponse create(final Config routeConfig, final UaiMockServerConfig uaiMockServerConfig) {
         final int statusCode = routeConfig.getInt(ResponseConstants.STATUS_CODE.path);
 
-        final String body = ConfigKeyUtil.getStringSilently(ResponseConstants.BODY.path, routeConfig);
+        final String body = defineBody(routeConfig);
         final String contentType = defineContentType(routeConfig, uaiMockServerConfig);
 
         final List<UaiHeader> headerList = UaiHeaderFactory.create(routeConfig, ResponseConstants.REQUIRED_HEADER_LIST.path);
 
         return new UaiResponse(statusCode, body, contentType, headerList);
+    }
+
+    private static String defineBody(final Config routeConfig) {
+        final String configBody = ConfigKeyUtil.getStringSilently(ResponseConstants.BODY.path, routeConfig);
+
+        if (StringUtils.isEmpty(configBody)) {
+            return null;
+        }
+
+        return configBody;
     }
 
     private static String defineContentType(final Config routeConfig, final UaiMockServerConfig uaiMockServerConfig) {

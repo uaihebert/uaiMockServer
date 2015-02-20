@@ -3,14 +3,17 @@
 <head>
     <meta charset="utf-8">
     <link rel="icon" type="image/x-icon" href="/uai-mock-server-gui/favicon" />
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" />
+    <script type="application/javascript" src="/uai-mock-server-gui/javascript?fileName=angular"></script>
     <title>
         UaiMockServer - GUI
     </title>
 </head>
-<body>
-    <div>
+<body >
+    <div ng-app>
         <p>
-            Body
+            <input ng-model="sometext" type="text">
+            <h1>Hello {{ sometext }}</h1>
         </p>
     </div>
 </body>
