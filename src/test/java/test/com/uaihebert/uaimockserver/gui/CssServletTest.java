@@ -18,6 +18,9 @@ public class CssServletTest extends TestAbstract {
         Client client = ClientBuilder.newClient();
         Response response = client.target(url).request().get();
 
+        // must read the entity or an NIOException will raise
+        response.readEntity(String.class);
+
         assertEquals(200, response.getStatus());
     }
 
@@ -27,6 +30,9 @@ public class CssServletTest extends TestAbstract {
 
         Client client = ClientBuilder.newClient();
         Response response = client.target(url).request().get();
+
+        // must read the entity or an NIOException will raise
+        response.readEntity(String.class);
 
         assertEquals("text/css", response.getMediaType().toString());
     }
