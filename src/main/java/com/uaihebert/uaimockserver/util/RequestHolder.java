@@ -15,6 +15,7 @@
  * */
 package com.uaihebert.uaimockserver.util;
 
+import com.uaihebert.uaimockserver.log.Log;
 import com.uaihebert.uaimockserver.model.UaiMockServerConfig;
 
 public final class RequestHolder {
@@ -29,7 +30,7 @@ public final class RequestHolder {
         }
 
         try {
-            uaiMockServerConfig.basicConfiguration.log.info(String.format(REQUEST_HOLDING_LOG, timeToHold));
+            Log.info(String.format(REQUEST_HOLDING_LOG, timeToHold));
             Thread.sleep(timeToHold);
         } catch (InterruptedException e) {
             throw new IllegalStateException("error while holding the request ", e);

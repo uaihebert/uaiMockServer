@@ -17,6 +17,7 @@ package com.uaihebert.uaimockserver.model;
 
 import com.typesafe.config.Config;
 import com.uaihebert.uaimockserver.factory.TypeSafeConfigFactory;
+import com.uaihebert.uaimockserver.log.Log;
 import com.uaihebert.uaimockserver.util.RouteUtil;
 
 import java.util.*;
@@ -42,7 +43,7 @@ public class UaiMockServerConfig {
 
         RouteUtil.configureRouteMap(config, this);
 
-        basicConfiguration.log.info(String.format("Configurations of the file [%s] was read with success", fileName));
+        Log.info(String.format("Configurations of the file [%s] was read with success", fileName));
     }
 
     public static UaiRoute findRoute(final String key) {

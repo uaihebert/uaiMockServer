@@ -15,6 +15,7 @@
  * */
 package com.uaihebert.uaimockserver.validator;
 
+import com.uaihebert.uaimockserver.log.Log;
 import com.uaihebert.uaimockserver.model.UaiHeader;
 import com.uaihebert.uaimockserver.model.UaiMockServerConfig;
 import com.uaihebert.uaimockserver.model.UaiRequest;
@@ -48,17 +49,17 @@ public final class HeaderValidator {
 
         if (headerValueList == null) {
             final String errorText = String.format(HEADER_NOT_FOUND_MESSAGE, uaiHeader.name);
-            ExceptionUtil.logBeforeThrowing(new IllegalArgumentException(errorText), uaiMockServerConfig.basicConfiguration.log);
+            ExceptionUtil.logBeforeThrowing(new IllegalArgumentException(errorText));
         }
 
         if (uaiHeader.usingWildCard) {
-            uaiMockServerConfig.basicConfiguration.log.infoFormatted("The header [%s] is using the wildcard. Its content will not be checked.", uaiHeader.name);
+            Log.infoFormatted("The header [%s] is using the wildcard. Its content will not be checked.", uaiHeader.name);
             return;
         }
 
         if (!headerValueList.containsAll(uaiHeader.valueList)) {
             final String errorText = String.format(HEADER_VALUE_NOT_FOUND_MESSAGE, uaiHeader.name, uaiHeader.valueList);
-            ExceptionUtil.logBeforeThrowing(new IllegalArgumentException(errorText), uaiMockServerConfig.basicConfiguration.log);
+            ExceptionUtil.logBeforeThrowing(new IllegalArgumentException(errorText));
         }
     }
 }

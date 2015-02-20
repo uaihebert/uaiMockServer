@@ -15,6 +15,7 @@
  * */
 package com.uaihebert.uaimockserver.util;
 
+import com.uaihebert.uaimockserver.log.Log;
 import com.uaihebert.uaimockserver.model.UaiMockServerConfig;
 import com.uaihebert.uaimockserver.model.UaiRequest;
 
@@ -29,7 +30,7 @@ public final class RouteMapKeyUtil {
     public static String createKeyForMap(final UaiRequest uaiRequest, final UaiMockServerConfig uaiMockServerConfig){
         final String uri = uaiMockServerConfig.basicConfiguration.context + uaiRequest.path;
 
-        uaiMockServerConfig.basicConfiguration.log.infoFormatted("Route detected: method [%s] and URI [%s] ", uaiRequest.method, uri);
+        Log.infoFormatted("Route detected: method [%s] and URI [%s] ", uaiRequest.method, uri);
 
         return uaiRequest.method + "_" + uri;
     }

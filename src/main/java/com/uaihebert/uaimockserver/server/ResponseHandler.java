@@ -15,6 +15,7 @@
  * */
 package com.uaihebert.uaimockserver.server;
 
+import com.uaihebert.uaimockserver.log.Log;
 import com.uaihebert.uaimockserver.model.UaiHeader;
 import com.uaihebert.uaimockserver.model.UaiMockServerConfig;
 import com.uaihebert.uaimockserver.model.UaiResponse;
@@ -33,7 +34,7 @@ public class ResponseHandler {
     public void process(final HttpServerExchange exchange, final UaiRoute uaiRoute) {
         final UaiResponse uaiResponse = uaiRoute.uaiResponse;
 
-        config.basicConfiguration.log.infoFormatted("Response that will be sent: [%s]", uaiResponse);
+        Log.infoFormatted("Response that will be sent: [%s]", uaiResponse);
 
         prepareResponse(exchange, uaiResponse);
     }

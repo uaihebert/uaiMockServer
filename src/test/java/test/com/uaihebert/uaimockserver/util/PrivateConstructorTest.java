@@ -18,6 +18,8 @@ package test.com.uaihebert.uaimockserver.util;
 import com.uaihebert.uaimockserver.dto.factory.*;
 import com.uaihebert.uaimockserver.facade.RequestValidatorFacade;
 import com.uaihebert.uaimockserver.factory.*;
+import com.uaihebert.uaimockserver.log.Log;
+import com.uaihebert.uaimockserver.log.LogBuilder;
 import com.uaihebert.uaimockserver.util.*;
 import com.uaihebert.uaimockserver.validator.*;
 import org.junit.Test;
@@ -129,10 +131,10 @@ public class PrivateConstructorTest {
 
     @Test
     public void testLogFactoryConstructor() throws Exception {
-        final Constructor<LogFactory> constructor = LogFactory.class.getDeclaredConstructor(new Class[0]);
+        final Constructor<LogBuilder> constructor = LogBuilder.class.getDeclaredConstructor(new Class[0]);
         constructor.setAccessible(true);
 
-        final LogFactory createdObject = constructor.newInstance(new Object[0]);
+        final LogBuilder createdObject = constructor.newInstance(new Object[0]);
         assertNotNull(createdObject);
     }
 
@@ -259,6 +261,15 @@ public class PrivateConstructorTest {
         constructor.setAccessible(true);
 
         final StringUtils createdObject = constructor.newInstance(new Object[0]);
+        assertNotNull(createdObject);
+    }
+
+    @Test
+    public void testLogConstructor() throws Exception {
+        final Constructor<Log> constructor = Log.class.getDeclaredConstructor(new Class[0]);
+        constructor.setAccessible(true);
+
+        final Log createdObject = constructor.newInstance(new Object[0]);
         assertNotNull(createdObject);
     }
 }

@@ -19,20 +19,17 @@ package com.uaihebert.uaimockserver.log;
  * This class will be used when the log is deactivated
  * It suppose to do nothing. With this class the 'if (log.activated)' will be avoided
  */
-public class DeactivatedLog implements Log {
+public class DeactivatedLog implements LogWriter {
 
     @Override
     public void info(final String text) {
-
     }
 
     @Override
     public void infoFormatted(final String text, final Object... parameter) {
-
     }
 
     @Override
     public void warn(final Exception exception) {
-
     }
 }

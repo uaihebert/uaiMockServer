@@ -20,7 +20,7 @@ import org.pmw.tinylog.Logger;
 /**
  * Class that will have contact with the Implementation Log used in the project
  */
-public class ActivatedLog implements Log {
+public class ActivatedLog implements LogWriter {
 
     @Override
     public void info(final String text) {

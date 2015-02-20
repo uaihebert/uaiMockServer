@@ -15,6 +15,7 @@
  * */
 package com.uaihebert.uaimockserver.validator;
 
+import com.uaihebert.uaimockserver.log.Log;
 import com.uaihebert.uaimockserver.model.UaiMockServerConfig;
 import com.uaihebert.uaimockserver.model.UaiQueryParam;
 import com.uaihebert.uaimockserver.model.UaiRequest;
@@ -47,17 +48,17 @@ public final class UaiQueryParamValidator {
 
         if (valueDeque == null) {
             final String errorText = String.format(QUERY_PARAM_NOT_FOUND_MESSAGE, uaiQueryParam.name);
-            ExceptionUtil.logBeforeThrowing(new IllegalArgumentException(errorText), uaiMockServerConfig.basicConfiguration.log);
+            ExceptionUtil.logBeforeThrowing(new IllegalArgumentException(errorText));
         }
 
         if (uaiQueryParam.usingWildCard) {
-            uaiMockServerConfig.basicConfiguration.log.infoFormatted("The header [%s] is using the wildcard. Its content will not be checked.", uaiQueryParam.name);
+            Log.infoFormatted("The header [%s] is using the wildcard. Its content will not be checked.", uaiQueryParam.name);
             return;
         }
 
         if (!valueDeque.containsAll(uaiQueryParam.valueList)) {
             final String errorText = String.format(QUERY_PARAM_VALUE_NOT_FOUND_MESSAGE, uaiQueryParam.name, uaiQueryParam.valueList);
-            ExceptionUtil.logBeforeThrowing(new IllegalArgumentException(errorText), uaiMockServerConfig.basicConfiguration.log);
+            ExceptionUtil.logBeforeThrowing(new IllegalArgumentException(errorText));
         }
     }
 }

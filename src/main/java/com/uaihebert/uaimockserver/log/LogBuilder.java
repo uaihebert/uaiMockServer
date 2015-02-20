@@ -13,30 +13,28 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  * */
-package com.uaihebert.uaimockserver.factory;
+package com.uaihebert.uaimockserver.log;
 
-import com.uaihebert.uaimockserver.log.ActivatedLog;
-import com.uaihebert.uaimockserver.log.DeactivatedLog;
-import com.uaihebert.uaimockserver.log.Log;
 import com.uaihebert.uaimockserver.model.UaiBasicServerConfiguration;
 import org.pmw.tinylog.Configurator;
 import org.pmw.tinylog.writers.ConsoleWriter;
 import org.pmw.tinylog.writers.FileWriter;
 
 /**
- * This factory will create an instance of the Log
+ * This builder will create an instance of the Log
  *
- * If the log is deactivated, a class will be create with no actions
+ * If the log is deactivated, a class will be created that executes no actions
  *
  * It is not necessary to do if (log.isActive) around the code
  */
-public final class LogFactory {
-    private LogFactory() {
+public final class LogBuilder {
+    private LogBuilder() {
     }
 
-    public static Log create(final UaiBasicServerConfiguration basicServerConfiguration) {
+    public static void createInstance(final UaiBasicServerConfiguration basicServerConfiguration) {
         if (!basicServerConfiguration.fileLog && !basicServerConfiguration.consoleLog) {
-            return new DeactivatedLog();
+            Log.setInstance(new DeactivatedLog());
+            return;
         }
 
         final Configurator logConfigurator = Configurator.defaultConfig();
@@ -54,6 +52,6 @@ public final class LogFactory {
 
         logConfigurator.activate();
 
-        return new ActivatedLog();
+        Log.setInstance(new ActivatedLog());
     }
 }

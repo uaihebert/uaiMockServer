@@ -43,7 +43,7 @@ public final class ContentTypeValidator {
 
         if (headerValues == null) {
             final String errorText = String.format(HEADER_VALUE_NOT_FOUND_MESSAGE, requiredContentType);
-            ExceptionUtil.logBeforeThrowing(new IllegalArgumentException(errorText), uaiMockServerConfig.basicConfiguration.log);
+            ExceptionUtil.logBeforeThrowing(new IllegalArgumentException(errorText));
         }
     }
 }

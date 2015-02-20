@@ -2,18 +2,16 @@ package com.uaihebert.uaimockserver.model;
 
 import com.typesafe.config.Config;
 import com.uaihebert.uaimockserver.constants.RootConstants;
-import com.uaihebert.uaimockserver.factory.LogFactory;
-import com.uaihebert.uaimockserver.log.Log;
+import com.uaihebert.uaimockserver.log.LogBuilder;
 
 public class UaiBasicServerConfiguration {
     public final int port;
-
-    public final Log log;
 
     public final String host;
     public final String context;
     public final String defaultContentType;
 
+    // todo delete these configurations
     public final boolean fileLog;
     public final boolean consoleLog;
 
@@ -21,7 +19,7 @@ public class UaiBasicServerConfiguration {
         fileLog = config.getBoolean(RootConstants.FILE_LOG.path);
         consoleLog = config.getBoolean(RootConstants.CONSOLE_LOG.path);
 
-        log = LogFactory.create(this);
+        LogBuilder.createInstance(this);
 
         port = config.getInt(RootConstants.PORT.path);
 
