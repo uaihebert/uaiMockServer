@@ -27,7 +27,7 @@ import java.util.*;
 public class UaiMockServerConfig {
     public final UaiBasicServerConfiguration basicConfiguration;
 
-    private static final Map<String, UaiRoute> routeMap = new HashMap<String, UaiRoute>();
+    private static final Map<String, UaiRoute> ROUTE_MAP = new HashMap<String, UaiRoute>();
 
     private static final String CONFIGURATION_FILE_NAME = "uaiMockServer.config";
 
@@ -46,14 +46,14 @@ public class UaiMockServerConfig {
     }
 
     public static UaiRoute findRoute(final String key) {
-        return routeMap.get(key);
+        return ROUTE_MAP.get(key);
     }
 
     public static void addRoute(final String key, final UaiRoute uaiRoute){
-        routeMap.put(key, uaiRoute);
+        ROUTE_MAP.put(key, uaiRoute);
     }
 
     public static List<UaiRoute> listAllRoutes() {
-        return Collections.unmodifiableList(new ArrayList<UaiRoute>(routeMap.values()));
+        return Collections.unmodifiableList(new ArrayList<UaiRoute>(ROUTE_MAP.values()));
     }
 }
