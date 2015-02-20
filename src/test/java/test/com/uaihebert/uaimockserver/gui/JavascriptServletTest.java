@@ -18,18 +18,20 @@ public class JavascriptServletTest extends TestAbstract {
         Client client = ClientBuilder.newClient();
         Response response = client.target(url).request().get();
 
+        // must read the entity or an NIOException will raise
         response.readEntity(String.class);
 
         assertEquals(200, response.getStatus());
     }
 
     @Test
-    public void isReturningContentAsPngType() {
+    public void isReturningContentAsJavascriptType() {
         final String url = "http://localhost:1234/uai-mock-server-gui/javascript?fileName=angular";
 
         Client client = ClientBuilder.newClient();
         Response response = client.target(url).request().get();
 
+        // must read the entity or an NIOException will raise
         response.readEntity(String.class);
 
         assertEquals("application/javascript", response.getMediaType().toString());
