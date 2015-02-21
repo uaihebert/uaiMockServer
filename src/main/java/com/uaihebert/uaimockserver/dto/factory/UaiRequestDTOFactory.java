@@ -14,7 +14,7 @@ public final class UaiRequestDTOFactory {
     public static UaiRequestDTO create(final UaiRequest uaiRequest) {
         final UaiRequestDTO uaiRequestDTO = new UaiRequestDTO();
         uaiRequestDTO.setBodyRequired(uaiRequest.isBodyRequired);
-        uaiRequestDTO.setHoldRequestInMilli(uaiRequest.holdRequestInMilli);
+        seteHoldRequestInMilli(uaiRequest, uaiRequestDTO);
         uaiRequestDTO.setMethod(uaiRequest.method);
         uaiRequestDTO.setPath(uaiRequest.path);
         uaiRequestDTO.setRequiredContentType(uaiRequest.requiredContentType);
@@ -26,5 +26,14 @@ public final class UaiRequestDTOFactory {
         uaiRequestDTO.setRequiredQueryParamList(uaiQueryParamDTOList);
 
         return uaiRequestDTO;
+    }
+
+    private static void seteHoldRequestInMilli(final UaiRequest uaiRequest, final UaiRequestDTO uaiRequestDTO) {
+        if (uaiRequest.holdRequestInMilli != 0) {
+            uaiRequestDTO.setHoldRequestInMilli(uaiRequest.holdRequestInMilli);
+            return;
+        }
+
+        uaiRequestDTO.setHoldRequestInMilli(null);
     }
 }

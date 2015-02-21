@@ -7,7 +7,7 @@ public class UaiRequestDTO {
     private String method;
     private String requiredContentType;
 
-    private long holdRequestInMilli;
+    private Long holdRequestInMilli;
 
     private boolean isBodyRequired;
 
@@ -38,11 +38,11 @@ public class UaiRequestDTO {
         this.requiredContentType = requiredContentType;
     }
 
-    public long getHoldRequestInMilli() {
+    public Long getHoldRequestInMilli() {
         return holdRequestInMilli;
     }
 
-    public void setHoldRequestInMilli(final long holdRequestInMilli) {
+    public void setHoldRequestInMilli(final Long holdRequestInMilli) {
         this.holdRequestInMilli = holdRequestInMilli;
     }
 

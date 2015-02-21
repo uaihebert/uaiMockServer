@@ -9,12 +9,35 @@
             UaiMockServer - GUI
         </title>
     </head>
-    <body>
-        <div ng-app>
-            <p>
-                <input ng-model="sometext" type="text">
-                <h1>Hello {{ sometext }}</h1>
-            </p>
+    <body ng-app>
+        <div ng-controller="routeController" class="container">
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>Method</th>
+                    <th>Path</th>
+                    <th>Required Content Type</th>
+                    <th>Hold the Request Milli</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="route in routeList">
+                    <td>{{route.request.method}}</td>
+                    <td>{{route.request.path}}</td>
+                    <td>{{route.request.requiredContentType}}</td>
+                    <td>{{route.request.holdRequestInMilli}}</td>
+                </tr>
+                </tbody>
+            </table>
         </div>
     </body>
+    <script>
+        function routeController($scope, $http){
+            $http.get('http://localhost:1234/uai-mock-server-gui/uaiRoute').
+                    success(function(data) {
+                        console.log(data);
+                        $scope.routeList = data.routeList;
+                    });
+        }
+    </script>
 </html>
