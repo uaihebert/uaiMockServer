@@ -31,6 +31,7 @@ public final class UaiMockServer {
     }
 
     public void shutdown() {
+        UaiMockServerConfig.resetRouteMap();
         httpServer.stop();
     }
 

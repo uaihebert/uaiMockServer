@@ -15,7 +15,6 @@
  * */
 package test.com.uaihebert.uaimockserver.model;
 
-import com.uaihebert.uaimockserver.server.UaiMockServer;
 import io.undertow.util.Headers;
 import org.junit.Test;
 import test.com.uaihebert.uaimockserver.TestAbstract;
@@ -31,6 +30,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 public class UaiMockServerTest extends TestAbstract {
+
     @Test
     public void isGetRootReturning200() {
         final String url = "http://localhost:1234/uaiMockServer/";
@@ -60,12 +60,6 @@ public class UaiMockServerTest extends TestAbstract {
 
         assertEquals(200, response.getStatus());
         assertEquals("making sure that the deafultContentTypeWasReturned", "text/html;charset=UTF-8", response.getHeaderString(Headers.CONTENT_TYPE.toString()));
-    }
-
-    @Test
-    public void isNotRaisingErrorIfRouteListIsNotPresent() {
-        final UaiMockServer uaiMockServer = UaiMockServer.start("configWithoutFileMappList.config");
-        uaiMockServer.shutdown();
     }
 
     @Test
