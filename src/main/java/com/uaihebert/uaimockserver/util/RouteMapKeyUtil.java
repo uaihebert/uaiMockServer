@@ -35,4 +35,3 @@ public final class RouteMapKeyUtil {
         return uaiRequest.method + "_" + uri;
     }
 }
-// TODO transform basicConfiguration into a context with Static attributes
