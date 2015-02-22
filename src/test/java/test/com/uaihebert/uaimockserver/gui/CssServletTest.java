@@ -13,7 +13,7 @@ public class CssServletTest extends TestAbstract {
 
     @Test
     public void isReturning200OnIndex() {
-        final String url = "http://localhost:1234/uai-mock-server-gui/css";
+        final String url = "http://localhost:1234/uai-mock-server-gui/css?fileName=bootstrap";
 
         Client client = ClientBuilder.newClient();
         Response response = client.target(url).request().get();
@@ -26,7 +26,7 @@ public class CssServletTest extends TestAbstract {
 
     @Test
     public void isReturningContentAsCssType() {
-        final String url = "http://localhost:1234/uai-mock-server-gui/css";
+        final String url = "http://localhost:1234/uai-mock-server-gui/css?fileName=bootstrap";
 
         Client client = ClientBuilder.newClient();
         Response response = client.target(url).request().get();
