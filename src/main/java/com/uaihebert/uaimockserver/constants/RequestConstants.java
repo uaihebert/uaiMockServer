@@ -19,8 +19,10 @@ package com.uaihebert.uaimockserver.constants;
  * Constants with the request attribute names
  */
 public enum RequestConstants {
+    NAME("name"),
     PATH("path"),
     METHOD("method"),
+    DESCRIPTION("description"),
     CONTENT_TYPE("requiredContentType"),
     IS_BODY_REQUIRED("isBodyRequired"),
     REQUIRED_HEADER_LIST("requiredHeaderList"),

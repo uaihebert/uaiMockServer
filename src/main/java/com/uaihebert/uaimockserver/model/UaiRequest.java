@@ -15,15 +15,16 @@
  * */
 package com.uaihebert.uaimockserver.model;
 
-import java.util.Collections;
 import java.util.List;
 
 /**
  * Class that will hold all the request data
  */
 public final class UaiRequest {
+    public final String name;
     public final String path;
     public final String method;
+    public final String description;
     public final String requiredContentType;
 
     public final long holdRequestInMilli;
@@ -33,16 +34,15 @@ public final class UaiRequest {
     public final List<UaiHeader> requiredHeaderList;
     public final List<UaiQueryParam> requiredQueryParamList;
 
-    public UaiRequest(final String path, final String method, final String requiredContentType, final long holdRequestInMilli, final boolean isBodyRequired, final List<UaiHeader> requiredHeaderList, final List<UaiQueryParam> requiredQueryParamList) {
+    public UaiRequest(final String name, final String path, final String method, final String description, final String requiredContentType, final long holdRequestInMilli, final boolean isBodyRequired, final List<UaiHeader> requiredHeaderList, final List<UaiQueryParam> requiredQueryParamList) {
+        this.name = name;
         this.path = path;
         this.method = method;
+        this.description = description;
         this.requiredContentType = requiredContentType;
-
         this.holdRequestInMilli = holdRequestInMilli;
-
         this.isBodyRequired = isBodyRequired;
-
-        this.requiredHeaderList = Collections.unmodifiableList(requiredHeaderList);
-        this.requiredQueryParamList = Collections.unmodifiableList(requiredQueryParamList);
+        this.requiredHeaderList = requiredHeaderList;
+        this.requiredQueryParamList = requiredQueryParamList;
     }
 }

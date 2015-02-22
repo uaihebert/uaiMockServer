@@ -15,7 +15,7 @@ public class UaiRequestDTOFactoryTest {
 
     @Test
     public void isSettingRequestInMilliToNull() {
-        final UaiRequest uaiRequest = new UaiRequest(null, null, null, 0, false, Collections.<UaiHeader>emptyList(), Collections.<UaiQueryParam>emptyList());
+        final UaiRequest uaiRequest = new UaiRequest(null, null, null, null, null, 0, false, Collections.<UaiHeader>emptyList(), Collections.<UaiQueryParam>emptyList());
         final UaiRequestDTO uaiRequestDTO = UaiRequestDTOFactory.create(uaiRequest);
         assertNull("the request in milli should be null and not 0", uaiRequestDTO.getHoldRequestInMilli());
     }

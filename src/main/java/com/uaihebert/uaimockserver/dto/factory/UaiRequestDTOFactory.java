@@ -16,6 +16,8 @@ public final class UaiRequestDTOFactory {
         uaiRequestDTO.setBodyRequired(uaiRequest.isBodyRequired);
         setHoldRequestInMilli(uaiRequest, uaiRequestDTO);
         uaiRequestDTO.setMethod(uaiRequest.method);
+        uaiRequestDTO.setName(uaiRequest.name);
+        uaiRequestDTO.setDescription(uaiRequest.description);
         uaiRequestDTO.setPath(uaiRequest.path);
         uaiRequestDTO.setRequiredContentType(uaiRequest.requiredContentType);
 

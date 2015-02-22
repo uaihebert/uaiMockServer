@@ -29,8 +29,10 @@ public final class UaiRouteDTOTestValidator {
     }
 
     private static void validateRequest(final UaiRequestDTO request) {
+        assertTrue(StringUtils.isNotBlank(request.getName()));
         assertTrue(StringUtils.isNotBlank(request.getPath()));
         assertTrue(StringUtils.isNotBlank(request.getMethod()));
+        assertTrue(StringUtils.isNotBlank(request.getDescription()));
         assertTrue(StringUtils.isNotBlank(request.getRequiredContentType()));
         assertTrue(request.getHoldRequestInMilli() > 0);
         assertTrue(request.isBodyRequired());

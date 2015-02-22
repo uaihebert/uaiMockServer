@@ -5,8 +5,10 @@ import java.util.List;
 // todo create attributes name and description for the request
 // todo fix problem if someone add the same URL but with only a query param different
 public class UaiRequestDTO {
+    private String name;
     private String path;
     private String method;
+    private String description;
     private String requiredContentType;
 
     private Long holdRequestInMilli;
@@ -15,6 +17,14 @@ public class UaiRequestDTO {
 
     private List<UaiHeaderDTO> requiredHeaderList;
     private List<UaiQueryParamDTO> requiredQueryParamList;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(final String name) {
+        this.name = name;
+    }
 
     public String getPath() {
         return path;
@@ -30,6 +40,14 @@ public class UaiRequestDTO {
 
     public void setMethod(final String method) {
         this.method = method;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(final String description) {
+        this.description = description;
     }
 
     public String getRequiredContentType() {
