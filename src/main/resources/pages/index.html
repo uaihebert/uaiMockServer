@@ -18,26 +18,26 @@
         <div ng-controller="routeController" class="container">
             <table class="table" ts-wrapper>
                 <thead>
-                <colgroup>
-                    <col span="3" class="request">
-                    <col span="2" class="response">
-                </colgroup>
-                <tr>
-                    <th ts-criteria="requestName|lowercase" ts-default>Request Name</th>
-                    <th ts-criteria="requestMethod|lowercase">Request Method</th>
-                    <th ts-criteria="requestPath|lowercase">Request Path</th>
-                    <th ts-criteria="responseCode">Response Code</th>
-                    <th ts-criteria="responseContentType|lowercase">Response ContentType</th>
-                </tr>
+                    <colgroup>
+                        <col span="3" class="request">
+                        <col span="2" class="response">
+                    </colgroup>
+                    <tr>
+                        <th ts-criteria="requestName|lowercase" ts-default>Request Name</th>
+                        <th ts-criteria="requestMethod|lowercase">Request Method</th>
+                        <th ts-criteria="requestPath|lowercase">Request Path</th>
+                        <th ts-criteria="responseCode">Response Code</th>
+                        <th ts-criteria="responseContentType|lowercase">Response ContentType</th>
+                    </tr>
                 </thead>
                 <tbody>
-                <tr ng-repeat="request in routeRowList track by request.requestPath" ts-repeat>
-                    <td>{{request.requestName}}</td>
-                    <td>{{request.requestMethod}}</td>
-                    <td>{{request.requestPath}}</td>
-                    <td>{{request.responseCode}}</td>
-                    <td>{{request.responseContentType}}</td>
-                </tr>
+                    <tr ng-repeat="request in routeRowList track by request.requestPath" ts-repeat>
+                        <td>{{request.requestName}}</td>
+                        <td>{{request.requestMethod}}</td>
+                        <td>{{request.requestPath}}</td>
+                        <td>{{request.responseCode}}</td>
+                        <td>{{request.responseContentType}}</td>
+                    </tr>
                 </tbody>
             </table>
         </div>
