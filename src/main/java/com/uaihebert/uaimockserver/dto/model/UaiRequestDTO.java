@@ -2,6 +2,8 @@ package com.uaihebert.uaimockserver.dto.model;
 
 import java.util.List;
 
+// todo create attributes name and description for the request
+// todo fix problem if someone add the same URL but with only a query param different
 public class UaiRequestDTO {
     private String path;
     private String method;

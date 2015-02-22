@@ -1,53 +1,61 @@
 <!DOCTYPE html>
 <html lang="en" ng-app="uaiMockServerApp">
-<head>
-    <meta charset="utf-8">
-    <link rel="icon" type="image/x-icon" href="/uai-mock-server-gui/favicon" />
+    <head>
+        <meta charset="utf-8">
+        <link rel="icon" type="image/x-icon" href="/uai-mock-server-gui/favicon" />
 
-    <link rel="stylesheet" href="/uai-mock-server-gui/css?fileName=bootstrap" />
-    <link rel="stylesheet" href="/uai-mock-server-gui/css?fileName=tableSort" />
+        <link rel="stylesheet" href="/uai-mock-server-gui/css?fileName=bootstrap" />
+        <link rel="stylesheet" href="/uai-mock-server-gui/css?fileName=tableSort" />
 
-    <script type="application/javascript" src="/uai-mock-server-gui/javascript?fileName=angular"></script>
-    <script type="application/javascript" src="/uai-mock-server-gui/javascript?fileName=tableSort"></script>
-    <title>
-        UaiMockServer - GUI
-    </title>
-</head>
-<body>
-<div ng-controller="routeController" class="container">
-    <table class="table" ts-wrapper>
-        <thead>
-        <tr>
-            <th ts-criteria="method">Method</th>
-            <th ts-criteria="path" ts-default>Path</th>
-            <th ts-criteria="requiredContentType">Required Content Type</th>
-            <th ts-criteria="holdRequestInMilli">Hold the Request Milli</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr ng-repeat="request in requestList track by request.path" ts-repeat>
-            <td>{{request.method}}</td>
-            <td>{{request.path}}</td>
-            <td>{{request.requiredContentType}}</td>
-            <td>{{request.holdRequestInMilli}}</td>
-        </tr>
-        </tbody>
-    </table>
-</div>
-</body>
-<script>
-    var app = angular.module('uaiMockServerApp', ['tableSort']);
+        <script type="application/javascript" src="/uai-mock-server-gui/javascript?fileName=angular"></script>
+        <script type="application/javascript" src="/uai-mock-server-gui/javascript?fileName=tableSort"></script>
+        <title>
+            UaiMockServer - GUI
+        </title>
+    </head>
+    <body>
+        <div ng-controller="routeController" class="container">
+            <table class="table" ts-wrapper>
+                <thead>
+                    <tr>
+                        <th ts-criteria="requestMethod">Request Method</th>
+                        <th ts-criteria="requestPath" ts-default>Request Path</th>
+                        <th ts-criteria="responseCode">Response Code</th>
+                        <th ts-criteria="responseContentType">Response ContentType</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="request in routeRowList track by request.requestPath" ts-repeat>
+                        <td>{{request.requestMethod}}</td>
+                        <td>{{request.requestPath}}</td>
+                        <td>{{request.responseCode}}</td>
+                        <td>{{request.responseContentType}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </body>
+    <script>
+        var app = angular.module('uaiMockServerApp', ['tableSort']);
 
-    app.controller('routeController', function($scope, $http) {
-        $http.get('/uai-mock-server-gui/uaiRoute').
-                success(function(data) {
-                    $scope.routeList = data.routeList;
-                    $scope.requestList = [];
+        app.controller('routeController', function($scope, $http) {
+            $http.get('http://localhost:1234/uai-mock-server-gui/uaiRoute').
+                    success(function(data) {
+                        $scope.routeRowList = [];
 
-                    for (i = 0; i < $scope.routeList.length; i++) {
-                        $scope.requestList.push($scope.routeList[i].request);
-                    }
-                });
-    });
-</script>
+                        for (i = 0; i < data.routeList.length; i++) {
+                            routeRow = {};
+
+                            routeRow.requestMethod = data.routeList[i].request.method;
+                            routeRow.requestPath = data.routeList[i].request.path;
+                            routeRow.responseCode = data.routeList[i].response.statusCode;
+                            routeRow.responseContentType = data.routeList[i].response.contentType;
+
+                            routeRow.route = data.routeList[i];
+
+                            $scope.routeRowList.push(routeRow);
+                        }
+                    });
+        });
+    </script>
 </html>
