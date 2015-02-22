@@ -6,6 +6,7 @@
 
         <link rel="stylesheet" href="/uai-mock-server-gui/css?fileName=bootstrap" />
         <link rel="stylesheet" href="/uai-mock-server-gui/css?fileName=tableSort" />
+        <link rel="stylesheet" href="http://localhost:1234/uai-mock-server-gui/css?fileName=index" />
 
         <script type="application/javascript" src="/uai-mock-server-gui/javascript?fileName=angular"></script>
         <script type="application/javascript" src="/uai-mock-server-gui/javascript?fileName=tableSort"></script>
@@ -17,22 +18,26 @@
         <div ng-controller="routeController" class="container">
             <table class="table" ts-wrapper>
                 <thead>
-                    <tr>
-                        <th ts-criteria="requestName">Request Name</th>
-                        <th ts-criteria="requestMethod">Request Method</th>
-                        <th ts-criteria="requestPath" ts-default>Request Path</th>
-                        <th ts-criteria="responseCode">Response Code</th>
-                        <th ts-criteria="responseContentType">Response ContentType</th>
-                    </tr>
+                <colgroup>
+                    <col span="3" class="request">
+                    <col span="2" class="response">
+                </colgroup>
+                <tr>
+                    <th ts-criteria="requestName|lowercase" ts-default>Request Name</th>
+                    <th ts-criteria="requestMethod|lowercase">Request Method</th>
+                    <th ts-criteria="requestPath|lowercase">Request Path</th>
+                    <th ts-criteria="responseCode">Response Code</th>
+                    <th ts-criteria="responseContentType|lowercase">Response ContentType</th>
+                </tr>
                 </thead>
                 <tbody>
-                    <tr ng-repeat="request in routeRowList track by request.requestPath" ts-repeat>
-                        <td>{{request.requestName}}</td>
-                        <td>{{request.requestMethod}}</td>
-                        <td>{{request.requestPath}}</td>
-                        <td>{{request.responseCode}}</td>
-                        <td>{{request.responseContentType}}</td>
-                    </tr>
+                <tr ng-repeat="request in routeRowList track by request.requestPath" ts-repeat>
+                    <td>{{request.requestName}}</td>
+                    <td>{{request.requestMethod}}</td>
+                    <td>{{request.requestPath}}</td>
+                    <td>{{request.responseCode}}</td>
+                    <td>{{request.responseContentType}}</td>
+                </tr>
                 </tbody>
             </table>
         </div>
@@ -58,7 +63,8 @@
 
                             $scope.routeRowList.push(routeRow);
                         }
-                    });
+                    }
+            );
         });
     </script>
 </html>
