@@ -6,17 +6,19 @@
 
         <link rel="stylesheet" href="/uai-mock-server-gui/css?fileName=bootstrap" />
         <link rel="stylesheet" href="/uai-mock-server-gui/css?fileName=tableSort" />
-        <link rel="stylesheet" href="http://localhost:1234/uai-mock-server-gui/css?fileName=index" />
+        <link rel="stylesheet" href="/uai-mock-server-gui/css?fileName=index" />
 
         <script type="application/javascript" src="/uai-mock-server-gui/javascript?fileName=angular"></script>
         <script type="application/javascript" src="/uai-mock-server-gui/javascript?fileName=tableSort"></script>
+        <script type="application/javascript" src="/uai-mock-server-gui/javascript?fileName=jquery"></script>
+        <script type="application/javascript" src="/uai-mock-server-gui/javascript?fileName=bootstrap"></script>
         <title>
             UaiMockServer - GUI
         </title>
     </head>
-    <body>
-        <div ng-controller="routeController" class="container">
-            <table class="table" ts-wrapper>
+    <body ng-controller="routeController" class="container">
+        <div>
+            <table class="table table-hover pointer" ts-wrapper>
                 <thead>
                     <colgroup>
                         <col span="3" class="request">
@@ -31,15 +33,34 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr ng-repeat="request in routeRowList track by request.requestPath" ts-repeat>
-                        <td>{{request.requestName}}</td>
-                        <td>{{request.requestMethod}}</td>
-                        <td>{{request.requestPath}}</td>
-                        <td>{{request.responseCode}}</td>
-                        <td>{{request.responseContentType}}</td>
+                    <tr ng-repeat="routeRow in routeRowList track by routeRow.requestPath" ng-click="displaySelected(routeRow);" ts-repeat>
+                        <td>{{routeRow.requestName}}</td>
+                        <td>{{routeRow.requestMethod}}</td>
+                        <td>{{routeRow.requestPath}}</td>
+                        <td>{{routeRow.responseCode}}</td>
+                        <td>{{routeRow.responseContentType}}</td>
                     </tr>
                 </tbody>
             </table>
+        </div>
+
+        <!-- Modal -->
+        <div class="modal fade" id="routeModal" tabindex="-1" role="dialog" aria-labelledby="routeModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="routeModalLabel">Route - {{selectedRouteRow.requestName}}</h4>
+              </div>
+              <div class="modal-body">
+                {{selectedRouteRow.requestName}}
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+              </div>
+            </div>
+          </div>
         </div>
     </body>
     <script>
@@ -65,6 +86,11 @@
                         }
                     }
             );
+
+            $scope.displaySelected = function (routeRow) {
+                $scope.selectedRouteRow = routeRow;
+                $('#routeModal').modal('toggle');
+            }
         });
     </script>
 </html>

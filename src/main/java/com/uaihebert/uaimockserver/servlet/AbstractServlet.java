@@ -17,6 +17,7 @@ class AbstractServlet extends HttpServlet {
         try {
             String currentLine;
             while ((currentLine = bufferedReader.readLine()) != null) {
+                currentLine = "\n" + currentLine;
                 writer.write(currentLine.getBytes(ProjectConfiguration.ENCODING.value));
             }
 
