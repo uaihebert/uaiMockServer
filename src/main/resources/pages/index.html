@@ -18,6 +18,7 @@
             <table class="table" ts-wrapper>
                 <thead>
                     <tr>
+                        <th ts-criteria="requestName">Request Name</th>
                         <th ts-criteria="requestMethod">Request Method</th>
                         <th ts-criteria="requestPath" ts-default>Request Path</th>
                         <th ts-criteria="responseCode">Response Code</th>
@@ -26,6 +27,7 @@
                 </thead>
                 <tbody>
                     <tr ng-repeat="request in routeRowList track by request.requestPath" ts-repeat>
+                        <td>{{request.requestName}}</td>
                         <td>{{request.requestMethod}}</td>
                         <td>{{request.requestPath}}</td>
                         <td>{{request.responseCode}}</td>
@@ -46,6 +48,7 @@
                         for (i = 0; i < data.routeList.length; i++) {
                             routeRow = {};
 
+                            routeRow.requestName = data.routeList[i].request.name;
                             routeRow.requestMethod = data.routeList[i].request.method;
                             routeRow.requestPath = data.routeList[i].request.path;
                             routeRow.responseCode = data.routeList[i].response.statusCode;
