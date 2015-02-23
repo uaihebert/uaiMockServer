@@ -85,15 +85,6 @@ public class PrivateConstructorTest {
     }
 
     @Test
-    public void testHeaderValidatorConstructor() throws Exception {
-        final Constructor<HeaderValidator> constructor = HeaderValidator.class.getDeclaredConstructor(new Class[0]);
-        constructor.setAccessible(true);
-
-        final HeaderValidator createdObject = constructor.newInstance(new Object[0]);
-        assertNotNull(createdObject);
-    }
-
-    @Test
     public void testUaiHeaderFactoryConstructor() throws Exception {
         final Constructor<UaiHeaderFactory> constructor = UaiHeaderFactory.class.getDeclaredConstructor(new Class[0]);
         constructor.setAccessible(true);
@@ -112,15 +103,6 @@ public class PrivateConstructorTest {
     }
 
     @Test
-    public void testUaiQueryParamValidatorConstructor() throws Exception {
-        final Constructor<UaiQueryParamValidator> constructor = UaiQueryParamValidator.class.getDeclaredConstructor(new Class[0]);
-        constructor.setAccessible(true);
-
-        final UaiQueryParamValidator createdObject = constructor.newInstance(new Object[0]);
-        assertNotNull(createdObject);
-    }
-
-    @Test
     public void testRouteMapKeyUtilConstructor() throws Exception {
         final Constructor<RouteMapKeyUtil> constructor = RouteMapKeyUtil.class.getDeclaredConstructor(new Class[0]);
         constructor.setAccessible(true);
@@ -135,15 +117,6 @@ public class PrivateConstructorTest {
         constructor.setAccessible(true);
 
         final LogBuilder createdObject = constructor.newInstance(new Object[0]);
-        assertNotNull(createdObject);
-    }
-
-    @Test
-    public void testBodyValidatorConstructor() throws Exception {
-        final Constructor<BodyValidator> constructor = BodyValidator.class.getDeclaredConstructor(new Class[0]);
-        constructor.setAccessible(true);
-
-        final BodyValidator createdObject = constructor.newInstance(new Object[0]);
         assertNotNull(createdObject);
     }
 
@@ -189,15 +162,6 @@ public class PrivateConstructorTest {
         constructor.setAccessible(true);
 
         final RequestValidatorFacade createdObject = constructor.newInstance(new Object[0]);
-        assertNotNull(createdObject);
-    }
-
-    @Test
-    public void testContentTypeValidatorConstructor() throws Exception {
-        final Constructor<ContentTypeValidator> constructor = ContentTypeValidator.class.getDeclaredConstructor(new Class[0]);
-        constructor.setAccessible(true);
-
-        final ContentTypeValidator createdObject = constructor.newInstance(new Object[0]);
         assertNotNull(createdObject);
     }
 

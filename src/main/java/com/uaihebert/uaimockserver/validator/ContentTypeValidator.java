@@ -25,13 +25,11 @@ import io.undertow.util.Headers;
 /**
  * Will validate the request contentType if needed
  */
-public final class ContentTypeValidator {
+public final class ContentTypeValidator implements RequestDataValidator {
     private static final String HEADER_VALUE_NOT_FOUND_MESSAGE = "The required contentType [%s] was not found in the header request. Make sure that you have send it";
 
-    private ContentTypeValidator() {
-    }
-
-    public static boolean isInvalid(final UaiRequest uaiRequest, final HttpServerExchange exchange) {
+    @Override
+    public boolean isInvalid(final UaiRequest uaiRequest, final HttpServerExchange exchange) {
         final String requiredContentType = uaiRequest.requiredContentType;
 
         if (StringUtils.isBlank(requiredContentType)) {

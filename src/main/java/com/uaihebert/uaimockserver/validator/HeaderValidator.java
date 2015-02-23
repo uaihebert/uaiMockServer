@@ -25,13 +25,10 @@ import io.undertow.util.HeaderValues;
 /**
  * Will validate all the request headers if needed
  */
-public final class HeaderValidator {
+public final class HeaderValidator implements RequestDataValidator {
     private static final String HEADER_VALUE_NOT_FOUND_MESSAGE = "The required value [%s] was not found in the header [%s]";
 
-    private HeaderValidator() {
-    }
-
-    public static boolean isInvalid(final UaiRequest uaiRequest, final HttpServerExchange exchange) {
+    public boolean isInvalid(final UaiRequest uaiRequest, final HttpServerExchange exchange) {
         for (UaiHeader uaiHeader : uaiRequest.requiredHeaderList) {
             final HeaderMap requestHeaderMap = exchange.getRequestHeaders();
 
@@ -43,7 +40,7 @@ public final class HeaderValidator {
         return false;
     }
 
-    private static boolean isInvalidHeader(final UaiHeader uaiHeader, final HeaderMap requestHeaderMap) {
+    private boolean isInvalidHeader(final UaiHeader uaiHeader, final HeaderMap requestHeaderMap) {
         final HeaderValues headerValueList = requestHeaderMap.get(uaiHeader.name);
 
         if (uaiHeader.usingWildCard) {

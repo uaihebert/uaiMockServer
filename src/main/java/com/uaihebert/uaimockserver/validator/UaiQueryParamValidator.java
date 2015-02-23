@@ -26,13 +26,10 @@ import java.util.Map;
 /**
  * Will validate all the request query params if needed
  */
-public final class UaiQueryParamValidator {
+public final class UaiQueryParamValidator  implements RequestDataValidator {
     private static final String QUERY_PARAM_VALUE_NOT_FOUND_MESSAGE = "The required queryParamList [%s] has not the required values: [%s]";
 
-    private UaiQueryParamValidator() {
-    }
-
-    public static boolean isInvalid(final UaiRequest uaiRequest, final HttpServerExchange exchange) {
+    public boolean isInvalid(final UaiRequest uaiRequest, final HttpServerExchange exchange) {
         for (UaiQueryParam uaiQueryParam : uaiRequest.requiredQueryParamList) {
             final Map<String, Deque<String>> queryParameterMap = exchange.getQueryParameters();
 
@@ -44,7 +41,7 @@ public final class UaiQueryParamValidator {
         return false;
     }
 
-    private static boolean isInvalidQueryParam(final UaiQueryParam uaiQueryParam, final Map<String, Deque<String>> queryParameterMap) {
+    private boolean isInvalidQueryParam(final UaiQueryParam uaiQueryParam, final Map<String, Deque<String>> queryParameterMap) {
         final Deque<String> valueDeque = queryParameterMap.get(uaiQueryParam.name);
 
         if (uaiQueryParam.usingWildCard) {
