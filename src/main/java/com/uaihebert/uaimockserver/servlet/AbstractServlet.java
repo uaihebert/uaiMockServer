@@ -29,7 +29,7 @@ class AbstractServlet extends HttpServlet {
         }
     }
 
-    public void addDefaultHeaders(final HttpServletResponse httpResponse) {
+    void addDefaultHeaders(final HttpServletResponse httpResponse) {
         httpResponse.addHeader("Access-Control-Allow-Headers", "Content-Type");
         httpResponse.addHeader("Access-Control-Allow-Methods", "GET, POST, DELETE, PUT");
         httpResponse.addHeader("Access-Control-Allow-Origin", "*");

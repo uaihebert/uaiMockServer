@@ -22,7 +22,10 @@ import com.uaihebert.uaimockserver.log.Log;
 import com.uaihebert.uaimockserver.log.LogBuilder;
 import com.uaihebert.uaimockserver.util.RouteUtil;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Class that will hold all the project configurations
@@ -30,7 +33,7 @@ import java.util.*;
 public class UaiMockServerConfig {
     public final UaiBasicServerConfiguration basicConfiguration;
 
-    private static final Map<String, UaiRoute> ROUTE_MAP = new HashMap<String, UaiRoute>();
+    private static final Map<String, List<UaiRoute>> ROUTE_MAP = new HashMap<String, List<UaiRoute>>();
 
     private static final String CONFIGURATION_FILE_NAME = "uaiMockServer.config";
 
@@ -58,15 +61,41 @@ public class UaiMockServerConfig {
     }
 
     public static UaiRoute findRoute(final String key) {
-        return ROUTE_MAP.get(key);
+        final List<UaiRoute> uaiRouteList = getRouteList(key);
+
+        if (uaiRouteList.isEmpty()) {
+            return null;
+        }
+
+        return uaiRouteList.get(0);
     }
 
     public static void addRoute(final String key, final UaiRoute uaiRoute){
-        ROUTE_MAP.put(key, uaiRoute);
+        final List<UaiRoute> uaiRouteList = getRouteList(key);
+
+        uaiRouteList.add(uaiRoute);
+    }
+
+    private static List<UaiRoute> getRouteList(final String key) {
+        if (ROUTE_MAP.containsKey(key)) {
+            return ROUTE_MAP.get(key);
+        }
+
+        final List<UaiRoute> uaiRouteList = new ArrayList<UaiRoute>();
+
+        ROUTE_MAP.put(key, uaiRouteList);
+
+        return uaiRouteList;
     }
 
     public static List<UaiRoute> listAllRoutes() {
-        return Collections.unmodifiableList(new ArrayList<UaiRoute>(ROUTE_MAP.values()));
+        final List<UaiRoute> resultList = new ArrayList<UaiRoute>();
+
+        for (List<UaiRoute> uaiRouteList : ROUTE_MAP.values()) {
+            resultList.addAll(uaiRouteList);
+        }
+
+        return resultList;
     }
 
     public static void resetRouteMap() {
