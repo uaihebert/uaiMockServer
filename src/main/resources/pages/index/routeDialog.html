@@ -22,59 +22,7 @@
                         </div>
 
                         <div role="tabpanel" class="tab-pane" id="response">
-                            <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-                              <div class="panel panel-default">
-                                <div class="panel-heading" role="tab" id="headingOne">
-                                  <h4 class="panel-title">
-                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseResponseOne" aria-expanded="false" aria-controls="collapseResponseOne">
-                                      Response Data
-                                    </a>
-                                  </h4>
-                                </div>
-                                <div id="collapseResponseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
-                                  <div class="panel-body">
-                                    <form novalidate class="css-form">
-                                        Status Code:
-                                        <input type="text" class="form-control" ng-model="selectedRouteRow.route.response.statusCode" required /><br />
-                                        Body:
-                                        <textarea class="form-control" rows="3" ng-model="selectedRouteRow.route.response.body"></textarea><br />
-                                    </form>
-                                  </div>
-                                </div>
-                              </div>
-                              <div class="panel panel-default">
-                                <div class="panel-heading" role="tab" id="headingTwo">
-                                  <h4 class="panel-title">
-                                    <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseResponseTwo" aria-expanded="false" aria-controls="collapseResponseTwo">
-                                      Header List
-                                    </a>
-                                  </h4>
-                                </div>
-                                <div id="collapseResponseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
-                                  <div class="panel-body">
-                                    <table class="table table-hover pointer">
-                                        <thead>
-                                            <tr>
-                                                <th>Name</th>
-                                                <th>Value List</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr ng-repeat="header in selectedRouteRow.route.response.headerList">
-                                                <td>
-                                                    <input type="text" class="form-control" ng-model="header.name" /><br />
-                                                    <h6>You must split the Array values with a comma ","</h6>
-                                                </td>
-                                                <td>
-                                                    <textarea class="form-control" rows="3" ng-model="header.valueList"></textarea>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
+                            <div ng-include="'/uai-mock-server-gui/page?fileName=index/responsePanel'"></div>
                         </div>
                     </div>
                 </div>

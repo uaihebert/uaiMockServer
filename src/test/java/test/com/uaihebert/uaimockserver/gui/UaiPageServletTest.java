@@ -12,24 +12,30 @@ import javax.ws.rs.core.Response;
 import static org.junit.Assert.assertEquals;
 
 @RunWith(UaiMockServerRunner.class)
-public class UaiIndexServletTest {
+public class UaiPageServletTest {
 
     @Test
-    public void isReturning200OnIndex() {
-        final String url = "http://localhost:1234/uai-mock-server-gui/index";
+    public void isReturning200OnAnyPage() {
+        final String url = "http://localhost:1234/uai-mock-server-gui/page?fileName=common/headerMenu";
 
         Client client = ClientBuilder.newClient();
         Response response = client.target(url).request().get();
+
+        // must read the entity or an NIOException will raise
+        response.readEntity(String.class);
 
         assertEquals(200, response.getStatus());
     }
 
     @Test
     public void isReturningContentAsTextHtmlType() {
-        final String url = "http://localhost:1234/uai-mock-server-gui/index";
+        final String url = "http://localhost:1234/uai-mock-server-gui/page?fileName=common/headerMenu";
 
         Client client = ClientBuilder.newClient();
         Response response = client.target(url).request().get();
+
+        // must read the entity or an NIOException will raise
+        response.readEntity(String.class);
 
         assertEquals(MediaType.TEXT_HTML, response.getMediaType().toString());
     }

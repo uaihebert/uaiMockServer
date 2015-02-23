@@ -1,7 +1,5 @@
 package com.uaihebert.uaimockserver.servlet;
 
-import com.uaihebert.uaimockserver.util.StringUtils;
-
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -16,11 +14,6 @@ public class UaiPageServlet extends AbstractServlet {
         super.addDefaultHeaders(httpResponse);
 
         final String fileName = httpRequest.getParameter("fileName");
-
-        if (StringUtils.isBlank(fileName)) {
-            printResource(httpResponse.getOutputStream(), "/pages/index/index.html");
-            return;
-        }
 
         printResource(httpResponse.getOutputStream(), "/pages/" + fileName +".html");
     }
