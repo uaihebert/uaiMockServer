@@ -10,7 +10,7 @@ import javax.ws.rs.core.Response;
 
 import static org.junit.Assert.assertEquals;
 
-public class IndexServletTest extends TestAbstract {
+public class UaiIndexServletTest extends TestAbstract {
 
     @Test
     public void isReturning200OnIndex() {

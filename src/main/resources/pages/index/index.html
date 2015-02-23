@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="uaiMockServerApp">
+    <head>
+        <meta charset="utf-8">
+        <link rel="icon" type="image/x-icon" href="/uai-mock-server-gui/favicon" />
+
+        <link rel="stylesheet" href="/uai-mock-server-gui/css?fileName=bootstrap" />
+        <link rel="stylesheet" href="/uai-mock-server-gui/css?fileName=tableSort" />
+        <link rel="stylesheet" href="/uai-mock-server-gui/css?fileName=index" />
+
+        <script type="application/javascript" src="/uai-mock-server-gui/javascript?fileName=angular"></script>
+        <script type="application/javascript" src="/uai-mock-server-gui/javascript?fileName=tableSort"></script>
+        <script type="application/javascript" src="/uai-mock-server-gui/javascript?fileName=jquery"></script>
+        <script type="application/javascript" src="/uai-mock-server-gui/javascript?fileName=bootstrap"></script>
+        <title>
+            UaiMockServer - GUI
+        </title>
+    </head>
+    <body ng-controller="routeController" class="container">
+        <div ng-include="'/uai-mock-server-gui/page?fileName=common/headerMenu'"></div>
+
+        <div ng-include="'/uai-mock-server-gui/page?fileName=index/indexTable'"></div>
+
+        <div ng-include="'/uai-mock-server-gui/page?fileName=index/routeDialog'"></div>
+    </body>
+    <script>
+        var app = angular.module('uaiMockServerApp', ['tableSort']);
+
+        app.controller('routeController', function($scope, $http) {
+            $http.get('/uai-mock-server-gui/uaiRoute').
+                    success(function(data) {
+                        $scope.routeRowList = [];
+
+                        for (i = 0; i < data.routeList.length; i++) {
+                            routeRow = {};
+
+                            routeRow.requestName = data.routeList[i].request.name;
+                            routeRow.requestMethod = data.routeList[i].request.method;
+                            routeRow.requestPath = data.routeList[i].request.path;
+                            routeRow.responseCode = data.routeList[i].response.statusCode;
+                            routeRow.responseContentType = data.routeList[i].response.contentType;
+
+                            routeRow.route = data.routeList[i];
+
+                            $scope.routeRowList.push(routeRow);
+                        }
+                    }
+            );
+
+            $scope.displaySelected = function (routeRow) {
+                $scope.selectedRouteRow = routeRow;
+
+                $('#myTab a:first').tab('show')
+                $('#routeModal').modal('toggle');
+            }
+        });
+    </script>
+</html>

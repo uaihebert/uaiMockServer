@@ -19,9 +19,8 @@ public class UaiRouteServlet extends AbstractServlet {
     @Override
     protected void doGet(final HttpServletRequest httpRequest, final HttpServletResponse httpResponse) throws ServletException, IOException {
         httpResponse.setContentType("application/json");
-        httpResponse.addHeader("Access-Control-Allow-Headers", "Content-Type");
-        httpResponse.addHeader("Access-Control-Allow-Methods", "GET, POST, DELETE, PUT");
-        httpResponse.addHeader("Access-Control-Allow-Origin", "*");
+
+        super.addDefaultHeaders(httpResponse);
 
         final String body = createIndexGetResponse();
 

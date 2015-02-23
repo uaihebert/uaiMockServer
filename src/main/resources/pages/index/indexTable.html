@@ -1,0 +1,26 @@
+<div>
+    <table class="table table-hover pointer" ts-wrapper>
+        <thead>
+            <colgroup>
+                <col span="3" class="request">
+                <col span="2" class="response">
+            </colgroup>
+            <tr>
+                <th ts-criteria="requestName|lowercase" ts-default>Request Name</th>
+                <th ts-criteria="requestMethod|lowercase">Request Method</th>
+                <th ts-criteria="requestPath|lowercase">Request Path</th>
+                <th ts-criteria="responseCode">Response Code</th>
+                <th ts-criteria="responseContentType|lowercase">Response ContentType</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="routeRow in routeRowList track by routeRow.requestPath" ng-click="displaySelected(routeRow);" ts-repeat>
+                <td>{{routeRow.requestName}}</td>
+                <td>{{routeRow.requestMethod}}</td>
+                <td>{{routeRow.requestPath}}</td>
+                <td>{{routeRow.responseCode}}</td>
+                <td>{{routeRow.responseContentType}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

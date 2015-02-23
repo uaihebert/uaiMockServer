@@ -1,6 +1,5 @@
 package com.uaihebert.uaimockserver.servlet;
 
-
 import com.uaihebert.uaimockserver.util.StringUtils;
 
 import javax.servlet.ServletException;
@@ -8,21 +7,21 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-public class JavascriptServlet extends AbstractServlet {
+public class UaiPageServlet extends AbstractServlet {
 
     @Override
     protected void doGet(final HttpServletRequest httpRequest, final HttpServletResponse httpResponse) throws ServletException, IOException {
-        httpResponse.setContentType("application/javascript");
+        httpResponse.setContentType("text/html");
 
         super.addDefaultHeaders(httpResponse);
 
         final String fileName = httpRequest.getParameter("fileName");
 
         if (StringUtils.isBlank(fileName)) {
-            throw new IllegalArgumentException("The Javascript servlet was invoked, but not file name was given. \n " +
-                    "Please, provide a file name using the query param like ---> ?fileName=uaiJavaScriptFile \n");
+            printResource(httpResponse.getOutputStream(), "/pages/index/index.html");
+            return;
         }
 
-        printResource(httpResponse.getOutputStream(), "/javascript/" + fileName + ".js");
+        printResource(httpResponse.getOutputStream(), "/pages/" + fileName +".html");
     }
 }

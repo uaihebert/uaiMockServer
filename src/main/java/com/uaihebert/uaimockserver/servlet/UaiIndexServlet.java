@@ -11,6 +11,6 @@ public class UaiIndexServlet extends AbstractServlet {
     protected void doGet(final HttpServletRequest httpRequest, final HttpServletResponse httpResponse) throws ServletException, IOException {
         httpResponse.setContentType("text/html");
 
-        printResource(httpResponse.getOutputStream(), "/pages/index.html");
+        printResource(httpResponse.getOutputStream(), "/pages/index/index.html");
     }
 }

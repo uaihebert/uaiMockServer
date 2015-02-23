@@ -12,6 +12,8 @@ public class CssServlet extends AbstractServlet {
     protected void doGet(final HttpServletRequest httpRequest, final HttpServletResponse httpResponse) throws ServletException, IOException {
         httpResponse.setContentType("text/css");
 
+        super.addDefaultHeaders(httpResponse);
+
         final String fileName = httpRequest.getParameter("fileName");
 
         printResource(httpResponse.getOutputStream(), "/css/" + fileName +".css");

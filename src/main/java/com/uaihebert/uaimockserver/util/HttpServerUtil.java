@@ -66,7 +66,8 @@ public final class HttpServerUtil {
                 .setContextPath(SERVLET_CONTEXT_PATH)
                 .setDeploymentName("uaiMockServer.war")
                 .addServlets(
-                        servlet("IndexServlet", UaiIndexServlet.class).addMapping("/index"),
+                        servlet("UaiIndexServlet", UaiIndexServlet.class).addMapping("/index"),
+                        servlet("UaiPageServlet", UaiPageServlet.class).addMapping("/page"),
                         servlet("FaviconServlet", FaviconServlet.class).addMapping("/favicon"),
                         servlet("JavascriptServlet", JavascriptServlet.class).addMapping("/javascript"),
                         servlet("CssServlet", CssServlet.class).addMapping("/css"),
