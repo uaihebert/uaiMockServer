@@ -60,14 +60,8 @@ public class UaiMockServerConfig {
         LogBuilder.createInstance(fileLog, consoleLog);
     }
 
-    public static UaiRoute findRoute(final String key) {
-        final List<UaiRoute> uaiRouteList = getRouteList(key);
-
-        if (uaiRouteList.isEmpty()) {
-            return null;
-        }
-
-        return uaiRouteList.get(0);
+    public static List<UaiRoute> findRouteListByKey(final String requestKey) {
+        return getRouteList(requestKey);
     }
 
     public static void addRoute(final String key, final UaiRoute uaiRoute){

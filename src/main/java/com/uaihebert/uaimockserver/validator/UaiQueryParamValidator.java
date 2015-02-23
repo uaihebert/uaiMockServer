@@ -28,7 +28,6 @@ import java.util.Map;
  * Will validate all the request query params if needed
  */
 public final class UaiQueryParamValidator {
-    private static final String QUERY_PARAM_NOT_FOUND_MESSAGE = "The required queryParam [%s] was not found in the request";
     private static final String QUERY_PARAM_VALUE_NOT_FOUND_MESSAGE = "The required queryParamList [%s] has not the required values: [%s]";
 
     private UaiQueryParamValidator() {
@@ -44,11 +43,6 @@ public final class UaiQueryParamValidator {
 
     private static void validateQueryParam(final UaiQueryParam uaiQueryParam, final Map<String, Deque<String>> queryParameterMap) {
         final Deque<String> valueDeque = queryParameterMap.get(uaiQueryParam.name);
-
-        if (valueDeque == null) {
-            final String errorText = String.format(QUERY_PARAM_NOT_FOUND_MESSAGE, uaiQueryParam.name);
-            ExceptionUtil.logBeforeThrowing(new IllegalArgumentException(errorText));
-        }
 
         if (uaiQueryParam.usingWildCard) {
             Log.infoFormatted("The header [%s] is using the wildcard. Its content will not be checked.", uaiQueryParam.name);

@@ -18,6 +18,7 @@ package com.uaihebert.uaimockserver.util;
 import com.uaihebert.uaimockserver.log.Log;
 import com.uaihebert.uaimockserver.model.UaiMockServerConfig;
 import com.uaihebert.uaimockserver.model.UaiRequest;
+import io.undertow.server.HttpServerExchange;
 
 /**
  * Class with methods that will help to create the RouteKei.
@@ -33,5 +34,12 @@ public final class RouteMapKeyUtil {
         Log.infoFormatted("Route detected: method [%s] and URI [%s] ", uaiRequest.method, uri);
 
         return uaiRequest.method + "_" + uri;
+    }
+
+    public static String createKeyFromRequest(final HttpServerExchange httpServerExchange) {
+        final String requestMethod = httpServerExchange.getRequestMethod().toString();
+        final String requestURI = httpServerExchange.getRequestURI();
+
+        return requestMethod + "_" + requestURI;
     }
 }

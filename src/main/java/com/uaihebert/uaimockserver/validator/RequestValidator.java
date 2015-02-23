@@ -25,7 +25,8 @@ import io.undertow.server.HttpServerExchange;
  */
 public final class RequestValidator {
     private static final String URI_NOT_FOUND_MESSAGE = "We could not find the requested URI [%s] with the method [%s]. %n " +
-            "Check the config file and try to find the mapping. A \\ in the end of the URI will affect the result. %n";
+            "Check the config file and try to find the mapping. A \\ in the end of the URI will affect the result. %n " +
+            "Also check if all the required query param and/header were sent. %n";
 
     private RequestValidator() {
     }

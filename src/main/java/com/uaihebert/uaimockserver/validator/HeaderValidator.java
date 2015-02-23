@@ -27,9 +27,6 @@ import io.undertow.util.HeaderValues;
  * Will validate all the request headers if needed
  */
 public final class HeaderValidator {
-    private static final String HEADER_NOT_FOUND_MESSAGE = "We could not find the requested Header [%s] received in the request. %n " +
-            "If the header is not mandatory, remove it from the config file.";
-
     private static final String HEADER_VALUE_NOT_FOUND_MESSAGE = "The required value [%s] was not found in the header [%s]";
 
     private HeaderValidator() {
@@ -45,11 +42,6 @@ public final class HeaderValidator {
 
     private static void validateHeader(final UaiHeader uaiHeader, final HeaderMap requestHeaderMap) {
         final HeaderValues headerValueList = requestHeaderMap.get(uaiHeader.name);
-
-        if (headerValueList == null) {
-            final String errorText = String.format(HEADER_NOT_FOUND_MESSAGE, uaiHeader.name);
-            ExceptionUtil.logBeforeThrowing(new IllegalArgumentException(errorText));
-        }
 
         if (uaiHeader.usingWildCard) {
             Log.infoFormatted("The header [%s] is using the wildcard. Its content will not be checked.", uaiHeader.name);
