@@ -1,11 +1,3 @@
-<script type="text/javascript">
-$(document).ready(function(){
-    $('[data-toggle="tooltip"]').tooltip({
-        placement : 'left'
-    });
-});
-</script>
-
 <!-- Modal -->
 <div class="modal fade" id="routeModal" tabindex="-1" role="dialog" aria-labelledby="routeModalLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -26,32 +18,26 @@ $(document).ready(function(){
                     <div class="tab-content">
                         <br />
                         <div role="tabpanel" class="tab-pane active" id="request">
+                            <div ng-include="'/uai-mock-server-gui/page?fileName=index/requestPanel'"></div>
+                        </div>
+
+                        <div role="tabpanel" class="tab-pane" id="response">
                             <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
                               <div class="panel panel-default">
                                 <div class="panel-heading" role="tab" id="headingOne">
                                   <h4 class="panel-title">
-                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
-                                      Request Data
+                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseResponseOne" aria-expanded="false" aria-controls="collapseResponseOne">
+                                      Response Data
                                     </a>
                                   </h4>
                                 </div>
-                                <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+                                <div id="collapseResponseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
                                   <div class="panel-body">
                                     <form novalidate class="css-form">
-                                        Name:
-                                        <input type="text" class="form-control" ng-model="selectedRouteRow.route.request.name" /><br />
-                                        Method:
-                                        <input type="text" class="form-control" ng-model="selectedRouteRow.route.request.method" required /><br />
-                                        Path:
-                                        <input type="text" class="form-control" ng-model="selectedRouteRow.route.request.path" required /><br />
-                                        Description:
-                                        <textarea class="form-control" rows="3" ng-model="selectedRouteRow.route.request.description"></textarea><br />
-                                        Required Content Type:
-                                        <input type="text" class="form-control" ng-model="selectedRouteRow.route.request.requiredContentType" required /><br />
-                                        Hold the Request in Milli:
-                                        <input type="text" class="form-control" ng-model="selectedRouteRow.route.request.holdRequestInMilli" /><br />
-                                        Is Body Required:
-                                        <input type="checkbox" ng-model="selectedRouteRow.route.request.isBodyRequired"> <br />
+                                        Status Code:
+                                        <input type="text" class="form-control" ng-model="selectedRouteRow.route.response.statusCode" required /><br />
+                                        Body:
+                                        <textarea class="form-control" rows="3" ng-model="selectedRouteRow.route.response.body"></textarea><br />
                                     </form>
                                   </div>
                                 </div>
@@ -59,12 +45,12 @@ $(document).ready(function(){
                               <div class="panel panel-default">
                                 <div class="panel-heading" role="tab" id="headingTwo">
                                   <h4 class="panel-title">
-                                    <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                                      Required Header List
+                                    <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseResponseTwo" aria-expanded="false" aria-controls="collapseResponseTwo">
+                                      Header List
                                     </a>
                                   </h4>
                                 </div>
-                                <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+                                <div id="collapseResponseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
                                   <div class="panel-body">
                                     <table class="table table-hover pointer">
                                         <thead>
@@ -74,7 +60,7 @@ $(document).ready(function(){
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr ng-repeat="header in selectedRouteRow.route.request.requiredHeaderList">
+                                            <tr ng-repeat="header in selectedRouteRow.route.response.headerList">
                                                 <td>
                                                     <input type="text" class="form-control" ng-model="header.name" /><br />
                                                     <h6>You must split the Array values with a comma ","</h6>
@@ -88,45 +74,7 @@ $(document).ready(function(){
                                   </div>
                                 </div>
                               </div>
-                              <div class="panel panel-default">
-                                <div class="panel-heading" role="tab" id="headingThree">
-                                  <h4 class="panel-title">
-                                    <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                                      Required Query Param List
-                                    </a>
-                                  </h4>
-                                </div>
-                                <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
-                                  <div class="panel-body">
-                                      <table class="table table-hover pointer">
-                                        <thead>
-                                            <tr>
-                                                <th>Name</th>
-                                                <th>Value List</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr ng-repeat="queryParam in selectedRouteRow.route.request.requiredQueryParamList">
-                                                <td>
-                                                    <input type="text" class="form-control" ng-model="queryParam.name" /><br />
-                                                    <h6>You must split the Array values with a comma ","</h6>
-                                                </td>
-                                                <td>
-                                                    <textarea class="form-control" rows="3" ng-model="queryParam.valueList"></textarea>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                  </div>
-                                </div>
-                              </div>
                             </div>
-                        </div>
-                        <div role="tabpanel" class="tab-pane" id="response">
-                            <form novalidate class="css-form">
-                                Response Status Code:
-                                <input type="text" class="form-control" ng-model="selectedRouteRow.route.response.statusCode" required /><br />
-                            </form>
                         </div>
                     </div>
                 </div>

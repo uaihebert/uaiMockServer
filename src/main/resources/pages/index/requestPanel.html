@@ -1,0 +1,96 @@
+
+<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingOne">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapseRequestOne" aria-expanded="false" aria-controls="collapseRequestOne">
+          Request Data
+        </a>
+      </h4>
+    </div>
+    <div id="collapseRequestOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+      <div class="panel-body">
+        <form novalidate class="css-form">
+            Name:
+            <input type="text" class="form-control" ng-model="selectedRouteRow.route.request.name" /><br />
+            Method:
+            <input type="text" class="form-control" ng-model="selectedRouteRow.route.request.method" required /><br />
+            Path:
+            <input type="text" class="form-control" ng-model="selectedRouteRow.route.request.path" required /><br />
+            Description:
+            <textarea class="form-control" rows="3" ng-model="selectedRouteRow.route.request.description"></textarea><br />
+            Required Content Type:
+            <input type="text" class="form-control" ng-model="selectedRouteRow.route.request.requiredContentType" required /><br />
+            Hold the Request in Milli:
+            <input type="text" class="form-control" ng-model="selectedRouteRow.route.request.holdRequestInMilli" /><br />
+            Is Body Required:
+            <input type="checkbox" ng-model="selectedRouteRow.route.request.isBodyRequired"> <br />
+        </form>
+      </div>
+    </div>
+  </div>
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingTwo">
+      <h4 class="panel-title">
+        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseRequestTwo" aria-expanded="false" aria-controls="collapseRequestTwo">
+          Required Header List
+        </a>
+      </h4>
+    </div>
+    <div id="collapseRequestTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+      <div class="panel-body">
+        <table class="table table-hover pointer">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Value List</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="header in selectedRouteRow.route.request.requiredHeaderList">
+                    <td>
+                        <input type="text" class="form-control" ng-model="header.name" /><br />
+                        <h6>You must split the Array values with a comma ","</h6>
+                    </td>
+                    <td>
+                        <textarea class="form-control" rows="3" ng-model="header.valueList"></textarea>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingThree">
+      <h4 class="panel-title">
+        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseRequestThree" aria-expanded="false" aria-controls="collapseRequestThree">
+          Required Query Param List
+        </a>
+      </h4>
+    </div>
+    <div id="collapseRequestThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+      <div class="panel-body">
+          <table class="table table-hover pointer">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Value List</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="queryParam in selectedRouteRow.route.request.requiredQueryParamList">
+                    <td>
+                        <input type="text" class="form-control" ng-model="queryParam.name" /><br />
+                        <h6>You must split the Array values with a comma ","</h6>
+                    </td>
+                    <td>
+                        <textarea class="form-control" rows="3" ng-model="queryParam.valueList"></textarea>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
