@@ -20,7 +20,7 @@ import com.uaihebert.uaimockserver.server.UaiMockServer;
 public class RunServerManually {
 
     public static void main(String[] args) throws Exception {
-        UaiMockServer.start();
+        UaiMockServer.start("configForListAllRoutes.config");
 
         Thread.currentThread().join();
     }

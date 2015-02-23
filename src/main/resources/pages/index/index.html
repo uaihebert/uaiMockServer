@@ -27,12 +27,12 @@
         var app = angular.module('uaiMockServerApp', ['tableSort']);
 
         app.controller('routeController', function($scope, $http) {
-            $http.get('/uai-mock-server-gui/uaiRoute').
+            $http.get('http://localhost:1234/uai-mock-server-gui/uaiRoute').
                     success(function(data) {
                         $scope.routeRowList = [];
 
-                        for (i = 0; i < data.routeList.length; i++) {
-                            routeRow = {};
+                        for (var i = 0; i < data.routeList.length; i++) {
+                            var routeRow = {};
 
                             routeRow.requestName = data.routeList[i].request.name;
                             routeRow.requestMethod = data.routeList[i].request.method;
@@ -46,6 +46,25 @@
                         }
                     }
             );
+
+            $scope.saveRoute = function(updatedRouteRow) {
+                $scope.selectedRouteRow.requestName = updatedRouteRow.route.request.name;
+
+                $scope.convertStringRequestToList(updatedRouteRow.route.request.requiredHeaderList);
+                $scope.convertStringRequestToList(updatedRouteRow.route.request.requiredQueryParamList);
+            }
+
+            $scope.convertStringRequestToList = function(requiredHeaderList) {
+                if (requiredHeaderList == null) {
+                    return;
+                }
+
+                for (var i = 0; i < requiredHeaderList.length; i++) {
+                    if (typeof requiredHeaderList[i].valueList === "string") {
+                        requiredHeaderList[i].valueList = requiredHeaderList[i].valueList.split(",");
+                    }
+                }
+            }
 
             $scope.displaySelected = function (routeRow) {
                 $scope.selectedRouteRow = routeRow;

@@ -16,11 +16,13 @@ colgroup col.response {
     route changes. This is why we need to remove empty href attributes from directive templates and as a result styling
     is not applied correctly. The remedy is simple, just add the following styling to your application:
 */
-.nav, .pagination, .carousel, .panel-title a { cursor: pointer; }
+.nav, .pagination, .carousel, .panel-title a {
+    cursor: pointer;
+}
 
 /*
     Will remove that tab annoying border
 */
-.nav-tabs > .active > a, .nav-tabs > .active > a:hover {
+a:hover, a:active, a:focus {
     outline: 0;
 }
