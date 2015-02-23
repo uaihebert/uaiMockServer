@@ -44,4 +44,34 @@ public class RepeatedURLDifferentHeaderTest {
 
         assertEquals(202, response.getStatus());
     }
+
+    @Test
+    public void isFindingUrlWithDifferentHeader03(){
+        final String url = "http://localhost:1234/uaiMockServer/sameURLUsingHeader";
+
+        final Client client = ClientBuilder.newClient();
+
+        final Response response = client
+                .target(url)
+                .request()
+                .header("HEADER-03", "HEADER_VALUE_0AAA")
+                .get();
+
+        assertEquals(203, response.getStatus());
+    }
+
+    @Test
+    public void isFindingUrlWithDifferentHeader04(){
+        final String url = "http://localhost:1234/uaiMockServer/sameURLUsingHeader";
+
+        final Client client = ClientBuilder.newClient();
+
+        final Response response = client
+                .target(url)
+                .request()
+                .header("HEADER-03", "HEADER_VALUE_0BBB")
+                .get();
+
+        assertEquals(204, response.getStatus());
+    }
 }

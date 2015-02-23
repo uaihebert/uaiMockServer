@@ -11,13 +11,20 @@ public final class RequestValidatorFacade {
     private RequestValidatorFacade() {
     }
 
-    public static void validateRequest(final UaiRequest uaiRequest, final HttpServerExchange exchange) {
-        ContentTypeValidator.validate(uaiRequest, exchange);
+    // todo create validator as interface and iterate over a list here
+    public static boolean isValidRequest(final UaiRequest uaiRequest, final HttpServerExchange exchange) {
+        if (ContentTypeValidator.isInvalid(uaiRequest, exchange)) {
+            return false;
+        }
 
-        HeaderValidator.validate(uaiRequest, exchange);
+        if (HeaderValidator.isInvalid(uaiRequest, exchange)) {
+            return false;
+        }
 
-        UaiQueryParamValidator.validate(uaiRequest, exchange);
+        if (UaiQueryParamValidator.isInvalid(uaiRequest, exchange)) {
+            return false;
+        }
 
-        BodyValidator.validate(uaiRequest, exchange);
+        return !BodyValidator.isInvalid(uaiRequest, exchange);
     }
 }

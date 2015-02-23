@@ -2,8 +2,6 @@ package com.uaihebert.uaimockserver.dto.model;
 
 import java.util.List;
 
-// todo create attributes name and description for the request
-// todo fix problem if someone set URL_A with HEADER_A and VALUE_X and another with URL_A with HEADER_A and VALUE_Y
 public class UaiRequestDTO {
     private String name;
     private String path;

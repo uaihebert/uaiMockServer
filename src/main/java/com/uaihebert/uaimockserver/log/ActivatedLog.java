@@ -36,4 +36,9 @@ public class ActivatedLog implements LogWriter {
     public void warn(final Exception exception) {
         Logger.warn(exception);
     }
+
+    @Override
+    public void warnFormatted(final String text, final Object... parameterArray) {
+        Logger.warn(String.format(text, parameterArray));
+    }
 }

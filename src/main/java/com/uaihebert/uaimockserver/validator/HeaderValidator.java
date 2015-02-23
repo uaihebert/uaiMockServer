@@ -18,7 +18,6 @@ package com.uaihebert.uaimockserver.validator;
 import com.uaihebert.uaimockserver.log.Log;
 import com.uaihebert.uaimockserver.model.UaiHeader;
 import com.uaihebert.uaimockserver.model.UaiRequest;
-import com.uaihebert.uaimockserver.util.ExceptionUtil;
 import io.undertow.server.HttpServerExchange;
 import io.undertow.util.HeaderMap;
 import io.undertow.util.HeaderValues;
@@ -32,25 +31,31 @@ public final class HeaderValidator {
     private HeaderValidator() {
     }
 
-    public static void validate(final UaiRequest uaiRequest, final HttpServerExchange exchange) {
+    public static boolean isInvalid(final UaiRequest uaiRequest, final HttpServerExchange exchange) {
         for (UaiHeader uaiHeader : uaiRequest.requiredHeaderList) {
             final HeaderMap requestHeaderMap = exchange.getRequestHeaders();
 
-            validateHeader(uaiHeader, requestHeaderMap);
+            if (isInvalidHeader(uaiHeader, requestHeaderMap)) {
+                return true;
+            }
         }
+
+        return false;
     }
 
-    private static void validateHeader(final UaiHeader uaiHeader, final HeaderMap requestHeaderMap) {
+    private static boolean isInvalidHeader(final UaiHeader uaiHeader, final HeaderMap requestHeaderMap) {
         final HeaderValues headerValueList = requestHeaderMap.get(uaiHeader.name);
 
         if (uaiHeader.usingWildCard) {
             Log.infoFormatted("The header [%s] is using the wildcard. Its content will not be checked.", uaiHeader.name);
-            return;
+            return false;
         }
 
         if (!headerValueList.containsAll(uaiHeader.valueList)) {
-            final String errorText = String.format(HEADER_VALUE_NOT_FOUND_MESSAGE, uaiHeader.name, uaiHeader.valueList);
-            ExceptionUtil.logBeforeThrowing(new IllegalArgumentException(errorText));
+            Log.warn(HEADER_VALUE_NOT_FOUND_MESSAGE, uaiHeader.name, uaiHeader.valueList);
+            return true;
         }
+
+        return false;
     }
 }

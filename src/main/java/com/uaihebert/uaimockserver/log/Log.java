@@ -52,6 +52,13 @@ public final class Log {
     /**
      * Wil log a text with the WARN level. The text with be formatted using the String.format(...)
      */
+    public static void warn(final String text, Object... parameterArray){
+        INSTANCE.warnFormatted(text, parameterArray);
+    }
+
+    /**
+     * Wil log a text with the WARN level.
+     */
     public static void warn(final Exception exception){
         INSTANCE.warn(exception);
     }

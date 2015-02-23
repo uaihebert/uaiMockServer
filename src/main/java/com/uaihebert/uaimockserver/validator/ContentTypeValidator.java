@@ -15,8 +15,8 @@
  * */
 package com.uaihebert.uaimockserver.validator;
 
+import com.uaihebert.uaimockserver.log.Log;
 import com.uaihebert.uaimockserver.model.UaiRequest;
-import com.uaihebert.uaimockserver.util.ExceptionUtil;
 import com.uaihebert.uaimockserver.util.StringUtils;
 import io.undertow.server.HttpServerExchange;
 import io.undertow.util.HeaderValues;
@@ -31,18 +31,20 @@ public final class ContentTypeValidator {
     private ContentTypeValidator() {
     }
 
-    public static void validate(final UaiRequest uaiRequest, final HttpServerExchange exchange) {
+    public static boolean isInvalid(final UaiRequest uaiRequest, final HttpServerExchange exchange) {
         final String requiredContentType = uaiRequest.requiredContentType;
 
         if (StringUtils.isBlank(requiredContentType)) {
-            return;
+            return false;
         }
 
         final HeaderValues headerValues = exchange.getRequestHeaders().get(Headers.CONTENT_TYPE);
 
         if (headerValues == null) {
-            final String errorText = String.format(HEADER_VALUE_NOT_FOUND_MESSAGE, requiredContentType);
-            ExceptionUtil.logBeforeThrowing(new IllegalArgumentException(errorText));
+            Log.warn(HEADER_VALUE_NOT_FOUND_MESSAGE, requiredContentType);
+            return true;
         }
+
+        return false;
     }
 }

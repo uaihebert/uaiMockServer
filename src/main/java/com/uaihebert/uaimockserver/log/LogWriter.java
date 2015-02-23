@@ -10,4 +10,6 @@ interface LogWriter {
     public abstract void infoFormatted(final String text, Object... parameterArray);
 
     public abstract void warn(final Exception exception);
+
+    public abstract void warnFormatted(final String text, Object... parameterArray);
 }

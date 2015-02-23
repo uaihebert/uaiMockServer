@@ -18,7 +18,6 @@ package com.uaihebert.uaimockserver.validator;
 import com.uaihebert.uaimockserver.log.Log;
 import com.uaihebert.uaimockserver.model.UaiQueryParam;
 import com.uaihebert.uaimockserver.model.UaiRequest;
-import com.uaihebert.uaimockserver.util.ExceptionUtil;
 import io.undertow.server.HttpServerExchange;
 
 import java.util.Deque;
@@ -33,25 +32,31 @@ public final class UaiQueryParamValidator {
     private UaiQueryParamValidator() {
     }
 
-    public static void validate(final UaiRequest uaiRequest, final HttpServerExchange exchange) {
+    public static boolean isInvalid(final UaiRequest uaiRequest, final HttpServerExchange exchange) {
         for (UaiQueryParam uaiQueryParam : uaiRequest.requiredQueryParamList) {
             final Map<String, Deque<String>> queryParameterMap = exchange.getQueryParameters();
 
-            validateQueryParam(uaiQueryParam, queryParameterMap);
+            if (isInvalidQueryParam(uaiQueryParam, queryParameterMap)) {
+                return true;
+            }
         }
+
+        return false;
     }
 
-    private static void validateQueryParam(final UaiQueryParam uaiQueryParam, final Map<String, Deque<String>> queryParameterMap) {
+    private static boolean isInvalidQueryParam(final UaiQueryParam uaiQueryParam, final Map<String, Deque<String>> queryParameterMap) {
         final Deque<String> valueDeque = queryParameterMap.get(uaiQueryParam.name);
 
         if (uaiQueryParam.usingWildCard) {
             Log.infoFormatted("The header [%s] is using the wildcard. Its content will not be checked.", uaiQueryParam.name);
-            return;
+            return false;
         }
 
         if (!valueDeque.containsAll(uaiQueryParam.valueList)) {
-            final String errorText = String.format(QUERY_PARAM_VALUE_NOT_FOUND_MESSAGE, uaiQueryParam.name, uaiQueryParam.valueList);
-            ExceptionUtil.logBeforeThrowing(new IllegalArgumentException(errorText));
+            Log.warn(QUERY_PARAM_VALUE_NOT_FOUND_MESSAGE, uaiQueryParam.name, uaiQueryParam.valueList);
+            return true;
         }
+
+        return false;
     }
 }

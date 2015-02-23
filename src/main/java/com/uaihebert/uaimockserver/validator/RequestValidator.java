@@ -16,9 +16,12 @@
 package com.uaihebert.uaimockserver.validator;
 
 import com.uaihebert.uaimockserver.facade.RequestValidatorFacade;
+import com.uaihebert.uaimockserver.log.Log;
 import com.uaihebert.uaimockserver.model.UaiRoute;
 import com.uaihebert.uaimockserver.util.ExceptionUtil;
 import io.undertow.server.HttpServerExchange;
+
+import java.util.List;
 
 /**
  * Will validate all data in the request
@@ -28,19 +31,31 @@ public final class RequestValidator {
             "Check the config file and try to find the mapping. A \\ in the end of the URI will affect the result. %n " +
             "Also check if all the required query param and/header were sent. %n";
 
+    private static final String WRONG_HEADER_QUERY_PARAM_VALUE = "Check the QueryParam/Headers sent.  %n " +
+            "We found the same headers but the values did not match";
+
     private RequestValidator() {
     }
 
-    public static void validateRequest(final UaiRoute uaiRoute, final HttpServerExchange exchange) {
-        if (noRouteFound(uaiRoute)) {
+    public static UaiRoute validateRequest(final List<UaiRoute> uaiRouteList, final HttpServerExchange exchange) {
+        if (noRouteFound(uaiRouteList)) {
             final String errorText = String.format(URI_NOT_FOUND_MESSAGE, exchange.getRequestURI(), exchange.getRequestMethod());
             ExceptionUtil.logBeforeThrowing(new IllegalArgumentException(errorText));
         }
 
-        RequestValidatorFacade.validateRequest(uaiRoute.uaiRequest, exchange);
+        for (UaiRoute uaiRoute : uaiRouteList) {
+            if (RequestValidatorFacade.isValidRequest(uaiRoute.uaiRequest, exchange)) {
+                return uaiRoute;
+            }
+        }
+
+        final String errorText = String.format(WRONG_HEADER_QUERY_PARAM_VALUE, exchange.getRequestURI(), exchange.getRequestMethod());
+        Log.warn(errorText);
+
+        throw new IllegalArgumentException(errorText);
     }
 
-    private static boolean noRouteFound(final UaiRoute uaiRoute) {
-        return uaiRoute == null;
+    private static boolean noRouteFound(final List<UaiRoute> uaiRouteList) {
+        return uaiRouteList.isEmpty();
     }
 }

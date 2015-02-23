@@ -15,8 +15,8 @@
  * */
 package com.uaihebert.uaimockserver.validator;
 
+import com.uaihebert.uaimockserver.log.Log;
 import com.uaihebert.uaimockserver.model.UaiRequest;
-import com.uaihebert.uaimockserver.util.ExceptionUtil;
 import io.undertow.server.HttpServerExchange;
 
 /**
@@ -28,10 +28,12 @@ public final class BodyValidator {
     private BodyValidator() {
     }
 
-    public static void validate(final UaiRequest uaiRequest, final HttpServerExchange exchange) {
+    public static boolean isInvalid(final UaiRequest uaiRequest, final HttpServerExchange exchange) {
         if (uaiRequest.isBodyRequired && exchange.getRequestContentLength() < 1) {
-            final String errorText = String.format(BODY_VALIDATOR_ERROR_MESSAGE, uaiRequest.method, uaiRequest.path);
-            ExceptionUtil.logBeforeThrowing(new IllegalArgumentException(errorText));
+            Log.warn(BODY_VALIDATOR_ERROR_MESSAGE, uaiRequest.method, uaiRequest.path);
+            return true;
         }
+
+        return false;
     }
 }

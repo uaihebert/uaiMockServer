@@ -7,6 +7,7 @@ import com.uaihebert.uaimockserver.model.UaiRoute;
 import com.uaihebert.uaimockserver.validator.RequestValidator;
 import io.undertow.server.HttpServerExchange;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public final class RouteFinderUtil {
@@ -18,14 +19,28 @@ public final class RouteFinderUtil {
 
         final List<UaiRoute> uaiRouteList = UaiMockServerConfig.findRouteListByKey(requestKey);
 
-        final UaiRoute uaiRoute = findRoute(uaiRouteList, httpServerExchange);
+        final List<UaiRoute> uaiRouteListWithEqualAttributes = findRoutesWithEqualAttributes(uaiRouteList, httpServerExchange);
 
-        RequestValidator.validateRequest(uaiRoute, httpServerExchange);
-
-        return uaiRoute;
+        return RequestValidator.validateRequest(uaiRouteListWithEqualAttributes, httpServerExchange);
     }
 
-    private static UaiRoute findRoute(final List<UaiRoute> uaiRouteList, final HttpServerExchange httpServerExchange) {
+    /**
+     * This method will return the routes with the requests that has the same attributes.
+     *
+     * It will check for the same queryParam and header
+     *
+     * We can have an URLs like:
+     *
+     *    http://uaimockserver.com?queryParam=A ----> return 201
+     *    http://uaimockserver.com?queryParam=B ----> return 204
+     *
+     * @param uaiRouteList the route list that will be filtered
+     * @param httpServerExchange the current request
+     * @return a list of the found route.
+     */
+    private static List<UaiRoute> findRoutesWithEqualAttributes(final List<UaiRoute> uaiRouteList, final HttpServerExchange httpServerExchange) {
+        final List<UaiRoute> result = new ArrayList<UaiRoute>();
+
         routLoop:
         for (UaiRoute uaiRoute : uaiRouteList) {
             for (UaiHeader uaiHeader : uaiRoute.uaiRequest.requiredHeaderList) {
@@ -40,9 +55,9 @@ public final class RouteFinderUtil {
                 }
             }
 
-            return uaiRoute;
+            result.add(uaiRoute);
         }
 
-        return null;
+        return result;
     }
 }

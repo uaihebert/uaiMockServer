@@ -32,4 +32,9 @@ public class DeactivatedLog implements LogWriter {
     @Override
     public void warn(final Exception exception) {
     }
+
+    @Override
+    public void warnFormatted(final String text, final Object... parameterArray) {
+
+    }
 }
