@@ -48,8 +48,6 @@ public final class UaiMockServerConfig {
         createInstance(CONFIGURATION_FILE_NAME);
     }
 
-    // todo create a test with another context
-    // todo in the dialog page, send to the dialog a clone of the object, and not the real one
     public static void createInstance(final String fileName) {
         final File file = FileUtil.findFile(fileName);
         final Config config = TypeSafeConfigFactory.loadConfiguration(file);

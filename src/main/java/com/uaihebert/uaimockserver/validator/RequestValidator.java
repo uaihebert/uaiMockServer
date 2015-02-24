@@ -31,7 +31,7 @@ public final class RequestValidator {
             "Check the config file and try to find the mapping. A \\ in the end of the URI will affect the result. %n " +
             "Also check if all the required query param and/header were sent. %n";
 
-    private static final String WRONG_HEADER_QUERY_PARAM_VALUE = "Check the QueryParam/Headers sent.  %n " +
+    private static final String WRONG_HEADER_QUERY_PARAM_VALUE = "Check the Body/QueryParam/Headers sent.  %n " +
             "We found the same headers but the values did not match";
 
     private RequestValidator() {
