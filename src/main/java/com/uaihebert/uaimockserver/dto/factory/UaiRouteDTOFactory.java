@@ -1,5 +1,6 @@
 package com.uaihebert.uaimockserver.dto.factory;
 
+import com.uaihebert.uaimockserver.dto.model.UaiFileDTO;
 import com.uaihebert.uaimockserver.dto.model.UaiRequestDTO;
 import com.uaihebert.uaimockserver.dto.model.UaiResponseDTO;
 import com.uaihebert.uaimockserver.dto.model.UaiRouteDTO;
@@ -29,10 +30,12 @@ public final class UaiRouteDTOFactory {
     }
 
     private static UaiRouteDTO createUaiRouteDTO(final UaiRoute uaiRoute) {
+        final UaiFileDTO uaiFileDTO = UaiFileDTOFactory.create(uaiRoute.uaiFile);
         final UaiRequestDTO uaiRequestDTO = UaiRequestDTOFactory.create(uaiRoute.uaiRequest);
         final UaiResponseDTO uaiResponseDTO = UaiResponseDTOFactory.create(uaiRoute.uaiResponse);
 
         final UaiRouteDTO uaiRouteDTO = new UaiRouteDTO();
+        uaiRouteDTO.setUaiFile(uaiFileDTO);
         uaiRouteDTO.setRequest(uaiRequestDTO);
         uaiRouteDTO.setResponse(uaiResponseDTO);
 

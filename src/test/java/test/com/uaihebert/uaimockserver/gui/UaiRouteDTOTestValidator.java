@@ -24,8 +24,15 @@ public final class UaiRouteDTOTestValidator {
     }
 
     private static void validate(final UaiRouteDTO uaiRouteDTO) {
+        validateUaiFile(uaiRouteDTO.getUaiFile());
         validateRequest(uaiRouteDTO.getRequest());
         validateResponse(uaiRouteDTO.getResponse());
+    }
+
+    private static void validateUaiFile(final UaiFileDTO uaiFile) {
+        assertNotNull("must have a uaiFile", uaiFile);
+        assertTrue(StringUtils.isNotBlank(uaiFile.getName()));
+        assertTrue(StringUtils.isNotBlank(uaiFile.getFullPath()));
     }
 
     private static void validateRequest(final UaiRequestDTO request) {

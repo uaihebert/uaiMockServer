@@ -245,4 +245,13 @@ public class PrivateConstructorTest {
         final FileUtil createdObject = constructor.newInstance(new Object[0]);
         assertNotNull(createdObject);
     }
+
+    @Test
+    public void testUaiFileDTOFactory() throws Exception {
+        final Constructor<UaiFileDTOFactory> constructor = UaiFileDTOFactory.class.getDeclaredConstructor(new Class[0]);
+        constructor.setAccessible(true);
+
+        final UaiFileDTOFactory createdObject = constructor.newInstance(new Object[0]);
+        assertNotNull(createdObject);
+    }
 }
