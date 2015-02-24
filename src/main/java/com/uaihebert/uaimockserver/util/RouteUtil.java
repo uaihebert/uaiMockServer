@@ -34,46 +34,44 @@ public final class RouteUtil {
     private RouteUtil() {
     }
 
-    public static void configureRouteMap(final Config config, final UaiMockServerConfig uaiMockServerConfig, final File file) {
-        configureMainFileRoute(config, uaiMockServerConfig, file);
-        configureRouteFileMap(config, uaiMockServerConfig);
+    public static void configureRouteMap(final Config config, final File file) {
+        configureMainFileRoute(config, file);
+        configureRouteFileMap(config);
     }
 
     /**
      * Are the files with only a mapping route
      *
      * @param config              the TypeSafe config file loaded with the Main File
-     * @param uaiMockServerConfig the project configuration with the ROOT configurations already set
      */
-    private static void configureRouteFileMap(final Config config, final UaiMockServerConfig uaiMockServerConfig) {
+    private static void configureRouteFileMap(final Config config) {
         final List<String> mappingRoutesFileList = ConfigKeyUtil.getStringListSilently(RootConstants.MAPPING_ROUTES_FILE_LIST.path, config);
 
         for (String fileName : mappingRoutesFileList) {
             final File file = FileUtil.findFile(fileName);
             final Config mappedFileConfiguration = TypeSafeConfigFactory.loadConfiguration(file);
 
-            extractRoute(uaiMockServerConfig, mappedFileConfiguration, file);
+            extractRoute(mappedFileConfiguration, file);
         }
     }
 
-    private static void extractRoute(final UaiMockServerConfig uaiMockServerConfig, final Config config, final File file) {
+    private static void extractRoute(final Config config, final File file) {
         final List<? extends Config> routeConfigList = ConfigKeyUtil.getConfigListSilently(RootConstants.ROUTES.path, config);
 
         for (Config routeConfig : routeConfigList) {
-            final UaiRoute uaiRoute = UaiRouteFactory.create(routeConfig, uaiMockServerConfig, file);
+            final UaiRoute uaiRoute = UaiRouteFactory.create(routeConfig, file);
             final UaiRequest uaiRequest = uaiRoute.uaiRequest;
 
-            UaiMockServerConfig.addRoute(RouteMapKeyUtil.createKeyForMap(uaiRequest, uaiMockServerConfig), uaiRoute);
+            UaiMockServerConfig.addRoute(RouteMapKeyUtil.createKeyForMap(uaiRequest), uaiRoute);
         }
     }
 
     /**
      * Main File route is the file that will be used with the project bootstrap
      *  @param config             the TypeSafe config file loaded with the Main File
-     * @param uaiMockServerConfig the project configuration with the ROOT configurations already set
      * @param file
      */
-    private static void configureMainFileRoute(final Config config, final UaiMockServerConfig uaiMockServerConfig, final File file) {
-        extractRoute(uaiMockServerConfig, config, file);
+    private static void configureMainFileRoute(final Config config, final File file) {
+        extractRoute(config, file);
     }
 }

@@ -27,30 +27,42 @@
         var app = angular.module('uaiMockServerApp', ['tableSort']);
 
         app.controller('routeController', function($scope, $http) {
-            $http.get('http://localhost:1234/uai-mock-server-gui/uaiRoute').
-                    success(function(data) {
-                        $scope.routeRowList = [];
 
-                        for (var i = 0; i < data.routeList.length; i++) {
-                            var routeRow = {};
+            $scope.loadTable = function(){
+                $http.get('/uai-mock-server-gui/uaiRoute').
+                        success(function(data) {
+                            $scope.routeRowList = [];
 
-                            routeRow.requestName = data.routeList[i].request.name;
-                            routeRow.requestMethod = data.routeList[i].request.method;
-                            routeRow.requestPath = data.routeList[i].request.path;
-                            routeRow.responseCode = data.routeList[i].response.statusCode;
-                            routeRow.responseContentType = data.routeList[i].response.contentType;
+                            for (var i = 0; i < data.routeList.length; i++) {
+                                var routeRow = {};
 
-                            routeRow.route = data.routeList[i];
+                                routeRow.requestName = data.routeList[i].request.name;
+                                routeRow.requestMethod = data.routeList[i].request.method;
+                                routeRow.requestPath = data.routeList[i].request.path;
+                                routeRow.responseCode = data.routeList[i].response.statusCode;
+                                routeRow.responseContentType = data.routeList[i].response.contentType;
 
-                            $scope.routeRowList.push(routeRow);
+                                routeRow.route = data.routeList[i];
+
+                                $scope.routeRowList.push(routeRow);
+                            }
                         }
-                    }
-            );
+                );
+            }
+
+            $scope.loadTable();
 
             $scope.saveRoute = function(updatedRouteRow) {
                 $scope.convertStringToList(updatedRouteRow.route.request.requiredHeaderList);
                 $scope.convertStringToList(updatedRouteRow.route.request.requiredQueryParamList);
                 $scope.convertStringToList(updatedRouteRow.route.response.headerList);
+
+                $http.post('/uai-mock-server-gui/uaiRoute', updatedRouteRow.route).
+                        success(function(data) {
+                            $scope.loadTable();
+                            $('#routeModal').modal('toggle');
+                        }
+                );
             }
 
             $scope.convertStringToList = function(requiredHeaderList) {

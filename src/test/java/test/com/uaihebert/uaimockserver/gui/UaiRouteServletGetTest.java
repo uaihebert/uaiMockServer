@@ -18,7 +18,7 @@ import java.net.URL;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
-public class UaiRouteServletTest {
+public class UaiRouteServletGetTest {
     private static UaiMockServer uaiMockServer;
 
     @BeforeClass

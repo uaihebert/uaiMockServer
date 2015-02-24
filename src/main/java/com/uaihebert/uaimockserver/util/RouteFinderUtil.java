@@ -7,8 +7,8 @@ import com.uaihebert.uaimockserver.model.UaiRoute;
 import com.uaihebert.uaimockserver.validator.RequestValidator;
 import io.undertow.server.HttpServerExchange;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 public final class RouteFinderUtil {
     private RouteFinderUtil() {
@@ -17,9 +17,9 @@ public final class RouteFinderUtil {
     public static UaiRoute findValidRoute(final HttpServerExchange httpServerExchange) {
         final String requestKey = RouteMapKeyUtil.createKeyFromRequest(httpServerExchange);
 
-        final List<UaiRoute> uaiRouteList = UaiMockServerConfig.findRouteListByKey(requestKey);
+        final Set<UaiRoute> uaiRouteList = UaiMockServerConfig.findRouteListByKey(requestKey);
 
-        final List<UaiRoute> uaiRouteListWithEqualAttributes = findRoutesWithEqualAttributes(uaiRouteList, httpServerExchange);
+        final Set<UaiRoute> uaiRouteListWithEqualAttributes = findRoutesWithEqualAttributes(uaiRouteList, httpServerExchange);
 
         return RequestValidator.validateRequest(uaiRouteListWithEqualAttributes, httpServerExchange);
     }
@@ -38,8 +38,8 @@ public final class RouteFinderUtil {
      * @param httpServerExchange the current request
      * @return a list of the found route.
      */
-    private static List<UaiRoute> findRoutesWithEqualAttributes(final List<UaiRoute> uaiRouteList, final HttpServerExchange httpServerExchange) {
-        final List<UaiRoute> result = new ArrayList<UaiRoute>();
+    private static Set<UaiRoute> findRoutesWithEqualAttributes(final Set<UaiRoute> uaiRouteList, final HttpServerExchange httpServerExchange) {
+        final Set<UaiRoute> result = new HashSet<UaiRoute>();
 
         routLoop:
         for (UaiRoute uaiRoute : uaiRouteList) {

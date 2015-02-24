@@ -15,7 +15,7 @@
  * */
 package com.uaihebert.uaimockserver.util;
 
-import com.uaihebert.uaimockserver.model.UaiMockServerConfig;
+import com.uaihebert.uaimockserver.model.UaiBasicServerConfiguration;
 import com.uaihebert.uaimockserver.server.UaiMockServerHandler;
 import com.uaihebert.uaimockserver.servlet.CssServlet;
 import com.uaihebert.uaimockserver.servlet.FaviconServlet;
@@ -44,7 +44,7 @@ public final class HttpServerUtil {
     private HttpServerUtil() {
     }
 
-    public static Undertow startHttpServer(final UaiMockServerConfig config) {
+    public static Undertow startHttpServer() {
         final Undertow httpServer;
 
         try {
@@ -53,7 +53,7 @@ public final class HttpServerUtil {
                     .addPrefixPath("/", new UaiMockServerHandler());
 
             httpServer = Undertow.builder()
-                    .addHttpListener(config.basicConfiguration.port, config.basicConfiguration.host)
+                    .addHttpListener(UaiBasicServerConfiguration.getPort(), UaiBasicServerConfiguration.getHost())
                     .setHandler(path)
                     .build();
 

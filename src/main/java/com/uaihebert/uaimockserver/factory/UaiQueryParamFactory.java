@@ -19,10 +19,12 @@ import com.typesafe.config.Config;
 import com.uaihebert.uaimockserver.constants.QueryParamConstants;
 import com.uaihebert.uaimockserver.constants.RequestConstants;
 import com.uaihebert.uaimockserver.constants.ValidatorConstants;
+import com.uaihebert.uaimockserver.dto.model.UaiQueryParamDTO;
 import com.uaihebert.uaimockserver.model.UaiQueryParam;
 import com.uaihebert.uaimockserver.util.ConfigKeyUtil;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -51,5 +53,22 @@ public final class UaiQueryParamFactory {
         final boolean usingWildCard = valueList.contains(ValidatorConstants.VALID_WILD_CARD.text);
 
         return new UaiQueryParam(name, usingWildCard, valueList);
+    }
+
+    public static List<UaiQueryParam> create(final List<UaiQueryParamDTO> requiredQueryParamList) {
+        if (requiredQueryParamList == null) {
+            return Collections.emptyList();
+        }
+
+        final List<UaiQueryParam> uaiQueryParamList = new ArrayList<UaiQueryParam>();
+
+        for (UaiQueryParamDTO uaiQueryParamDTO : requiredQueryParamList) {
+            final boolean usingWildCard = uaiQueryParamDTO.getValueList().contains(ValidatorConstants.VALID_WILD_CARD.text);
+
+            final UaiQueryParam uaiQueryParam = new UaiQueryParam(uaiQueryParamDTO.getName(), usingWildCard, uaiQueryParamDTO.getValueList());
+            uaiQueryParamList.add(uaiQueryParam);
+        }
+
+        return uaiQueryParamList;
     }
 }

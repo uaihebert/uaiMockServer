@@ -36,19 +36,19 @@ public final class UaiMockServer {
     }
 
     public static UaiMockServer start() {
-        final UaiMockServerConfig config = new UaiMockServerConfig();
+        new UaiMockServerConfig();
 
-        return createServer(config);
+        return createServer();
     }
 
     public static UaiMockServer start(final String configurationFileName) {
-        final UaiMockServerConfig config = new UaiMockServerConfig(configurationFileName);
+        new UaiMockServerConfig(configurationFileName);
 
-        return createServer(config);
+        return createServer();
     }
 
-    private static UaiMockServer createServer(final UaiMockServerConfig config) {
-        final Undertow undertow = HttpServerUtil.startHttpServer(config);
+    private static UaiMockServer createServer() {
+        final Undertow undertow = HttpServerUtil.startHttpServer();
 
         return new UaiMockServer(undertow);
     }

@@ -238,7 +238,7 @@ public class PrivateConstructorTest {
     }
 
     @Test
-    public void testFileUtil() throws Exception {
+    public void testFileUtilConstructor() throws Exception {
         final Constructor<FileUtil> constructor = FileUtil.class.getDeclaredConstructor(new Class[0]);
         constructor.setAccessible(true);
 
@@ -247,11 +247,20 @@ public class PrivateConstructorTest {
     }
 
     @Test
-    public void testUaiFileDTOFactory() throws Exception {
+    public void testUaiFileDTOFactoryConstructor() throws Exception {
         final Constructor<UaiFileDTOFactory> constructor = UaiFileDTOFactory.class.getDeclaredConstructor(new Class[0]);
         constructor.setAccessible(true);
 
         final UaiFileDTOFactory createdObject = constructor.newInstance(new Object[0]);
+        assertNotNull(createdObject);
+    }
+
+    @Test
+    public void testRequestBodyExtractorConstructor() throws Exception {
+        final Constructor<RequestBodyExtractor> constructor = RequestBodyExtractor.class.getDeclaredConstructor(new Class[0]);
+        constructor.setAccessible(true);
+
+        final RequestBodyExtractor createdObject = constructor.newInstance(new Object[0]);
         assertNotNull(createdObject);
     }
 }

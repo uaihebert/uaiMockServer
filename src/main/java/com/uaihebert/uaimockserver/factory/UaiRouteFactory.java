@@ -16,8 +16,8 @@
 package com.uaihebert.uaimockserver.factory;
 
 import com.typesafe.config.Config;
+import com.uaihebert.uaimockserver.dto.model.UaiRouteDTO;
 import com.uaihebert.uaimockserver.model.UaiFile;
-import com.uaihebert.uaimockserver.model.UaiMockServerConfig;
 import com.uaihebert.uaimockserver.model.UaiRequest;
 import com.uaihebert.uaimockserver.model.UaiResponse;
 import com.uaihebert.uaimockserver.model.UaiRoute;
@@ -32,13 +32,23 @@ public final class UaiRouteFactory {
     private UaiRouteFactory() {
     }
 
-    public static UaiRoute create(final Config routeConfig, final UaiMockServerConfig uaiMockServerConfig, final File file) {
+    public static UaiRoute create(final Config routeConfig, final File file) {
         final UaiRequest uaiRequest = UaiRequestFactory.create(routeConfig);
 
-        final UaiResponse uaiResponse = UaiResponseFactory.create(routeConfig, uaiMockServerConfig);
+        final UaiResponse uaiResponse = UaiResponseFactory.create(routeConfig);
 
         final UaiFile uaiFile = new UaiFile(FileUtil.getNameWithoutExtension(file), file.getAbsolutePath());
 
         return new UaiRoute(uaiFile, uaiRequest, uaiResponse);
+    }
+
+    public static UaiRoute create(final UaiRouteDTO uaiRouteDTO) {
+        final UaiRequest uaiRequest = UaiRequestFactory.create(uaiRouteDTO.getRequest());
+
+        final UaiResponse uaiResponse = UaiResponseFactory.create(uaiRouteDTO.getResponse());
+
+        final UaiFile uaiFile = new UaiFile(uaiRouteDTO.getUaiFile().getName(), uaiRouteDTO.getUaiFile().getFullPath());
+
+        return new UaiRoute(uaiRouteDTO.getId(), uaiFile, uaiRequest, uaiResponse);
     }
 }

@@ -17,8 +17,9 @@ package com.uaihebert.uaimockserver.factory;
 
 import com.typesafe.config.Config;
 import com.uaihebert.uaimockserver.constants.ResponseConstants;
+import com.uaihebert.uaimockserver.dto.model.UaiResponseDTO;
+import com.uaihebert.uaimockserver.model.UaiBasicServerConfiguration;
 import com.uaihebert.uaimockserver.model.UaiHeader;
-import com.uaihebert.uaimockserver.model.UaiMockServerConfig;
 import com.uaihebert.uaimockserver.model.UaiResponse;
 import com.uaihebert.uaimockserver.util.ConfigKeyUtil;
 import com.uaihebert.uaimockserver.util.StringUtils;
@@ -32,11 +33,11 @@ public final class UaiResponseFactory {
     private UaiResponseFactory() {
     }
 
-    public static UaiResponse create(final Config routeConfig, final UaiMockServerConfig uaiMockServerConfig) {
+    public static UaiResponse create(final Config routeConfig) {
         final int statusCode = routeConfig.getInt(ResponseConstants.STATUS_CODE.path);
 
         final String body = defineBody(routeConfig);
-        final String contentType = defineContentType(routeConfig, uaiMockServerConfig);
+        final String contentType = defineContentType(routeConfig);
 
         final List<UaiHeader> headerList = UaiHeaderFactory.create(routeConfig, ResponseConstants.REQUIRED_HEADER_LIST.path);
 
@@ -53,13 +54,24 @@ public final class UaiResponseFactory {
         return configBody;
     }
 
-    private static String defineContentType(final Config routeConfig, final UaiMockServerConfig uaiMockServerConfig) {
+    private static String defineContentType(final Config routeConfig) {
         final String contentType = ConfigKeyUtil.getStringSilently(ResponseConstants.CONTENT_TYPE.path, routeConfig);
 
         if (StringUtils.isBlank(contentType)) {
-            return uaiMockServerConfig.basicConfiguration.defaultContentType;
+            return UaiBasicServerConfiguration.getDefaultContentType();
         }
 
         return contentType;
+    }
+
+    public static UaiResponse create(final UaiResponseDTO response) {
+        final int statusCode = response.getStatusCode();
+
+        final String body = response.getBody();
+        final String contentType = response.getContentType();
+
+        final List<UaiHeader> headerList = UaiHeaderFactory.create(response.getHeaderList());
+
+        return new UaiResponse(statusCode, body, contentType, headerList);
     }
 }

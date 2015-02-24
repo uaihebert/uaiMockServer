@@ -21,21 +21,23 @@ import com.uaihebert.uaimockserver.factory.TypeSafeConfigFactory;
 import com.uaihebert.uaimockserver.log.Log;
 import com.uaihebert.uaimockserver.log.LogBuilder;
 import com.uaihebert.uaimockserver.util.FileUtil;
+import com.uaihebert.uaimockserver.util.RouteMapKeyUtil;
 import com.uaihebert.uaimockserver.util.RouteUtil;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * Class that will hold all the project configurations
  */
 public class UaiMockServerConfig {
-    public final UaiBasicServerConfiguration basicConfiguration;
-
-    private static final Map<String, List<UaiRoute>> ROUTE_MAP_BY_PATH = new HashMap<String, List<UaiRoute>>();
+    private static final Map<String, UaiRoute> ROUTE_MAP_BY_ID = new HashMap<String, UaiRoute>();
+    private static final Map<String, Set<UaiRoute>> ROUTE_MAP_BY_PATH = new HashMap<String, Set<UaiRoute>>();
 
     private static final String CONFIGURATION_FILE_NAME = "uaiMockServer.config";
 
@@ -43,16 +45,20 @@ public class UaiMockServerConfig {
         this(CONFIGURATION_FILE_NAME);
     }
 
+    // todo tratar caso quando usuário trocar o metodo do request GET -> POST
+    // todo tratar caso quando usuário o PATH
+    // todo create a test with another context
+    // todo in the dialog page, send to the dialog a clone of the object, and not the real one
+    // todo nao tem mais sentido em manter esse construtor. deixar tudo estatico
     public UaiMockServerConfig(final String fileName) {
-
         final File file = FileUtil.findFile(fileName);
         final Config config = TypeSafeConfigFactory.loadConfiguration(file);
 
         createLog(config);
 
-        basicConfiguration = new UaiBasicServerConfiguration(config);
+        UaiBasicServerConfiguration.createInstance(config);
 
-        RouteUtil.configureRouteMap(config, this, file);
+        RouteUtil.configureRouteMap(config, file);
 
         Log.info(String.format("Configurations of the file [%s] was read with success", fileName));
     }
@@ -64,22 +70,45 @@ public class UaiMockServerConfig {
         LogBuilder.createInstance(fileLog, consoleLog);
     }
 
-    public static List<UaiRoute> findRouteListByKey(final String requestKey) {
+    public static Set<UaiRoute> findRouteListByKey(final String requestKey) {
         return getRouteList(requestKey);
     }
 
     public static void addRoute(final String key, final UaiRoute uaiRoute) {
-        final List<UaiRoute> uaiRouteList = getRouteList(key);
+        setInMapById(uaiRoute);
+        setInMapByPath(key, uaiRoute);
+    }
+
+    public static void editRoute(final UaiRoute uaiRoute) {
+        final String key = RouteMapKeyUtil.createKey(uaiRoute.uaiRequest.method, uaiRoute.uaiRequest.path);
+
+        deleteOldRoute(key, uaiRoute);
+        addRoute(key, uaiRoute);
+    }
+
+    private static void deleteOldRoute(final String key, final UaiRoute uaiRoute) {
+        final Set<UaiRoute> uaiRouteList = getRouteList(key);
+        uaiRouteList.remove(uaiRoute);
+
+        ROUTE_MAP_BY_ID.remove(uaiRoute);
+    }
+
+    private static void setInMapById(final UaiRoute uaiRoute) {
+        ROUTE_MAP_BY_ID.put(uaiRoute.id, uaiRoute);
+    }
+
+    private static void setInMapByPath(final String key, final UaiRoute uaiRoute) {
+        final Set<UaiRoute> uaiRouteList = getRouteList(key);
 
         uaiRouteList.add(uaiRoute);
     }
 
-    private static List<UaiRoute> getRouteList(final String key) {
+    private static Set<UaiRoute> getRouteList(final String key) {
         if (ROUTE_MAP_BY_PATH.containsKey(key)) {
             return ROUTE_MAP_BY_PATH.get(key);
         }
 
-        final List<UaiRoute> uaiRouteList = new ArrayList<UaiRoute>();
+        final Set<UaiRoute> uaiRouteList = new HashSet<UaiRoute>();
 
         ROUTE_MAP_BY_PATH.put(key, uaiRouteList);
 
@@ -89,7 +118,7 @@ public class UaiMockServerConfig {
     public static List<UaiRoute> listAllRoutes() {
         final List<UaiRoute> resultList = new ArrayList<UaiRoute>();
 
-        for (List<UaiRoute> uaiRouteList : ROUTE_MAP_BY_PATH.values()) {
+        for (Set<UaiRoute> uaiRouteList : ROUTE_MAP_BY_PATH.values()) {
             resultList.addAll(uaiRouteList);
         }
 

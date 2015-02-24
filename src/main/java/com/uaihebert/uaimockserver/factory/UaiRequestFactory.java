@@ -17,6 +17,7 @@ package com.uaihebert.uaimockserver.factory;
 
 import com.typesafe.config.Config;
 import com.uaihebert.uaimockserver.constants.RequestConstants;
+import com.uaihebert.uaimockserver.dto.model.UaiRequestDTO;
 import com.uaihebert.uaimockserver.model.UaiHeader;
 import com.uaihebert.uaimockserver.model.UaiQueryParam;
 import com.uaihebert.uaimockserver.model.UaiRequest;
@@ -46,5 +47,31 @@ public final class UaiRequestFactory {
         final List<UaiQueryParam> requiredQueryParamList = UaiQueryParamFactory.create(config);
 
         return new UaiRequest(name, path, method, description, contentType, holdRequestInMilli, bodyRequired, requiredHeaderList, requiredQueryParamList);
+    }
+
+
+    public static UaiRequest create(final UaiRequestDTO request) {
+        final Boolean bodyRequired = request.isBodyRequired();
+
+        final long holdRequestInMilli = extractHoldRequestInMilli(request);
+
+        final String name = request.getName();
+        final String path = request.getPath();
+        final String method = request.getMethod();
+        final String description = request.getDescription();
+        final String contentType = request.getRequiredContentType();
+
+        final List<UaiHeader> requiredHeaderList = UaiHeaderFactory.create(request.getRequiredHeaderList());
+        final List<UaiQueryParam> requiredQueryParamList = UaiQueryParamFactory.create(request.getRequiredQueryParamList());
+
+        return new UaiRequest(name, path, method, description, contentType, holdRequestInMilli, bodyRequired, requiredHeaderList, requiredQueryParamList);
+    }
+
+    private static long extractHoldRequestInMilli(final UaiRequestDTO request) {
+        if (request.getHoldRequestInMilli() != null) {
+            return request.getHoldRequestInMilli();
+        }
+
+        return 0L;
     }
 }

@@ -33,4 +33,26 @@ public class UaiRoute {
         this.uaiRequest = uaiRequest;
         this.uaiResponse = uaiResponse;
     }
+
+    public UaiRoute(final String id, final UaiFile uaiFile, final UaiRequest uaiRequest, final UaiResponse uaiResponse) {
+        this.id = id;
+        this.uaiFile = uaiFile;
+        this.uaiRequest = uaiRequest;
+        this.uaiResponse = uaiResponse;
+    }
+
+    @Override
+    public boolean equals(final Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        final UaiRoute uaiRoute = (UaiRoute) o;
+
+        return id.equals(uaiRoute.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return id.hashCode();
+    }
 }

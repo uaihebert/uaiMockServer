@@ -21,7 +21,7 @@ import com.uaihebert.uaimockserver.model.UaiRoute;
 import com.uaihebert.uaimockserver.util.ExceptionUtil;
 import io.undertow.server.HttpServerExchange;
 
-import java.util.List;
+import java.util.Set;
 
 /**
  * Will validate all data in the request
@@ -37,7 +37,7 @@ public final class RequestValidator {
     private RequestValidator() {
     }
 
-    public static UaiRoute validateRequest(final List<UaiRoute> uaiRouteList, final HttpServerExchange exchange) {
+    public static UaiRoute validateRequest(final Set<UaiRoute> uaiRouteList, final HttpServerExchange exchange) {
         if (noRouteFound(uaiRouteList)) {
             final String errorText = String.format(URI_NOT_FOUND_MESSAGE, exchange.getRequestURI(), exchange.getRequestMethod());
             ExceptionUtil.logBeforeThrowing(new IllegalArgumentException(errorText));
@@ -55,7 +55,7 @@ public final class RequestValidator {
         throw new IllegalArgumentException(errorText);
     }
 
-    private static boolean noRouteFound(final List<UaiRoute> uaiRouteList) {
+    private static boolean noRouteFound(final Set<UaiRoute> uaiRouteList) {
         return uaiRouteList.isEmpty();
     }
 }

@@ -3,9 +3,12 @@ package com.uaihebert.uaimockserver.servlet;
 import com.google.gson.Gson;
 import com.uaihebert.uaimockserver.configuration.ProjectConfiguration;
 import com.uaihebert.uaimockserver.dto.factory.UaiRouteDTOFactory;
+import com.uaihebert.uaimockserver.dto.model.UaiRouteDTO;
 import com.uaihebert.uaimockserver.dto.response.IndexResponseDTO;
+import com.uaihebert.uaimockserver.helper.UaiRouteHelper;
 import com.uaihebert.uaimockserver.model.UaiMockServerConfig;
 import com.uaihebert.uaimockserver.model.UaiRoute;
+import com.uaihebert.uaimockserver.util.RequestBodyExtractor;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -41,5 +44,18 @@ public class UaiRouteServlet extends AbstractServlet {
         indexResponseDTO.setRouteList(UaiRouteDTOFactory.create(uaiRouteList));
 
         return new Gson().toJson(indexResponseDTO);
+    }
+
+    @Override
+    protected void doPost(final HttpServletRequest httpRequest, final HttpServletResponse httpResponse) throws ServletException, IOException {
+        httpResponse.setContentType("application/json");
+        httpResponse.setStatus(204);
+
+        final UaiRouteDTO uaiRouteDTO = RequestBodyExtractor.extract(httpRequest, UaiRouteDTO.class);
+
+        UaiRouteHelper.editRoute(uaiRouteDTO);
+
+        final OutputStream outputStream = httpResponse.getOutputStream();
+        outputStream.close();
     }
 }

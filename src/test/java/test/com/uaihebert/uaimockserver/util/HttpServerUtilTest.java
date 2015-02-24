@@ -15,7 +15,6 @@
  * */
 package test.com.uaihebert.uaimockserver.util;
 
-import com.uaihebert.uaimockserver.model.UaiMockServerConfig;
 import com.uaihebert.uaimockserver.util.HttpServerUtil;
 import org.junit.Test;
 import test.com.uaihebert.uaimockserver.TestAbstract;
@@ -26,6 +25,6 @@ public class HttpServerUtilTest extends TestAbstract {
     public void isThrowingErrorWhenStartWithPortAlreadyOccupied() {
 
         // the super class already starts the server
-        HttpServerUtil.startHttpServer(new UaiMockServerConfig());
+        HttpServerUtil.startHttpServer();
     }
 }

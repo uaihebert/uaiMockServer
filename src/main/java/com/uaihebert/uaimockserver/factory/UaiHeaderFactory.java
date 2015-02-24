@@ -18,10 +18,12 @@ package com.uaihebert.uaimockserver.factory;
 import com.typesafe.config.Config;
 import com.uaihebert.uaimockserver.constants.HeaderConstants;
 import com.uaihebert.uaimockserver.constants.ValidatorConstants;
+import com.uaihebert.uaimockserver.dto.model.UaiHeaderDTO;
 import com.uaihebert.uaimockserver.model.UaiHeader;
 import com.uaihebert.uaimockserver.util.ConfigKeyUtil;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -51,5 +53,22 @@ public final class UaiHeaderFactory {
         final boolean usingWildCard = valueList.contains(ValidatorConstants.VALID_WILD_CARD.text);
 
         return new UaiHeader(name, usingWildCard, valueList);
+    }
+
+    public static List<UaiHeader> create(final List<UaiHeaderDTO> requiredHeaderList) {
+        if (requiredHeaderList == null) {
+            return Collections.emptyList();
+        }
+
+        final List<UaiHeader> uaiHeaderList = new ArrayList<UaiHeader>();
+
+        for (UaiHeaderDTO uaiHeaderDTO : requiredHeaderList) {
+            final boolean usingWildCard = uaiHeaderDTO.getValueList().contains(ValidatorConstants.VALID_WILD_CARD.text);
+
+            final UaiHeader uaiHeader = new UaiHeader(uaiHeaderDTO.getName(), usingWildCard, uaiHeaderDTO.getValueList());
+            uaiHeaderList.add(uaiHeader);
+        }
+
+        return uaiHeaderList;
     }
 }
