@@ -16,6 +16,6 @@ public class CssServlet extends AbstractServlet {
 
         final String fileName = httpRequest.getParameter("fileName");
 
-        printResource(httpResponse.getOutputStream(), "/css/" + fileName +".css");
+        printResource(httpResponse.getOutputStream(), "/css/" + fileName + ".css");
     }
 }

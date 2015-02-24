@@ -28,7 +28,7 @@ public final class RouteMapKeyUtil {
     private RouteMapKeyUtil() {
     }
 
-    public static String createKeyForMap(final UaiRequest uaiRequest, final UaiMockServerConfig uaiMockServerConfig){
+    public static String createKeyForMap(final UaiRequest uaiRequest, final UaiMockServerConfig uaiMockServerConfig) {
         final String uri = uaiMockServerConfig.basicConfiguration.context + uaiRequest.path;
 
         Log.infoFormatted("Route detected: method [%s] and URI [%s] ", uaiRequest.method, uri);

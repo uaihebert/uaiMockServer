@@ -64,7 +64,7 @@ public class UaiMockServerConfig {
         return getRouteList(requestKey);
     }
 
-    public static void addRoute(final String key, final UaiRoute uaiRoute){
+    public static void addRoute(final String key, final UaiRoute uaiRoute) {
         final List<UaiRoute> uaiRouteList = getRouteList(key);
 
         uaiRouteList.add(uaiRoute);

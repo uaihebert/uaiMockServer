@@ -26,15 +26,15 @@ public final class RouteFinderUtil {
 
     /**
      * This method will return the routes with the requests that has the same attributes.
-     *
+     * <p/>
      * It will check for the same queryParam and header
-     *
+     * <p/>
      * We can have an URLs like:
+     * <p/>
+     * http://uaimockserver.com?queryParam=A ----> return 201
+     * http://uaimockserver.com?queryParam=B ----> return 204
      *
-     *    http://uaimockserver.com?queryParam=A ----> return 201
-     *    http://uaimockserver.com?queryParam=B ----> return 204
-     *
-     * @param uaiRouteList the route list that will be filtered
+     * @param uaiRouteList       the route list that will be filtered
      * @param httpServerExchange the current request
      * @return a list of the found route.
      */

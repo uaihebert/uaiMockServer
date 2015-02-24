@@ -40,7 +40,8 @@ public final class RouteUtil {
 
     /**
      * Are the files with only a mapping route
-     * @param config the TypeSafe config file loaded with the Main File
+     *
+     * @param config              the TypeSafe config file loaded with the Main File
      * @param uaiMockServerConfig the project configuration with the ROOT configurations already set
      */
     private static void configureRouteFileMap(final Config config, final UaiMockServerConfig uaiMockServerConfig) {
@@ -66,7 +67,8 @@ public final class RouteUtil {
 
     /**
      * Main File route is the file that will be used with the project bootstrap
-     * @param config the TypeSafe config file loaded with the Main File
+     *
+     * @param config              the TypeSafe config file loaded with the Main File
      * @param uaiMockServerConfig the project configuration with the ROOT configurations already set
      */
     private static void configureMainFileRoute(final Config config, final UaiMockServerConfig uaiMockServerConfig) {

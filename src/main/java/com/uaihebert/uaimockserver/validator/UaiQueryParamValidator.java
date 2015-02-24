@@ -26,7 +26,7 @@ import java.util.Map;
 /**
  * Will validate all the request query params if needed
  */
-public final class UaiQueryParamValidator  implements RequestDataValidator {
+public final class UaiQueryParamValidator implements RequestDataValidator {
     private static final String QUERY_PARAM_VALUE_NOT_FOUND_MESSAGE = "The required queryParamList [%s] has not the required values: [%s]";
 
     public boolean isInvalid(final UaiRequest uaiRequest, final HttpServerExchange exchange) {

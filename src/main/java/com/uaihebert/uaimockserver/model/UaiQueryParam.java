@@ -25,7 +25,7 @@ public class UaiQueryParam {
     public final boolean usingWildCard;
     public final List<String> valueList;
 
-    public UaiQueryParam(final String name, final boolean usingWildCard,final List<String> valueList) {
+    public UaiQueryParam(final String name, final boolean usingWildCard, final List<String> valueList) {
         this.name = name;
         this.usingWildCard = usingWildCard;
         this.valueList = valueList;

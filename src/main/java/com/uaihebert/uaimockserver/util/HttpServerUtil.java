@@ -17,7 +17,12 @@ package com.uaihebert.uaimockserver.util;
 
 import com.uaihebert.uaimockserver.model.UaiMockServerConfig;
 import com.uaihebert.uaimockserver.server.UaiMockServerHandler;
-import com.uaihebert.uaimockserver.servlet.*;
+import com.uaihebert.uaimockserver.servlet.CssServlet;
+import com.uaihebert.uaimockserver.servlet.FaviconServlet;
+import com.uaihebert.uaimockserver.servlet.JavascriptServlet;
+import com.uaihebert.uaimockserver.servlet.UaiIndexServlet;
+import com.uaihebert.uaimockserver.servlet.UaiPageServlet;
+import com.uaihebert.uaimockserver.servlet.UaiRouteServlet;
 import io.undertow.Handlers;
 import io.undertow.Undertow;
 import io.undertow.server.HttpHandler;
@@ -42,7 +47,7 @@ public final class HttpServerUtil {
     public static Undertow startHttpServer(final UaiMockServerConfig config) {
         final Undertow httpServer;
 
-        try{
+        try {
             final PathHandler path = Handlers.path(Handlers.redirect(SERVLET_CONTEXT_PATH))
                     .addPrefixPath(SERVLET_CONTEXT_PATH, createHtmlManager())
                     .addPrefixPath("/", new UaiMockServerHandler());

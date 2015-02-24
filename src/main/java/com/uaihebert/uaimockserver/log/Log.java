@@ -17,7 +17,7 @@ package com.uaihebert.uaimockserver.log;
 
 /**
  * Project Log interface
- *
+ * <p/>
  * The implementation used will be hidden of the project behind this interface
  */
 public final class Log {
@@ -29,6 +29,7 @@ public final class Log {
 
     /**
      * This instance can only be set by the builder that will only the available in the same package
+     *
      * @param log the instance that will be used
      */
     static void setInstance(final LogWriter log) {
@@ -38,28 +39,28 @@ public final class Log {
     /**
      * Wil log a text with the INFO level
      */
-    public static void info(final String text){
+    public static void info(final String text) {
         INSTANCE.info(text);
     }
 
     /**
      * Wil log a text with the INFO level. The text with be formatted using the String.format(...)
      */
-    public static void infoFormatted(final String text, Object... parameterArray){
+    public static void infoFormatted(final String text, Object... parameterArray) {
         INSTANCE.infoFormatted(text, parameterArray);
     }
 
     /**
      * Wil log a text with the WARN level. The text with be formatted using the String.format(...)
      */
-    public static void warn(final String text, Object... parameterArray){
+    public static void warn(final String text, Object... parameterArray) {
         INSTANCE.warnFormatted(text, parameterArray);
     }
 
     /**
      * Wil log a text with the WARN level.
      */
-    public static void warn(final Exception exception){
+    public static void warn(final Exception exception) {
         INSTANCE.warn(exception);
     }
 }
