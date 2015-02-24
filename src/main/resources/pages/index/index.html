@@ -78,7 +78,8 @@
             }
 
             $scope.displaySelected = function (routeRow) {
-                $scope.selectedRouteRow = routeRow;
+                $scope.selectedRouteRow = {};
+                angular.copy(routeRow, $scope.selectedRouteRow);
 
                 $('#myTab a:first').tab('show')
                 $('#routeModal').modal('toggle');
