@@ -20,8 +20,10 @@ import com.uaihebert.uaimockserver.constants.RootConstants;
 import com.uaihebert.uaimockserver.factory.TypeSafeConfigFactory;
 import com.uaihebert.uaimockserver.log.Log;
 import com.uaihebert.uaimockserver.log.LogBuilder;
+import com.uaihebert.uaimockserver.util.FileUtil;
 import com.uaihebert.uaimockserver.util.RouteUtil;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -42,13 +44,15 @@ public class UaiMockServerConfig {
     }
 
     public UaiMockServerConfig(final String fileName) {
-        final Config config = TypeSafeConfigFactory.loadConfiguration(fileName);
+
+        final File file = FileUtil.findFile(fileName);
+        final Config config = TypeSafeConfigFactory.loadConfiguration(file);
 
         createLog(config);
 
         basicConfiguration = new UaiBasicServerConfiguration(config);
 
-        RouteUtil.configureRouteMap(config, this);
+        RouteUtil.configureRouteMap(config, this, file);
 
         Log.info(String.format("Configurations of the file [%s] was read with success", fileName));
     }

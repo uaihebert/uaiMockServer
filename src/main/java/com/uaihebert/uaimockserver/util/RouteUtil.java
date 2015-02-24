@@ -23,6 +23,7 @@ import com.uaihebert.uaimockserver.model.UaiMockServerConfig;
 import com.uaihebert.uaimockserver.model.UaiRequest;
 import com.uaihebert.uaimockserver.model.UaiRoute;
 
+import java.io.File;
 import java.util.List;
 
 /**
@@ -33,8 +34,8 @@ public final class RouteUtil {
     private RouteUtil() {
     }
 
-    public static void configureRouteMap(final Config config, final UaiMockServerConfig uaiMockServerConfig) {
-        configureMainFileRoute(config, uaiMockServerConfig);
+    public static void configureRouteMap(final Config config, final UaiMockServerConfig uaiMockServerConfig, final File file) {
+        configureMainFileRoute(config, uaiMockServerConfig, file);
         configureRouteFileMap(config, uaiMockServerConfig);
     }
 
@@ -48,17 +49,18 @@ public final class RouteUtil {
         final List<String> mappingRoutesFileList = ConfigKeyUtil.getStringListSilently(RootConstants.MAPPING_ROUTES_FILE_LIST.path, config);
 
         for (String fileName : mappingRoutesFileList) {
-            final Config mappedFileConfiguration = TypeSafeConfigFactory.loadConfiguration(fileName);
+            final File file = FileUtil.findFile(fileName);
+            final Config mappedFileConfiguration = TypeSafeConfigFactory.loadConfiguration(file);
 
-            extractRoute(uaiMockServerConfig, mappedFileConfiguration);
+            extractRoute(uaiMockServerConfig, mappedFileConfiguration, file);
         }
     }
 
-    private static void extractRoute(final UaiMockServerConfig uaiMockServerConfig, final Config config) {
+    private static void extractRoute(final UaiMockServerConfig uaiMockServerConfig, final Config config, final File file) {
         final List<? extends Config> routeConfigList = ConfigKeyUtil.getConfigListSilently(RootConstants.ROUTES.path, config);
 
         for (Config routeConfig : routeConfigList) {
-            final UaiRoute uaiRoute = UaiRouteFactory.create(routeConfig, uaiMockServerConfig);
+            final UaiRoute uaiRoute = UaiRouteFactory.create(routeConfig, uaiMockServerConfig, file);
             final UaiRequest uaiRequest = uaiRoute.uaiRequest;
 
             UaiMockServerConfig.addRoute(RouteMapKeyUtil.createKeyForMap(uaiRequest, uaiMockServerConfig), uaiRoute);
@@ -67,11 +69,11 @@ public final class RouteUtil {
 
     /**
      * Main File route is the file that will be used with the project bootstrap
-     *
-     * @param config              the TypeSafe config file loaded with the Main File
+     *  @param config             the TypeSafe config file loaded with the Main File
      * @param uaiMockServerConfig the project configuration with the ROOT configurations already set
+     * @param file
      */
-    private static void configureMainFileRoute(final Config config, final UaiMockServerConfig uaiMockServerConfig) {
-        extractRoute(uaiMockServerConfig, config);
+    private static void configureMainFileRoute(final Config config, final UaiMockServerConfig uaiMockServerConfig, final File file) {
+        extractRoute(uaiMockServerConfig, config, file);
     }
 }

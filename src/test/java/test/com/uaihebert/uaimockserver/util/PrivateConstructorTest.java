@@ -236,4 +236,13 @@ public class PrivateConstructorTest {
         final Log createdObject = constructor.newInstance(new Object[0]);
         assertNotNull(createdObject);
     }
+
+    @Test
+    public void testFileUtil() throws Exception {
+        final Constructor<FileUtil> constructor = FileUtil.class.getDeclaredConstructor(new Class[0]);
+        constructor.setAccessible(true);
+
+        final FileUtil createdObject = constructor.newInstance(new Object[0]);
+        assertNotNull(createdObject);
+    }
 }

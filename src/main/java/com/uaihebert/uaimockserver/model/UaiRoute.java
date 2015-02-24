@@ -20,10 +20,12 @@ package com.uaihebert.uaimockserver.model;
  * A route is composed of a request and response
  */
 public class UaiRoute {
+    public final UaiFile uaiFile;
     public final UaiRequest uaiRequest;
     public final UaiResponse uaiResponse;
 
-    public UaiRoute(final UaiRequest uaiRequest, final UaiResponse uaiResponse) {
+    public UaiRoute(final UaiFile uaiFile, final UaiRequest uaiRequest, final UaiResponse uaiResponse) {
+        this.uaiFile = uaiFile;
         this.uaiRequest = uaiRequest;
         this.uaiResponse = uaiResponse;
     }
