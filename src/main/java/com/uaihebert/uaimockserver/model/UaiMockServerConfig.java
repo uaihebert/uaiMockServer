@@ -84,19 +84,19 @@ public final class UaiMockServerConfig {
     public static void editRoute(final UaiRoute uaiRoute) {
         final String key = RouteMapKeyUtil.createKey(uaiRoute.uaiRequest.method, uaiRoute.uaiRequest.path);
 
-        deleteOldRoute(uaiRoute);
+        deleteRoute(uaiRoute.id);
         addRoute(key, uaiRoute);
     }
 
-    private static void deleteOldRoute(final UaiRoute uaiRoute) {
-        final UaiRoute oldRoute = ROUTE_MAP_BY_ID.get(uaiRoute.id);
+    public static void deleteRoute(final String routeId) {
+        final UaiRoute routeToDelete = ROUTE_MAP_BY_ID.get(routeId);
 
-        final String key = RouteMapKeyUtil.createKey(oldRoute.uaiRequest.method, oldRoute.uaiRequest.path);
+        final String key = RouteMapKeyUtil.createKey(routeToDelete.uaiRequest.method, routeToDelete.uaiRequest.path);
 
         final Set<UaiRoute> uaiRouteList = getRouteList(key);
-        uaiRouteList.remove(oldRoute);
+        uaiRouteList.remove(routeToDelete);
 
-        ROUTE_MAP_BY_ID.remove(oldRoute.id);
+        ROUTE_MAP_BY_ID.remove(routeToDelete.id);
     }
 
     private static void setInMapByPath(final String key, final UaiRoute uaiRoute) {

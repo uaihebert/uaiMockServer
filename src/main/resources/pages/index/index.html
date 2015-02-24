@@ -22,6 +22,8 @@
         <div ng-include="'/uai-mock-server-gui/page?fileName=index/indexTable'"></div>
 
         <div ng-include="'/uai-mock-server-gui/page?fileName=index/routeDialog'"></div>
+
+        <div ng-include="'/uai-mock-server-gui/page?fileName=index/deleteDialog'"></div>
     </body>
     <script>
         var app = angular.module('uaiMockServerApp', ['tableSort']);
@@ -83,6 +85,25 @@
 
                 $('#myTab a:first').tab('show')
                 $('#routeModal').modal('toggle');
+            }
+
+            $scope.deleteSelectedConfirmation = function () {
+                $('#routeModal').modal('toggle');
+                $('#deleteRouteModal').modal('toggle');
+            }
+
+            $scope.cancelDelete = function () {
+                $('#deleteRouteModal').modal('toggle');
+                $('#routeModal').modal('toggle');
+            }
+
+            $scope.delete = function () {
+                $http.delete('/uai-mock-server-gui/uaiRoute?routeId='+$scope.selectedRouteRow.route.id).
+                        success(function(data) {
+                            $scope.loadTable();
+                            $('#deleteRouteModal').modal('toggle');
+                        }
+                );
             }
         });
     </script>

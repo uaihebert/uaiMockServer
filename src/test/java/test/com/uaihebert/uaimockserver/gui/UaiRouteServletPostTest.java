@@ -17,7 +17,7 @@ import javax.ws.rs.core.Response;
 import static org.junit.Assert.assertEquals;
 
 @RunWith(UaiMockServerRunner.class)
-@UaiServerConfiguration(configurationFile = "postRouteTest.config")
+@UaiServerConfiguration(configurationFile = "routePostTest.config")
 public class UaiRouteServletPostTest {
 
     @Test

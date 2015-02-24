@@ -1,0 +1,23 @@
+<div class="modal fade" id="deleteRouteModal" tabindex="-1" role="dialog" aria-labelledby="deleteRouteModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="deleteRouteModalLabel">Route Delete Dialog</h4>
+                <button type="button" class="btn btn-default" ng-click="cancelDelete()">Cancel</button>
+                <button type="button" class="btn btn-danger" ng-click="delete()">Delete</button>
+            </div>
+            <div class="modal-body">
+                <div class="alert alert-warning" role="alert">Are you sure that you want to delete the route?</div>
+
+                Name: {{selectedRouteRow.route.request.name}} <br/>
+                Description: {{selectedRouteRow.route.request.description}} <br/>
+
+                Method: {{selectedRouteRow.route.request.method}} <br/>
+                Path: {{selectedRouteRow.route.request.path}} <br/>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>

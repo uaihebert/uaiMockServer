@@ -15,14 +15,10 @@ public final class RequestBodyExtractor {
 
     public static <T> T extract(final HttpServletRequest httpServletRequest, Class<T> classToReturn) throws IOException {
         final StringBuilder stringBuilder = new StringBuilder();
-        BufferedReader bufferedReader = null;
 
-        try {
-            bufferedReader = populateStringBuilder(httpServletRequest, stringBuilder, bufferedReader);
-        } finally {
-            if (bufferedReader != null) {
-                bufferedReader.close();
-            }
+        final BufferedReader bufferedReader = populateStringBuilder(httpServletRequest, stringBuilder);
+        if (bufferedReader != null) {
+            bufferedReader.close();
         }
 
         final String body = stringBuilder.toString();
@@ -30,10 +26,10 @@ public final class RequestBodyExtractor {
         return new Gson().fromJson(body, classToReturn);
     }
 
-    private static BufferedReader populateStringBuilder(final HttpServletRequest httpServletRequest, final StringBuilder stringBuilder, BufferedReader bufferedReader) throws IOException {
+    private static BufferedReader populateStringBuilder(final HttpServletRequest httpServletRequest, final StringBuilder stringBuilder) throws IOException {
         final InputStream inputStream = httpServletRequest.getInputStream();
 
-        bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
+        final BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
 
         char[] charBuffer = new char[128];
         int bytesRead;

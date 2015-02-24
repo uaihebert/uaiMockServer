@@ -58,4 +58,17 @@ public class UaiRouteServlet extends AbstractServlet {
         final OutputStream outputStream = httpResponse.getOutputStream();
         outputStream.close();
     }
+
+    @Override
+    protected void doDelete(final HttpServletRequest httpRequest, final HttpServletResponse httpResponse) throws ServletException, IOException {
+        httpResponse.setContentType("application/json");
+        httpResponse.setStatus(204);
+
+        final String routeId = httpRequest.getParameter("routeId");
+
+        UaiMockServerConfig.deleteRoute(routeId);
+
+        final OutputStream outputStream = httpResponse.getOutputStream();
+        outputStream.close();
+    }
 }
