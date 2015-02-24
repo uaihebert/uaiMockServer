@@ -56,7 +56,7 @@ public final class UaiHeaderFactory {
     }
 
     public static List<UaiHeader> create(final List<UaiHeaderDTO> requiredHeaderList) {
-        if (requiredHeaderList == null) {
+        if (requiredHeaderList.isEmpty()) {
             return Collections.emptyList();
         }
 

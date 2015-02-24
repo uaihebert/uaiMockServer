@@ -56,7 +56,7 @@ public final class UaiQueryParamFactory {
     }
 
     public static List<UaiQueryParam> create(final List<UaiQueryParamDTO> requiredQueryParamList) {
-        if (requiredQueryParamList == null) {
+        if (requiredQueryParamList.isEmpty()) {
             return Collections.emptyList();
         }
 

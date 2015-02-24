@@ -43,12 +43,12 @@ public class UaiRoute {
 
     @Override
     public boolean equals(final Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (o instanceof UaiRoute) {
+            final UaiRoute uaiRoute = (UaiRoute) o;
+            return uaiRoute.id == id;
+        }
 
-        final UaiRoute uaiRoute = (UaiRoute) o;
-
-        return id.equals(uaiRoute.id);
+        return false;
     }
 
     @Override

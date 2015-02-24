@@ -20,10 +20,6 @@ public class RequestBodyExtractor {
         try {
             final InputStream inputStream = httpServletRequest.getInputStream();
 
-            if (inputStream == null) {
-                return null;
-            }
-
             bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
 
             char[] charBuffer = new char[128];
@@ -32,9 +28,7 @@ public class RequestBodyExtractor {
                 stringBuilder.append(charBuffer, 0, bytesRead);
             }
         } finally {
-            if (bufferedReader != null) {
-                bufferedReader.close();
-            }
+            bufferedReader.close();
         }
 
         final String body = stringBuilder.toString();

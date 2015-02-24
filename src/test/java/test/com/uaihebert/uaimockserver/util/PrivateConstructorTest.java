@@ -15,13 +15,33 @@
  * */
 package test.com.uaihebert.uaimockserver.util;
 
-import com.uaihebert.uaimockserver.dto.factory.*;
+import com.uaihebert.uaimockserver.dto.factory.UaiFileDTOFactory;
+import com.uaihebert.uaimockserver.dto.factory.UaiHeaderDTOFactory;
+import com.uaihebert.uaimockserver.dto.factory.UaiQueryParamDTOFactory;
+import com.uaihebert.uaimockserver.dto.factory.UaiRequestDTOFactory;
+import com.uaihebert.uaimockserver.dto.factory.UaiResponseDTOFactory;
+import com.uaihebert.uaimockserver.dto.factory.UaiRouteDTOFactory;
 import com.uaihebert.uaimockserver.facade.RequestValidatorFacade;
-import com.uaihebert.uaimockserver.factory.*;
+import com.uaihebert.uaimockserver.factory.TypeSafeConfigFactory;
+import com.uaihebert.uaimockserver.factory.UaiHeaderFactory;
+import com.uaihebert.uaimockserver.factory.UaiQueryParamFactory;
+import com.uaihebert.uaimockserver.factory.UaiRequestFactory;
+import com.uaihebert.uaimockserver.factory.UaiResponseFactory;
+import com.uaihebert.uaimockserver.factory.UaiRouteFactory;
+import com.uaihebert.uaimockserver.helper.UaiRouteHelper;
 import com.uaihebert.uaimockserver.log.Log;
 import com.uaihebert.uaimockserver.log.LogBuilder;
-import com.uaihebert.uaimockserver.util.*;
-import com.uaihebert.uaimockserver.validator.*;
+import com.uaihebert.uaimockserver.util.ConfigKeyUtil;
+import com.uaihebert.uaimockserver.util.ExceptionUtil;
+import com.uaihebert.uaimockserver.util.FileUtil;
+import com.uaihebert.uaimockserver.util.HttpServerUtil;
+import com.uaihebert.uaimockserver.util.RequestBodyExtractor;
+import com.uaihebert.uaimockserver.util.RequestHolder;
+import com.uaihebert.uaimockserver.util.RouteFinderUtil;
+import com.uaihebert.uaimockserver.util.RouteMapKeyUtil;
+import com.uaihebert.uaimockserver.util.RouteUtil;
+import com.uaihebert.uaimockserver.util.StringUtils;
+import com.uaihebert.uaimockserver.validator.RequestValidator;
 import org.junit.Test;
 
 import java.lang.reflect.Constructor;
@@ -261,6 +281,15 @@ public class PrivateConstructorTest {
         constructor.setAccessible(true);
 
         final RequestBodyExtractor createdObject = constructor.newInstance(new Object[0]);
+        assertNotNull(createdObject);
+    }
+
+    @Test
+    public void testUaiRouteHelperConstructor() throws Exception {
+        final Constructor<UaiRouteHelper> constructor = UaiRouteHelper.class.getDeclaredConstructor(new Class[0]);
+        constructor.setAccessible(true);
+
+        final UaiRouteHelper createdObject = constructor.newInstance(new Object[0]);
         assertNotNull(createdObject);
     }
 }
