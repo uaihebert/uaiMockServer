@@ -17,13 +17,13 @@ public final class UaiRouteDTOTestValidator {
     public static void hasAllAttributesPopulated(final IndexResponseDTO uaiRouteDTOList) {
         assertNotNull("must have a indexResponseDTO", uaiRouteDTOList);
         assertNotNull("must have a routList", uaiRouteDTOList.getRouteList());
-
         for (UaiRouteDTO uaiRouteDTO : uaiRouteDTOList.getRouteList()) {
             validate(uaiRouteDTO);
         }
     }
 
     private static void validate(final UaiRouteDTO uaiRouteDTO) {
+        assertTrue(StringUtils.isNotBlank(uaiRouteDTO.getId()));
         validateUaiFile(uaiRouteDTO.getUaiFile());
         validateRequest(uaiRouteDTO.getRequest());
         validateResponse(uaiRouteDTO.getResponse());
