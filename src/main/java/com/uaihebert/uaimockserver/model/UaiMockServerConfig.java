@@ -36,7 +36,6 @@ import java.util.Set;
  * Class that will hold all the project configurations
  */
 public final class UaiMockServerConfig {
-    private static final Map<String, UaiRoute> ROUTE_MAP_BY_ID = new HashMap<String, UaiRoute>();
     private static final Map<String, Set<UaiRoute>> ROUTE_MAP_BY_PATH = new HashMap<String, Set<UaiRoute>>();
 
     private static final String CONFIGURATION_FILE_NAME = "uaiMockServer.config";
@@ -77,7 +76,6 @@ public final class UaiMockServerConfig {
     }
 
     public static void addRoute(final String key, final UaiRoute uaiRoute) {
-        setInMapById(uaiRoute);
         setInMapByPath(key, uaiRoute);
     }
 
@@ -91,12 +89,6 @@ public final class UaiMockServerConfig {
     private static void deleteOldRoute(final String key, final UaiRoute uaiRoute) {
         final Set<UaiRoute> uaiRouteList = getRouteList(key);
         uaiRouteList.remove(uaiRoute);
-
-        ROUTE_MAP_BY_ID.remove(uaiRoute);
-    }
-
-    private static void setInMapById(final UaiRoute uaiRoute) {
-        ROUTE_MAP_BY_ID.put(uaiRoute.id, uaiRoute);
     }
 
     private static void setInMapByPath(final String key, final UaiRoute uaiRoute) {

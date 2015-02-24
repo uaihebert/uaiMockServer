@@ -45,7 +45,7 @@ public class UaiRoute {
     public boolean equals(final Object o) {
         if (o instanceof UaiRoute) {
             final UaiRoute uaiRoute = (UaiRoute) o;
-            return uaiRoute.id == id;
+            return uaiRoute.id.equals(id);
         }
 
         return false;

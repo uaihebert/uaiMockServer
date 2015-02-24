@@ -8,7 +8,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
-public class RequestBodyExtractor {
+public final class RequestBodyExtractor {
     private RequestBodyExtractor() {
 
     }
@@ -18,21 +18,29 @@ public class RequestBodyExtractor {
         BufferedReader bufferedReader = null;
 
         try {
-            final InputStream inputStream = httpServletRequest.getInputStream();
-
-            bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
-
-            char[] charBuffer = new char[128];
-            int bytesRead;
-            while ((bytesRead = bufferedReader.read(charBuffer)) > 0) {
-                stringBuilder.append(charBuffer, 0, bytesRead);
-            }
+            bufferedReader = populateStringBuilder(httpServletRequest, stringBuilder, bufferedReader);
         } finally {
-            bufferedReader.close();
+            if (bufferedReader != null) {
+                bufferedReader.close();
+            }
         }
 
         final String body = stringBuilder.toString();
 
         return new Gson().fromJson(body, classToReturn);
+    }
+
+    private static BufferedReader populateStringBuilder(final HttpServletRequest httpServletRequest, final StringBuilder stringBuilder, BufferedReader bufferedReader) throws IOException {
+        final InputStream inputStream = httpServletRequest.getInputStream();
+
+        bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
+
+        char[] charBuffer = new char[128];
+        int bytesRead;
+        while ((bytesRead = bufferedReader.read(charBuffer)) > 0) {
+            stringBuilder.append(charBuffer, 0, bytesRead);
+        }
+
+        return bufferedReader;
     }
 }

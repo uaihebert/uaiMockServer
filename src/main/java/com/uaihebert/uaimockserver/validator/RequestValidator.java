@@ -49,7 +49,7 @@ public final class RequestValidator {
             }
         }
 
-        final String errorText = String.format(WRONG_HEADER_QUERY_PARAM_VALUE, exchange.getRequestURI(), exchange.getRequestMethod());
+        final String errorText = String.format(WRONG_HEADER_QUERY_PARAM_VALUE);
         Log.warn(errorText);
 
         throw new IllegalArgumentException(errorText);
