@@ -36,6 +36,7 @@ import java.util.Set;
  * Class that will hold all the project configurations
  */
 public final class UaiMockServerConfig {
+    private static final Map<String, UaiRoute> ROUTE_MAP_BY_ID = new HashMap<String, UaiRoute>();
     private static final Map<String, Set<UaiRoute>> ROUTE_MAP_BY_PATH = new HashMap<String, Set<UaiRoute>>();
 
     private static final String CONFIGURATION_FILE_NAME = "uaiMockServer.config";
@@ -47,8 +48,6 @@ public final class UaiMockServerConfig {
         createInstance(CONFIGURATION_FILE_NAME);
     }
 
-    // todo tratar caso quando usuário trocar o metodo do request GET -> POST
-    // todo tratar caso quando usuário o PATH
     // todo create a test with another context
     // todo in the dialog page, send to the dialog a clone of the object, and not the real one
     public static void createInstance(final String fileName) {
@@ -76,19 +75,30 @@ public final class UaiMockServerConfig {
     }
 
     public static void addRoute(final String key, final UaiRoute uaiRoute) {
+        setInMapById(uaiRoute);
         setInMapByPath(key, uaiRoute);
+    }
+
+    private static void setInMapById(final UaiRoute uaiRoute) {
+        ROUTE_MAP_BY_ID.put(uaiRoute.id, uaiRoute);
     }
 
     public static void editRoute(final UaiRoute uaiRoute) {
         final String key = RouteMapKeyUtil.createKey(uaiRoute.uaiRequest.method, uaiRoute.uaiRequest.path);
 
-        deleteOldRoute(key, uaiRoute);
+        deleteOldRoute(uaiRoute);
         addRoute(key, uaiRoute);
     }
 
-    private static void deleteOldRoute(final String key, final UaiRoute uaiRoute) {
+    private static void deleteOldRoute(final UaiRoute uaiRoute) {
+        final UaiRoute oldRoute = ROUTE_MAP_BY_ID.get(uaiRoute.id);
+
+        final String key = RouteMapKeyUtil.createKey(oldRoute.uaiRequest.method, oldRoute.uaiRequest.path);
+
         final Set<UaiRoute> uaiRouteList = getRouteList(key);
-        uaiRouteList.remove(uaiRoute);
+        uaiRouteList.remove(oldRoute);
+
+        ROUTE_MAP_BY_ID.remove(oldRoute.id);
     }
 
     private static void setInMapByPath(final String key, final UaiRoute uaiRoute) {
