@@ -36,13 +36,13 @@ public final class UaiMockServer {
     }
 
     public static UaiMockServer start() {
-        new UaiMockServerConfig();
+        UaiMockServerConfig.createInstance();
 
         return createServer();
     }
 
     public static UaiMockServer start(final String configurationFileName) {
-        new UaiMockServerConfig(configurationFileName);
+        UaiMockServerConfig.createInstance(configurationFileName);
 
         return createServer();
     }

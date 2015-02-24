@@ -26,20 +26,20 @@ public class UaiMockServerConfigTest {
 
     @Test
     public void isCreatingServerConfig() {
-        new UaiMockServerConfig();
+        UaiMockServerConfig.createInstance();
     }
 
     @Test
     public void isCreatingWithFile() {
         final URL resource = UaiMockServerConfig.class.getResource("/uaiMockServer.config");
 
-        new UaiMockServerConfig(resource.getFile());
+        UaiMockServerConfig.createInstance(resource.getFile());
     }
 
     @Test
     public void isCreatingWithoutRoutesInTheMainFile() {
         try {
-            new UaiMockServerConfig("mainFileWithoutRoutes.config");
+            UaiMockServerConfig.createInstance("mainFileWithoutRoutes.config");
         } catch (final Exception ex) {
             ex.printStackTrace();
             fail("should not fail because the file has no routes");
@@ -49,7 +49,7 @@ public class UaiMockServerConfigTest {
     @Test
     public void isCreatingWithoutLog() {
         try {
-            new UaiMockServerConfig("configWithoutLog.config");
+            UaiMockServerConfig.createInstance("configWithoutLog.config");
         } catch (final Exception ex) {
             ex.printStackTrace();
             fail("should not fail because the file has no log");

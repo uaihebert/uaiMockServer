@@ -31,6 +31,7 @@ import com.uaihebert.uaimockserver.factory.UaiRouteFactory;
 import com.uaihebert.uaimockserver.helper.UaiRouteHelper;
 import com.uaihebert.uaimockserver.log.Log;
 import com.uaihebert.uaimockserver.log.LogBuilder;
+import com.uaihebert.uaimockserver.model.UaiMockServerConfig;
 import com.uaihebert.uaimockserver.util.ConfigKeyUtil;
 import com.uaihebert.uaimockserver.util.ExceptionUtil;
 import com.uaihebert.uaimockserver.util.FileUtil;
@@ -290,6 +291,15 @@ public class PrivateConstructorTest {
         constructor.setAccessible(true);
 
         final UaiRouteHelper createdObject = constructor.newInstance(new Object[0]);
+        assertNotNull(createdObject);
+    }
+
+    @Test
+    public void testUaiMockServerConfigConstructor() throws Exception {
+        final Constructor<UaiMockServerConfig> constructor = UaiMockServerConfig.class.getDeclaredConstructor(new Class[0]);
+        constructor.setAccessible(true);
+
+        final UaiMockServerConfig createdObject = constructor.newInstance(new Object[0]);
         assertNotNull(createdObject);
     }
 }

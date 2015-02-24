@@ -35,22 +35,24 @@ import java.util.Set;
 /**
  * Class that will hold all the project configurations
  */
-public class UaiMockServerConfig {
+public final class UaiMockServerConfig {
     private static final Map<String, UaiRoute> ROUTE_MAP_BY_ID = new HashMap<String, UaiRoute>();
     private static final Map<String, Set<UaiRoute>> ROUTE_MAP_BY_PATH = new HashMap<String, Set<UaiRoute>>();
 
     private static final String CONFIGURATION_FILE_NAME = "uaiMockServer.config";
 
-    public UaiMockServerConfig() {
-        this(CONFIGURATION_FILE_NAME);
+    private UaiMockServerConfig() {
+    }
+
+    public static void createInstance() {
+        createInstance(CONFIGURATION_FILE_NAME);
     }
 
     // todo tratar caso quando usuário trocar o metodo do request GET -> POST
     // todo tratar caso quando usuário o PATH
     // todo create a test with another context
     // todo in the dialog page, send to the dialog a clone of the object, and not the real one
-    // todo nao tem mais sentido em manter esse construtor. deixar tudo estatico
-    public UaiMockServerConfig(final String fileName) {
+    public static void createInstance(final String fileName) {
         final File file = FileUtil.findFile(fileName);
         final Config config = TypeSafeConfigFactory.loadConfiguration(file);
 
@@ -63,7 +65,7 @@ public class UaiMockServerConfig {
         Log.info(String.format("Configurations of the file [%s] was read with success", fileName));
     }
 
-    private void createLog(final Config config) {
+    private static void createLog(final Config config) {
         final boolean fileLog = config.getBoolean(RootConstants.FILE_LOG.path);
         final boolean consoleLog = config.getBoolean(RootConstants.CONSOLE_LOG.path);
 
