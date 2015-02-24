@@ -15,16 +15,20 @@
  * */
 package com.uaihebert.uaimockserver.model;
 
+import java.util.UUID;
+
 /**
  * Class that will contain a Request Route.
  * A route is composed of a request and response
  */
 public class UaiRoute {
+    public final String id;
     public final UaiFile uaiFile;
     public final UaiRequest uaiRequest;
     public final UaiResponse uaiResponse;
 
     public UaiRoute(final UaiFile uaiFile, final UaiRequest uaiRequest, final UaiResponse uaiResponse) {
+        id = UUID.randomUUID().toString();
         this.uaiFile = uaiFile;
         this.uaiRequest = uaiRequest;
         this.uaiResponse = uaiResponse;

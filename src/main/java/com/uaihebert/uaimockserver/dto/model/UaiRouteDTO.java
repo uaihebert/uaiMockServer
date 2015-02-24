@@ -1,11 +1,20 @@
 package com.uaihebert.uaimockserver.dto.model;
 
 public class UaiRouteDTO {
+    private String id;
     private UaiFileDTO uaiFile;
     private UaiRequestDTO request;
     private UaiResponseDTO response;
 
     public UaiRouteDTO() {
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(final String id) {
+        this.id = id;
     }
 
     public UaiFileDTO getUaiFile() {

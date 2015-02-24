@@ -35,7 +35,7 @@ import java.util.Map;
 public class UaiMockServerConfig {
     public final UaiBasicServerConfiguration basicConfiguration;
 
-    private static final Map<String, List<UaiRoute>> ROUTE_MAP = new HashMap<String, List<UaiRoute>>();
+    private static final Map<String, List<UaiRoute>> ROUTE_MAP_BY_PATH = new HashMap<String, List<UaiRoute>>();
 
     private static final String CONFIGURATION_FILE_NAME = "uaiMockServer.config";
 
@@ -75,13 +75,13 @@ public class UaiMockServerConfig {
     }
 
     private static List<UaiRoute> getRouteList(final String key) {
-        if (ROUTE_MAP.containsKey(key)) {
-            return ROUTE_MAP.get(key);
+        if (ROUTE_MAP_BY_PATH.containsKey(key)) {
+            return ROUTE_MAP_BY_PATH.get(key);
         }
 
         final List<UaiRoute> uaiRouteList = new ArrayList<UaiRoute>();
 
-        ROUTE_MAP.put(key, uaiRouteList);
+        ROUTE_MAP_BY_PATH.put(key, uaiRouteList);
 
         return uaiRouteList;
     }
@@ -89,7 +89,7 @@ public class UaiMockServerConfig {
     public static List<UaiRoute> listAllRoutes() {
         final List<UaiRoute> resultList = new ArrayList<UaiRoute>();
 
-        for (List<UaiRoute> uaiRouteList : ROUTE_MAP.values()) {
+        for (List<UaiRoute> uaiRouteList : ROUTE_MAP_BY_PATH.values()) {
             resultList.addAll(uaiRouteList);
         }
 
@@ -97,6 +97,6 @@ public class UaiMockServerConfig {
     }
 
     public static void resetRouteMap() {
-        ROUTE_MAP.clear();
+        ROUTE_MAP_BY_PATH.clear();
     }
 }

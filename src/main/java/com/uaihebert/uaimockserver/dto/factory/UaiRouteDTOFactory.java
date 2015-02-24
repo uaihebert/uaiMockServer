@@ -29,12 +29,14 @@ public final class UaiRouteDTOFactory {
         return uaiRouteDTOList;
     }
 
+    // todo fazer back do arquivo antes de edita-lo, deixar opção configurável
     private static UaiRouteDTO createUaiRouteDTO(final UaiRoute uaiRoute) {
         final UaiFileDTO uaiFileDTO = UaiFileDTOFactory.create(uaiRoute.uaiFile);
         final UaiRequestDTO uaiRequestDTO = UaiRequestDTOFactory.create(uaiRoute.uaiRequest);
         final UaiResponseDTO uaiResponseDTO = UaiResponseDTOFactory.create(uaiRoute.uaiResponse);
 
         final UaiRouteDTO uaiRouteDTO = new UaiRouteDTO();
+        uaiRouteDTO.setId(uaiRoute.id);
         uaiRouteDTO.setUaiFile(uaiFileDTO);
         uaiRouteDTO.setRequest(uaiRequestDTO);
         uaiRouteDTO.setResponse(uaiResponseDTO);
