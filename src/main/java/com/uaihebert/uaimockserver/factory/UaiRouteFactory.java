@@ -22,6 +22,7 @@ import com.uaihebert.uaimockserver.model.UaiRequest;
 import com.uaihebert.uaimockserver.model.UaiResponse;
 import com.uaihebert.uaimockserver.model.UaiRoute;
 import com.uaihebert.uaimockserver.util.FileUtil;
+import com.uaihebert.uaimockserver.util.StringUtils;
 
 import java.io.File;
 
@@ -48,6 +49,10 @@ public final class UaiRouteFactory {
         final UaiResponse uaiResponse = UaiResponseFactory.create(uaiRouteDTO.getResponse());
 
         final UaiFile uaiFile = new UaiFile(uaiRouteDTO.getUaiFile().getName(), uaiRouteDTO.getUaiFile().getFullPath());
+
+        if (StringUtils.isBlank(uaiRouteDTO.getId())) {
+            return new UaiRoute(uaiFile, uaiRequest, uaiResponse);
+        }
 
         return new UaiRoute(uaiRouteDTO.getId(), uaiFile, uaiRequest, uaiResponse);
     }

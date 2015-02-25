@@ -54,7 +54,7 @@ public final class UaiMockServerConfig {
 
         createLog(config);
 
-        UaiBasicServerConfiguration.createInstance(config);
+        UaiBasicServerConfiguration.createInstance(config, file.getAbsolutePath());
 
         RouteUtil.configureRouteMap(config, file);
 
@@ -70,6 +70,12 @@ public final class UaiMockServerConfig {
 
     public static Set<UaiRoute> findRouteListByKey(final String requestKey) {
         return getRouteList(requestKey);
+    }
+
+    public static void addRoute(final UaiRoute uaiRoute) {
+        final String key = RouteMapKeyUtil.createKey(uaiRoute.uaiRequest.method, uaiRoute.uaiRequest.path);
+
+        addRoute(key, uaiRoute);
     }
 
     public static void addRoute(final String key, final UaiRoute uaiRoute) {

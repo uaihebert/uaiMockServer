@@ -24,16 +24,18 @@
         <div ng-include="'/uai-mock-server-gui/page?fileName=index/routeDialog'"></div>
 
         <div ng-include="'/uai-mock-server-gui/page?fileName=index/deleteDialog'"></div>
+
+        <button type="button" class="btn btn-primary" ng-click="displayCreateNew()">Create New</button>
     </body>
     <script>
         var app = angular.module('uaiMockServerApp', ['tableSort']);
 
         app.controller('routeController', function($scope, $http) {
-
             $scope.loadTable = function(){
                 $http.get('/uai-mock-server-gui/uaiRoute').
                         success(function(data) {
                             $scope.routeRowList = [];
+                            $scope.mainConfigFilePath = data.mainConfigFile;
 
                             for (var i = 0; i < data.routeList.length; i++) {
                                 var routeRow = {};
@@ -54,17 +56,29 @@
 
             $scope.loadTable();
 
-            $scope.saveRoute = function(updatedRouteRow) {
-                $scope.convertStringToList(updatedRouteRow.route.request.requiredHeaderList);
-                $scope.convertStringToList(updatedRouteRow.route.request.requiredQueryParamList);
-                $scope.convertStringToList(updatedRouteRow.route.response.headerList);
+            $scope.saveRoute = function() {
+                $scope.convertStringToList($scope.selectedRouteRow.route.request.requiredHeaderList);
+                $scope.convertStringToList($scope.selectedRouteRow.route.request.requiredQueryParamList);
+                $scope.convertStringToList($scope.selectedRouteRow.route.response.headerList);
 
-                $http.put('/uai-mock-server-gui/uaiRoute', updatedRouteRow.route).
-                        success(function(data) {
-                            $scope.loadTable();
-                            $('#routeModal').modal('toggle');
-                        }
-                );
+                if ($scope.action === 'update') {
+                    console.log("put");
+                    $http.put('/uai-mock-server-gui/uaiRoute', $scope.selectedRouteRow.route).
+                            success(function(data) {
+                                $scope.loadTable();
+                                $('#routeModal').modal('toggle');
+                            }
+                    );
+                } else {
+                    console.log("post");
+                    $http.post('/uai-mock-server-gui/uaiRoute', $scope.selectedRouteRow.route).
+                            success(function(data) {
+                                $scope.loadTable();
+                                $('#routeModal').modal('toggle');
+                            }
+                    );
+                }
+
             }
 
             $scope.convertStringToList = function(requiredHeaderList) {
@@ -80,6 +94,8 @@
             }
 
             $scope.displaySelected = function (routeRow) {
+                $scope.action = 'update';
+
                 $scope.selectedRouteRow = {};
                 angular.copy(routeRow, $scope.selectedRouteRow);
 
@@ -87,7 +103,25 @@
                 $('#routeModal').modal('toggle');
             }
 
+            $scope.displayCreateNew = function () {
+                $scope.action = 'create';
+                $scope.selectedRouteRow = {};
+                $scope.selectedRouteRow.route = {};
+                $scope.selectedRouteRow.route.request = {};
+                $scope.selectedRouteRow.route.request.requiredHeaderList = [];
+                $scope.selectedRouteRow.route.request.requiredQueryParamList = [];
+                $scope.selectedRouteRow.route.response = {};
+                $scope.selectedRouteRow.route.response = {};
+                $scope.selectedRouteRow.route.response.headerList = [];
+                $scope.selectedRouteRow.route.uaiFile = {};
+                $scope.selectedRouteRow.route.uaiFile.fullPath = $scope.mainConfigFilePath;
+
+                $('#myTab a:first').tab('show')
+                $('#routeModal').modal('toggle');
+            }
+
             $scope.deleteSelectedConfirmation = function () {
+                $scope.action = 'delete';
                 $('#routeModal').modal('toggle');
                 $('#deleteRouteModal').modal('toggle');
             }

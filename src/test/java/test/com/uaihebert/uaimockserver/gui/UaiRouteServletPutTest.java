@@ -17,9 +17,9 @@ import javax.ws.rs.core.Response;
 import static org.junit.Assert.assertEquals;
 
 @RunWith(UaiMockServerRunner.class)
-@UaiServerConfiguration(configurationFile = "routePostTest.config")
+@UaiServerConfiguration(configurationFile = "routePutTest.config")
 public class UaiRouteServletPutTest {
-    // todo define the request method in the dialog as a selectOne, and not an input text
+
     @Test
     public void isUpdatingRecord() {
         final String nameOfTheRoute = "All Configurations 01";

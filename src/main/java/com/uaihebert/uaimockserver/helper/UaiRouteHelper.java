@@ -13,4 +13,9 @@ public final class UaiRouteHelper {
         final UaiRoute uaiRoute = UaiRouteFactory.create(uaiRouteDTO);
         UaiMockServerConfig.editRoute(uaiRoute);
     }
+
+    public static void createRoute(final UaiRouteDTO uaiRouteDTO) {
+        final UaiRoute uaiRoute = UaiRouteFactory.create(uaiRouteDTO);
+        UaiMockServerConfig.addRoute(uaiRoute);
+    }
 }
