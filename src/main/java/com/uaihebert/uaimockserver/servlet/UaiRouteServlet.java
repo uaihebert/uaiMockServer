@@ -47,7 +47,7 @@ public class UaiRouteServlet extends AbstractServlet {
     }
 
     @Override
-    protected void doPost(final HttpServletRequest httpRequest, final HttpServletResponse httpResponse) throws ServletException, IOException {
+    protected void doPut(final HttpServletRequest httpRequest, final HttpServletResponse httpResponse) throws ServletException, IOException {
         httpResponse.setContentType("application/json");
         httpResponse.setStatus(204);
 

@@ -18,8 +18,8 @@ import static org.junit.Assert.assertEquals;
 
 @RunWith(UaiMockServerRunner.class)
 @UaiServerConfiguration(configurationFile = "routePostTest.config")
-public class UaiRouteServletPostTest {
-
+public class UaiRouteServletPutTest {
+    // todo define the request method in the dialog as a selectOne, and not an input text
     @Test
     public void isUpdatingRecord() {
         final String nameOfTheRoute = "All Configurations 01";
@@ -31,7 +31,7 @@ public class UaiRouteServletPostTest {
         final String url = "http://localhost:1234/uai-mock-server-gui/uaiRoute";
 
         Client client = ClientBuilder.newClient();
-        client.target(url).request().post(Entity.entity(new Gson().toJson(toUpdateRoute), MediaType.APPLICATION_JSON_TYPE));
+        client.target(url).request().put(Entity.entity(new Gson().toJson(toUpdateRoute), MediaType.APPLICATION_JSON_TYPE));
 
         final String updatedName = getRouteFromServer(newName).getRequest().getName();
 
@@ -49,7 +49,7 @@ public class UaiRouteServletPostTest {
         final String url = "http://localhost:1234/uai-mock-server-gui/uaiRoute";
 
         Client client = ClientBuilder.newClient();
-        client.target(url).request().post(Entity.entity(new Gson().toJson(toUpdateRoute), MediaType.APPLICATION_JSON_TYPE));
+        client.target(url).request().put(Entity.entity(new Gson().toJson(toUpdateRoute), MediaType.APPLICATION_JSON_TYPE));
 
         final String updatedDesc = getRouteFromServer(nameOfTheRoute).getRequest().getDescription();
 

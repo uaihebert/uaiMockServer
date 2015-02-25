@@ -59,7 +59,7 @@
                 $scope.convertStringToList(updatedRouteRow.route.request.requiredQueryParamList);
                 $scope.convertStringToList(updatedRouteRow.route.response.headerList);
 
-                $http.post('/uai-mock-server-gui/uaiRoute', updatedRouteRow.route).
+                $http.put('/uai-mock-server-gui/uaiRoute', updatedRouteRow.route).
                         success(function(data) {
                             $scope.loadTable();
                             $('#routeModal').modal('toggle');
