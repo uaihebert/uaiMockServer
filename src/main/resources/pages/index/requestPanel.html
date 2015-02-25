@@ -13,7 +13,7 @@
             Name:
             <input type="text" class="form-control" ng-model="selectedRouteRow.route.request.name" /><br />
             Method:
-            <input type="text" class="form-control" ng-model="selectedRouteRow.route.request.method" required /><br />
+            <select class="form-control" ng-model="selectedRouteRow.route.request.method" ng-options="httpMethod for httpMethod in httpMethodArray"></select><br />
             Path:
             <input type="text" class="form-control" ng-model="selectedRouteRow.route.request.path" required /><br />
             Description:

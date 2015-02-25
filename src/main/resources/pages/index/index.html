@@ -31,11 +31,13 @@
         var app = angular.module('uaiMockServerApp', ['tableSort']);
 
         app.controller('routeController', function($scope, $http) {
+            $scope.items = [{name: 'one', age: 30 },{ name: 'two', age: 27 },{ name: 'three', age: 50 }];
             $scope.loadTable = function(){
                 $http.get('/uai-mock-server-gui/uaiRoute').
                         success(function(data) {
                             $scope.routeRowList = [];
                             $scope.mainConfigFilePath = data.mainConfigFile;
+                            $scope.httpMethodArray = data.httpMethodArray;
 
                             for (var i = 0; i < data.routeList.length; i++) {
                                 var routeRow = {};

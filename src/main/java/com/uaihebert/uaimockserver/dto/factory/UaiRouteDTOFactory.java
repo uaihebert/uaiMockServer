@@ -30,10 +30,9 @@ public final class UaiRouteDTOFactory {
     }
 
     // todo create a back up of the file, before editing it. create a configuration for it
-    // todo define the request method in the dialog as a selectOne, and not an input text
     // todo display an success message after a crud action in GUI
     // todo handle error cases when GUI invoking the uaiMockServer
-    // todo handle required attributes in server
+    // todo validate required attributes (request, response, route) in server
     private static UaiRouteDTO createUaiRouteDTO(final UaiRoute uaiRoute) {
         final UaiFileDTO uaiFileDTO = UaiFileDTOFactory.create(uaiRoute.uaiFile);
         final UaiRequestDTO uaiRequestDTO = UaiRequestDTOFactory.create(uaiRoute.uaiRequest);
