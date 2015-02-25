@@ -17,6 +17,8 @@ public final class UaiRouteDTOTestValidator {
     public static void hasAllAttributesPopulated(final IndexResponseDTO uaiRouteDTOList) {
         assertNotNull("must have a indexResponseDTO", uaiRouteDTOList);
         assertNotNull("must have a routList", uaiRouteDTOList.getRouteList());
+        assertTrue("Must have a config file name", StringUtils.isNotBlank(uaiRouteDTOList.getMainConfigFile()));
+
         for (UaiRouteDTO uaiRouteDTO : uaiRouteDTOList.getRouteList()) {
             validate(uaiRouteDTO);
         }
