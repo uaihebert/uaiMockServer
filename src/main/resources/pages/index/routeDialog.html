@@ -7,13 +7,7 @@
             </div>
             <div class="modal-body">
                 <div class="alert alert-info" role="alert"><p>These request/response will be set in the file: <br/><br/><h6>{{selectedRouteRow.route.uaiFile.fullPath}}</h6></p></div>
-                <div id="errorDiv" class="alert-danger" ng-show="hasValidationErrors">
-                    BBBBB
-                    BBBBB
-                    BBBBB
-                    BBBBB
-                    BBBBB
-                </div>
+                <div id="errorDiv" class="alert-danger" ng-show="hasValidationErrors"></div>
                 <div role="tabpanel">
                     <!-- Nav tabs -->
                     <ul class="nav nav-tabs" role="tablist" id="myTab">
@@ -37,7 +31,7 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                 <button type="button" class="btn btn-primary" ng-click="saveRoute()">Save changes</button>
-                <button type="button" class="btn btn-danger" ng-click="deleteSelectedConfirmation(selectedRouteRow)">Delete</button>
+                <button type="button" class="btn btn-danger" ng-click="deleteSelectedConfirmation(selectedRouteRow)" ng-hide="action == 'create'" >Delete</button>
             </div>
         </div>
     </div>

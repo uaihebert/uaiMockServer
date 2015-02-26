@@ -29,7 +29,6 @@ public final class UaiRouteDTOFactory {
         return uaiRouteDTOList;
     }
 
-    // todo when including a new route, the delete button is available
     // todo add placeholder in the inputs
     // todo validate header/queryParam values when typed (name != null && headerValueList.length > 0)
     // todo create delete button for and header/queryParam
