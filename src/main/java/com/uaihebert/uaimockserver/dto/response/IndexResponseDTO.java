@@ -6,8 +6,9 @@ import com.uaihebert.uaimockserver.dto.model.UaiRouteDTO;
 import java.util.List;
 
 public class IndexResponseDTO {
+    private static final HttpMethod[] httpMethodArray = HttpMethod.values();
+
     private String mainConfigFile;
-    private HttpMethod[] httpMethodArray = HttpMethod.values();
     private List<UaiRouteDTO> routeList;
 
     public HttpMethod[] getHttpMethodArray() {

@@ -58,10 +58,50 @@
 
             $scope.loadTable();
 
+            $scope.getErrorText = function(route) {
+                var hasError = false;
+                var errorHtml = "<ul>";
+
+                if (route.request.name == null || route.request.name.trim() == "") {
+                    hasError = true;
+                    errorHtml += "<li>request.name was not found</li>";
+                }
+
+                if (route.request.path == null || route.request.path.trim() == "") {
+                    hasError = true;
+                    errorHtml += "<li>request.path was not found</li>";
+                }
+
+                if (route.request.method == null || route.request.method.trim() == "") {
+                    hasError = true;
+                    errorHtml += "<li>request.method was not found</li>";
+                }
+
+                if (route.response.statusCode == null || route.response.statusCode.trim() == "") {
+                    hasError = true;
+                    errorHtml += "<li>response.statusCode was not found</li>";
+                }
+
+                if (hasError) {
+                    errorHtml += "</ul>";
+                    return errorHtml;
+                }
+
+                return null;
+            }
+
             $scope.saveRoute = function() {
                 $scope.convertStringToList($scope.selectedRouteRow.route.request.requiredHeaderList);
                 $scope.convertStringToList($scope.selectedRouteRow.route.request.requiredQueryParamList);
                 $scope.convertStringToList($scope.selectedRouteRow.route.response.headerList);
+
+                var errorText = $scope.getErrorText($scope.selectedRouteRow.route);
+
+                if (errorText != null) {
+                    $scope.hasValidationErrors = true;
+                    $('#errorDiv').html(errorText);
+                    return;
+                }
 
                 if ($scope.action === 'update') {
                     console.log("put");
@@ -96,6 +136,7 @@
             }
 
             $scope.displaySelected = function (routeRow) {
+                $scope.hasValidationErrors = false;
                 $scope.action = 'update';
 
                 $scope.selectedRouteRow = {};
@@ -107,6 +148,7 @@
 
             $scope.displayCreateNew = function () {
                 $scope.action = 'create';
+                $scope.hasValidationErrors = false;
                 $scope.selectedRouteRow = {};
                 $scope.selectedRouteRow.route = {};
                 $scope.selectedRouteRow.route.request = {};

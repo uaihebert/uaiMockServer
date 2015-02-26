@@ -18,6 +18,8 @@ public final class UaiRouteDTOTestValidator {
         assertNotNull("must have a indexResponseDTO", uaiRouteDTOList);
         assertNotNull("must have a routList", uaiRouteDTOList.getRouteList());
         assertTrue("Must have a config file name", StringUtils.isNotBlank(uaiRouteDTOList.getMainConfigFile()));
+        assertNotNull("must have a routList", uaiRouteDTOList.getHttpMethodArray());
+        assertTrue("Must have httpMethods", uaiRouteDTOList.getHttpMethodArray().length > 0);
 
         for (UaiRouteDTO uaiRouteDTO : uaiRouteDTOList.getRouteList()) {
             validate(uaiRouteDTO);

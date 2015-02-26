@@ -9,17 +9,17 @@
     </div>
     <div id="collapseRequestOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingRequestOne">
       <div class="panel-body">
-        <form novalidate class="css-form">
+        <form name="requestForm" class="css-form">
             Name:
-            <input type="text" class="form-control" ng-model="selectedRouteRow.route.request.name" /><br />
+            <input type="text" class="form-control" ng-model="selectedRouteRow.route.request.name" required /><br />
             Method:
-            <select class="form-control" ng-model="selectedRouteRow.route.request.method" ng-options="httpMethod for httpMethod in httpMethodArray"></select><br />
+            <select class="form-control" ng-model="selectedRouteRow.route.request.method" required ng-options="httpMethod for httpMethod in httpMethodArray"></select><br />
             Path:
             <input type="text" class="form-control" ng-model="selectedRouteRow.route.request.path" required /><br />
             Description:
             <textarea class="form-control" rows="3" ng-model="selectedRouteRow.route.request.description"></textarea><br />
             Required Content Type:
-            <input type="text" class="form-control" ng-model="selectedRouteRow.route.request.requiredContentType" required /><br />
+            <input type="text" class="form-control" ng-model="selectedRouteRow.route.request.requiredContentType" /><br />
             Hold the Request in Milli:
             <input type="text" class="form-control" ng-model="selectedRouteRow.route.request.holdRequestInMilli" /><br />
             Is Body Required:

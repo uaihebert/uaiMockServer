@@ -33,6 +33,9 @@ public final class UaiRouteDTOFactory {
     // todo display an success message after a crud action in GUI
     // todo handle error cases when GUI invoking the uaiMockServer
     // todo validate required attributes (request, response, route) in server
+    // todo there is a bug when editing the HTML array of the required header/query list. if no one if found, there is no way of adding it
+    // todo when creating a new route and a content type was not send by the view, we should use the default
+    // todo when creating a new route display the default content type as watermark
     private static UaiRouteDTO createUaiRouteDTO(final UaiRoute uaiRoute) {
         final UaiFileDTO uaiFileDTO = UaiFileDTOFactory.create(uaiRoute.uaiFile);
         final UaiRequestDTO uaiRequestDTO = UaiRequestDTOFactory.create(uaiRoute.uaiRequest);
