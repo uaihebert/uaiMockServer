@@ -7,11 +7,16 @@
         <link rel="stylesheet" href="/uai-mock-server-gui/css?fileName=bootstrap" />
         <link rel="stylesheet" href="/uai-mock-server-gui/css?fileName=tableSort" />
         <link rel="stylesheet" href="/uai-mock-server-gui/css?fileName=index" />
+        <link rel="stylesheet" href="/uai-mock-server-gui/css?fileName=growl" />
 
         <script type="application/javascript" src="/uai-mock-server-gui/javascript?fileName=angular"></script>
+        <script type="application/javascript" src="/uai-mock-server-gui/javascript?fileName=angular-animate"></script>
         <script type="application/javascript" src="/uai-mock-server-gui/javascript?fileName=tableSort"></script>
         <script type="application/javascript" src="/uai-mock-server-gui/javascript?fileName=jquery"></script>
         <script type="application/javascript" src="/uai-mock-server-gui/javascript?fileName=bootstrap"></script>
+        <script type="application/javascript" src="/uai-mock-server-gui/javascript?fileName=angular-growl"></script>
+        <script type="application/javascript" src="/uai-mock-server-gui/javascript?fileName=angular-sanitize"></script>
+
         <title>
             UaiMockServer - GUI
         </title>
@@ -26,11 +31,17 @@
         <div ng-include="'/uai-mock-server-gui/page?fileName=index/deleteDialog'"></div>
 
         <button type="button" class="btn btn-primary" ng-click="displayCreateNew()">Create New</button>
+
+        <div growl></div>
     </body>
     <script>
-        var app = angular.module('uaiMockServerApp', ['tableSort']);
+        var app = angular.module('uaiMockServerApp', ['tableSort', 'angular-growl', 'ngAnimate']);
 
-        app.controller('routeController', function($scope, $http) {
+        app.config(['growlProvider', function(growlProvider) {
+            growlProvider.globalTimeToLive(1500);
+        }]);
+
+        app.controller('routeController', function($scope, $http, growl) {
             $scope.items = [{name: 'one', age: 30 },{ name: 'two', age: 27 },{ name: 'three', age: 50 }];
             $scope.loadTable = function(){
                 $http.get('/uai-mock-server-gui/uaiRoute').
@@ -77,7 +88,7 @@
                     errorHtml += "<li>request.method was not found</li>";
                 }
 
-                if (route.response.statusCode == null || route.response.statusCode.trim() == "") {
+                if (route.response.statusCode == null || route.response.statusCode <= 0) {
                     hasError = true;
                     errorHtml += "<li>response.statusCode was not found</li>";
                 }
@@ -104,23 +115,27 @@
                 }
 
                 if ($scope.action === 'update') {
-                    console.log("put");
                     $http.put('/uai-mock-server-gui/uaiRoute', $scope.selectedRouteRow.route).
                             success(function(data) {
                                 $scope.loadTable();
                                 $('#routeModal').modal('toggle');
+                                $scope.displaySuccessGrowl();
                             }
                     );
                 } else {
-                    console.log("post");
                     $http.post('/uai-mock-server-gui/uaiRoute', $scope.selectedRouteRow.route).
                             success(function(data) {
                                 $scope.loadTable();
                                 $('#routeModal').modal('toggle');
+                                $scope.displaySuccessGrowl();
                             }
                     );
                 }
 
+            }
+
+            $scope.displaySuccessGrowl = function() {
+                growl.addSuccessMessage("Operation Confirmed (:");
             }
 
             $scope.convertStringToList = function(requiredHeaderList) {
@@ -180,6 +195,7 @@
                         success(function(data) {
                             $scope.loadTable();
                             $('#deleteRouteModal').modal('toggle');
+                            $scope.displaySuccessGrowl();
                         }
                 );
             }

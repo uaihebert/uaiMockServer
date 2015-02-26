@@ -17,6 +17,7 @@ package com.uaihebert.uaimockserver.util;
 
 import com.uaihebert.uaimockserver.model.UaiBasicServerConfiguration;
 import com.uaihebert.uaimockserver.server.UaiMockServerHandler;
+import com.uaihebert.uaimockserver.servlet.CssMapServlet;
 import com.uaihebert.uaimockserver.servlet.CssServlet;
 import com.uaihebert.uaimockserver.servlet.FaviconServlet;
 import com.uaihebert.uaimockserver.servlet.JavascriptServlet;
@@ -76,6 +77,7 @@ public final class HttpServerUtil {
                         servlet("FaviconServlet", FaviconServlet.class).addMapping("/favicon"),
                         servlet("JavascriptServlet", JavascriptServlet.class).addMapping("/javascript"),
                         servlet("CssServlet", CssServlet.class).addMapping("/css"),
+                        servlet("CssMapServlet", CssMapServlet.class).addMapping("/bootstrap.css.map"),
                         servlet("UaiRouteServlet", UaiRouteServlet.class).addMapping("/uaiRoute")
                 );
 
