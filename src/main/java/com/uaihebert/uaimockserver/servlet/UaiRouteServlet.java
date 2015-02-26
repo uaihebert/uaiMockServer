@@ -2,6 +2,7 @@ package com.uaihebert.uaimockserver.servlet;
 
 import com.google.gson.Gson;
 import com.uaihebert.uaimockserver.configuration.ProjectConfiguration;
+import com.uaihebert.uaimockserver.dto.factory.UaiBasicConfigurationDTOFactory;
 import com.uaihebert.uaimockserver.dto.factory.UaiRouteDTOFactory;
 import com.uaihebert.uaimockserver.dto.model.UaiRouteDTO;
 import com.uaihebert.uaimockserver.dto.response.IndexResponseDTO;
@@ -45,6 +46,7 @@ public class UaiRouteServlet extends AbstractServlet {
         final IndexResponseDTO indexResponseDTO = new IndexResponseDTO();
         indexResponseDTO.setRouteList(UaiRouteDTOFactory.create(uaiRouteList));
         indexResponseDTO.setMainConfigFile(UaiBasicServerConfiguration.getMainConfigFilePath());
+        indexResponseDTO.setBasicConfiguration(UaiBasicConfigurationDTOFactory.create());
 
         return new Gson().toJson(indexResponseDTO);
     }

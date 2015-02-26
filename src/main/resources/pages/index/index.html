@@ -48,6 +48,7 @@
                         success(function(data) {
                             $scope.routeRowList = [];
                             $scope.mainConfigFilePath = data.mainConfigFile;
+                            $scope.basicConfiguration = data.basicConfiguration;
                             $scope.httpMethodArray = data.httpMethodArray;
 
                             for (var i = 0; i < data.routeList.length; i++) {
@@ -91,6 +92,11 @@
                 if (route.response.statusCode == null || route.response.statusCode <= 0) {
                     hasError = true;
                     errorHtml += "<li>response.statusCode was not found</li>";
+                }
+
+                if (route.response.contentType == null || route.response.contentType.trim() == "") {
+                    hasError = true;
+                    errorHtml += "<li>response.contentType was not found</li>";
                 }
 
                 if (hasError) {
@@ -188,7 +194,7 @@
                 $scope.selectedRouteRow.route = {};
                 $scope.selectedRouteRow.route.request = {};
                 $scope.selectedRouteRow.route.response = {};
-                $scope.selectedRouteRow.route.response = {};
+                $scope.selectedRouteRow.route.response.contentType = $scope.basicConfiguration.defaultContentType;
                 $scope.selectedRouteRow.route.uaiFile = {};
                 $scope.selectedRouteRow.route.uaiFile.fullPath = $scope.mainConfigFilePath;
 
@@ -238,7 +244,7 @@
                             $('#deleteRouteModal').modal('toggle');
                             $scope.displaySuccessGrowl();
                         }
-                ).error(function(){
+                        ).error(function(){
                             $scope.displayErrorGrowl();
                         });
             }

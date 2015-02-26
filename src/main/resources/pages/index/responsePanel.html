@@ -13,7 +13,7 @@
             Status Code:
             <input type="text" class="form-control" ng-model="selectedRouteRow.route.response.statusCode" /><br />
             Content Type:
-            <input type="text" class="form-control" ng-model="selectedRouteRow.route.response.contentType" /><br />
+            <input type="text" class="form-control" ng-model="selectedRouteRow.route.response.contentType" placeholder="Type your Content-Type here: {{basicConfiguration.defaultContentType}}" /><br />
             Body:
             <textarea class="form-control" rows="3" ng-model="selectedRouteRow.route.response.body"></textarea><br />
         </form>

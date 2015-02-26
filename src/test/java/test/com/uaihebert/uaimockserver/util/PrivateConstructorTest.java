@@ -15,6 +15,7 @@
  * */
 package test.com.uaihebert.uaimockserver.util;
 
+import com.uaihebert.uaimockserver.dto.factory.UaiBasicConfigurationDTOFactory;
 import com.uaihebert.uaimockserver.dto.factory.UaiFileDTOFactory;
 import com.uaihebert.uaimockserver.dto.factory.UaiHeaderDTOFactory;
 import com.uaihebert.uaimockserver.dto.factory.UaiQueryParamDTOFactory;
@@ -300,6 +301,15 @@ public class PrivateConstructorTest {
         constructor.setAccessible(true);
 
         final UaiMockServerConfig createdObject = constructor.newInstance(new Object[0]);
+        assertNotNull(createdObject);
+    }
+
+    @Test
+    public void testBasicConfigurationDTOFactoryConstructor() throws Exception {
+        final Constructor<UaiBasicConfigurationDTOFactory> constructor = UaiBasicConfigurationDTOFactory.class.getDeclaredConstructor(new Class[0]);
+        constructor.setAccessible(true);
+
+        final UaiBasicConfigurationDTOFactory createdObject = constructor.newInstance(new Object[0]);
         assertNotNull(createdObject);
     }
 }

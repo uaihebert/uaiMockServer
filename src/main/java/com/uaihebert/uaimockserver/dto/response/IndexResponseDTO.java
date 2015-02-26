@@ -1,6 +1,7 @@
 package com.uaihebert.uaimockserver.dto.response;
 
 import com.uaihebert.uaimockserver.constants.HttpMethod;
+import com.uaihebert.uaimockserver.dto.model.UaiBasicConfigurationDTO;
 import com.uaihebert.uaimockserver.dto.model.UaiRouteDTO;
 
 import java.util.List;
@@ -10,6 +11,7 @@ public class IndexResponseDTO {
 
     private String mainConfigFile;
     private List<UaiRouteDTO> routeList;
+    private UaiBasicConfigurationDTO basicConfiguration;
 
     public HttpMethod[] getHttpMethodArray() {
         return httpMethodArray;
@@ -29,5 +31,13 @@ public class IndexResponseDTO {
 
     public void setMainConfigFile(final String mainConfigFile) {
         this.mainConfigFile = mainConfigFile;
+    }
+
+    public UaiBasicConfigurationDTO getBasicConfiguration() {
+        return basicConfiguration;
+    }
+
+    public void setBasicConfiguration(final UaiBasicConfigurationDTO basicConfiguration) {
+        this.basicConfiguration = basicConfiguration;
     }
 }

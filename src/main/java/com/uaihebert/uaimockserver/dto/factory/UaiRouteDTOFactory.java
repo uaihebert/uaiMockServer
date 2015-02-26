@@ -29,13 +29,13 @@ public final class UaiRouteDTOFactory {
         return uaiRouteDTOList;
     }
 
-    // todo when creating a new route and a content type was not send by the view, we should use the default
-    // todo when creating a new route display the default content type as watermark
     // todo when including a new route, the delete button is available
     // todo add placeholder in the inputs
     // todo validate header/queryParam values when typed (name != null && headerValueList.length > 0)
     // todo create delete button for and header/queryParam
     // todo create a backup of the file, before editing it. create a configuration for it
+    // todo make index.html use the BasicConfigurationDTO.mainConfigFilePath
+    // todo define all required attributes in the route dialog
     private static UaiRouteDTO createUaiRouteDTO(final UaiRoute uaiRoute) {
         final UaiFileDTO uaiFileDTO = UaiFileDTOFactory.create(uaiRoute.uaiFile);
         final UaiRequestDTO uaiRequestDTO = UaiRequestDTOFactory.create(uaiRoute.uaiRequest);

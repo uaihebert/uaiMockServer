@@ -15,15 +15,34 @@ public final class UaiRouteDTOTestValidator {
     }
 
     public static void hasAllAttributesPopulated(final IndexResponseDTO uaiRouteDTOList) {
-        assertNotNull("must have a indexResponseDTO", uaiRouteDTOList);
-        assertNotNull("must have a routList", uaiRouteDTOList.getRouteList());
-        assertTrue("Must have a config file name", StringUtils.isNotBlank(uaiRouteDTOList.getMainConfigFile()));
-        assertNotNull("must have a routList", uaiRouteDTOList.getHttpMethodArray());
-        assertTrue("Must have httpMethods", uaiRouteDTOList.getHttpMethodArray().length > 0);
+        validateIndex(uaiRouteDTOList);
 
         for (UaiRouteDTO uaiRouteDTO : uaiRouteDTOList.getRouteList()) {
             validate(uaiRouteDTO);
         }
+    }
+
+    private static void validateIndex(final IndexResponseDTO uaiRouteDTOList) {
+        assertNotNull("must have a indexResponseDTO", uaiRouteDTOList);
+        assertNotNull("must have a routList", uaiRouteDTOList.getRouteList());
+        assertNotNull("must have a routList", uaiRouteDTOList.getHttpMethodArray());
+
+        assertTrue("Must have httpMethods", uaiRouteDTOList.getHttpMethodArray().length > 0);
+        assertTrue("Must have a config file name", StringUtils.isNotBlank(uaiRouteDTOList.getMainConfigFile()));
+
+        validateBasicConfiguration(uaiRouteDTOList);
+    }
+
+    private static void validateBasicConfiguration(final IndexResponseDTO uaiRouteDTOList) {
+        final UaiBasicConfigurationDTO basicConfiguration = uaiRouteDTOList.getBasicConfiguration();
+        assertNotNull("must have basicConfiguration", basicConfiguration);
+
+        assertTrue(basicConfiguration.getPort() >= 0);
+
+        assertTrue(StringUtils.isNotBlank(basicConfiguration.getContext()));
+        assertTrue(StringUtils.isNotBlank(basicConfiguration.getDefaultContentType()));
+        assertTrue(StringUtils.isNotBlank(basicConfiguration.getHost()));
+        assertTrue(StringUtils.isNotBlank(basicConfiguration.getMainConfigFilePath()));
     }
 
     private static void validate(final UaiRouteDTO uaiRouteDTO) {
