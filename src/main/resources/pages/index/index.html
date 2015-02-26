@@ -102,9 +102,9 @@
             }
 
             $scope.saveRoute = function() {
-                $scope.convertStringToList($scope.selectedRouteRow.route.request.requiredHeaderList);
-                $scope.convertStringToList($scope.selectedRouteRow.route.request.requiredQueryParamList);
-                $scope.convertStringToList($scope.selectedRouteRow.route.response.headerList);
+                $scope.selectedRouteRow.route.request.requiredHeaderList = $scope.convertStringToList($scope.selectedRouteRow.route.request.requiredHeaderList);
+                $scope.selectedRouteRow.route.request.requiredQueryParamList = $scope.convertStringToList($scope.selectedRouteRow.route.request.requiredQueryParamList);
+                $scope.selectedRouteRow.route.response.headerList = $scope.convertStringToList($scope.selectedRouteRow.route.response.headerList);
 
                 var errorText = $scope.getErrorText($scope.selectedRouteRow.route);
 
@@ -151,11 +151,23 @@
                     return;
                 }
 
+                var result = [];
+
                 for (var i = 0; i < requiredHeaderList.length; i++) {
+                    if (requiredHeaderList[i].name.trim() == "") {
+                        continue;
+                    }
+
                     if (typeof requiredHeaderList[i].valueList === "string") {
-                        requiredHeaderList[i].valueList = requiredHeaderList[i].valueList.split(",");
+                        var splittedList = requiredHeaderList[i].valueList.split(",");
+
+                        result.push({name : requiredHeaderList[i].name, valueList : splittedList});
+                    } else {
+                        result.push({name : requiredHeaderList[i].name, valueList : requiredHeaderList[i].valueList});
                     }
                 }
+
+                return result;
             }
 
             $scope.displaySelected = function (routeRow) {
@@ -175,11 +187,8 @@
                 $scope.selectedRouteRow = {};
                 $scope.selectedRouteRow.route = {};
                 $scope.selectedRouteRow.route.request = {};
-                $scope.selectedRouteRow.route.request.requiredHeaderList = [];
-                $scope.selectedRouteRow.route.request.requiredQueryParamList = [];
                 $scope.selectedRouteRow.route.response = {};
                 $scope.selectedRouteRow.route.response = {};
-                $scope.selectedRouteRow.route.response.headerList = [];
                 $scope.selectedRouteRow.route.uaiFile = {};
                 $scope.selectedRouteRow.route.uaiFile.fullPath = $scope.mainConfigFilePath;
 
@@ -196,6 +205,30 @@
             $scope.cancelDelete = function () {
                 $('#deleteRouteModal').modal('toggle');
                 $('#routeModal').modal('toggle');
+            }
+
+            $scope.addNewHeaderRequest = function (request) {
+                if (request.requiredHeaderList == null) {
+                    request.requiredHeaderList = [];
+                }
+
+                request.requiredHeaderList.push({name:"", valueList: []});
+            }
+
+            $scope.addNewHeaderResponse = function (response) {
+                if (response.headerList == null) {
+                    response.headerList = [];
+                }
+
+                response.headerList.push({name:"", valueList: []});
+            }
+
+            $scope.addNewQueryParamRequest = function (request) {
+                if (request.requiredQueryParamList == null) {
+                    request.requiredQueryParamList = [];
+                }
+
+                request.requiredQueryParamList.push({name:"", valueList: []});
             }
 
             $scope.delete = function () {

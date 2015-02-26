@@ -46,6 +46,7 @@
                 </tr>
             </thead>
             <tbody>
+                <button class="btn btn-success" ng-click="addNewHeaderRequest(selectedRouteRow.route.request)">Add New</button>
                 <tr ng-repeat="header in selectedRouteRow.route.request.requiredHeaderList">
                     <td>
                         <input type="text" class="form-control" ng-model="header.name" /><br />
@@ -78,6 +79,7 @@
                 </tr>
             </thead>
             <tbody>
+                <button class="btn btn-success" ng-click="addNewQueryParamRequest(selectedRouteRow.route.request)">Add New</button>
                 <tr ng-repeat="queryParam in selectedRouteRow.route.request.requiredQueryParamList">
                     <td>
                         <input type="text" class="form-control" ng-model="queryParam.name" /><br />

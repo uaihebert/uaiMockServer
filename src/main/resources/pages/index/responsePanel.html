@@ -11,9 +11,9 @@
       <div class="panel-body">
         <form novalidate class="css-form">
             Status Code:
-            <input type="text" class="form-control" ng-model="selectedRouteRow.route.response.statusCode" required /><br />
+            <input type="text" class="form-control" ng-model="selectedRouteRow.route.response.statusCode" /><br />
             Content Type:
-            <input type="text" class="form-control" ng-model="selectedRouteRow.route.response.contentType" required /><br />
+            <input type="text" class="form-control" ng-model="selectedRouteRow.route.response.contentType" /><br />
             Body:
             <textarea class="form-control" rows="3" ng-model="selectedRouteRow.route.response.body"></textarea><br />
         </form>
@@ -38,6 +38,7 @@
                 </tr>
             </thead>
             <tbody>
+                <button class="btn btn-success" ng-click="addNewHeaderResponse(selectedRouteRow.route.response)">Add New</button>
                 <tr ng-repeat="header in selectedRouteRow.route.response.headerList">
                     <td>
                         <input type="text" class="form-control" ng-model="header.name" /><br />
