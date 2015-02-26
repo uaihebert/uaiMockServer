@@ -121,7 +121,9 @@
                                 $('#routeModal').modal('toggle');
                                 $scope.displaySuccessGrowl();
                             }
-                    );
+                            ).error(function(){
+                                $scope.displayErrorGrowl();
+                            });
                 } else {
                     $http.post('/uai-mock-server-gui/uaiRoute', $scope.selectedRouteRow.route).
                             success(function(data) {
@@ -129,13 +131,19 @@
                                 $('#routeModal').modal('toggle');
                                 $scope.displaySuccessGrowl();
                             }
-                    );
+                            ).error(function(){
+                                $scope.displayErrorGrowl();
+                            });
                 }
 
             }
 
             $scope.displaySuccessGrowl = function() {
                 growl.addSuccessMessage("Operation Confirmed (:");
+            }
+
+            $scope.displayErrorGrowl = function() {
+                growl.addErrorMessage("Something went wrong :(");
             }
 
             $scope.convertStringToList = function(requiredHeaderList) {
@@ -197,7 +205,9 @@
                             $('#deleteRouteModal').modal('toggle');
                             $scope.displaySuccessGrowl();
                         }
-                );
+                ).error(function(){
+                            $scope.displayErrorGrowl();
+                        });
             }
         });
     </script>
