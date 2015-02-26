@@ -11,11 +11,11 @@
       <div class="panel-body">
         <form novalidate class="css-form">
             Status Code:
-            <input type="text" class="form-control" ng-model="selectedRouteRow.route.response.statusCode" /><br />
+            <input type="text" class="form-control" ng-model="selectedRouteRow.route.response.statusCode" placeholder="The Response Status Code: 200 or 201..."/><br />
             Content Type:
             <input type="text" class="form-control" ng-model="selectedRouteRow.route.response.contentType" placeholder="Type your Content-Type here: {{basicConfiguration.defaultContentType}}" /><br />
             Body:
-            <textarea class="form-control" rows="3" ng-model="selectedRouteRow.route.response.body"></textarea><br />
+            <textarea class="form-control" rows="3" ng-model="selectedRouteRow.route.response.body" placeholder='The body to be returned, e.g.: {"mockBody":{"title":"Hello World"}}'></textarea><br />
         </form>
       </div>
     </div>
@@ -41,11 +41,11 @@
                 <button class="btn btn-success" ng-click="addNewHeaderResponse(selectedRouteRow.route.response)">Add New</button>
                 <tr ng-repeat="header in selectedRouteRow.route.response.headerList">
                     <td>
-                        <input type="text" class="form-control" ng-model="header.name" /><br />
+                        <input type="text" class="form-control" ng-model="header.name" placeholder="The name of the header"/><br />
                         <h6>You must split the Array values with a comma ","</h6>
                     </td>
                     <td>
-                        <textarea class="form-control" rows="3" ng-model="header.valueList"></textarea>
+                        <textarea class="form-control" rows="3" ng-model="header.valueList" placeholder="A list like VALUE or VALUE1,VALUE2"></textarea>
                     </td>
                 </tr>
             </tbody>

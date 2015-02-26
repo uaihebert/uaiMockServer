@@ -11,19 +11,21 @@
       <div class="panel-body">
         <form name="requestForm" class="css-form">
             Name:
-            <input type="text" class="form-control" ng-model="selectedRouteRow.route.request.name" required /><br />
+            <input type="text" class="form-control" ng-model="selectedRouteRow.route.request.name" placeholder="A name to make easier to identify the request" /><br />
             Method:
-            <select class="form-control" ng-model="selectedRouteRow.route.request.method" required ng-options="httpMethod for httpMethod in httpMethodArray"></select><br />
+            <select class="form-control" ng-model="selectedRouteRow.route.request.method" ng-options="httpMethod for httpMethod in httpMethodArray">
+                <option value='' disabled>- The HTTP method that will be sent -</option>
+            </select><br />
             Path:
-            <input type="text" class="form-control" ng-model="selectedRouteRow.route.request.path" required /><br />
+            <input type="text" class="form-control" ng-model="selectedRouteRow.route.request.path" placeholder="A request path like: /hello"/><br />
             Description:
-            <textarea class="form-control" rows="3" ng-model="selectedRouteRow.route.request.description"></textarea><br />
-            Required Content Type:
-            <input type="text" class="form-control" ng-model="selectedRouteRow.route.request.requiredContentType" /><br />
+            <textarea class="form-control" rows="3" ng-model="selectedRouteRow.route.request.description" placeholder="A request description if needed"></textarea><br />
+            Content Type:
+            <input type="text" class="form-control" ng-model="selectedRouteRow.route.request.requiredContentType" placeholder="A required Content-Type if needed: application/json"/><br />
             Hold the Request in Milli:
-            <input type="text" class="form-control" ng-model="selectedRouteRow.route.request.holdRequestInMilli" /><br />
+            <input type="text" class="form-control" ng-model="selectedRouteRow.route.request.holdRequestInMilli" placeholder="For how long you want to hold the request?"/><br />
             Is Body Required:
-            <input type="checkbox" ng-model="selectedRouteRow.route.request.isBodyRequired"> <br />
+            <input type="checkbox" ng-model="selectedRouteRow.route.request.isBodyRequired"/><br />
         </form>
       </div>
     </div>
@@ -32,7 +34,7 @@
     <div class="panel-heading" role="tab" id="headingRequestTwo">
       <h4 class="panel-title">
         <a class="collapsed" data-toggle="collapse" data-parent="#accordionRequest" href="#collapseRequestTwo" aria-expanded="false" aria-controls="collapseRequestTwo">
-          Required Header List
+          Header List
         </a>
       </h4>
     </div>
@@ -49,11 +51,11 @@
                 <button class="btn btn-success" ng-click="addNewHeaderRequest(selectedRouteRow.route.request)">Add New</button>
                 <tr ng-repeat="header in selectedRouteRow.route.request.requiredHeaderList">
                     <td>
-                        <input type="text" class="form-control" ng-model="header.name" /><br />
+                        <input type="text" class="form-control" ng-model="header.name" placeholder="The name of the header"/><br />
                         <h6>You must split the Array values with a comma ","</h6>
                     </td>
                     <td>
-                        <textarea class="form-control" rows="3" ng-model="header.valueList"></textarea>
+                        <textarea class="form-control" rows="3" ng-model="header.valueList" placeholder="A list like VALUE or VALUE1,VALUE2"></textarea>
                     </td>
                 </tr>
             </tbody>
@@ -65,7 +67,7 @@
     <div class="panel-heading" role="tab" id="headingRequestThree">
       <h4 class="panel-title">
         <a class="collapsed" data-toggle="collapse" data-parent="#accordionRequest" href="#collapseRequestThree" aria-expanded="false" aria-controls="collapseRequestThree">
-          Required Query Param List
+          Query Param List
         </a>
       </h4>
     </div>
@@ -82,11 +84,11 @@
                 <button class="btn btn-success" ng-click="addNewQueryParamRequest(selectedRouteRow.route.request)">Add New</button>
                 <tr ng-repeat="queryParam in selectedRouteRow.route.request.requiredQueryParamList">
                     <td>
-                        <input type="text" class="form-control" ng-model="queryParam.name" /><br />
+                        <input type="text" class="form-control" ng-model="queryParam.name" placeholder="The name of the Query Parameter"/><br />
                         <h6>You must split the Array values with a comma ","</h6>
                     </td>
                     <td>
-                        <textarea class="form-control" rows="3" ng-model="queryParam.valueList"></textarea>
+                        <textarea class="form-control" rows="3" ng-model="queryParam.valueList" placeholder="A list like VALUE or VALUE1,VALUE2"></textarea>
                     </td>
                 </tr>
             </tbody>
