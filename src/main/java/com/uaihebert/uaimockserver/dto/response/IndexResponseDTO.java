@@ -9,7 +9,6 @@ import java.util.List;
 public class IndexResponseDTO {
     private final HttpMethod[] httpMethodArray = HttpMethod.values();
 
-    private String mainConfigFile;
     private List<UaiRouteDTO> routeList;
     private UaiBasicConfigurationDTO basicConfiguration;
 
@@ -23,14 +22,6 @@ public class IndexResponseDTO {
 
     public void setRouteList(final List<UaiRouteDTO> routeList) {
         this.routeList = routeList;
-    }
-
-    public String getMainConfigFile() {
-        return mainConfigFile;
-    }
-
-    public void setMainConfigFile(final String mainConfigFile) {
-        this.mainConfigFile = mainConfigFile;
     }
 
     public UaiBasicConfigurationDTO getBasicConfiguration() {

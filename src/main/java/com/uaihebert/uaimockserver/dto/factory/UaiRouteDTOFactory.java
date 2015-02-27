@@ -30,8 +30,6 @@ public final class UaiRouteDTOFactory {
     }
 
     // todo create a backup of the file, before editing it. create a configuration for it
-    // todo make index.html use the BasicConfigurationDTO.mainConfigFilePath
-    // todo define all required attributes in the route dialog
     private static UaiRouteDTO createUaiRouteDTO(final UaiRoute uaiRoute) {
         final UaiFileDTO uaiFileDTO = UaiFileDTOFactory.create(uaiRoute.uaiFile);
         final UaiRequestDTO uaiRequestDTO = UaiRequestDTOFactory.create(uaiRoute.uaiRequest);

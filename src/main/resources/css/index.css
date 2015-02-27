@@ -26,3 +26,7 @@ colgroup col.response {
 a:hover, a:active, a:focus {
     outline: 0;
 }
+
+.requiredAttribute {
+    color: red; display: inline;
+}

@@ -7,7 +7,6 @@ import com.uaihebert.uaimockserver.dto.factory.UaiRouteDTOFactory;
 import com.uaihebert.uaimockserver.dto.model.UaiRouteDTO;
 import com.uaihebert.uaimockserver.dto.response.IndexResponseDTO;
 import com.uaihebert.uaimockserver.helper.UaiRouteHelper;
-import com.uaihebert.uaimockserver.model.UaiBasicServerConfiguration;
 import com.uaihebert.uaimockserver.model.UaiMockServerConfig;
 import com.uaihebert.uaimockserver.model.UaiRoute;
 import com.uaihebert.uaimockserver.util.RequestBodyExtractor;
@@ -45,7 +44,6 @@ public class UaiRouteServlet extends AbstractServlet {
 
         final IndexResponseDTO indexResponseDTO = new IndexResponseDTO();
         indexResponseDTO.setRouteList(UaiRouteDTOFactory.create(uaiRouteList));
-        indexResponseDTO.setMainConfigFile(UaiBasicServerConfiguration.getMainConfigFilePath());
         indexResponseDTO.setBasicConfiguration(UaiBasicConfigurationDTOFactory.create());
 
         return new Gson().toJson(indexResponseDTO);

@@ -10,9 +10,9 @@
     <div id="collapseResponseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingResponseOne">
       <div class="panel-body">
         <form novalidate class="css-form">
-            Status Code:
+            <p class="requiredAttribute">* </p>Status Code:
             <input type="text" class="form-control" ng-model="selectedRouteRow.route.response.statusCode" placeholder="The Response Status Code: 200 or 201..."/><br />
-            Content Type:
+            <p class="requiredAttribute">* </p>Content Type:
             <input type="text" class="form-control" ng-model="selectedRouteRow.route.response.contentType" placeholder="Type your Content-Type here: {{basicConfiguration.defaultContentType}}" /><br />
             Body:
             <textarea class="form-control" rows="3" ng-model="selectedRouteRow.route.response.body" placeholder='The body to be returned, e.g.: {"mockBody":{"title":"Hello World"}}'></textarea><br />

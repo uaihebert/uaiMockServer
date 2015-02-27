@@ -47,7 +47,6 @@
                 $http.get('/uai-mock-server-gui/uaiRoute').
                         success(function(data) {
                             $scope.routeRowList = [];
-                            $scope.mainConfigFilePath = data.mainConfigFile;
                             $scope.basicConfiguration = data.basicConfiguration;
                             $scope.httpMethodArray = data.httpMethodArray;
 
@@ -221,7 +220,7 @@
                 $scope.selectedRouteRow.route.response = {};
                 $scope.selectedRouteRow.route.response.contentType = $scope.basicConfiguration.defaultContentType;
                 $scope.selectedRouteRow.route.uaiFile = {};
-                $scope.selectedRouteRow.route.uaiFile.fullPath = $scope.mainConfigFilePath;
+                $scope.selectedRouteRow.route.uaiFile.fullPath = $scope.basicConfiguration.mainConfigFilePath;
 
                 $('#myTab a:first').tab('show')
                 $('#routeModal').modal('toggle');

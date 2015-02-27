@@ -12,15 +12,15 @@
         <form name="requestForm" class="css-form">
             Name:
             <input type="text" class="form-control" ng-model="selectedRouteRow.route.request.name" placeholder="A name to make easier to identify the request" /><br />
-            Method:
+            <p class="requiredAttribute">* </p>Method:
             <select class="form-control" ng-model="selectedRouteRow.route.request.method" ng-options="httpMethod for httpMethod in httpMethodArray">
                 <option value='' disabled>- The HTTP method that will be sent -</option>
             </select><br />
-            Path:
+            <p class="requiredAttribute">* </p>Path:
             <input type="text" class="form-control" ng-model="selectedRouteRow.route.request.path" placeholder="A request path like: /hello"/><br />
             Description:
             <textarea class="form-control" rows="3" ng-model="selectedRouteRow.route.request.description" placeholder="A request description if needed"></textarea><br />
-            Content Type:
+            <p class="requiredAttribute">* </p>Content Type:
             <input type="text" class="form-control" ng-model="selectedRouteRow.route.request.requiredContentType" placeholder="A required Content-Type if needed: application/json"/><br />
             Hold the Request in Milli:
             <input type="text" class="form-control" ng-model="selectedRouteRow.route.request.holdRequestInMilli" placeholder="For how long you want to hold the request?"/><br />
