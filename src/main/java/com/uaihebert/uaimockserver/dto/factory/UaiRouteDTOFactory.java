@@ -29,7 +29,6 @@ public final class UaiRouteDTOFactory {
         return uaiRouteDTOList;
     }
 
-    // todo validate header/queryParam values when typed (name != null && headerValueList.length > 0)
     // todo create delete button for and header/queryParam
     // todo create a backup of the file, before editing it. create a configuration for it
     // todo make index.html use the BasicConfigurationDTO.mainConfigFilePath
