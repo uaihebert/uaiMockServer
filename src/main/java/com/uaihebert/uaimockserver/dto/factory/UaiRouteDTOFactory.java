@@ -29,7 +29,6 @@ public final class UaiRouteDTOFactory {
         return uaiRouteDTOList;
     }
 
-    // todo create delete button for and header/queryParam
     // todo create a backup of the file, before editing it. create a configuration for it
     // todo make index.html use the BasicConfigurationDTO.mainConfigFilePath
     // todo define all required attributes in the route dialog

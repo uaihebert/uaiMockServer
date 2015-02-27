@@ -233,6 +233,11 @@
                 $('#deleteRouteModal').modal('toggle');
             }
 
+            $scope.selectResponseHeaderToDelete = function (index) {
+                console.log("index -----> " + index);
+                index.$remove();
+            }
+
             $scope.cancelDelete = function () {
                 $('#deleteRouteModal').modal('toggle');
                 $('#routeModal').modal('toggle');
