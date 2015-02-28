@@ -41,7 +41,11 @@ public final class UaiRouteDTOTestValidator {
         assertTrue(StringUtils.isNotBlank(basicConfiguration.getContext()));
         assertTrue(StringUtils.isNotBlank(basicConfiguration.getDefaultContentType()));
         assertTrue(StringUtils.isNotBlank(basicConfiguration.getHost()));
-        assertTrue(StringUtils.isNotBlank(basicConfiguration.getMainConfigFilePath()));
+
+        final UaiFileDTO uaiMainFile = basicConfiguration.getUaiMainFile();
+        assertNotNull(uaiMainFile);
+        assertTrue(StringUtils.isNotBlank(uaiMainFile.getName()));
+        assertTrue(StringUtils.isNotBlank(uaiMainFile.getFullPath()));
     }
 
     private static void validate(final UaiRouteDTO uaiRouteDTO) {

@@ -16,7 +16,6 @@
 package com.uaihebert.uaimockserver.model;
 
 import com.typesafe.config.Config;
-import com.uaihebert.uaimockserver.constants.RootConstants;
 import com.uaihebert.uaimockserver.factory.TypeSafeConfigFactory;
 import com.uaihebert.uaimockserver.log.Log;
 import com.uaihebert.uaimockserver.log.LogBuilder;
@@ -52,20 +51,13 @@ public final class UaiMockServerConfig {
         final File file = FileUtil.findFile(fileName);
         final Config config = TypeSafeConfigFactory.loadConfiguration(file);
 
-        createLog(config);
+        UaiBasicServerConfiguration.createInstance(config, new UaiFile(file.getName(), file.getAbsolutePath()));
 
-        UaiBasicServerConfiguration.createInstance(config, file.getAbsolutePath());
+        LogBuilder.createInstance();
 
         RouteUtil.configureRouteMap(config, file);
 
         Log.info(String.format("Configurations of the file [%s] was read with success", fileName));
-    }
-
-    private static void createLog(final Config config) {
-        final boolean fileLog = config.getBoolean(RootConstants.FILE_LOG.path);
-        final boolean consoleLog = config.getBoolean(RootConstants.CONSOLE_LOG.path);
-
-        LogBuilder.createInstance(fileLog, consoleLog);
     }
 
     public static Set<UaiRoute> findRouteListByKey(final String requestKey) {

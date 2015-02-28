@@ -220,7 +220,7 @@
                 $scope.selectedRouteRow.route.response = {};
                 $scope.selectedRouteRow.route.response.contentType = $scope.basicConfiguration.defaultContentType;
                 $scope.selectedRouteRow.route.uaiFile = {};
-                $scope.selectedRouteRow.route.uaiFile.fullPath = $scope.basicConfiguration.mainConfigFilePath;
+                $scope.selectedRouteRow.route.uaiFile.fullPath = $scope.basicConfiguration.uaiMainFile.fullPath;
 
                 $('#myTab a:first').tab('show')
                 $('#routeModal').modal('toggle');
@@ -230,11 +230,6 @@
                 $scope.action = 'delete';
                 $('#routeModal').modal('toggle');
                 $('#deleteRouteModal').modal('toggle');
-            }
-
-            $scope.selectResponseHeaderToDelete = function (index) {
-                console.log("index -----> " + index);
-                index.$remove();
             }
 
             $scope.cancelDelete = function () {

@@ -12,7 +12,7 @@ public final class TypeSafeConfigFactory {
     private TypeSafeConfigFactory() {
     }
 
-    public static Config loadConfiguration(final File file) {
+    public static Config  loadConfiguration(final File file) {
         return ConfigFactory.parseFile(file);
     }
 }

@@ -5,8 +5,9 @@ public class UaiBasicConfigurationDTO {
 
     private String host;
     private String context;
-    private String mainConfigFilePath;
     private String defaultContentType;
+
+    private UaiFileDTO uaiMainFile;
 
     public UaiBasicConfigurationDTO() {
     }
@@ -35,19 +36,19 @@ public class UaiBasicConfigurationDTO {
         this.context = context;
     }
 
-    public String getMainConfigFilePath() {
-        return mainConfigFilePath;
-    }
-
-    public void setMainConfigFilePath(final String mainConfigFilePath) {
-        this.mainConfigFilePath = mainConfigFilePath;
-    }
-
     public String getDefaultContentType() {
         return defaultContentType;
     }
 
     public void setDefaultContentType(final String defaultContentType) {
         this.defaultContentType = defaultContentType;
+    }
+
+    public UaiFileDTO getUaiMainFile() {
+        return uaiMainFile;
+    }
+
+    public void setMainUaiFile(final UaiFileDTO uaiFile) {
+        this.uaiMainFile = uaiFile;
     }
 }

@@ -14,7 +14,7 @@ public final class UaiBasicConfigurationDTOFactory {
         uaiBasicConfigurationDTO.setHost(UaiBasicServerConfiguration.getHost());
         uaiBasicConfigurationDTO.setContext(UaiBasicServerConfiguration.getContext());
         uaiBasicConfigurationDTO.setDefaultContentType(UaiBasicServerConfiguration.getDefaultContentType());
-        uaiBasicConfigurationDTO.setMainConfigFilePath(UaiBasicServerConfiguration.getMainConfigFilePath());
+        uaiBasicConfigurationDTO.setMainUaiFile(UaiFileDTOFactory.create(UaiBasicServerConfiguration.getMainUaiFile()));
 
         return uaiBasicConfigurationDTO;
     }
