@@ -1,17 +1,25 @@
 package com.uaihebert.uaimockserver.util;
 
+import com.google.gson.GsonBuilder;
 import com.uaihebert.uaimockserver.model.UaiMockServerConfig;
 import org.apache.commons.io.FileUtils;
 
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.util.Collection;
 
 public final class FileUtil {
     private static final String FILE_NOT_FOUND_EXCEPTION_MESSAGE = "We could not find the file: [%s]." +
             "We looked into the same folder of the jar and we could not find it. %n" +
             "Check if the is in the test/resources folder or in the same folder of the jar. %n" +
             "If you want you can use the full the file path.";
+
+    private static final GsonBuilder gsonBuilder = new GsonBuilder()
+                                                        .setPrettyPrinting()
+                                                        .disableHtmlEscaping()
+                                                        .registerTypeHierarchyAdapter(Collection.class, new GsonCollectionAdapter())
+                                                        .setExclusionStrategies(new GsonAttributesToIgnore());
 
     private FileUtil() {
     }
@@ -44,5 +52,18 @@ public final class FileUtil {
         } catch (IOException e) {
             throw new IllegalArgumentException("could not read the config file", e);
         }
+    }
+
+    public static void writeUpdatesToFile() {
+//        final UaiMockServerConfig mainConfig = UaiMockServerContext.INSTANCE.uaiMockServerConfig;
+//
+//        final String json = gsonBuilder.create().toJson(mainConfig);
+//
+//        try {
+//            FileUtils.writeStringToFile(new File("/home/hebert/Desktop/test.txt"), json);
+//            Log.info("The updates has been written in the config file");
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
     }
 }

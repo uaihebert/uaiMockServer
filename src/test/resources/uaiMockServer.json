@@ -24,6 +24,18 @@
       },
       {
          "request":{
+            "name":"Getting the body",
+            "path":"/giveMeABody",
+            "method":"GET"
+         },
+         "response":{
+            "contentType":"application/json;charset=UTF-8",
+            "statusCode":200,
+            "body":"{\"mockBody\":{\"title\":\"Hello World\"}}"
+         }
+      },
+      {
+         "request":{
             "name":"Test default content type",
             "path":"/noResponseContentTypeConfigured",
             "method":"GET"
