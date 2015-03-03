@@ -39,10 +39,6 @@ public class UaiQueryParam {
         return name;
     }
 
-    public void setName(final String name) {
-        this.name = name;
-    }
-
     public boolean isUsingWildCard() {
         return usingWildCard;
     }
@@ -57,9 +53,5 @@ public class UaiQueryParam {
         }
 
         return valueList;
-    }
-
-    public void setValueList(final List<String> valueList) {
-        this.valueList = valueList;
     }
 }

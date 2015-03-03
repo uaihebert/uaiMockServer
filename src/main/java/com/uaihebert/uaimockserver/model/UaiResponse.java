@@ -55,24 +55,12 @@ public final class UaiResponse {
         return statusCode;
     }
 
-    public void setStatusCode(final int statusCode) {
-        this.statusCode = statusCode;
-    }
-
     public String getBody() {
         return body;
     }
 
-    public void setBody(final String body) {
-        this.body = body;
-    }
-
     public String getContentType() {
         return contentType;
-    }
-
-    public void setContentType(final String contentType) {
-        this.contentType = contentType;
     }
 
     public List<UaiHeader> getHeaderList() {
@@ -81,10 +69,6 @@ public final class UaiResponse {
         }
 
         return headerList;
-    }
-
-    public void setHeaderList(final List<UaiHeader> headerList) {
-        this.headerList = headerList;
     }
 
     public void configureContentType(final String defaultContentType) {

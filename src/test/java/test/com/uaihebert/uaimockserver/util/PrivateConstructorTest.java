@@ -24,14 +24,17 @@ import com.uaihebert.uaimockserver.dto.factory.UaiResponseDTOFactory;
 import com.uaihebert.uaimockserver.dto.factory.UaiRouteDTOFactory;
 import com.uaihebert.uaimockserver.facade.RequestValidatorFacade;
 import com.uaihebert.uaimockserver.factory.UaiHeaderFactory;
+import com.uaihebert.uaimockserver.factory.UaiMockServerConfigFactory;
 import com.uaihebert.uaimockserver.factory.UaiQueryParamFactory;
 import com.uaihebert.uaimockserver.factory.UaiRequestFactory;
 import com.uaihebert.uaimockserver.factory.UaiResponseFactory;
 import com.uaihebert.uaimockserver.factory.UaiRouteFactory;
+import com.uaihebert.uaimockserver.factory.UaiRouteMapperFactory;
 import com.uaihebert.uaimockserver.helper.UaiRouteHelper;
 import com.uaihebert.uaimockserver.log.Log;
 import com.uaihebert.uaimockserver.log.LogBuilder;
 import com.uaihebert.uaimockserver.model.UaiMockServerConfig;
+import com.uaihebert.uaimockserver.model.UaiRouteMapper;
 import com.uaihebert.uaimockserver.util.ExceptionUtil;
 import com.uaihebert.uaimockserver.util.FileUtil;
 import com.uaihebert.uaimockserver.util.HttpServerUtil;
@@ -280,6 +283,33 @@ public class PrivateConstructorTest {
         constructor.setAccessible(true);
 
         final UaiBasicConfigurationDTOFactory createdObject = constructor.newInstance(new Object[0]);
+        assertNotNull(createdObject);
+    }
+
+    @Test
+    public void testUaiMockServerConfigFactoryConstructor() throws Exception {
+        final Constructor<UaiMockServerConfigFactory> constructor = UaiMockServerConfigFactory.class.getDeclaredConstructor(new Class[0]);
+        constructor.setAccessible(true);
+
+        final UaiMockServerConfigFactory createdObject = constructor.newInstance(new Object[0]);
+        assertNotNull(createdObject);
+    }
+
+    @Test
+    public void testUaiRouteMapperFactoryConstructor() throws Exception {
+        final Constructor<UaiRouteMapperFactory> constructor = UaiRouteMapperFactory.class.getDeclaredConstructor(new Class[0]);
+        constructor.setAccessible(true);
+
+        final UaiRouteMapperFactory createdObject = constructor.newInstance(new Object[0]);
+        assertNotNull(createdObject);
+    }
+
+    @Test
+    public void testUaiRouteMapperConstructor() throws Exception {
+        final Constructor<UaiRouteMapper> constructor = UaiRouteMapper.class.getDeclaredConstructor(new Class[0]);
+        constructor.setAccessible(true);
+
+        final UaiRouteMapper createdObject = constructor.newInstance(new Object[0]);
         assertNotNull(createdObject);
     }
 }

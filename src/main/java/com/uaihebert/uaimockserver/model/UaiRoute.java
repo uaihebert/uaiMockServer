@@ -68,10 +68,6 @@ public class UaiRoute {
         return id;
     }
 
-    public void setId(final String id) {
-        this.id = id;
-    }
-
     public UaiFile getUaiFile() {
         return uaiFile;
     }
@@ -84,15 +80,7 @@ public class UaiRoute {
         return request;
     }
 
-    public void setRequest(final UaiRequest request) {
-        this.request = request;
-    }
-
     public UaiResponse getResponse() {
         return response;
-    }
-
-    public void setResponse(final UaiResponse response) {
-        this.response = response;
     }
 }
