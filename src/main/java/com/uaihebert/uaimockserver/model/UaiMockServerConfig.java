@@ -17,6 +17,7 @@ package com.uaihebert.uaimockserver.model;
 
 import com.uaihebert.uaimockserver.constants.ValidatorConstants;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -48,6 +49,9 @@ public final class UaiMockServerConfig {
 
             configureRoutes(uaiRoute);
         }
+
+        // the default GSON List implementation has no add method implemented
+        routeList = new ArrayList<UaiRoute>(routeList);
     }
 
     private void configureRoutes(final UaiRoute uaiRoute) {

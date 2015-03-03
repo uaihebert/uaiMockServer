@@ -14,11 +14,7 @@ public final class UaiRouteMapperFactory {
     public static void configureRouteMapper() {
         configureMainFile();
 
-        for (UaiMockServerConfig secondaryConfigFile : UaiMockServerContext.INSTANCE.secondaryMappingList) {
-            for (UaiRoute uaiRoute : secondaryConfigFile.getRouteList()) {
-                UaiRouteMapper.addRoute(uaiRoute);
-            }
-        }
+        configureSecondaryFiles();
     }
 
     private static void configureMainFile() {
@@ -26,6 +22,14 @@ public final class UaiRouteMapperFactory {
 
         for (UaiRoute uaiRoute : routeList) {
             UaiRouteMapper.addRoute(uaiRoute);
+        }
+    }
+
+    private static void configureSecondaryFiles() {
+        for (UaiMockServerConfig secondaryConfigFile : UaiMockServerContext.INSTANCE.secondaryMappingList) {
+            for (UaiRoute uaiRoute : secondaryConfigFile.getRouteList()) {
+                UaiRouteMapper.addRoute(uaiRoute);
+            }
         }
     }
 }

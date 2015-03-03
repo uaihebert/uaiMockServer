@@ -17,7 +17,6 @@ import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-
 import java.net.URL;
 
 import static org.junit.Assert.assertEquals;
@@ -55,7 +54,9 @@ public class UaiRouteServletPostTest {
         final String url = "http://localhost:1234/uai-mock-server-gui/uaiRoute";
 
         final Client client = ClientBuilder.newClient();
-        client.target(url).request().post(Entity.entity(entity, MediaType.APPLICATION_JSON_TYPE));
+        final Response post = client.target(url).request().post(Entity.entity(entity, MediaType.APPLICATION_JSON_TYPE));
+
+        assertEquals(204, post.getStatus());
 
         final long totalAfterPost = getTotalOfRoutesFound();
         assertEquals("making sure that only one was added", (totalBeforePost + 1), totalAfterPost);

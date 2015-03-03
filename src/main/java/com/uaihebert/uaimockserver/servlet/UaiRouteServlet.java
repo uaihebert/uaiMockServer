@@ -82,7 +82,7 @@ public class UaiRouteServlet extends AbstractServlet {
 
         final String routeId = httpRequest.getParameter("routeId");
 
-        UaiRouteMapper.deleteRoute(routeId);
+        UaiRouteHelper.deleteRoute(routeId);
 
         final OutputStream outputStream = httpResponse.getOutputStream();
         outputStream.close();

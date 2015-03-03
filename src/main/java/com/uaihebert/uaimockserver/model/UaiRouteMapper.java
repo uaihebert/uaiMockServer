@@ -47,6 +47,8 @@ public final class UaiRouteMapper {
         uaiRouteList.remove(routeToDelete);
 
         ROUTE_MAP_BY_ID.remove(routeToDelete.getId());
+
+        UaiMockServerContext.INSTANCE.uaiMockServerConfig.getRouteList().remove(routeToDelete);
     }
 
     private static void setInMapByPath(final String key, final UaiRoute uaiRoute) {
@@ -83,5 +85,9 @@ public final class UaiRouteMapper {
 
     public static Set<UaiRoute> findRouteListByKey(final String requestKey) {
         return getRouteList(requestKey);
+    }
+
+    public static UaiRoute findById(final String routeId) {
+        return ROUTE_MAP_BY_ID.get(routeId);
     }
 }

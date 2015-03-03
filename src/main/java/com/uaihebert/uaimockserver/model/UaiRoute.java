@@ -83,4 +83,12 @@ public class UaiRoute {
     public UaiResponse getResponse() {
         return response;
     }
+
+    public void setRequest(final UaiRequest request) {
+        this.request = request;
+    }
+
+    public void setResponse(final UaiResponse response) {
+        this.response = response;
+    }
 }
