@@ -39,7 +39,7 @@ public class UaiMockServerContextTest {
     @Test
     public void isCreatingWithoutRoutesInTheMainFile() {
         try {
-            UaiMockServerContext.createInstance("mainFileWithoutRoutes.config");
+            UaiMockServerContext.createInstance("mainFileWithoutRoutes.json");
         } catch (final Exception ex) {
             ex.printStackTrace();
             fail("should not fail because the file has no routes");

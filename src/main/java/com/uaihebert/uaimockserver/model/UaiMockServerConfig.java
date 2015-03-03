@@ -41,7 +41,7 @@ public final class UaiMockServerConfig {
 
 
     public void postConstruct() {
-        for (UaiRoute uaiRoute : routeList) {
+        for (UaiRoute uaiRoute : getRouteList()) {
             uaiRoute.createId();
             uaiRoute.getResponse().configureContentType(defaultContentTypeResponse);
         }
@@ -76,6 +76,10 @@ public final class UaiMockServerConfig {
     }
 
     public List<UaiRoute> getRouteList() {
+        if (routeList == null) {
+            routeList = Collections.emptyList();
+        }
+
         return routeList;
     }
 
