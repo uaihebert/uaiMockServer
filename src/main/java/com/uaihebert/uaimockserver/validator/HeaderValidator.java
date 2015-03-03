@@ -28,6 +28,7 @@ import io.undertow.util.HeaderValues;
 public final class HeaderValidator implements RequestDataValidator {
     private static final String HEADER_VALUE_NOT_FOUND_MESSAGE = "The required value [%s] was not found in the header [%s]";
 
+    @Override
     public boolean isInvalid(final UaiRequest uaiRequest, final HttpServerExchange exchange) {
         for (UaiHeader uaiHeader : uaiRequest.getRequiredHeaderList()) {
             final HeaderMap requestHeaderMap = exchange.getRequestHeaders();

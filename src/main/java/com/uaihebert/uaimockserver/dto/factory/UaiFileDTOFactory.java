@@ -8,6 +8,6 @@ public final class UaiFileDTOFactory {
     }
 
     public static UaiFileDTO create(final UaiFile uaiFile) {
-        return new UaiFileDTO(uaiFile.name, uaiFile.fullPath);
+        return new UaiFileDTO(uaiFile.getName(), uaiFile.getFullPath());
     }
 }

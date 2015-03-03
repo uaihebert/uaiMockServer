@@ -10,11 +10,11 @@ import java.util.Map;
 import java.util.Set;
 
 public final class UaiRouteMapper {
-    private UaiRouteMapper() {
-    }
-
     private static final Map<String, UaiRoute> ROUTE_MAP_BY_ID = new HashMap<String, UaiRoute>();
     private static final Map<String, Set<UaiRoute>> ROUTE_MAP_BY_PATH = new HashMap<String, Set<UaiRoute>>();
+
+    private UaiRouteMapper() {
+    }
 
     public static void addRoute(final UaiRoute uaiRoute) {
         final String key = RouteMapKeyUtil.createKey(uaiRoute.getRequest().getMethod(), uaiRoute.getRequest().getPath());

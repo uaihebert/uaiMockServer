@@ -25,6 +25,7 @@ import io.undertow.server.HttpServerExchange;
 public final class BodyValidator implements RequestDataValidator {
     private static final String BODY_VALIDATOR_ERROR_MESSAGE = "The Route [%s - %s] was defined with the body as mandatory. Send a body in your request or set the bodyRequired to false. %n";
 
+    @Override
     public boolean isInvalid(final UaiRequest uaiRequest, final HttpServerExchange exchange) {
         if (uaiRequest.isBodyRequired() && exchange.getRequestContentLength() < 1) {
             Log.warn(BODY_VALIDATOR_ERROR_MESSAGE, uaiRequest.getMethod(), uaiRequest.getPath());

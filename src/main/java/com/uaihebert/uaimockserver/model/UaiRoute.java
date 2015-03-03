@@ -38,15 +38,15 @@ public class UaiRoute {
         this.response = response;
     }
 
-    public void createId() {
-        id = UUID.randomUUID().toString();
-    }
-
     public UaiRoute(final String id, final UaiFile uaiFile, final UaiRequest request, final UaiResponse response) {
         this.id = id;
         this.uaiFile = uaiFile;
         this.request = request;
         this.response = response;
+    }
+
+    public void createId() {
+        id = UUID.randomUUID().toString();
     }
 
     @Override
