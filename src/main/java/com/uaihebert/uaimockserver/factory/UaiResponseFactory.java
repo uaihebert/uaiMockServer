@@ -15,14 +15,9 @@
  * */
 package com.uaihebert.uaimockserver.factory;
 
-import com.typesafe.config.Config;
-import com.uaihebert.uaimockserver.constants.ResponseConstants;
 import com.uaihebert.uaimockserver.dto.model.UaiResponseDTO;
-import com.uaihebert.uaimockserver.model.UaiBasicServerConfiguration;
 import com.uaihebert.uaimockserver.model.UaiHeader;
 import com.uaihebert.uaimockserver.model.UaiResponse;
-import com.uaihebert.uaimockserver.util.ConfigKeyUtil;
-import com.uaihebert.uaimockserver.util.StringUtils;
 
 import java.util.List;
 
@@ -31,37 +26,6 @@ import java.util.List;
  */
 public final class UaiResponseFactory {
     private UaiResponseFactory() {
-    }
-
-    public static UaiResponse create(final Config routeConfig) {
-        final int statusCode = routeConfig.getInt(ResponseConstants.STATUS_CODE.path);
-
-        final String body = defineBody(routeConfig);
-        final String contentType = defineContentType(routeConfig);
-
-        final List<UaiHeader> headerList = UaiHeaderFactory.create(routeConfig, ResponseConstants.REQUIRED_HEADER_LIST.path);
-
-        return new UaiResponse(statusCode, body, contentType, headerList);
-    }
-
-    private static String defineBody(final Config routeConfig) {
-        final String configBody = ConfigKeyUtil.getStringSilently(ResponseConstants.BODY.path, routeConfig);
-
-        if (StringUtils.isBlank(configBody)) {
-            return null;
-        }
-
-        return configBody;
-    }
-
-    private static String defineContentType(final Config routeConfig) {
-        final String contentType = ConfigKeyUtil.getStringSilently(ResponseConstants.CONTENT_TYPE.path, routeConfig);
-
-        if (StringUtils.isBlank(contentType)) {
-            return UaiBasicServerConfiguration.getDefaultContentType();
-        }
-
-        return contentType;
     }
 
     public static UaiResponse create(final UaiResponseDTO response) {

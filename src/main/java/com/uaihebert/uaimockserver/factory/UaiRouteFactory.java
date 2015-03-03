@@ -15,32 +15,18 @@
  * */
 package com.uaihebert.uaimockserver.factory;
 
-import com.typesafe.config.Config;
 import com.uaihebert.uaimockserver.dto.model.UaiRouteDTO;
 import com.uaihebert.uaimockserver.model.UaiFile;
 import com.uaihebert.uaimockserver.model.UaiRequest;
 import com.uaihebert.uaimockserver.model.UaiResponse;
 import com.uaihebert.uaimockserver.model.UaiRoute;
-import com.uaihebert.uaimockserver.util.FileUtil;
 import com.uaihebert.uaimockserver.util.StringUtils;
-
-import java.io.File;
 
 /**
  * This factory will create an instance of the UaiRoute.java
  */
 public final class UaiRouteFactory {
     private UaiRouteFactory() {
-    }
-
-    public static UaiRoute create(final Config routeConfig, final File file) {
-        final UaiRequest uaiRequest = UaiRequestFactory.create(routeConfig);
-
-        final UaiResponse uaiResponse = UaiResponseFactory.create(routeConfig);
-
-        final UaiFile uaiFile = new UaiFile(FileUtil.getNameWithoutExtension(file), file.getAbsolutePath());
-
-        return new UaiRoute(uaiFile, uaiRequest, uaiResponse);
     }
 
     public static UaiRoute create(final UaiRouteDTO uaiRouteDTO) {

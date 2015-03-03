@@ -7,8 +7,8 @@ import com.uaihebert.uaimockserver.dto.factory.UaiRouteDTOFactory;
 import com.uaihebert.uaimockserver.dto.model.UaiRouteDTO;
 import com.uaihebert.uaimockserver.dto.response.IndexResponseDTO;
 import com.uaihebert.uaimockserver.helper.UaiRouteHelper;
-import com.uaihebert.uaimockserver.model.UaiMockServerConfig;
 import com.uaihebert.uaimockserver.model.UaiRoute;
+import com.uaihebert.uaimockserver.model.UaiRouteMapper;
 import com.uaihebert.uaimockserver.util.RequestBodyExtractor;
 
 import javax.servlet.ServletException;
@@ -40,7 +40,7 @@ public class UaiRouteServlet extends AbstractServlet {
     }
 
     private String createIndexGetResponse() {
-        final List<UaiRoute> uaiRouteList = UaiMockServerConfig.listAllRoutes();
+        final List<UaiRoute> uaiRouteList = UaiRouteMapper.listAllRoutes();
 
         final IndexResponseDTO indexResponseDTO = new IndexResponseDTO();
         indexResponseDTO.setRouteList(UaiRouteDTOFactory.create(uaiRouteList));
@@ -82,7 +82,7 @@ public class UaiRouteServlet extends AbstractServlet {
 
         final String routeId = httpRequest.getParameter("routeId");
 
-        UaiMockServerConfig.deleteRoute(routeId);
+        UaiRouteMapper.deleteRoute(routeId);
 
         final OutputStream outputStream = httpResponse.getOutputStream();
         outputStream.close();

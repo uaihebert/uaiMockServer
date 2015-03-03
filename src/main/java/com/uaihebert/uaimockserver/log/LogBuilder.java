@@ -15,7 +15,7 @@
  * */
 package com.uaihebert.uaimockserver.log;
 
-import com.uaihebert.uaimockserver.model.UaiBasicServerConfiguration;
+import com.uaihebert.uaimockserver.model.UaiMockServerContext;
 import org.pmw.tinylog.Configurator;
 import org.pmw.tinylog.writers.ConsoleWriter;
 import org.pmw.tinylog.writers.FileWriter;
@@ -29,6 +29,13 @@ import org.pmw.tinylog.writers.FileWriter;
  */
 public final class LogBuilder {
     private LogBuilder() {
+    }
+
+    public static void createInstance() {
+        final boolean fileLog = UaiMockServerContext.INSTANCE.uaiMockServerConfig.isFileLog();
+        final boolean consoleLog = UaiMockServerContext.INSTANCE.uaiMockServerConfig.isConsoleLog();
+
+        createInstance(fileLog, consoleLog);
     }
 
     public static void createInstance(boolean fileLog, boolean consoleLog) {
@@ -53,12 +60,5 @@ public final class LogBuilder {
         logConfigurator.activate();
 
         Log.setInstance(new ActivatedLog());
-    }
-
-    public static void createInstance() {
-        final boolean fileLog = UaiBasicServerConfiguration.isFileLog();
-        final boolean consoleLog = UaiBasicServerConfiguration.isConsoleLog();
-
-        createInstance(fileLog, consoleLog);
     }
 }

@@ -31,12 +31,12 @@ public final class UaiRouteDTOFactory {
 
     // todo create a backup of the file, before editing it. create a configuration for it
     private static UaiRouteDTO createUaiRouteDTO(final UaiRoute uaiRoute) {
-        final UaiFileDTO uaiFileDTO = UaiFileDTOFactory.create(uaiRoute.uaiFile);
-        final UaiRequestDTO uaiRequestDTO = UaiRequestDTOFactory.create(uaiRoute.uaiRequest);
-        final UaiResponseDTO uaiResponseDTO = UaiResponseDTOFactory.create(uaiRoute.uaiResponse);
+        final UaiFileDTO uaiFileDTO = UaiFileDTOFactory.create(uaiRoute.getUaiFile());
+        final UaiRequestDTO uaiRequestDTO = UaiRequestDTOFactory.create(uaiRoute.getRequest());
+        final UaiResponseDTO uaiResponseDTO = UaiResponseDTOFactory.create(uaiRoute.getResponse());
 
         final UaiRouteDTO uaiRouteDTO = new UaiRouteDTO();
-        uaiRouteDTO.setId(uaiRoute.id);
+        uaiRouteDTO.setId(uaiRoute.getId());
         uaiRouteDTO.setUaiFile(uaiFileDTO);
         uaiRouteDTO.setRequest(uaiRequestDTO);
         uaiRouteDTO.setResponse(uaiResponseDTO);

@@ -29,7 +29,7 @@ public final class HeaderValidator implements RequestDataValidator {
     private static final String HEADER_VALUE_NOT_FOUND_MESSAGE = "The required value [%s] was not found in the header [%s]";
 
     public boolean isInvalid(final UaiRequest uaiRequest, final HttpServerExchange exchange) {
-        for (UaiHeader uaiHeader : uaiRequest.requiredHeaderList) {
+        for (UaiHeader uaiHeader : uaiRequest.getRequiredHeaderList()) {
             final HeaderMap requestHeaderMap = exchange.getRequestHeaders();
 
             if (isInvalidHeader(uaiHeader, requestHeaderMap)) {
@@ -41,15 +41,15 @@ public final class HeaderValidator implements RequestDataValidator {
     }
 
     private boolean isInvalidHeader(final UaiHeader uaiHeader, final HeaderMap requestHeaderMap) {
-        final HeaderValues headerValueList = requestHeaderMap.get(uaiHeader.name);
+        final HeaderValues headerValueList = requestHeaderMap.get(uaiHeader.getName());
 
-        if (uaiHeader.usingWildCard) {
-            Log.infoFormatted("The header [%s] is using the wildcard. Its content will not be checked.", uaiHeader.name);
+        if (uaiHeader.isUsingWildCard()) {
+            Log.infoFormatted("The header [%s] is using the wildcard. Its content will not be checked.", uaiHeader.getName());
             return false;
         }
 
-        if (!headerValueList.containsAll(uaiHeader.valueList)) {
-            Log.warn(HEADER_VALUE_NOT_FOUND_MESSAGE, uaiHeader.name, uaiHeader.valueList);
+        if (!headerValueList.containsAll(uaiHeader.getValueList())) {
+            Log.warn(HEADER_VALUE_NOT_FOUND_MESSAGE, uaiHeader.getName(), uaiHeader.getValueList());
             return true;
         }
 

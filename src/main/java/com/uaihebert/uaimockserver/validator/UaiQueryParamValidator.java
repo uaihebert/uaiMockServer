@@ -30,7 +30,7 @@ public final class UaiQueryParamValidator implements RequestDataValidator {
     private static final String QUERY_PARAM_VALUE_NOT_FOUND_MESSAGE = "The required queryParamList [%s] has not the required values: [%s]";
 
     public boolean isInvalid(final UaiRequest uaiRequest, final HttpServerExchange exchange) {
-        for (UaiQueryParam uaiQueryParam : uaiRequest.requiredQueryParamList) {
+        for (UaiQueryParam uaiQueryParam : uaiRequest.getRequiredQueryParamList()) {
             final Map<String, Deque<String>> queryParameterMap = exchange.getQueryParameters();
 
             if (isInvalidQueryParam(uaiQueryParam, queryParameterMap)) {
@@ -42,15 +42,15 @@ public final class UaiQueryParamValidator implements RequestDataValidator {
     }
 
     private boolean isInvalidQueryParam(final UaiQueryParam uaiQueryParam, final Map<String, Deque<String>> queryParameterMap) {
-        final Deque<String> valueDeque = queryParameterMap.get(uaiQueryParam.name);
+        final Deque<String> valueDeque = queryParameterMap.get(uaiQueryParam.getName());
 
-        if (uaiQueryParam.usingWildCard) {
-            Log.infoFormatted("The header [%s] is using the wildcard. Its content will not be checked.", uaiQueryParam.name);
+        if (uaiQueryParam.isUsingWildCard()) {
+            Log.infoFormatted("The header [%s] is using the wildcard. Its content will not be checked.", uaiQueryParam.getName());
             return false;
         }
 
-        if (!valueDeque.containsAll(uaiQueryParam.valueList)) {
-            Log.warn(QUERY_PARAM_VALUE_NOT_FOUND_MESSAGE, uaiQueryParam.name, uaiQueryParam.valueList);
+        if (!valueDeque.containsAll(uaiQueryParam.getValueList())) {
+            Log.warn(QUERY_PARAM_VALUE_NOT_FOUND_MESSAGE, uaiQueryParam.getName(), uaiQueryParam.getValueList());
             return true;
         }
 

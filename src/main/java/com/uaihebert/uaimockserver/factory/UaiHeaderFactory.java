@@ -15,12 +15,9 @@
  * */
 package com.uaihebert.uaimockserver.factory;
 
-import com.typesafe.config.Config;
-import com.uaihebert.uaimockserver.constants.HeaderConstants;
 import com.uaihebert.uaimockserver.constants.ValidatorConstants;
 import com.uaihebert.uaimockserver.dto.model.UaiHeaderDTO;
 import com.uaihebert.uaimockserver.model.UaiHeader;
-import com.uaihebert.uaimockserver.util.ConfigKeyUtil;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -31,28 +28,6 @@ import java.util.List;
  */
 public final class UaiHeaderFactory {
     private UaiHeaderFactory() {
-    }
-
-    public static List<UaiHeader> create(final Config config, final String headerListKey) {
-        final List<? extends Config> headerConfigList = ConfigKeyUtil.getConfigListSilently(headerListKey, config);
-
-        final List<UaiHeader> uaiHeaderList = new ArrayList<UaiHeader>();
-
-        for (Config headerConfig : headerConfigList) {
-            final UaiHeader uaiHeader = createHeader(headerConfig);
-            uaiHeaderList.add(uaiHeader);
-        }
-
-        return uaiHeaderList;
-    }
-
-    private static UaiHeader createHeader(final Config config) {
-        final String name = ConfigKeyUtil.getStringSilently(HeaderConstants.NAME.path, config);
-        final List<String> valueList = ConfigKeyUtil.getStringListSilently(HeaderConstants.VALUE_LIST.path, config);
-
-        final boolean usingWildCard = valueList.contains(ValidatorConstants.VALID_WILD_CARD.text);
-
-        return new UaiHeader(name, usingWildCard, valueList);
     }
 
     public static List<UaiHeader> create(final List<UaiHeaderDTO> requiredHeaderList) {

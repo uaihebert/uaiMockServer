@@ -15,13 +15,10 @@
  * */
 package com.uaihebert.uaimockserver.factory;
 
-import com.typesafe.config.Config;
-import com.uaihebert.uaimockserver.constants.RequestConstants;
 import com.uaihebert.uaimockserver.dto.model.UaiRequestDTO;
 import com.uaihebert.uaimockserver.model.UaiHeader;
 import com.uaihebert.uaimockserver.model.UaiQueryParam;
 import com.uaihebert.uaimockserver.model.UaiRequest;
-import com.uaihebert.uaimockserver.util.ConfigKeyUtil;
 
 import java.util.List;
 
@@ -31,24 +28,6 @@ import java.util.List;
 public final class UaiRequestFactory {
     private UaiRequestFactory() {
     }
-
-    public static UaiRequest create(final Config config) {
-        final Boolean bodyRequired = ConfigKeyUtil.getBooleanSilently(RequestConstants.IS_BODY_REQUIRED.path, config);
-
-        final long holdRequestInMilli = ConfigKeyUtil.getLongSilently(RequestConstants.HOLD_THE_REQUEST_IN_MILLI.path, config);
-
-        final String name = ConfigKeyUtil.getStringSilently(RequestConstants.NAME.path, config);
-        final String path = ConfigKeyUtil.getStringSilently(RequestConstants.PATH.path, config);
-        final String method = ConfigKeyUtil.getStringSilently(RequestConstants.METHOD.path, config);
-        final String description = ConfigKeyUtil.getStringSilently(RequestConstants.DESCRIPTION.path, config);
-        final String contentType = ConfigKeyUtil.getStringSilently(RequestConstants.CONTENT_TYPE.path, config);
-
-        final List<UaiHeader> requiredHeaderList = UaiHeaderFactory.create(config, RequestConstants.REQUIRED_HEADER_LIST.path);
-        final List<UaiQueryParam> requiredQueryParamList = UaiQueryParamFactory.create(config);
-
-        return new UaiRequest(name, path, method, description, contentType, holdRequestInMilli, bodyRequired, requiredHeaderList, requiredQueryParamList);
-    }
-
 
     public static UaiRequest create(final UaiRequestDTO request) {
         final Boolean bodyRequired = request.isBodyRequired();

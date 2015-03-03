@@ -22,23 +22,31 @@ import java.util.UUID;
  * A route is composed of a request and response
  */
 public class UaiRoute {
-    public final String id;
-    public final UaiFile uaiFile;
-    public final UaiRequest uaiRequest;
-    public final UaiResponse uaiResponse;
+    private String id;
+    private UaiFile uaiFile;
+    private UaiRequest request;
+    private UaiResponse response;
 
-    public UaiRoute(final UaiFile uaiFile, final UaiRequest uaiRequest, final UaiResponse uaiResponse) {
-        id = UUID.randomUUID().toString();
-        this.uaiFile = uaiFile;
-        this.uaiRequest = uaiRequest;
-        this.uaiResponse = uaiResponse;
+    public UaiRoute() {
+
     }
 
-    public UaiRoute(final String id, final UaiFile uaiFile, final UaiRequest uaiRequest, final UaiResponse uaiResponse) {
+    public UaiRoute(final UaiFile uaiFile, final UaiRequest request, final UaiResponse response) {
+        createId();
+        this.uaiFile = uaiFile;
+        this.request = request;
+        this.response = response;
+    }
+
+    public void createId() {
+        id = UUID.randomUUID().toString();
+    }
+
+    public UaiRoute(final String id, final UaiFile uaiFile, final UaiRequest request, final UaiResponse response) {
         this.id = id;
         this.uaiFile = uaiFile;
-        this.uaiRequest = uaiRequest;
-        this.uaiResponse = uaiResponse;
+        this.request = request;
+        this.response = response;
     }
 
     @Override
@@ -54,5 +62,37 @@ public class UaiRoute {
     @Override
     public int hashCode() {
         return id.hashCode();
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(final String id) {
+        this.id = id;
+    }
+
+    public UaiFile getUaiFile() {
+        return uaiFile;
+    }
+
+    public void setUaiFile(final UaiFile uaiFile) {
+        this.uaiFile = uaiFile;
+    }
+
+    public UaiRequest getRequest() {
+        return request;
+    }
+
+    public void setRequest(final UaiRequest request) {
+        this.request = request;
+    }
+
+    public UaiResponse getResponse() {
+        return response;
+    }
+
+    public void setResponse(final UaiResponse response) {
+        this.response = response;
     }
 }

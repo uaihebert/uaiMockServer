@@ -12,11 +12,11 @@ public class UaiResponseDTOFactory {
 
     public static UaiResponseDTO create(final UaiResponse uaiResponse) {
         final UaiResponseDTO uaiResponseDTO = new UaiResponseDTO();
-        uaiResponseDTO.setStatusCode(uaiResponse.statusCode);
-        uaiResponseDTO.setBody(uaiResponse.body);
-        uaiResponseDTO.setContentType(uaiResponse.contentType);
+        uaiResponseDTO.setStatusCode(uaiResponse.getStatusCode());
+        uaiResponseDTO.setBody(uaiResponse.getBody());
+        uaiResponseDTO.setContentType(uaiResponse.getContentType());
 
-        final List<UaiHeaderDTO> uaiHeaderDTOList = UaiHeaderDTOFactory.create(uaiResponse.headerList);
+        final List<UaiHeaderDTO> uaiHeaderDTOList = UaiHeaderDTOFactory.create(uaiResponse.getHeaderList());
         uaiResponseDTO.setHeaderList(uaiHeaderDTOList);
 
         return uaiResponseDTO;

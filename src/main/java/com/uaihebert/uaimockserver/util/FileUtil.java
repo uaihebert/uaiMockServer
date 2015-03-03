@@ -3,6 +3,9 @@ package com.uaihebert.uaimockserver.util;
 import com.uaihebert.uaimockserver.model.UaiMockServerConfig;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.net.URL;
 
 public final class FileUtil {
@@ -32,5 +35,36 @@ public final class FileUtil {
 
     public static String getNameWithoutExtension(final File file) {
         return file.getName().replaceFirst("[.][^.]+$", "");
+    }
+
+    public static String getFileContent(final String fileName) {
+        final File file = findFile(fileName);
+
+        FileInputStream fileInputStream = null;
+        final StringBuilder fileContent = new StringBuilder();
+
+        try {
+            fileInputStream = new FileInputStream(file);
+
+            int content;
+            while ((content = fileInputStream.read()) != -1) {
+                fileContent.append((char) content);
+            }
+
+        } catch (FileNotFoundException e) {
+            throw new IllegalArgumentException("could not open the config file", e);
+        } catch (IOException e) {
+            throw new IllegalArgumentException("could not read the config file", e);
+        } finally {
+            if (fileInputStream != null) {
+                try {
+                    fileInputStream.close();
+                } catch (IOException e) {
+                    throw new IllegalArgumentException("could not close the config file", e);
+                }
+            }
+        }
+
+        return fileContent.toString();
     }
 }

@@ -1,9 +1,9 @@
 package com.uaihebert.uaimockserver.util;
 
 import com.uaihebert.uaimockserver.model.UaiHeader;
-import com.uaihebert.uaimockserver.model.UaiMockServerConfig;
 import com.uaihebert.uaimockserver.model.UaiQueryParam;
 import com.uaihebert.uaimockserver.model.UaiRoute;
+import com.uaihebert.uaimockserver.model.UaiRouteMapper;
 import com.uaihebert.uaimockserver.validator.RequestValidator;
 import io.undertow.server.HttpServerExchange;
 
@@ -17,7 +17,7 @@ public final class RouteFinderUtil {
     public static UaiRoute findValidRoute(final HttpServerExchange httpServerExchange) {
         final String requestKey = RouteMapKeyUtil.createKeyFromRequest(httpServerExchange);
 
-        final Set<UaiRoute> uaiRouteList = UaiMockServerConfig.findRouteListByKey(requestKey);
+        final Set<UaiRoute> uaiRouteList = UaiRouteMapper.findRouteListByKey(requestKey);
 
         final Set<UaiRoute> uaiRouteListWithEqualAttributes = findRoutesWithEqualAttributes(uaiRouteList, httpServerExchange);
 
@@ -43,14 +43,14 @@ public final class RouteFinderUtil {
 
         routLoop:
         for (UaiRoute uaiRoute : uaiRouteList) {
-            for (UaiHeader uaiHeader : uaiRoute.uaiRequest.requiredHeaderList) {
-                if (!httpServerExchange.getRequestHeaders().contains(uaiHeader.name)) {
+            for (UaiHeader uaiHeader : uaiRoute.getRequest().getRequiredHeaderList()) {
+                if (!httpServerExchange.getRequestHeaders().contains(uaiHeader.getName())) {
                     continue routLoop;
                 }
             }
 
-            for (UaiQueryParam uaiQueryParam : uaiRoute.uaiRequest.requiredQueryParamList) {
-                if (!httpServerExchange.getQueryParameters().containsKey(uaiQueryParam.name)) {
+            for (UaiQueryParam uaiQueryParam : uaiRoute.getRequest().getRequiredQueryParamList()) {
+                if (!httpServerExchange.getQueryParameters().containsKey(uaiQueryParam.getName())) {
                     continue routLoop;
                 }
             }

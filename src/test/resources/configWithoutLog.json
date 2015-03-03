@@ -1,0 +1,28 @@
+{
+	"port": 1234,
+	"host": "localhost",
+	"context": "/uaiMockServer",
+	"fileLog": false,
+	"consoleLog": false,
+	"defaultContentTypeResponse" : "application/json;charset=UTF-8",
+	"routeList" : [
+	    {
+			"request": {
+				"path": "/noLog",
+				"method": "GET",
+                "requiredHeaderList": [
+                  {
+                        "name" : "X-UAI-LOGIN-HEADER",
+                        "valueList": [
+                            "UAI_*"
+                        ]
+                  }
+                ]
+			},
+			"response": {
+				"contentType": "application/json;charset=UTF-8",
+				"statusCode": 204
+			}
+	    }
+	]
+}

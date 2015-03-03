@@ -15,24 +15,29 @@
  * */
 package com.uaihebert.uaimockserver.model;
 
+import java.util.Collections;
 import java.util.List;
 
 /**
  * Class that will hold all the request data
  */
 public final class UaiRequest {
-    public final String name;
-    public final String path;
-    public final String method;
-    public final String description;
-    public final String requiredContentType;
+    private String name;
+    private String path;
+    private String method;
+    private String description;
+    private String requiredContentType;
 
-    public final long holdRequestInMilli;
+    private long holdRequestInMilli;
 
-    public final boolean isBodyRequired;
+    private boolean isBodyRequired;
 
-    public final List<UaiHeader> requiredHeaderList;
-    public final List<UaiQueryParam> requiredQueryParamList;
+    private List<UaiHeader> requiredHeaderList;
+    private List<UaiQueryParam> requiredQueryParamList;
+
+    public UaiRequest() {
+        System.out.println();
+    }
 
     public UaiRequest(final String name, final String path, final String method, final String description, final String requiredContentType, final long holdRequestInMilli, final boolean isBodyRequired, final List<UaiHeader> requiredHeaderList, final List<UaiQueryParam> requiredQueryParamList) {
         this.name = name;
@@ -43,6 +48,86 @@ public final class UaiRequest {
         this.holdRequestInMilli = holdRequestInMilli;
         this.isBodyRequired = isBodyRequired;
         this.requiredHeaderList = requiredHeaderList;
+        this.requiredQueryParamList = requiredQueryParamList;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(final String name) {
+        this.name = name;
+    }
+
+    public String getPath() {
+        return path;
+    }
+
+    public void setPath(final String path) {
+        this.path = path;
+    }
+
+    public String getMethod() {
+        return method;
+    }
+
+    public void setMethod(final String method) {
+        this.method = method;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(final String description) {
+        this.description = description;
+    }
+
+    public String getRequiredContentType() {
+        return requiredContentType;
+    }
+
+    public void setRequiredContentType(final String requiredContentType) {
+        this.requiredContentType = requiredContentType;
+    }
+
+    public long getHoldRequestInMilli() {
+        return holdRequestInMilli;
+    }
+
+    public void setHoldRequestInMilli(final long holdRequestInMilli) {
+        this.holdRequestInMilli = holdRequestInMilli;
+    }
+
+    public boolean isBodyRequired() {
+        return isBodyRequired;
+    }
+
+    public void setBodyRequired(final boolean isBodyRequired) {
+        this.isBodyRequired = isBodyRequired;
+    }
+
+    public List<UaiHeader> getRequiredHeaderList() {
+        if (requiredHeaderList == null) {
+            requiredHeaderList = Collections.emptyList();
+        }
+
+        return requiredHeaderList;
+    }
+
+    public void setRequiredHeaderList(final List<UaiHeader> requiredHeaderList) {
+        this.requiredHeaderList = requiredHeaderList;
+    }
+
+    public List<UaiQueryParam> getRequiredQueryParamList() {
+        if (requiredQueryParamList == null) {
+            requiredQueryParamList = Collections.emptyList();
+        }
+
+        return requiredQueryParamList;
+    }
+
+    public void setRequiredQueryParamList(final List<UaiQueryParam> requiredQueryParamList) {
         this.requiredQueryParamList = requiredQueryParamList;
     }
 }

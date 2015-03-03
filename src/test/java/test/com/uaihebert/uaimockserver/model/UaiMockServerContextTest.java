@@ -15,31 +15,31 @@
  * */
 package test.com.uaihebert.uaimockserver.model;
 
-import com.uaihebert.uaimockserver.model.UaiMockServerConfig;
+import com.uaihebert.uaimockserver.model.UaiMockServerContext;
 import org.junit.Test;
 
 import java.net.URL;
 
 import static org.junit.Assert.fail;
 
-public class UaiMockServerConfigTest {
+public class UaiMockServerContextTest {
 
     @Test
     public void isCreatingServerConfig() {
-        UaiMockServerConfig.createInstance();
+        UaiMockServerContext.createInstance();
     }
 
     @Test
     public void isCreatingWithFile() {
-        final URL resource = UaiMockServerConfig.class.getResource("/uaiMockServer.config");
+        final URL resource = UaiMockServerContext.class.getResource("/uaiMockServer.json");
 
-        UaiMockServerConfig.createInstance(resource.getFile());
+        UaiMockServerContext.createInstance(resource.getFile());
     }
 
     @Test
     public void isCreatingWithoutRoutesInTheMainFile() {
         try {
-            UaiMockServerConfig.createInstance("mainFileWithoutRoutes.config");
+            UaiMockServerContext.createInstance("mainFileWithoutRoutes.config");
         } catch (final Exception ex) {
             ex.printStackTrace();
             fail("should not fail because the file has no routes");
@@ -49,7 +49,7 @@ public class UaiMockServerConfigTest {
     @Test
     public void isCreatingWithoutLog() {
         try {
-            UaiMockServerConfig.createInstance("configWithoutLog.config");
+            UaiMockServerContext.createInstance("configWithoutLog.json");
         } catch (final Exception ex) {
             ex.printStackTrace();
             fail("should not fail because the file has no log");

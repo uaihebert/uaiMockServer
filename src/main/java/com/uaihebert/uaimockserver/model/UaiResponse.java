@@ -15,18 +15,24 @@
  * */
 package com.uaihebert.uaimockserver.model;
 
+import com.uaihebert.uaimockserver.util.StringUtils;
+
+import java.util.Collections;
 import java.util.List;
 
 /**
  * Class that will hold all the response data
  */
 public final class UaiResponse {
-    public final int statusCode;
+    private int statusCode;
 
-    public final String body;
-    public final String contentType;
+    private String body;
+    private String contentType;
 
-    public final List<UaiHeader> headerList;
+    private List<UaiHeader> headerList;
+
+    public UaiResponse() {
+    }
 
     public UaiResponse(final int statusCode, final String body, final String contentType, final List<UaiHeader> headerList) {
         this.statusCode = statusCode;
@@ -43,5 +49,47 @@ public final class UaiResponse {
                 ", requiredContentType='" + contentType + '\'' +
                 ", headerList=" + headerList +
                 '}';
+    }
+
+    public int getStatusCode() {
+        return statusCode;
+    }
+
+    public void setStatusCode(final int statusCode) {
+        this.statusCode = statusCode;
+    }
+
+    public String getBody() {
+        return body;
+    }
+
+    public void setBody(final String body) {
+        this.body = body;
+    }
+
+    public String getContentType() {
+        return contentType;
+    }
+
+    public void setContentType(final String contentType) {
+        this.contentType = contentType;
+    }
+
+    public List<UaiHeader> getHeaderList() {
+        if (headerList == null) {
+            headerList = Collections.emptyList();
+        }
+
+        return headerList;
+    }
+
+    public void setHeaderList(final List<UaiHeader> headerList) {
+        this.headerList = headerList;
+    }
+
+    public void configureContentType(final String defaultContentType) {
+        if (StringUtils.isBlank(contentType)) {
+            contentType = defaultContentType;
+        }
     }
 }

@@ -277,11 +277,6 @@
 
     <dependencies>
         <dependency>
-            <groupId>com.typesafe</groupId>
-            <artifactId>config</artifactId>
-            <version>1.2.1</version>
-        </dependency>
-        <dependency>
             <groupId>io.undertow</groupId>
             <artifactId>undertow-core</artifactId>
             <version>1.2.0.Beta8</version>

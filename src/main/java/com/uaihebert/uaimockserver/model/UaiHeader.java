@@ -15,6 +15,7 @@
  * */
 package com.uaihebert.uaimockserver.model;
 
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -22,13 +23,44 @@ import java.util.List;
  */
 public class UaiHeader {
 
-    public final String name;
-    public final boolean usingWildCard;
-    public final List<String> valueList;
+    private String name;
+    private boolean usingWildCard;
+    private List<String> valueList;
+
+    public UaiHeader() {
+    }
 
     public UaiHeader(final String name, final boolean usingWildCard, final List<String> valueList) {
         this.name = name;
         this.usingWildCard = usingWildCard;
+        this.valueList = valueList;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(final String name) {
+        this.name = name;
+    }
+
+    public boolean isUsingWildCard() {
+        return usingWildCard;
+    }
+
+    public void setUsingWildCard(final boolean usingWildCard) {
+        this.usingWildCard = usingWildCard;
+    }
+
+    public List<String> getValueList() {
+        if (valueList == null) {
+            valueList = Collections.emptyList();
+        }
+
+        return valueList;
+    }
+
+    public void setValueList(final List<String> valueList) {
         this.valueList = valueList;
     }
 }

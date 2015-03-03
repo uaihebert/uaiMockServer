@@ -13,26 +13,26 @@ public final class UaiRequestDTOFactory {
 
     public static UaiRequestDTO create(final UaiRequest uaiRequest) {
         final UaiRequestDTO uaiRequestDTO = new UaiRequestDTO();
-        uaiRequestDTO.setBodyRequired(uaiRequest.isBodyRequired);
+        uaiRequestDTO.setBodyRequired(uaiRequest.isBodyRequired());
         setHoldRequestInMilli(uaiRequest, uaiRequestDTO);
-        uaiRequestDTO.setMethod(uaiRequest.method);
-        uaiRequestDTO.setName(uaiRequest.name);
-        uaiRequestDTO.setDescription(uaiRequest.description);
-        uaiRequestDTO.setPath(uaiRequest.path);
-        uaiRequestDTO.setRequiredContentType(uaiRequest.requiredContentType);
+        uaiRequestDTO.setMethod(uaiRequest.getMethod());
+        uaiRequestDTO.setName(uaiRequest.getName());
+        uaiRequestDTO.setDescription(uaiRequest.getDescription());
+        uaiRequestDTO.setPath(uaiRequest.getPath());
+        uaiRequestDTO.setRequiredContentType(uaiRequest.getRequiredContentType());
 
-        final List<UaiHeaderDTO> uaiHeaderDTOList = UaiHeaderDTOFactory.create(uaiRequest.requiredHeaderList);
+        final List<UaiHeaderDTO> uaiHeaderDTOList = UaiHeaderDTOFactory.create(uaiRequest.getRequiredHeaderList());
         uaiRequestDTO.setRequiredHeaderList(uaiHeaderDTOList);
 
-        final List<UaiQueryParamDTO> uaiQueryParamDTOList = UaiQueryParamDTOFactory.create(uaiRequest.requiredQueryParamList);
+        final List<UaiQueryParamDTO> uaiQueryParamDTOList = UaiQueryParamDTOFactory.create(uaiRequest.getRequiredQueryParamList());
         uaiRequestDTO.setRequiredQueryParamList(uaiQueryParamDTOList);
 
         return uaiRequestDTO;
     }
 
     private static void setHoldRequestInMilli(final UaiRequest uaiRequest, final UaiRequestDTO uaiRequestDTO) {
-        if (uaiRequest.holdRequestInMilli != 0) {
-            uaiRequestDTO.setHoldRequestInMilli(uaiRequest.holdRequestInMilli);
+        if (uaiRequest.getHoldRequestInMilli() != 0) {
+            uaiRequestDTO.setHoldRequestInMilli(uaiRequest.getHoldRequestInMilli());
             return;
         }
 

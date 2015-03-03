@@ -23,8 +23,8 @@ public final class UaiHeaderDTOFactory {
     private static UaiHeaderDTO createUaiHeaderDTO(final UaiHeader uaiHeader) {
         final UaiHeaderDTO uaiHeaderDTO = new UaiHeaderDTO();
 
-        uaiHeaderDTO.setName(uaiHeader.name);
-        uaiHeaderDTO.setValueList(uaiHeader.valueList);
+        uaiHeaderDTO.setName(uaiHeader.getName());
+        uaiHeaderDTO.setValueList(uaiHeader.getValueList());
 
         return uaiHeaderDTO;
     }

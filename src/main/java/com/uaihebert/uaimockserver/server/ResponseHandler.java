@@ -26,21 +26,21 @@ class ResponseHandler {
     public void process(final HttpServerExchange exchange, final UaiResponse uaiResponse) {
         Log.infoFormatted("Response that will be sent: [%s]", uaiResponse);
 
-        exchange.getResponseHeaders().put(Headers.CONTENT_TYPE, uaiResponse.contentType);
+        exchange.getResponseHeaders().put(Headers.CONTENT_TYPE, uaiResponse.getContentType());
 
-        exchange.setResponseCode(uaiResponse.statusCode);
+        exchange.setResponseCode(uaiResponse.getStatusCode());
 
         setResponseHeaders(uaiResponse, exchange);
 
-        if (uaiResponse.body != null) {
-            exchange.getResponseSender().send(uaiResponse.body);
+        if (uaiResponse.getBody() != null) {
+            exchange.getResponseSender().send(uaiResponse.getBody());
         }
     }
 
     private void setResponseHeaders(final UaiResponse uaiResponse, final HttpServerExchange exchange) {
-        for (UaiHeader uaiHeader : uaiResponse.headerList) {
-            for (String value : uaiHeader.valueList) {
-                exchange.getResponseHeaders().add(new HttpString(uaiHeader.name), value);
+        for (UaiHeader uaiHeader : uaiResponse.getHeaderList()) {
+            for (String value : uaiHeader.getValueList()) {
+                exchange.getResponseHeaders().add(new HttpString(uaiHeader.getName()), value);
             }
         }
     }

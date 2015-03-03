@@ -31,7 +31,7 @@ public class LogTest {
 
     @Test
     public void invokingWarnMethodOnDeactivatedWarnForCoverage() {
-        final URL resource = UaiMockServerConfig.class.getResource("/configWithoutLog.config");
+        final URL resource = UaiMockServerConfig.class.getResource("/configWithoutLog.json");
 
         final UaiMockServer uaiMockServer = UaiMockServer.start(resource.getFile());
 

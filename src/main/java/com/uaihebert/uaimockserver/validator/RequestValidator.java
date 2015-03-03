@@ -44,7 +44,7 @@ public final class RequestValidator {
         }
 
         for (UaiRoute uaiRoute : uaiRouteList) {
-            if (RequestValidatorFacade.isValidRequest(uaiRoute.uaiRequest, exchange)) {
+            if (RequestValidatorFacade.isValidRequest(uaiRoute.getRequest(), exchange)) {
                 return uaiRoute;
             }
         }

@@ -16,7 +16,7 @@
 package com.uaihebert.uaimockserver.util;
 
 import com.uaihebert.uaimockserver.log.Log;
-import com.uaihebert.uaimockserver.model.UaiBasicServerConfiguration;
+import com.uaihebert.uaimockserver.model.UaiMockServerContext;
 import com.uaihebert.uaimockserver.model.UaiRequest;
 import io.undertow.server.HttpServerExchange;
 
@@ -29,11 +29,11 @@ public final class RouteMapKeyUtil {
     }
 
     public static String createKeyForMap(final UaiRequest uaiRequest) {
-        final String uri = UaiBasicServerConfiguration.getContext() + uaiRequest.path;
+        final String uri = UaiMockServerContext.INSTANCE.uaiMockServerConfig.getContext() + uaiRequest.getPath();
 
-        Log.infoFormatted("Route detected: method [%s] and URI [%s] ", uaiRequest.method, uri);
+        Log.infoFormatted("Route detected: method [%s] and URI [%s] ", uaiRequest.getMethod(), uri);
 
-        return createKey(uaiRequest.method, uaiRequest.path);
+        return createKey(uaiRequest.getMethod(), uaiRequest.getPath());
     }
 
     public static String createKeyFromRequest(final HttpServerExchange httpServerExchange) {
@@ -48,6 +48,6 @@ public final class RouteMapKeyUtil {
     }
 
     public static String createKey(final String method, final String path) {
-        return createKey(method, UaiBasicServerConfiguration.getContext(), path);
+        return createKey(method, UaiMockServerContext.INSTANCE.uaiMockServerConfig.getContext(), path);
     }
 }

@@ -1,7 +1,7 @@
 package com.uaihebert.uaimockserver.dto.factory;
 
 import com.uaihebert.uaimockserver.dto.model.UaiBasicConfigurationDTO;
-import com.uaihebert.uaimockserver.model.UaiBasicServerConfiguration;
+import com.uaihebert.uaimockserver.model.UaiMockServerContext;
 
 public final class UaiBasicConfigurationDTOFactory {
     private UaiBasicConfigurationDTOFactory() {
@@ -10,11 +10,11 @@ public final class UaiBasicConfigurationDTOFactory {
     public static UaiBasicConfigurationDTO create() {
         final UaiBasicConfigurationDTO uaiBasicConfigurationDTO = new UaiBasicConfigurationDTO();
 
-        uaiBasicConfigurationDTO.setPort(UaiBasicServerConfiguration.getPort());
-        uaiBasicConfigurationDTO.setHost(UaiBasicServerConfiguration.getHost());
-        uaiBasicConfigurationDTO.setContext(UaiBasicServerConfiguration.getContext());
-        uaiBasicConfigurationDTO.setDefaultContentType(UaiBasicServerConfiguration.getDefaultContentType());
-        uaiBasicConfigurationDTO.setMainUaiFile(UaiFileDTOFactory.create(UaiBasicServerConfiguration.getMainUaiFile()));
+        uaiBasicConfigurationDTO.setPort(UaiMockServerContext.INSTANCE.uaiMockServerConfig.getPort());
+        uaiBasicConfigurationDTO.setHost(UaiMockServerContext.INSTANCE.uaiMockServerConfig.getHost());
+        uaiBasicConfigurationDTO.setContext(UaiMockServerContext.INSTANCE.uaiMockServerConfig.getContext());
+        uaiBasicConfigurationDTO.setDefaultContentType(UaiMockServerContext.INSTANCE.uaiMockServerConfig.getDefaultContentTypeResponse());
+        uaiBasicConfigurationDTO.setMainUaiFile(UaiFileDTOFactory.create(UaiMockServerContext.INSTANCE.uaiMockServerConfig.getConfigFile()));
 
         return uaiBasicConfigurationDTO;
     }

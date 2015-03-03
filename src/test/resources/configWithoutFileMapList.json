@@ -1,0 +1,21 @@
+{
+  "port" : "2223",
+  "host" : "localhost",
+  "context" : "/uaiMockServer",
+  "fileLog" : true,
+  "consoleLog" : false,
+  "defaultContentTypeResponse" : "application/json;charset=UTF-8",
+  "routeList" : [
+	    {
+			"request": {
+				"path" : "/",
+				"method" : "GET"
+			},
+			"response" : {
+				"contentType" : "application/json;charset=UTF-8",
+				"statusCode" : "200",
+				"body" : "{'mockBody':{'title':'Hello World'}}"
+			}
+	    }
+	]
+}

@@ -1,0 +1,176 @@
+{
+   "port":"1234",
+   "host":"localhost",
+   "fileLog":"false",
+   "consoleLog":"true",
+   "context":"/uaiMockServer",
+   "defaultContentTypeResponse":"text/html;charset=UTF-8",
+   "mappingRoutesFileList":[
+      "customerRequests.config",
+      "paymentsRequests.config"
+   ],
+   "routeList":[
+      {
+         "request":{
+            "name":"Hello World",
+            "path":"/",
+            "method":"GET"
+         },
+         "response":{
+            "contentType":"application/json;charset=UTF-8",
+            "statusCode":200,
+            "body":"{'mockBody':{'title':'Hello World'}}"
+         }
+      },
+      {
+         "request":{
+            "name":"Test default content type",
+            "path":"/noResponseContentTypeConfigured",
+            "method":"GET"
+         },
+         "response":{
+            "statusCode":200,
+            "body":"{'mockBody':{'title':'Hello World'}}"
+         }
+      },
+      {
+         "request":{
+            "name":"Required Header Test",
+            "path":"/requiredHeader",
+            "method":"GET",
+            "requiredHeaderList":[
+               {
+                  "name":"X-UAI-LOGIN-HEADER",
+                  "valueList":[
+                     "MOCK_VALUE",
+                     "REQUIRED"
+                  ]
+               },
+               {
+                  "name":"X-API-VERSION",
+                  "valueList":[
+                     "MOCK_VALUE"
+                  ]
+               }
+            ]
+         },
+         "response":{
+            "statusCode":200,
+            "body":"{'mockBody':{'title':'Hello World'}}"
+         }
+      },
+      {
+         "request":{
+            "name":"Required Query Param Test",
+            "path":"/requiredQueryParam",
+            "method":"GET",
+            "requiredQueryParamList":[
+               {
+                  "name":"queryParam01",
+                  "valueList":[
+                     "MOCK_VALUE",
+                     "REQUIRED"
+                  ]
+               },
+               {
+                  "name":"queryParam02",
+                  "valueList":[
+                     "MOCK_VALUE",
+                     "REQUIRED"
+                  ]
+               }
+            ]
+         },
+         "response":{
+            "statusCode":200,
+            "body":"{'mockBody':{'title':'Hello World'}}"
+         }
+      },
+      {
+         "request":{
+            "name":"Wild Card with Query Param Test",
+            "path":"/wildCardIsWorkingWithQueryParam",
+            "method":"GET",
+            "requiredQueryParamList":[
+               {
+                  "name":"queryParam01",
+                  "valueList":[
+                     "UAI_*"
+                  ]
+               },
+               {
+                  "name":"queryParam02",
+                  "valueList":[
+                     "UAI_*"
+                  ]
+               }
+            ]
+         },
+         "response":{
+            "statusCode":200,
+            "body":"{'mockBody':{'title':'Hello World'}}"
+         }
+      },
+      {
+         "request":{
+            "name":"Wild Card with Header Test",
+            "path":"/wildCardIsWorkingWithHeader",
+            "method":"GET",
+            "requiredHeaderList":[
+               {
+                  "name":"X-UAI-LOGIN-HEADER",
+                  "valueList":[
+                     "UAI_*"
+                  ]
+               },
+               {
+                  "name":"X-API-VERSION",
+                  "valueList":[
+                     "UAI_*"
+                  ]
+               }
+            ]
+         },
+         "response":{
+            "statusCode":200,
+            "body":"{'mockBody':{'title':'Hello World'}}"
+         }
+      },
+      {
+         "request":{
+            "name":"Testing header in the response",
+            "path":"/responseHeaderTest",
+            "method":"GET"
+         },
+         "response":{
+            "statusCode":204,
+            "headerList":[
+               {
+                  "name":"HEADER-01",
+                  "valueList":[
+                     "RETURNED_HEADER-01"
+                  ]
+               },
+               {
+                  "name":"HEADER-02",
+                  "valueList":[
+                     "LIST_01",
+                     "LIST_02"
+                  ]
+               }
+            ]
+         }
+      },
+      {
+         "request":{
+            "name":"Required ContentType Test",
+            "path":"/requiredRequestContentType",
+            "method":"GET",
+            "requiredContentType":"application/json"
+         },
+         "response":{
+            "statusCode":204
+         }
+      }
+   ]
+}

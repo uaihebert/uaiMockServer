@@ -6,7 +6,7 @@ import org.junit.Test;
 public class UaiMockServerNoConfigTest {
     @Test
     public void isNotRaisingErrorIfRouteListIsNotPresent() {
-        final UaiMockServer uaiMockServer = UaiMockServer.start("configWithoutFileMappList.config");
+        final UaiMockServer uaiMockServer = UaiMockServer.start("configWithoutFileMapList.json");
         uaiMockServer.shutdown();
     }
 }

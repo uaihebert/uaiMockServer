@@ -15,7 +15,8 @@
  * */
 package com.uaihebert.uaimockserver.server;
 
-import com.uaihebert.uaimockserver.model.UaiMockServerConfig;
+import com.uaihebert.uaimockserver.model.UaiMockServerContext;
+import com.uaihebert.uaimockserver.model.UaiRouteMapper;
 import com.uaihebert.uaimockserver.util.HttpServerUtil;
 import io.undertow.Undertow;
 
@@ -31,18 +32,18 @@ public final class UaiMockServer {
     }
 
     public void shutdown() {
-        UaiMockServerConfig.resetRouteMap();
+        UaiRouteMapper.resetRouteMap();
         httpServer.stop();
     }
 
     public static UaiMockServer start() {
-        UaiMockServerConfig.createInstance();
+        UaiMockServerContext.createInstance();
 
         return createServer();
     }
 
     public static UaiMockServer start(final String configurationFileName) {
-        UaiMockServerConfig.createInstance(configurationFileName);
+        UaiMockServerContext.createInstance(configurationFileName);
 
         return createServer();
     }

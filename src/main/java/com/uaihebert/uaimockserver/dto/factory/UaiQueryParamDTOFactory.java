@@ -23,8 +23,8 @@ public final class UaiQueryParamDTOFactory {
     private static UaiQueryParamDTO createUaiQueryParamDTO(final UaiQueryParam uaiQueryParam) {
         final UaiQueryParamDTO uaiQueryParamDTO = new UaiQueryParamDTO();
 
-        uaiQueryParamDTO.setName(uaiQueryParam.name);
-        uaiQueryParamDTO.setValueList(uaiQueryParam.valueList);
+        uaiQueryParamDTO.setName(uaiQueryParam.getName());
+        uaiQueryParamDTO.setValueList(uaiQueryParam.getValueList());
 
         return uaiQueryParamDTO;
     }
