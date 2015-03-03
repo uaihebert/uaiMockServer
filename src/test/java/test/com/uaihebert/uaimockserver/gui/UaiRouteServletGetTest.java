@@ -23,7 +23,7 @@ public class UaiRouteServletGetTest {
 
     @BeforeClass
     public static void before() {
-        final URL resource = UaiMockServerConfig.class.getResource("/configForListAllRoutes.config");
+        final URL resource = UaiMockServerConfig.class.getResource("/configForListAllRoutes.json");
 
         uaiMockServer = UaiMockServer.start(resource.getFile());
     }

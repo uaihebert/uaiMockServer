@@ -36,7 +36,7 @@ public class UaiMockServerHandler implements HttpHandler {
 
         final UaiRoute uaiRoute = RouteFinderUtil.findValidRoute(exchange);
 
-        RequestHolder.holdTheRequest(uaiRoute.getRequest().getHoldRequestInMilli());
+        RequestHolder.holdTheRequest(uaiRoute.getRequest().getHoldTheRequestInMilli());
 
         responseHandler.process(exchange, uaiRoute.getResponse());
     }

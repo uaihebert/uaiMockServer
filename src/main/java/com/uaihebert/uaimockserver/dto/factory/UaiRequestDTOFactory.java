@@ -31,8 +31,8 @@ public final class UaiRequestDTOFactory {
     }
 
     private static void setHoldRequestInMilli(final UaiRequest uaiRequest, final UaiRequestDTO uaiRequestDTO) {
-        if (uaiRequest.getHoldRequestInMilli() != 0) {
-            uaiRequestDTO.setHoldRequestInMilli(uaiRequest.getHoldRequestInMilli());
+        if (uaiRequest.getHoldTheRequestInMilli() != 0) {
+            uaiRequestDTO.setHoldRequestInMilli(uaiRequest.getHoldTheRequestInMilli());
             return;
         }
 

@@ -23,7 +23,7 @@ import java.net.URL;
 import static org.junit.Assert.assertEquals;
 
 @RunWith(UaiMockServerRunner.class)
-@UaiServerConfiguration(configurationFile = "routePostTest.config")
+@UaiServerConfiguration(configurationFile = "routePostTest.json")
 public class UaiRouteServletPostTest {
     public long getTotalOfRoutesFound() {
         final IndexResponseDTO toUpdateIndex = listAll();
@@ -62,10 +62,10 @@ public class UaiRouteServletPostTest {
     }
 
     private String createEntity() {
-        final URL resource = UaiMockServerConfig.class.getResource("/routePostTest.config");
+        final URL resource = UaiMockServerConfig.class.getResource("/routePostTest.json");
 
         final UaiRouteDTO uaiRouteDTO = new UaiRouteDTO();
-        uaiRouteDTO.setUaiFile(new UaiFileDTO("routePostTest.config", resource.getFile()));
+        uaiRouteDTO.setUaiFile(new UaiFileDTO("routePostTest.json", resource.getFile()));
         uaiRouteDTO.setRequest(new UaiRequestDTO());
         uaiRouteDTO.setResponse(new UaiResponseDTO());
 

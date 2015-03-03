@@ -16,10 +16,11 @@ public final class UaiMockServerConfigFactory {
     public static UaiMockServerConfig create(final String fileName) {
         final String fileContent = FileUtil.getFileContent(fileName);
         final UaiMockServerConfig uaiMockServerConfig = new Gson().fromJson(fileContent, UaiMockServerConfig.class);
-        uaiMockServerConfig.postConstruct();
 
         final File file = FileUtil.findFile(fileName);
-        uaiMockServerConfig.setConfigFile(new UaiFile(file.getName(), file.getAbsolutePath()));
+        uaiMockServerConfig.setUaiFile(new UaiFile(file.getName(), file.getAbsolutePath()));
+
+        uaiMockServerConfig.postConstruct();
 
         return uaiMockServerConfig;
     }

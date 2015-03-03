@@ -34,7 +34,7 @@ public final class UaiMockServerConfig {
     private List<UaiRoute> routeList;
     private List<String> mappingRoutesFileList;
 
-    private UaiFile configFile;
+    private UaiFile uaiFile;
 
     public UaiMockServerConfig() {
     }
@@ -42,13 +42,14 @@ public final class UaiMockServerConfig {
 
     public void postConstruct() {
         for (UaiRoute uaiRoute : getRouteList()) {
+            uaiRoute.setUaiFile(uaiFile);
             uaiRoute.createId();
             uaiRoute.getResponse().configureContentType(defaultContentTypeResponse);
         }
     }
 
-    public void setConfigFile(final UaiFile configFile) {
-        this.configFile = configFile;
+    public void setUaiFile(final UaiFile uaiFile) {
+        this.uaiFile = uaiFile;
     }
 
     public int getPort() {
@@ -91,7 +92,7 @@ public final class UaiMockServerConfig {
         return mappingRoutesFileList;
     }
 
-    public UaiFile getConfigFile() {
-        return configFile;
+    public UaiFile getUaiFile() {
+        return uaiFile;
     }
 }

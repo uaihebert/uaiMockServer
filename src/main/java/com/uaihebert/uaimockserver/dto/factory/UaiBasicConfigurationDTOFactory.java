@@ -14,7 +14,7 @@ public final class UaiBasicConfigurationDTOFactory {
         uaiBasicConfigurationDTO.setHost(UaiMockServerContext.INSTANCE.uaiMockServerConfig.getHost());
         uaiBasicConfigurationDTO.setContext(UaiMockServerContext.INSTANCE.uaiMockServerConfig.getContext());
         uaiBasicConfigurationDTO.setDefaultContentType(UaiMockServerContext.INSTANCE.uaiMockServerConfig.getDefaultContentTypeResponse());
-        uaiBasicConfigurationDTO.setMainUaiFile(UaiFileDTOFactory.create(UaiMockServerContext.INSTANCE.uaiMockServerConfig.getConfigFile()));
+        uaiBasicConfigurationDTO.setMainUaiFile(UaiFileDTOFactory.create(UaiMockServerContext.INSTANCE.uaiMockServerConfig.getUaiFile()));
 
         return uaiBasicConfigurationDTO;
     }

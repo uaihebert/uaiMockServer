@@ -28,7 +28,7 @@ public final class UaiRequest {
     private String description;
     private String requiredContentType;
 
-    private long holdRequestInMilli;
+    private long holdTheRequestInMilli;
 
     private boolean isBodyRequired;
 
@@ -39,13 +39,13 @@ public final class UaiRequest {
         System.out.println();
     }
 
-    public UaiRequest(final String name, final String path, final String method, final String description, final String requiredContentType, final long holdRequestInMilli, final boolean isBodyRequired, final List<UaiHeader> requiredHeaderList, final List<UaiQueryParam> requiredQueryParamList) {
+    public UaiRequest(final String name, final String path, final String method, final String description, final String requiredContentType, final long holdTheRequestInMilli, final boolean isBodyRequired, final List<UaiHeader> requiredHeaderList, final List<UaiQueryParam> requiredQueryParamList) {
         this.name = name;
         this.path = path;
         this.method = method;
         this.description = description;
         this.requiredContentType = requiredContentType;
-        this.holdRequestInMilli = holdRequestInMilli;
+        this.holdTheRequestInMilli = holdTheRequestInMilli;
         this.isBodyRequired = isBodyRequired;
         this.requiredHeaderList = requiredHeaderList;
         this.requiredQueryParamList = requiredQueryParamList;
@@ -91,12 +91,12 @@ public final class UaiRequest {
         this.requiredContentType = requiredContentType;
     }
 
-    public long getHoldRequestInMilli() {
-        return holdRequestInMilli;
+    public long getHoldTheRequestInMilli() {
+        return holdTheRequestInMilli;
     }
 
-    public void setHoldRequestInMilli(final long holdRequestInMilli) {
-        this.holdRequestInMilli = holdRequestInMilli;
+    public void setHoldTheRequestInMilli(final long holdTheRequestInMilli) {
+        this.holdTheRequestInMilli = holdTheRequestInMilli;
     }
 
     public boolean isBodyRequired() {
