@@ -12,7 +12,7 @@ import javax.ws.rs.core.Response;
 import static org.junit.Assert.assertEquals;
 
 @RunWith(UaiMockServerRunner.class)
-@UaiServerConfiguration(configurationFile = "otherContextTest.config")
+@UaiServerConfiguration(configurationFile = "otherContextTest.json")
 public class OtherContextTest {
 
     @Test

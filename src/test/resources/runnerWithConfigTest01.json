@@ -1,0 +1,20 @@
+{
+	"port" : "1234",
+	"host" : "localhost",
+	"context" : "/uaiMockServer",
+	"fileLog" : "false",
+	"consoleLog" : "false",
+	"defaultContentTypeResponse" : "application/json;charset=UTF-8",
+	"routeList" : [
+	    {
+			"request" : {
+				"path" : "/runnerWithConfig01",
+				"method" : "GET"
+			},
+			"response" : {
+				"contentType" : "application/json;charset=UTF-8",
+				"statusCode" : "204"
+			}
+	    }
+	]
+}

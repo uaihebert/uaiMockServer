@@ -16,7 +16,7 @@ import static org.junit.Assert.assertEquals;
  * it will not mix configurations with the RunnerWithConfig01Test.class
  */
 @RunWith(UaiMockServerRunner.class)
-@UaiServerConfiguration(configurationFile = "runnerWithConfigTest02.config")
+@UaiServerConfiguration(configurationFile = "runnerWithConfigTest02.json")
 public class RunnerWithConfig02Test {
 
     @Test
@@ -26,7 +26,7 @@ public class RunnerWithConfig02Test {
         Client client = ClientBuilder.newClient();
         Response response = client.target(url).request().get();
 
-        assertEquals(200, response.getStatus());
+        assertEquals(204, response.getStatus());
     }
 
     @Test
@@ -36,7 +36,7 @@ public class RunnerWithConfig02Test {
         Client client = ClientBuilder.newClient();
         Response response = client.target(url).request().get();
 
-        assertEquals(200, response.getStatus());
+        assertEquals(204, response.getStatus());
     }
 
     @Test
@@ -46,6 +46,6 @@ public class RunnerWithConfig02Test {
         Client client = ClientBuilder.newClient();
         Response response = client.target(url).request().get();
 
-        assertEquals(200, response.getStatus());
+        assertEquals(204, response.getStatus());
     }
 }

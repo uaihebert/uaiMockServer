@@ -1,0 +1,84 @@
+{
+	"port" : "1234",
+	"host" : "localhost",
+	"fileLog" : "false",
+	"consoleLog" : "true",
+	"context" : "/uaiMockServer",
+	"defaultContentTypeResponse" : "text/html;charset=UTF-8",
+	"routeList" : [
+	    {
+			"request" : {
+				"name" : "All Configurations 01",
+				"path" : "/configForUpdateWithAllConfiguration",
+				"method" : "GET",
+				"description" : "Sample with all configurations 01",
+				"isBodyRequired" : "true",
+				"holdTheRequestInMilli" : "100",
+				"requiredContentType" : "application/json",
+				"requiredHeaderList" : [
+                    {
+                            "name" : "X-UAI-LOGIN-HEADER",
+                            "valueList" : [
+                                "HEADER_VALUE_01",
+                                "HEADER_VALUE_02"
+                            ]
+                    },
+                    {
+                            "name" : "X-API-VERSION",
+                            "valueList" : [
+                                "HEADER_VALUE_03"
+                            ]
+                    }
+                ]
+                "requiredQueryParamList" : [
+                    {
+                            "name" : "queryParam01",
+                            "valueList" : [
+                                "QUERY_PARAM_VALUE_01",
+                                "QUERY_PARAM_VALUE_02"
+                            ]
+                    },
+                    {
+                            "name" : "queryParam02",
+                            "valueList" : [
+                                "QUERY_PARAM_VALUE_03",
+                                "QUERY_PARAM_VALUE_04"
+                            ]
+                    }
+                ]
+			}
+			"response" : {
+				"contentType" : "application/json;charset=UTF-8",
+				"statusCode" : "200",
+				"body" : "{'mockBody':{'title':'Hello World'}}",
+                "headerList" : [
+                    {
+                            "name" : "X-UAI-LOGIN-HEADER",
+                            "valueList" : [
+                                "MOCK_VALUE",
+                                "REQUIRED"
+                            ]
+                    },
+                    {
+                            "name" : "X-API-VERSION",
+                            "valueList" : [
+                                "MOCK_VALUE"
+                            ]
+                    }
+                ]
+			}
+	    }
+        {
+			"request" : {
+				"name" : "Few Config",
+				"path" : "/configForUpdateWithFewConfigs",
+				"method" : "GET",
+				"requiredContentType" : "application/json"
+			},
+			"response" : {
+				"contentType" : "application/json;charset=UTF-8",
+				"statusCode" : "204"
+			}
+	    }
+	]
+}

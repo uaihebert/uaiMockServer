@@ -15,6 +15,8 @@
  * */
 package com.uaihebert.uaimockserver.model;
 
+import com.uaihebert.uaimockserver.constants.ValidatorConstants;
+
 import java.util.Collections;
 import java.util.List;
 
@@ -42,9 +44,31 @@ public final class UaiMockServerConfig {
 
     public void postConstruct() {
         for (UaiRoute uaiRoute : getRouteList()) {
-            uaiRoute.setUaiFile(uaiFile);
             uaiRoute.createId();
-            uaiRoute.getResponse().configureContentType(defaultContentTypeResponse);
+            uaiRoute.setUaiFile(uaiFile);
+
+            configureRoutes(uaiRoute);
+        }
+    }
+
+    private void configureRoutes(final UaiRoute uaiRoute) {
+        uaiRoute.getResponse().configureContentType(defaultContentTypeResponse);
+
+        defineIfRequestHeaderUsingWildCard(uaiRoute);
+        defineIfRequestQueryParamUsingWildCard(uaiRoute);
+    }
+
+    private void defineIfRequestQueryParamUsingWildCard(final UaiRoute uaiRoute) {
+        for (UaiQueryParam uaiQueryParam : uaiRoute.getRequest().getRequiredQueryParamList()) {
+            final boolean usingWildCard = uaiQueryParam.getValueList().contains(ValidatorConstants.VALID_WILD_CARD.text);
+            uaiQueryParam.setUsingWildCard(usingWildCard);
+        }
+    }
+
+    private void defineIfRequestHeaderUsingWildCard(final UaiRoute uaiRoute) {
+        for (UaiHeader uaiHeader : uaiRoute.getRequest().getRequiredHeaderList()) {
+            final boolean usingWildCard = uaiHeader.getValueList().contains(ValidatorConstants.VALID_WILD_CARD.text);
+            uaiHeader.setUsingWildCard(usingWildCard);
         }
     }
 

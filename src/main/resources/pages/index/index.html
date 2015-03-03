@@ -157,9 +157,9 @@
                 } else {
                     $http.post('/uai-mock-server-gui/uaiRoute', $scope.selectedRouteRow.route).
                             success(function(data) {
-//                                $scope.loadTable();
-//                                $('#routeModal').modal('toggle');
-//                                $scope.displaySuccessGrowl();
+                                $scope.loadTable();
+                                $('#routeModal').modal('toggle');
+                                $scope.displaySuccessGrowl();
                             }
                             ).error(function(){
                                 $scope.displayErrorGrowl();

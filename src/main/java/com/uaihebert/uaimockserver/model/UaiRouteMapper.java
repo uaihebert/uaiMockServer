@@ -22,7 +22,7 @@ public final class UaiRouteMapper {
         addRoute(key, uaiRoute);
     }
 
-    public static void addRoute(final String key, final UaiRoute uaiRoute) {
+    private static void addRoute(final String key, final UaiRoute uaiRoute) {
         setInMapById(uaiRoute);
         setInMapByPath(key, uaiRoute);
     }

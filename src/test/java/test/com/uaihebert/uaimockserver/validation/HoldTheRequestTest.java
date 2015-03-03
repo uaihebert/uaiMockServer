@@ -15,36 +15,23 @@
  * */
 package test.com.uaihebert.uaimockserver.validation;
 
-import com.uaihebert.uaimockserver.model.UaiMockServerConfig;
-import com.uaihebert.uaimockserver.server.UaiMockServer;
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
+import com.uaihebert.uaimockserver.runner.UaiMockServerRunner;
+import com.uaihebert.uaimockserver.runner.UaiServerConfiguration;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
-import java.net.URL;
 import java.util.Date;
 
 import static org.junit.Assert.assertTrue;
 
+@RunWith(UaiMockServerRunner.class)
+@UaiServerConfiguration(configurationFile = "holdRequest.json")
 public class HoldTheRequestTest {
-    private static UaiMockServer uaiMockServer;
 
     private static final String ASSERTING_TEXT = "asserting that the time lapse with hold is >= than regular request";
     private static final int MIN_TIME_WAITTING = 490;
-
-    @BeforeClass
-    public static void init() {
-        final URL resource = UaiMockServerConfig.class.getResource("/holdRequest.config");
-
-        uaiMockServer = UaiMockServer.start(resource.getFile());
-    }
-
-    @AfterClass
-    public static void after() {
-        uaiMockServer.shutdown();
-    }
 
     @Test
     public void isHoldingRequest() {

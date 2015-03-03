@@ -15,33 +15,28 @@
  * */
 package test.com.uaihebert.uaimockserver.model;
 
-import com.uaihebert.uaimockserver.model.UaiMockServerConfig;
-import com.uaihebert.uaimockserver.server.UaiMockServer;
+import com.uaihebert.uaimockserver.runner.UaiMockServerRunner;
+import com.uaihebert.uaimockserver.runner.UaiServerConfiguration;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.core.Response;
 
-import java.net.URL;
-
 import static org.junit.Assert.assertEquals;
 
+@RunWith(UaiMockServerRunner.class)
+@UaiServerConfiguration(configurationFile = "configWithoutLog.json")
 public class LogTest {
 
     @Test
     public void invokingWarnMethodOnDeactivatedWarnForCoverage() {
-        final URL resource = UaiMockServerConfig.class.getResource("/configWithoutLog.json");
-
-        final UaiMockServer uaiMockServer = UaiMockServer.start(resource.getFile());
-
         final String url = "http://localhost:1234/uaiMockServer/noLog";
 
         Client client = ClientBuilder.newClient();
         Response response = client.target(url).request().get();
 
         assertEquals(500, response.getStatus());
-
-        uaiMockServer.shutdown();
     }
 }

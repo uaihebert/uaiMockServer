@@ -6,8 +6,8 @@
    "context":"/uaiMockServer",
    "defaultContentTypeResponse":"text/html;charset=UTF-8",
    "mappingRoutesFileList":[
-      "customerRequests.config",
-      "paymentsRequests.config"
+      "customerRequests.json",
+      "paymentsRequests.json"
    ],
    "routeList":[
       {
