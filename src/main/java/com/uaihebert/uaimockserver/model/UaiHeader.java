@@ -23,12 +23,10 @@ import java.util.List;
  */
 public class UaiHeader {
 
-    private String name;
+    private final String name;
+
     private boolean usingWildCard;
     private List<String> valueList;
-
-    public UaiHeader() {
-    }
 
     public UaiHeader(final String name, final boolean usingWildCard, final List<String> valueList) {
         this.name = name;
@@ -38,10 +36,6 @@ public class UaiHeader {
 
     public String getName() {
         return name;
-    }
-
-    public void setName(final String name) {
-        this.name = name;
     }
 
     public boolean isUsingWildCard() {
@@ -58,9 +52,5 @@ public class UaiHeader {
         }
 
         return valueList;
-    }
-
-    public void setValueList(final List<String> valueList) {
-        this.valueList = valueList;
     }
 }

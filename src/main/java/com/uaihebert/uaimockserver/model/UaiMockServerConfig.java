@@ -41,7 +41,6 @@ public final class UaiMockServerConfig {
     public UaiMockServerConfig() {
     }
 
-
     public void postConstruct() {
         for (UaiRoute uaiRoute : getRouteList()) {
             uaiRoute.createId();

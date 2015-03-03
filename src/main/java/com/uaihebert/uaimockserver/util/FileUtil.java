@@ -33,10 +33,6 @@ public final class FileUtil {
         return new File(url.getFile());
     }
 
-    public static String getNameWithoutExtension(final File file) {
-        return file.getName().replaceFirst("[.][^.]+$", "");
-    }
-
     public static String getFileContent(final String fileName) {
         final File file = findFile(fileName);
 

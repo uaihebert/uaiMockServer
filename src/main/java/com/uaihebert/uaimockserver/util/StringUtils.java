@@ -1,8 +1,6 @@
 package com.uaihebert.uaimockserver.util;
 
 public final class StringUtils {
-    public static final String EMPTY = "";
-
     private StringUtils() {
     }
 
