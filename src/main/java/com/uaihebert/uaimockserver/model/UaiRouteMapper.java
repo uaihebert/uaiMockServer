@@ -36,6 +36,8 @@ public final class UaiRouteMapper {
 
         deleteRoute(uaiRoute.getId());
         addRoute(key, uaiRoute);
+        // todo we should add the route in the correct file
+        UaiMockServerContext.INSTANCE.uaiMockServerConfig.getRouteList().add(uaiRoute);
     }
 
     public static void deleteRoute(final String routeId) {

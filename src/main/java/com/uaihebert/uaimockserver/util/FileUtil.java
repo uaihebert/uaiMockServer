@@ -1,7 +1,9 @@
 package com.uaihebert.uaimockserver.util;
 
 import com.google.gson.GsonBuilder;
+import com.uaihebert.uaimockserver.log.Log;
 import com.uaihebert.uaimockserver.model.UaiMockServerConfig;
+import com.uaihebert.uaimockserver.model.UaiMockServerContext;
 import org.apache.commons.io.FileUtils;
 
 import java.io.File;
@@ -54,16 +56,20 @@ public final class FileUtil {
         }
     }
 
+    // todo display error message if the file could not be written
+    // todo hide the route.id from the .json (?)
+    // todo hide headerQueryParam using wildcard
+    // todo when there is only one route, no route is received when update
     public static void writeUpdatesToFile() {
-//        final UaiMockServerConfig mainConfig = UaiMockServerContext.INSTANCE.uaiMockServerConfig;
-//
-//        final String json = gsonBuilder.create().toJson(mainConfig);
-//
-//        try {
-//            FileUtils.writeStringToFile(new File("/home/hebert/Desktop/test.txt"), json);
-//            Log.info("The updates has been written in the config file");
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
+        final UaiMockServerConfig mainConfig = UaiMockServerContext.INSTANCE.uaiMockServerConfig;
+
+        final String json = gsonBuilder.create().toJson(mainConfig);
+
+        try {
+            FileUtils.writeStringToFile(new File("/home/uaihebert/Desktop/test.txt"), json);
+            Log.info("The updates has been written in the config file");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
