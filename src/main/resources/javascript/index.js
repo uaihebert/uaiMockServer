@@ -1,7 +1,7 @@
 var app = angular.module('uaiMockServerApp', ['tableSort', 'angular-growl', 'ngAnimate']);
 
 app.config(['growlProvider', function(growlProvider) {
-    growlProvider.globalTimeToLive(2000);
+    growlProvider.globalTimeToLive(2500);
 }]);
 
 app.controller('routeController', function($scope, $http, growl) {
@@ -27,7 +27,9 @@ app.controller('routeController', function($scope, $http, growl) {
                     $scope.routeRowList.push(routeRow);
                 }
             }
-        );
+        ).error(function(){
+                $scope.displayErrorGrowl();
+            });;
     }
 
     $scope.loadTable();
@@ -136,7 +138,7 @@ app.controller('routeController', function($scope, $http, growl) {
     }
 
     $scope.displayErrorGrowl = function() {
-        growl.addErrorMessage("Something went wrong :(");
+        growl.addErrorMessage("Check the log, something went wrong :(");
     }
 
     $scope.convertStringToList = function(requiredHeaderList) {

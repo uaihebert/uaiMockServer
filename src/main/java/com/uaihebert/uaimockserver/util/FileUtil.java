@@ -58,7 +58,6 @@ public final class FileUtil {
         }
     }
 
-    // todo display error message if something goes wrong at loading index table
     public static void writeUpdatesToFile() {
         final UaiMockServerConfig mainConfig = UaiMockServerContext.INSTANCE.uaiMockServerConfig;
 
@@ -71,9 +70,8 @@ public final class FileUtil {
                 final String secondaryJson = gsonBuilder.create().toJson(secondaryConfig);
                 writeInFile(secondaryConfig, secondaryJson);
             }
-        } catch (IOException e) {
-            // todo display error message if the file could not be written
-            e.printStackTrace();
+        } catch (IOException ex) {
+            throw new IllegalStateException("There was a problem when writing in the config files: " + ex.getMessage(), ex);
         }
     }
 
