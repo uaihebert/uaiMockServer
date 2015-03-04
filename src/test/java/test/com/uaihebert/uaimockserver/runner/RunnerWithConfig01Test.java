@@ -1,7 +1,7 @@
 package test.com.uaihebert.uaimockserver.runner;
 
 import com.uaihebert.uaimockserver.runner.UaiMockServerRunner;
-import com.uaihebert.uaimockserver.runner.UaiServerConfiguration;
+import com.uaihebert.uaimockserver.runner.UaiRunnerMockServerConfiguration;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -16,7 +16,7 @@ import static org.junit.Assert.assertEquals;
  * it will not mix configurations with the RunnerWithConfig02Test.class
  */
 @RunWith(UaiMockServerRunner.class)
-@UaiServerConfiguration(configurationFile = "runnerWithConfigTest01.json")
+@UaiRunnerMockServerConfiguration(configurationFile = "runnerWithConfigTest01.json")
 public class RunnerWithConfig01Test {
 
     @Test

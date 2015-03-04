@@ -56,21 +56,27 @@ public final class FileUtil {
         }
     }
 
-    // todo display error message if the file could not be written
-    // todo hide the route.id from the .json (?)
-    // todo hide headerQueryParam using wildcard
-    // todo when there is only one route, no route is received when update
     // todo display error message if something goes wrong at loading index table
     public static void writeUpdatesToFile() {
         final UaiMockServerConfig mainConfig = UaiMockServerContext.INSTANCE.uaiMockServerConfig;
 
-        final String json = gsonBuilder.create().toJson(mainConfig);
+        final String mainJson = gsonBuilder.create().toJson(mainConfig);
 
         try {
-            FileUtils.writeStringToFile(new File("/home/hebert/Desktop/test.txt"), json);
-            Log.info("The updates has been written in the config file");
+            writeInFile(mainConfig, mainJson);
+
+            for (UaiMockServerConfig secondaryConfig : UaiMockServerContext.INSTANCE.secondaryMappingList) {
+                final String secondaryJson = gsonBuilder.create().toJson(secondaryConfig);
+                writeInFile(secondaryConfig, secondaryJson);
+            }
         } catch (IOException e) {
+            // todo display error message if the file could not be written
             e.printStackTrace();
         }
+    }
+
+    private static void writeInFile(final UaiMockServerConfig configFile, final String jsonConfigContent) throws IOException {
+        FileUtils.writeStringToFile(new File(configFile.getUaiFile().getFullPath()), jsonConfigContent);
+        Log.infoFormatted("The updates has been written in the config file [%s]", configFile.getUaiFile().getFullPath());
     }
 }

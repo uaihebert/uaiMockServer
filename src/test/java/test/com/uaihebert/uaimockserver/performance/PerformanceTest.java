@@ -16,7 +16,7 @@
 package test.com.uaihebert.uaimockserver.performance;
 
 import com.uaihebert.uaimockserver.runner.UaiMockServerRunner;
-import com.uaihebert.uaimockserver.runner.UaiServerConfiguration;
+import com.uaihebert.uaimockserver.runner.UaiRunnerMockServerConfiguration;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -29,7 +29,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 @RunWith(UaiMockServerRunner.class)
-@UaiServerConfiguration(configurationFile = "performanceTest.json")
+@UaiRunnerMockServerConfiguration(configurationFile = "performanceTest.json")
 public class PerformanceTest {
 
     @Test

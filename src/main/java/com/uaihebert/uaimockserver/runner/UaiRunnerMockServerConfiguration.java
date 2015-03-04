@@ -12,7 +12,7 @@ import java.lang.annotation.Target;
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
 @Inherited
-public @interface UaiServerConfiguration {
+public @interface UaiRunnerMockServerConfiguration {
     /**
      * You can set the configuration file using relative path or full Path.
      * <p/>

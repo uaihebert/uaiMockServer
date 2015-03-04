@@ -1,7 +1,7 @@
 package com.uaihebert.uaimockserver.dto.model;
 
 public class UaiBasicConfigurationDTO {
-    private int port;
+    private Integer port;
 
     private String host;
     private String context;
@@ -12,11 +12,11 @@ public class UaiBasicConfigurationDTO {
     public UaiBasicConfigurationDTO() {
     }
 
-    public int getPort() {
+    public Integer getPort() {
         return port;
     }
 
-    public void setPort(final int port) {
+    public void setPort(final Integer port) {
         this.port = port;
     }
 

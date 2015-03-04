@@ -16,7 +16,7 @@
 package test.com.uaihebert.uaimockserver.validation;
 
 import com.uaihebert.uaimockserver.runner.UaiMockServerRunner;
-import com.uaihebert.uaimockserver.runner.UaiServerConfiguration;
+import com.uaihebert.uaimockserver.runner.UaiRunnerMockServerConfiguration;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -27,7 +27,7 @@ import java.util.Date;
 import static org.junit.Assert.assertTrue;
 
 @RunWith(UaiMockServerRunner.class)
-@UaiServerConfiguration(configurationFile = "holdRequest.json")
+@UaiRunnerMockServerConfiguration(configurationFile = "holdRequest.json")
 public class HoldTheRequestTest {
 
     private static final String ASSERTING_TEXT = "asserting that the time lapse with hold is >= than regular request";

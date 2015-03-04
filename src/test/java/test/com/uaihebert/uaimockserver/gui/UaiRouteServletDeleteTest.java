@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.uaihebert.uaimockserver.dto.model.UaiRouteDTO;
 import com.uaihebert.uaimockserver.dto.response.IndexResponseDTO;
 import com.uaihebert.uaimockserver.runner.UaiMockServerRunner;
+import com.uaihebert.uaimockserver.runner.UaiRunnerMockServerConfiguration;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -14,7 +15,8 @@ import javax.ws.rs.core.Response;
 import static org.junit.Assert.assertEquals;
 
 @RunWith(UaiMockServerRunner.class)
-public class UaiRouteServletDeleteTest {
+@UaiRunnerMockServerConfiguration(configurationFile = "routeDeleteTest.json")
+public class UaiRouteServletDeleteTest extends AbstractTestServletTests {
     public long getTotalOfRoutesFound() {
         final IndexResponseDTO toUpdateIndex = listAll();
 
@@ -40,14 +42,18 @@ public class UaiRouteServletDeleteTest {
     public void isDeleting() {
         final long totalBeforeDelete = getTotalOfRoutesFound();
 
-        final UaiRouteDTO uaiRouteDTO = listAll().getRouteList().get(0);
+        final UaiRouteDTO deleted = listAll().getRouteList().get(0);
 
-        final String url = "http://localhost:1234/uai-mock-server-gui/uaiRoute?routeId="+uaiRouteDTO.getId();
+        final String url = "http://localhost:1234/uai-mock-server-gui/uaiRoute?routeId="+deleted.getId();
 
         final Client client = ClientBuilder.newClient();
         client.target(url).request().delete();
 
         final long totalAfterDelete = getTotalOfRoutesFound();
+
+        // rollback
+        executePost(deleted);
+
         assertEquals("making sure that only one was deleted", (totalBeforeDelete - 1), totalAfterDelete);
     }
 }

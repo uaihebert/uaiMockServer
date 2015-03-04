@@ -29,7 +29,7 @@
                                 "HEADER_VALUE_03"
                             ]
                     }
-                ]
+                ],
                 "requiredQueryParamList" : [
                     {
                             "name" : "queryParam01",
@@ -46,7 +46,7 @@
                             ]
                     }
                 ]
-			}
+			},
 			"response" : {
 				"contentType" : "application/json;charset=UTF-8",
 				"statusCode" : "200",
@@ -67,7 +67,7 @@
                     }
                 ]
 			}
-	    }
+	    },
         {
 			"request" : {
 				"name" : "Few Config",

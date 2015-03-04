@@ -74,6 +74,7 @@ public final class HttpServerUtil {
                 .addServlets(
                         servlet("UaiIndexServlet", UaiIndexServlet.class).addMapping("/index"),
                         servlet("UaiPageServlet", UaiPageServlet.class).addMapping("/page"),
+                        servlet("FaviconServlet", FaviconServlet.class).addMapping("/favicon.ico"),
                         servlet("FaviconServlet", FaviconServlet.class).addMapping("/favicon"),
                         servlet("JavascriptServlet", JavascriptServlet.class).addMapping("/javascript"),
                         servlet("CssServlet", CssServlet.class).addMapping("/css"),

@@ -8,7 +8,7 @@ import com.uaihebert.uaimockserver.dto.model.UaiRouteDTO;
 import com.uaihebert.uaimockserver.dto.response.IndexResponseDTO;
 import com.uaihebert.uaimockserver.model.UaiMockServerConfig;
 import com.uaihebert.uaimockserver.runner.UaiMockServerRunner;
-import com.uaihebert.uaimockserver.runner.UaiServerConfiguration;
+import com.uaihebert.uaimockserver.runner.UaiRunnerMockServerConfiguration;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -22,7 +22,7 @@ import java.net.URL;
 import static org.junit.Assert.assertEquals;
 
 @RunWith(UaiMockServerRunner.class)
-@UaiServerConfiguration(configurationFile = "routePostTest.json")
+@UaiRunnerMockServerConfiguration(configurationFile = "routePostTest.json")
 public class UaiRouteServletPostTest {
     public long getTotalOfRoutesFound() {
         final IndexResponseDTO toUpdateIndex = listAll();

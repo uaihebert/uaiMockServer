@@ -1,7 +1,7 @@
 package test.com.uaihebert.uaimockserver.validation;
 
 import com.uaihebert.uaimockserver.runner.UaiMockServerRunner;
-import com.uaihebert.uaimockserver.runner.UaiServerConfiguration;
+import com.uaihebert.uaimockserver.runner.UaiRunnerMockServerConfiguration;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -12,7 +12,7 @@ import javax.ws.rs.core.Response;
 import static org.junit.Assert.assertEquals;
 
 @RunWith(UaiMockServerRunner.class)
-@UaiServerConfiguration(configurationFile = "repeatedUrlTest.json")
+@UaiRunnerMockServerConfiguration(configurationFile = "repeatedUrlTest.json")
 public class RepeatedURLDifferentHeaderTest {
 
     @Test

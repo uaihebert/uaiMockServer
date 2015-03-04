@@ -4,36 +4,35 @@ import com.google.gson.Gson;
 import com.uaihebert.uaimockserver.dto.model.UaiRouteDTO;
 import com.uaihebert.uaimockserver.dto.response.IndexResponseDTO;
 import com.uaihebert.uaimockserver.runner.UaiMockServerRunner;
-import com.uaihebert.uaimockserver.runner.UaiServerConfiguration;
+import com.uaihebert.uaimockserver.runner.UaiRunnerMockServerConfiguration;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
-import javax.ws.rs.client.Entity;
-import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import static org.junit.Assert.assertEquals;
 
 @RunWith(UaiMockServerRunner.class)
-@UaiServerConfiguration(configurationFile = "routePutTest.json")
-public class UaiRouteServletPutTest {
+@UaiRunnerMockServerConfiguration(configurationFile = "routePutTest.json")
+public class UaiRouteServletPutTest extends AbstractTestServletTests {
 
     @Test
     public void isUpdatingRecord() {
-        final String nameOfTheRoute = "All Configurations 01";
+        final String oldRouteName = "All Configurations 01";
         final String newName = "UPDATED NAME";
 
-        final UaiRouteDTO toUpdateRoute = getRouteFromServer(nameOfTheRoute);
+        final UaiRouteDTO toUpdateRoute = getRouteFromServer(oldRouteName);
         toUpdateRoute.getRequest().setName(newName);
 
-        final String url = "http://localhost:1234/uai-mock-server-gui/uaiRoute";
-
-        Client client = ClientBuilder.newClient();
-        client.target(url).request().put(Entity.entity(new Gson().toJson(toUpdateRoute), MediaType.APPLICATION_JSON_TYPE));
+        executePut(toUpdateRoute);
 
         final String updatedName = getRouteFromServer(newName).getRequest().getName();
+
+        // rollback
+        toUpdateRoute.getRequest().setName(oldRouteName);
+        executePut(toUpdateRoute);
 
         assertEquals("making sure that both names are equals", newName, updatedName);
     }
@@ -44,14 +43,17 @@ public class UaiRouteServletPutTest {
         final String newDesc = "UPDATED DESC";
 
         final UaiRouteDTO toUpdateRoute = getRouteFromServer(nameOfTheRoute);
+
+        final String oldDesc = toUpdateRoute.getRequest().getDescription();
+
         toUpdateRoute.getRequest().setDescription(newDesc);
 
-        final String url = "http://localhost:1234/uai-mock-server-gui/uaiRoute";
-
-        Client client = ClientBuilder.newClient();
-        client.target(url).request().put(Entity.entity(new Gson().toJson(toUpdateRoute), MediaType.APPLICATION_JSON_TYPE));
+        executePut(toUpdateRoute);
 
         final String updatedDesc = getRouteFromServer(nameOfTheRoute).getRequest().getDescription();
+
+        // rollback
+        toUpdateRoute.getRequest().setDescription(oldDesc);
 
         assertEquals("making sure that both names are equals", newDesc, updatedDesc);
     }

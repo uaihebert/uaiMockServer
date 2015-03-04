@@ -25,10 +25,10 @@ import java.util.List;
  * Class that will hold all the project configurations
  */
 public final class UaiMockServerConfig {
-    private int port;
+    private Integer port;
 
-    private boolean fileLog;
-    private boolean consoleLog;
+    private Boolean fileLog;
+    private Boolean consoleLog;
 
     private String host;
     private String context;
@@ -79,15 +79,15 @@ public final class UaiMockServerConfig {
         this.uaiFile = uaiFile;
     }
 
-    public int getPort() {
+    public Integer getPort() {
         return port;
     }
 
-    public boolean isFileLog() {
+    public Boolean isFileLog() {
         return fileLog;
     }
 
-    public boolean isConsoleLog() {
+    public Boolean isConsoleLog() {
         return consoleLog;
     }
 
