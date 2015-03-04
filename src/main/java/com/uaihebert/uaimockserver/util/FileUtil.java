@@ -9,7 +9,9 @@ import org.apache.commons.io.FileUtils;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.text.SimpleDateFormat;
 import java.util.Collection;
+import java.util.Date;
 
 public final class FileUtil {
     private static final String FILE_NOT_FOUND_EXCEPTION_MESSAGE = "We could not find the file: [%s]." +
@@ -76,7 +78,16 @@ public final class FileUtil {
     }
 
     private static void writeInFile(final UaiMockServerConfig configFile, final String jsonConfigContent) throws IOException {
+        createFileBackUp(configFile.getUaiFile().getFullPath());
+
         FileUtils.writeStringToFile(new File(configFile.getUaiFile().getFullPath()), jsonConfigContent);
+
         Log.infoFormatted("The updates has been written in the config file [%s]", configFile.getUaiFile().getFullPath());
+    }
+
+    private static void createFileBackUp(final String fullPath) throws IOException {
+        final String formattedDate = new SimpleDateFormat("yyyy_MM_dd_hh_mm_ss_sss").format(new Date());
+
+        FileUtils.copyFile(new File(fullPath), new File(fullPath.replace(".json", "_" + formattedDate + ".back.json")));
     }
 }

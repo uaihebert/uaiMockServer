@@ -29,7 +29,6 @@ public final class UaiRouteDTOFactory {
         return uaiRouteDTOList;
     }
 
-    // todo create a backup of the file, before editing it. create a configuration for it
     private static UaiRouteDTO createUaiRouteDTO(final UaiRoute uaiRoute) {
         final UaiFileDTO uaiFileDTO = UaiFileDTOFactory.create(uaiRoute.getUaiFile());
         final UaiRequestDTO uaiRequestDTO = UaiRequestDTOFactory.create(uaiRoute.getRequest());
