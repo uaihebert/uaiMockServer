@@ -16,7 +16,7 @@
 package com.uaihebert.uaimockserver.server;
 
 import com.uaihebert.uaimockserver.model.UaiMockServerContext;
-import com.uaihebert.uaimockserver.model.UaiRouteMapper;
+import com.uaihebert.uaimockserver.repository.UaiRouteRepository;
 import com.uaihebert.uaimockserver.util.HttpServerUtil;
 import io.undertow.Undertow;
 
@@ -32,7 +32,7 @@ public final class UaiMockServer {
     }
 
     public void shutdown() {
-        UaiRouteMapper.resetRouteMap();
+        UaiRouteRepository.clearData();
         httpServer.stop();
     }
 

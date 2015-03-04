@@ -43,7 +43,7 @@ public final class UaiRouteFactory {
         return new UaiRoute(uaiRouteDTO.getId(), uaiFile, uaiRequest, uaiResponse);
     }
 
-    public static void update(final UaiRoute uaiRoute, final UaiRouteDTO uaiRouteDTO) {
+    public static void setDTOValueToEntity(final UaiRoute uaiRoute, final UaiRouteDTO uaiRouteDTO) {
         final UaiRequest uaiRequest = UaiRequestFactory.create(uaiRouteDTO.getRequest());
 
         final UaiResponse uaiResponse = UaiResponseFactory.create(uaiRouteDTO.getResponse());

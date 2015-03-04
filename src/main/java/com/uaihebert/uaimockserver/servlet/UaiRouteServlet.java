@@ -6,9 +6,9 @@ import com.uaihebert.uaimockserver.dto.factory.UaiBasicConfigurationDTOFactory;
 import com.uaihebert.uaimockserver.dto.factory.UaiRouteDTOFactory;
 import com.uaihebert.uaimockserver.dto.model.UaiRouteDTO;
 import com.uaihebert.uaimockserver.dto.response.IndexResponseDTO;
-import com.uaihebert.uaimockserver.helper.UaiRouteHelper;
+import com.uaihebert.uaimockserver.service.UaiRouteService;
 import com.uaihebert.uaimockserver.model.UaiRoute;
-import com.uaihebert.uaimockserver.model.UaiRouteMapper;
+import com.uaihebert.uaimockserver.repository.UaiRouteRepository;
 import com.uaihebert.uaimockserver.util.RequestBodyExtractor;
 
 import javax.servlet.ServletException;
@@ -40,7 +40,7 @@ public class UaiRouteServlet extends AbstractServlet {
     }
 
     private String createIndexGetResponse() {
-        final List<UaiRoute> uaiRouteList = UaiRouteMapper.listAllRoutes();
+        final List<UaiRoute> uaiRouteList = UaiRouteRepository.listAllRoutes();
 
         final IndexResponseDTO indexResponseDTO = new IndexResponseDTO();
         indexResponseDTO.setRouteList(UaiRouteDTOFactory.create(uaiRouteList));
@@ -56,7 +56,7 @@ public class UaiRouteServlet extends AbstractServlet {
 
         final UaiRouteDTO uaiRouteDTO = RequestBodyExtractor.extract(httpRequest, UaiRouteDTO.class);
 
-        UaiRouteHelper.editRoute(uaiRouteDTO);
+        UaiRouteService.editRoute(uaiRouteDTO);
 
         final OutputStream outputStream = httpResponse.getOutputStream();
         outputStream.close();
@@ -69,7 +69,7 @@ public class UaiRouteServlet extends AbstractServlet {
 
         final UaiRouteDTO uaiRouteDTO = RequestBodyExtractor.extract(httpRequest, UaiRouteDTO.class);
 
-        UaiRouteHelper.createRoute(uaiRouteDTO);
+        UaiRouteService.createRoute(uaiRouteDTO);
 
         final OutputStream outputStream = httpResponse.getOutputStream();
         outputStream.close();
@@ -82,7 +82,7 @@ public class UaiRouteServlet extends AbstractServlet {
 
         final String routeId = httpRequest.getParameter("routeId");
 
-        UaiRouteHelper.deleteRoute(routeId);
+        UaiRouteService.deleteRoute(routeId);
 
         final OutputStream outputStream = httpResponse.getOutputStream();
         outputStream.close();

@@ -3,7 +3,7 @@ package com.uaihebert.uaimockserver.util;
 import com.uaihebert.uaimockserver.model.UaiHeader;
 import com.uaihebert.uaimockserver.model.UaiQueryParam;
 import com.uaihebert.uaimockserver.model.UaiRoute;
-import com.uaihebert.uaimockserver.model.UaiRouteMapper;
+import com.uaihebert.uaimockserver.repository.UaiRouteRepository;
 import com.uaihebert.uaimockserver.validator.RequestValidator;
 import io.undertow.server.HttpServerExchange;
 
@@ -17,7 +17,7 @@ public final class RouteFinderUtil {
     public static UaiRoute findValidRoute(final HttpServerExchange httpServerExchange) {
         final String requestKey = RouteMapKeyUtil.createKeyFromRequest(httpServerExchange);
 
-        final Set<UaiRoute> uaiRouteList = UaiRouteMapper.findRouteListByKey(requestKey);
+        final Set<UaiRoute> uaiRouteList = UaiRouteRepository.findRouteListByKey(requestKey);
 
         final Set<UaiRoute> uaiRouteListWithEqualAttributes = findRoutesWithEqualAttributes(uaiRouteList, httpServerExchange);
 

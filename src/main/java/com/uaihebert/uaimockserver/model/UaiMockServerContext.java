@@ -1,9 +1,9 @@
 package com.uaihebert.uaimockserver.model;
 
 import com.uaihebert.uaimockserver.factory.UaiMockServerConfigFactory;
-import com.uaihebert.uaimockserver.factory.UaiRouteMapperFactory;
 import com.uaihebert.uaimockserver.log.Log;
 import com.uaihebert.uaimockserver.log.LogBuilder;
+import com.uaihebert.uaimockserver.repository.UaiRouteRepository;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,8 +34,36 @@ public final class UaiMockServerContext {
 
         LogBuilder.createInstance();
 
-        UaiRouteMapperFactory.configureRouteMapper();
+        UaiRouteRepository.configureRouteData();
 
         Log.infoFormatted("Configurations of the file [%s] was read with success", fileName);
+    }
+
+    public void addRoute(final UaiRoute uaiRoute) {
+        if (uaiMockServerConfig.getUaiFile().getFullPath().equals(uaiRoute.getUaiFile().getFullPath())) {
+            uaiMockServerConfig.getRouteList().add(uaiRoute);
+            return;
+        }
+
+        for (UaiMockServerConfig secondaryConfiguration : secondaryMappingList) {
+            if (secondaryConfiguration.getUaiFile().getFullPath().equals(uaiRoute.getUaiFile().getFullPath())) {
+                secondaryConfiguration.getRouteList().add(uaiRoute);
+                return;
+            }
+        }
+    }
+
+    public void deleteRoute(final UaiRoute uaiRoute) {
+        if (uaiMockServerConfig.getUaiFile().getFullPath().equals(uaiRoute.getUaiFile().getFullPath())) {
+            uaiMockServerConfig.getRouteList().remove(uaiRoute);
+            return;
+        }
+
+        for (UaiMockServerConfig secondaryConfiguration : secondaryMappingList) {
+            if (secondaryConfiguration.getUaiFile().getFullPath().equals(uaiRoute.getUaiFile().getFullPath())) {
+                secondaryConfiguration.getRouteList().remove(uaiRoute);
+                return;
+            }
+        }
     }
 }
