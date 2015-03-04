@@ -23,8 +23,8 @@ public final class RequestHolder {
     private RequestHolder() {
     }
 
-    public static void holdTheRequest(final long timeToHold) {
-        if (timeToHold < 1) {
+    public static void holdTheRequest(final Long timeToHold) {
+        if (timeToHold == null || timeToHold < 1) {
             return;
         }
 

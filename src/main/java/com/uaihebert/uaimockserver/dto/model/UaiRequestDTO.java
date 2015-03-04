@@ -11,7 +11,7 @@ public class UaiRequestDTO {
 
     private Long holdRequestInMilli;
 
-    private boolean isBodyRequired;
+    private Boolean isBodyRequired;
 
     private List<UaiHeaderDTO> requiredHeaderList;
     private List<UaiQueryParamDTO> requiredQueryParamList;
@@ -64,11 +64,11 @@ public class UaiRequestDTO {
         this.holdRequestInMilli = holdRequestInMilli;
     }
 
-    public boolean isBodyRequired() {
+    public Boolean isBodyRequired() {
         return isBodyRequired;
     }
 
-    public void setBodyRequired(final boolean isBodyRequired) {
+    public void setBodyRequired(final Boolean isBodyRequired) {
         this.isBodyRequired = isBodyRequired;
     }
 

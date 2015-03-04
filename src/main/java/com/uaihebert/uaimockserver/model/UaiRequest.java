@@ -28,9 +28,9 @@ public final class UaiRequest {
     private String description;
     private String requiredContentType;
 
-    private long holdTheRequestInMilli;
+    private Long holdTheRequestInMilli;
 
-    private boolean isBodyRequired;
+    private Boolean isBodyRequired;
 
     private List<UaiHeader> requiredHeaderList;
     private List<UaiQueryParam> requiredQueryParamList;
@@ -38,7 +38,7 @@ public final class UaiRequest {
     public UaiRequest() {
     }
 
-    public UaiRequest(final String name, final String path, final String method, final String description, final String requiredContentType, final long holdTheRequestInMilli, final boolean isBodyRequired, final List<UaiHeader> requiredHeaderList, final List<UaiQueryParam> requiredQueryParamList) {
+    public UaiRequest(final String name, final String path, final String method, final String description, final String requiredContentType, final Long holdTheRequestInMilli, final Boolean isBodyRequired, final List<UaiHeader> requiredHeaderList, final List<UaiQueryParam> requiredQueryParamList) {
         this.name = name;
         this.path = path;
         this.method = method;
@@ -70,11 +70,11 @@ public final class UaiRequest {
         return requiredContentType;
     }
 
-    public long getHoldTheRequestInMilli() {
+    public Long getHoldTheRequestInMilli() {
         return holdTheRequestInMilli;
     }
 
-    public boolean isBodyRequired() {
+    public Boolean isBodyRequired() {
         return isBodyRequired;
     }
 

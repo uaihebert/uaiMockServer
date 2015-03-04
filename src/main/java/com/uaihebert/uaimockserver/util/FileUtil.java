@@ -60,13 +60,14 @@ public final class FileUtil {
     // todo hide the route.id from the .json (?)
     // todo hide headerQueryParam using wildcard
     // todo when there is only one route, no route is received when update
+    // todo display error message if something goes wrong at loading index table
     public static void writeUpdatesToFile() {
         final UaiMockServerConfig mainConfig = UaiMockServerContext.INSTANCE.uaiMockServerConfig;
 
         final String json = gsonBuilder.create().toJson(mainConfig);
 
         try {
-            FileUtils.writeStringToFile(new File("/home/uaihebert/Desktop/test.txt"), json);
+            FileUtils.writeStringToFile(new File("/home/hebert/Desktop/test.txt"), json);
             Log.info("The updates has been written in the config file");
         } catch (IOException e) {
             e.printStackTrace();

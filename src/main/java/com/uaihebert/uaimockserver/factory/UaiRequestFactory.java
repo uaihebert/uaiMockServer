@@ -32,7 +32,7 @@ public final class UaiRequestFactory {
     public static UaiRequest create(final UaiRequestDTO request) {
         final Boolean bodyRequired = request.isBodyRequired();
 
-        final long holdRequestInMilli = extractHoldRequestInMilli(request);
+        final Long holdRequestInMilli = request.getHoldRequestInMilli();
 
         final String name = request.getName();
         final String path = request.getPath();
@@ -44,13 +44,5 @@ public final class UaiRequestFactory {
         final List<UaiQueryParam> requiredQueryParamList = UaiQueryParamFactory.create(request.getRequiredQueryParamList());
 
         return new UaiRequest(name, path, method, description, contentType, holdRequestInMilli, bodyRequired, requiredHeaderList, requiredQueryParamList);
-    }
-
-    private static long extractHoldRequestInMilli(final UaiRequestDTO request) {
-        if (request.getHoldRequestInMilli() != null) {
-            return request.getHoldRequestInMilli();
-        }
-
-        return 0L;
     }
 }
