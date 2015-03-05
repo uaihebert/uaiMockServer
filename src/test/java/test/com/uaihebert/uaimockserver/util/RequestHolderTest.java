@@ -39,4 +39,9 @@ public class RequestHolderTest {
 
         RequestHolder.holdTheRequest(2L);
     }
+
+    @Test
+    public void throwsNotErrorIfTimeIsOne() {
+        RequestHolder.holdTheRequest(0L);
+    }
 }
