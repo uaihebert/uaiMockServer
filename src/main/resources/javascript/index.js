@@ -109,12 +109,16 @@ app.controller('routeController', function($scope, $http, growl) {
             return;
         }
 
+        function finishWithSuccess() {
+            $scope.loadTable();
+            $('#routeModal').modal('toggle');
+            $scope.displaySuccessGrowl();
+        }
+
         if ($scope.action === 'update') {
             $http.put('/uai-mock-server-gui/uaiRoute', $scope.selectedRouteRow.route).
                 success(function(data) {
-                    $scope.loadTable();
-                    $('#routeModal').modal('toggle');
-                    $scope.displaySuccessGrowl();
+                    finishWithSuccess();
                 }
             ).error(function(){
                     $scope.displayErrorGrowl();
@@ -122,15 +126,12 @@ app.controller('routeController', function($scope, $http, growl) {
         } else {
             $http.post('/uai-mock-server-gui/uaiRoute', $scope.selectedRouteRow.route).
                 success(function(data) {
-                    $scope.loadTable();
-                    $('#routeModal').modal('toggle');
-                    $scope.displaySuccessGrowl();
+                    finishWithSuccess();
                 }
             ).error(function(){
                     $scope.displayErrorGrowl();
                 });
         }
-
     }
 
     $scope.displaySuccessGrowl = function() {
