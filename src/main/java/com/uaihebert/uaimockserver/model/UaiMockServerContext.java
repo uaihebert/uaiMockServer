@@ -40,17 +40,9 @@ public final class UaiMockServerContext {
     }
 
     public void addRoute(final UaiRoute uaiRoute) {
-        if (uaiMockServerConfig.getUaiFile().getFullPath().equals(uaiRoute.getUaiFile().getFullPath())) {
-            uaiMockServerConfig.getRouteList().add(uaiRoute);
-            return;
-        }
-
-        for (UaiMockServerConfig secondaryConfiguration : secondaryMappingList) {
-            if (secondaryConfiguration.getUaiFile().getFullPath().equals(uaiRoute.getUaiFile().getFullPath())) {
-                secondaryConfiguration.getRouteList().add(uaiRoute);
-                return;
-            }
-        }
+        // today is only allowed to add a route in the main config file
+        // for the future, a new feature is to allow to save in any file
+        uaiMockServerConfig.getRouteList().add(uaiRoute);
     }
 
     public void deleteRoute(final UaiRoute uaiRoute) {

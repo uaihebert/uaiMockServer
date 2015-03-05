@@ -15,11 +15,12 @@
  * */
 package test.com.uaihebert.uaimockserver.model;
 
+import com.uaihebert.uaimockserver.model.UaiFile;
 import com.uaihebert.uaimockserver.model.UaiMockServerContext;
+import com.uaihebert.uaimockserver.model.UaiRoute;
 import org.junit.Test;
 
-import java.net.URL;
-
+import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.fail;
 
 public class UaiMockServerContextTest {
@@ -31,9 +32,7 @@ public class UaiMockServerContextTest {
 
     @Test
     public void isCreatingWithFile() {
-        final URL resource = UaiMockServerContext.class.getResource("/uaiMockServer.json");
-
-        UaiMockServerContext.createInstance(resource.getFile());
+        UaiMockServerContext.createInstance("uaiMockServer.json");
     }
 
     @Test
@@ -53,6 +52,48 @@ public class UaiMockServerContextTest {
         } catch (final Exception ex) {
             ex.printStackTrace();
             fail("should not fail because the file has no log");
+        }
+    }
+
+    @Test
+    public void isDeletingFromSecondaryMapping() {
+        UaiMockServerContext.createInstance("uaiMockServer.json");
+
+        final int totalBeforeDelete = UaiMockServerContext.INSTANCE.secondaryMappingList.get(0).getRouteList().size();
+
+        final UaiRoute uaiRoute = UaiMockServerContext.INSTANCE.secondaryMappingList.get(0).getRouteList().get(0);
+
+        UaiMockServerContext.INSTANCE.deleteRoute(uaiRoute);
+
+        final int totalAfterDelete = UaiMockServerContext.INSTANCE.secondaryMappingList.get(0).getRouteList().size();
+
+        assertNotSame("making sure that the route was deleted", totalBeforeDelete, totalAfterDelete);
+    }
+
+    @Test
+    public void thereIsNoErrorWhenNoSecondaryConfigIsFound() {
+        UaiMockServerContext.createInstance("configWithoutFileMapList.json");
+
+        try {
+            final UaiRoute aRoute = UaiMockServerContext.INSTANCE.uaiMockServerConfig.getRouteList().get(0);
+            UaiMockServerContext.INSTANCE.deleteRoute(aRoute);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            fail("should be no error");
+        }
+    }
+
+    @Test
+    public void thereIsNoErrorWhenTheRouteIsNotFound() {
+        UaiMockServerContext.createInstance("uaiMockServer.json");
+
+        try {
+            final UaiRoute uaiRoute = new UaiRoute();
+            uaiRoute.setUaiFile(new UaiFile("any", "any"));
+            UaiMockServerContext.INSTANCE.deleteRoute(uaiRoute);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            fail("should be no error");
         }
     }
 }

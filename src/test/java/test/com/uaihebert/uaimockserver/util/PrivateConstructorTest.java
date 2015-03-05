@@ -29,10 +29,12 @@ import com.uaihebert.uaimockserver.factory.UaiQueryParamFactory;
 import com.uaihebert.uaimockserver.factory.UaiRequestFactory;
 import com.uaihebert.uaimockserver.factory.UaiResponseFactory;
 import com.uaihebert.uaimockserver.factory.UaiRouteFactory;
-import com.uaihebert.uaimockserver.service.UaiRouteService;
 import com.uaihebert.uaimockserver.log.Log;
 import com.uaihebert.uaimockserver.log.LogBuilder;
 import com.uaihebert.uaimockserver.model.UaiMockServerConfig;
+import com.uaihebert.uaimockserver.repository.UaiRouteMapper;
+import com.uaihebert.uaimockserver.repository.UaiRouteRepository;
+import com.uaihebert.uaimockserver.service.UaiRouteService;
 import com.uaihebert.uaimockserver.util.ExceptionUtil;
 import com.uaihebert.uaimockserver.util.FileUtil;
 import com.uaihebert.uaimockserver.util.HttpServerUtil;
@@ -293,12 +295,21 @@ public class PrivateConstructorTest {
         assertNotNull(createdObject);
     }
 
-//    @Test
-//    public void testUaiRouteMapperConstructor() throws Exception {
-//        final Constructor<UaiRouteMapper> constructor = UaiRouteMapper.class.getDeclaredConstructor(new Class[0]);
-//        constructor.setAccessible(true);
-//
-//        final UaiRouteMapper createdObject = constructor.newInstance(new Object[0]);
-//        assertNotNull(createdObject);
-//    } todo refactor here
+    @Test
+    public void testUaiRouteMapperConstructor() throws Exception {
+        final Constructor<UaiRouteMapper> constructor = UaiRouteMapper.class.getDeclaredConstructor(new Class[0]);
+        constructor.setAccessible(true);
+
+        final UaiRouteMapper createdObject = constructor.newInstance(new Object[0]);
+        assertNotNull(createdObject);
+    }
+
+    @Test
+    public void testUaiRouteRepositoryConstructor() throws Exception {
+        final Constructor<UaiRouteRepository> constructor = UaiRouteRepository.class.getDeclaredConstructor(new Class[0]);
+        constructor.setAccessible(true);
+
+        final UaiRouteRepository createdObject = constructor.newInstance(new Object[0]);
+        assertNotNull(createdObject);
+    }
 }
