@@ -19,7 +19,7 @@ public final class FileUtil {
             "Check if the is in the test/resources folder or in the same folder of the jar. %n" +
             "If you want you can use the full the file path.";
 
-    private static final GsonBuilder gsonBuilder = new GsonBuilder()
+    private static final GsonBuilder GSON_BUILDER = new GsonBuilder()
                                                         .setPrettyPrinting()
                                                         .disableHtmlEscaping()
                                                         .registerTypeHierarchyAdapter(Collection.class, new GsonCollectionAdapter())
@@ -61,13 +61,13 @@ public final class FileUtil {
     public static void writeUpdatesToFile() {
         final UaiMockServerConfig mainConfig = UaiMockServerContext.INSTANCE.uaiMockServerConfig;
 
-        final String mainJson = gsonBuilder.create().toJson(mainConfig);
+        final String mainJson = GSON_BUILDER.create().toJson(mainConfig);
 
         try {
             writeInFile(mainConfig, mainJson);
 
             for (UaiMockServerConfig secondaryConfig : UaiMockServerContext.INSTANCE.secondaryMappingList) {
-                final String secondaryJson = gsonBuilder.create().toJson(secondaryConfig);
+                final String secondaryJson = GSON_BUILDER.create().toJson(secondaryConfig);
                 writeInFile(secondaryConfig, secondaryJson);
             }
         } catch (IOException ex) {
