@@ -1,7 +1,7 @@
 package com.uaihebert.uaimockserver.repository;
 
 import com.uaihebert.uaimockserver.model.UaiMockServerConfig;
-import com.uaihebert.uaimockserver.model.UaiMockServerContext;
+import com.uaihebert.uaimockserver.context.UaiMockServerContext;
 import com.uaihebert.uaimockserver.model.UaiRoute;
 import com.uaihebert.uaimockserver.util.RouteMapKeyUtil;
 

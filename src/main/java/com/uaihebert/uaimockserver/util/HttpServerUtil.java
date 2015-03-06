@@ -15,8 +15,11 @@
  * */
 package com.uaihebert.uaimockserver.util;
 
-import com.uaihebert.uaimockserver.model.UaiMockServerContext;
+import com.uaihebert.uaimockserver.context.UaiMockServerContext;
+import com.uaihebert.uaimockserver.context.UaiWebSocketContext;
+import com.uaihebert.uaimockserver.model.UaiWebSocketListener;
 import com.uaihebert.uaimockserver.server.UaiMockServerHandler;
+import com.uaihebert.uaimockserver.servlet.AngularMapServlet;
 import com.uaihebert.uaimockserver.servlet.CssMapServlet;
 import com.uaihebert.uaimockserver.servlet.CssServlet;
 import com.uaihebert.uaimockserver.servlet.FaviconServlet;
@@ -28,11 +31,17 @@ import io.undertow.Handlers;
 import io.undertow.Undertow;
 import io.undertow.server.HttpHandler;
 import io.undertow.server.handlers.PathHandler;
+import io.undertow.server.handlers.resource.FileResourceManager;
 import io.undertow.servlet.Servlets;
 import io.undertow.servlet.api.DeploymentInfo;
 import io.undertow.servlet.api.DeploymentManager;
+import io.undertow.websockets.WebSocketConnectionCallback;
+import io.undertow.websockets.core.WebSocketChannel;
+import io.undertow.websockets.spi.WebSocketHttpExchange;
 
 import javax.servlet.ServletException;
+import java.io.File;
+import java.net.URL;
 
 import static io.undertow.servlet.Servlets.servlet;
 
@@ -41,6 +50,7 @@ import static io.undertow.servlet.Servlets.servlet;
  */
 public final class HttpServerUtil {
     private static final String SERVLET_CONTEXT_PATH = "/uai-mock-server-gui";
+    private static final String WEBSOCKET_CONTEXT_PATH = "/uai-mock-server-gui-ws";
 
     private HttpServerUtil() {
     }
@@ -49,9 +59,25 @@ public final class HttpServerUtil {
         final Undertow httpServer;
 
         try {
+            // todo refactor here
+            final URL fontTtf = Undertow.class.getResource("/fonts/glyphicons-halflings-regular.ttf");
+            final URL fontWoff = Undertow.class.getResource("/fonts/glyphicons-halflings-regular.woff");
+
             final PathHandler path = Handlers.path(Handlers.redirect(SERVLET_CONTEXT_PATH))
                     .addPrefixPath(SERVLET_CONTEXT_PATH, createHtmlManager())
-                    .addPrefixPath("/", new UaiMockServerHandler());
+                    .addPrefixPath("/fonts/glyphicons-halflings-regular.ttf", Handlers.resource(new FileResourceManager(new File(fontTtf.getFile()), 0)))
+                    .addPrefixPath("/fonts/glyphicons-halflings-regular.woff", Handlers.resource(new FileResourceManager(new File(fontWoff.getFile()), 0)))
+                    .addPrefixPath("/", new UaiMockServerHandler())
+                    .addPrefixPath(WEBSOCKET_CONTEXT_PATH, Handlers.websocket(new WebSocketConnectionCallback() {
+                        @Override
+                        public void onConnect(WebSocketHttpExchange exchange, WebSocketChannel channel) {
+                            channel.getReceiveSetter().set(new UaiWebSocketListener());
+
+                            UaiWebSocketContext.addClient(channel);
+
+                            channel.resumeReceives();
+                        }
+                    }));
 
             httpServer = Undertow.builder()
                     .addHttpListener(UaiMockServerContext.INSTANCE.uaiMockServerConfig.getPort(), UaiMockServerContext.INSTANCE.uaiMockServerConfig.getHost())
@@ -79,6 +105,7 @@ public final class HttpServerUtil {
                         servlet("JavascriptServlet", JavascriptServlet.class).addMapping("/javascript"),
                         servlet("CssServlet", CssServlet.class).addMapping("/css"),
                         servlet("CssMapServlet", CssMapServlet.class).addMapping("/bootstrap.css.map"),
+                        servlet("AngularMapServlet", AngularMapServlet.class).addMapping("/angular.js.map"),
                         servlet("UaiRouteServlet", UaiRouteServlet.class).addMapping("/uaiRoute")
                 );
 

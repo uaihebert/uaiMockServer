@@ -15,7 +15,7 @@
  * */
 package com.uaihebert.uaimockserver.server;
 
-import com.uaihebert.uaimockserver.model.UaiMockServerContext;
+import com.uaihebert.uaimockserver.context.UaiMockServerContext;
 import com.uaihebert.uaimockserver.repository.UaiRouteRepository;
 import com.uaihebert.uaimockserver.util.HttpServerUtil;
 import io.undertow.Undertow;

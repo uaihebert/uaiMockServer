@@ -16,7 +16,7 @@
 package test.com.uaihebert.uaimockserver.model;
 
 import com.uaihebert.uaimockserver.model.UaiFile;
-import com.uaihebert.uaimockserver.model.UaiMockServerContext;
+import com.uaihebert.uaimockserver.context.UaiMockServerContext;
 import com.uaihebert.uaimockserver.model.UaiRoute;
 import org.junit.Test;
 

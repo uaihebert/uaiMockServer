@@ -3,7 +3,7 @@ package com.uaihebert.uaimockserver.util;
 import com.google.gson.GsonBuilder;
 import com.uaihebert.uaimockserver.log.Log;
 import com.uaihebert.uaimockserver.model.UaiMockServerConfig;
-import com.uaihebert.uaimockserver.model.UaiMockServerContext;
+import com.uaihebert.uaimockserver.context.UaiMockServerContext;
 import org.apache.commons.io.FileUtils;
 
 import java.io.File;
@@ -19,7 +19,8 @@ public final class FileUtil {
             "Check if the is in the test/resources folder or in the same folder of the jar. %n" +
             "If you want you can use the full the file path.";
 
-    private static final GsonBuilder GSON_BUILDER = new GsonBuilder()
+    // todo put all gson generation in one class
+    public static final GsonBuilder GSON_BUILDER = new GsonBuilder()
                                                         .setPrettyPrinting()
                                                         .disableHtmlEscaping()
                                                         .registerTypeHierarchyAdapter(Collection.class, new GsonCollectionAdapter())

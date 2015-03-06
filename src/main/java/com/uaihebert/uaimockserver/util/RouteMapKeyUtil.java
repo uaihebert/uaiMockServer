@@ -15,7 +15,7 @@
  * */
 package com.uaihebert.uaimockserver.util;
 
-import com.uaihebert.uaimockserver.model.UaiMockServerContext;
+import com.uaihebert.uaimockserver.context.UaiMockServerContext;
 import io.undertow.server.HttpServerExchange;
 
 /**

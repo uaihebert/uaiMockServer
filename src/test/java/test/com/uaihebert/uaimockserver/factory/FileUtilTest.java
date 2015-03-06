@@ -1,7 +1,7 @@
 package test.com.uaihebert.uaimockserver.factory;
 
 import com.uaihebert.uaimockserver.model.UaiFile;
-import com.uaihebert.uaimockserver.model.UaiMockServerContext;
+import com.uaihebert.uaimockserver.context.UaiMockServerContext;
 import com.uaihebert.uaimockserver.util.FileUtil;
 import org.junit.Test;
 

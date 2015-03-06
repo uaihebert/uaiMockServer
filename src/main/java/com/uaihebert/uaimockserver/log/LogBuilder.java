@@ -15,7 +15,7 @@
  * */
 package com.uaihebert.uaimockserver.log;
 
-import com.uaihebert.uaimockserver.model.UaiMockServerContext;
+import com.uaihebert.uaimockserver.context.UaiMockServerContext;
 import org.pmw.tinylog.Configurator;
 import org.pmw.tinylog.writers.ConsoleWriter;
 import org.pmw.tinylog.writers.FileWriter;

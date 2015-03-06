@@ -36,6 +36,7 @@ public final class ContentTypeValidator implements RequestDataValidator {
             return false;
         }
 
+        // todo validate if the tests are validating when the wrong content type is sent
         final HeaderValues headerValues = exchange.getRequestHeaders().get(Headers.CONTENT_TYPE);
 
         if (headerValues == null) {

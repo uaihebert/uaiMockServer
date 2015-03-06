@@ -15,6 +15,8 @@
  * */
 package test.com.uaihebert.uaimockserver.util;
 
+import com.uaihebert.uaimockserver.context.UaiWebSocketContext;
+import com.uaihebert.uaimockserver.dto.factory.LogDTOFactory;
 import com.uaihebert.uaimockserver.dto.factory.UaiBasicConfigurationDTOFactory;
 import com.uaihebert.uaimockserver.dto.factory.UaiFileDTOFactory;
 import com.uaihebert.uaimockserver.dto.factory.UaiHeaderDTOFactory;
@@ -310,6 +312,24 @@ public class PrivateConstructorTest {
         constructor.setAccessible(true);
 
         final UaiRouteRepository createdObject = constructor.newInstance(new Object[0]);
+        assertNotNull(createdObject);
+    }
+
+    @Test
+    public void testUaiWebSocketContextConstructor() throws Exception {
+        final Constructor<UaiWebSocketContext> constructor = UaiWebSocketContext.class.getDeclaredConstructor(new Class[0]);
+        constructor.setAccessible(true);
+
+        final UaiWebSocketContext createdObject = constructor.newInstance(new Object[0]);
+        assertNotNull(createdObject);
+    }
+
+    @Test
+    public void testLogDTOFactoryConstructor() throws Exception {
+        final Constructor<LogDTOFactory> constructor = LogDTOFactory.class.getDeclaredConstructor(new Class[0]);
+        constructor.setAccessible(true);
+
+        final LogDTOFactory createdObject = constructor.newInstance(new Object[0]);
         assertNotNull(createdObject);
     }
 }

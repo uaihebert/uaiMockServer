@@ -1,7 +1,7 @@
 package com.uaihebert.uaimockserver.dto.factory;
 
 import com.uaihebert.uaimockserver.dto.model.UaiBasicConfigurationDTO;
-import com.uaihebert.uaimockserver.model.UaiMockServerContext;
+import com.uaihebert.uaimockserver.context.UaiMockServerContext;
 
 public final class UaiBasicConfigurationDTOFactory {
     private UaiBasicConfigurationDTOFactory() {
