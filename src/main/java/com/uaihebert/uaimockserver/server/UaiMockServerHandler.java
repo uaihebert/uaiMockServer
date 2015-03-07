@@ -16,7 +16,7 @@
 package com.uaihebert.uaimockserver.server;
 
 import com.uaihebert.uaimockserver.log.backend.Log;
-import com.uaihebert.uaimockserver.log.gui.UaiWebSocketLog;
+import com.uaihebert.uaimockserver.log.gui.UaiWebSocketLogManager;
 import com.uaihebert.uaimockserver.model.UaiRoute;
 import com.uaihebert.uaimockserver.util.RequestHolder;
 import com.uaihebert.uaimockserver.util.RouteFinderUtil;
@@ -33,7 +33,7 @@ public class UaiMockServerHandler implements HttpHandler {
 
     @Override
     public void handleRequest(final HttpServerExchange exchange) throws Exception {
-        UaiWebSocketLog.start(exchange);
+        UaiWebSocketLogManager.start(exchange);
 
         try {
             Log.infoFormatted("Incoming request: method [%s] URI [%s]", exchange.getRequestMethod(), exchange.getRequestURI());
@@ -43,8 +43,10 @@ public class UaiMockServerHandler implements HttpHandler {
             RequestHolder.holdTheRequest(uaiRoute.getRequest().getHoldTheRequestInMilli());
 
             responseHandler.process(exchange, uaiRoute.getResponse());
+
+            UaiWebSocketLogManager.setResponse(uaiRoute.getResponse());
         } finally {
-            UaiWebSocketLog.log();
+            UaiWebSocketLogManager.log();
         }
     }
 }

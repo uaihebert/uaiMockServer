@@ -15,7 +15,7 @@
  * */
 package com.uaihebert.uaimockserver.log.backend;
 
-import com.uaihebert.uaimockserver.log.gui.UaiWebSocketLog;
+import com.uaihebert.uaimockserver.log.gui.UaiWebSocketLogManager;
 
 /**
  * Project Log interface
@@ -43,7 +43,7 @@ public final class Log {
      */
     public static void info(final String text) {
         INSTANCE.info(text);
-        UaiWebSocketLog.addLogText("[INFO] " + text);
+        UaiWebSocketLogManager.addLogText("[INFO] " + text);
     }
 
     /**
@@ -54,7 +54,7 @@ public final class Log {
 
         INSTANCE.info(formattedText);
 
-        UaiWebSocketLog.addLogText("[INFO] " + formattedText);
+        UaiWebSocketLogManager.addLogText("[INFO] " + formattedText);
     }
 
     /**
@@ -65,7 +65,7 @@ public final class Log {
 
         INSTANCE.warn(formattedText);
 
-        UaiWebSocketLog.addLogText("[WARN] " + formattedText);
+        UaiWebSocketLogManager.addLogText("[WARN] " + formattedText);
     }
 
     /**
@@ -74,6 +74,6 @@ public final class Log {
     public static void warn(final Exception exception) {
         INSTANCE.warn(exception);
 
-        UaiWebSocketLog.addLogText("[WARN] An exception just happened: " + exception.getMessage());
+        UaiWebSocketLogManager.addLogText("[WARN] An exception just happened: " + exception.getMessage());
     }
 }

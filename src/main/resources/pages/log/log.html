@@ -19,6 +19,65 @@
         <script type="application/javascript" src="/uai-mock-server-gui/javascript?fileName=angular-sanitize"></script>
         <script type="application/javascript" src="/uai-mock-server-gui/javascript?fileName=ui-bootstrap-tpls"></script>
 
+        <style>
+            .bs-callout {
+                padding: 20px;
+                margin: 20px 0;
+                border: 1px solid #eee;
+                border-left-width: 5px;
+                border-radius: 3px;
+            }
+            .bs-callout h4 {
+                margin-top: 0;
+                margin-bottom: 5px;
+            }
+            .bs-callout p:last-child {
+                margin-bottom: 0;
+            }
+            .bs-callout code {
+                border-radius: 3px;
+            }
+            .bs-callout+.bs-callout {
+                margin-top: -5px;
+            }
+            .bs-callout-default {
+                border-left-color: #777;
+            }
+            .bs-callout-default h4 {
+                color: #777;
+            }
+            .bs-callout-primary {
+                border-left-color: #428bca;
+            }
+            .bs-callout-primary h4 {
+                color: #428bca;
+            }
+            .bs-callout-success {
+                border-left-color: #5cb85c;
+            }
+            .bs-callout-success h4 {
+                color: #5cb85c;
+            }
+            .bs-callout-danger {
+                border-left-color: #d9534f;
+            }
+            .bs-callout-danger h4 {
+                color: #d9534f;
+            }
+            .bs-callout-warning {
+                border-left-color: #f0ad4e;
+            }
+            .bs-callout-warning h4 {
+                color: #f0ad4e;
+            }
+            .bs-callout-info {
+                border-left-color: #5bc0de;
+            }
+            .bs-callout-info h4 {
+                color: #5bc0de;
+            }
+        </style>
+
         <title>
             UaiMockServer - GUI
         </title>
@@ -32,69 +91,128 @@
             <table class="table">
                 <thead>
                     <tr>
-                        <th>Name</th>
-                        <th>Breed</th>
+                        <th>Request Time (yyyy-MM-dd HH:mm:ss.SSS)</th>
+                        <th>Request IP Source</th>
+                        <th>Response Code</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr ng-repeat-start="log in webSocketLog.logRequestList">
-                        <td><a href="#" ng-click="isCollapsed = !isCollapsed">{{log.arrivedAt}}</a></td>
-                        <td>{{log.whoInvokedAddress}}</td>
+                        <td><a href="#" ng-click="isCollapsed = !isCollapsed">{{log.logRequest.arrivedAt}}</a></td>
+                        <td>{{log.logRequest.whoInvokedAddress}}</td>
+                        <td>{{log.logResponse.statusCode}}</td>
                     </tr>
                     <tr ng-repeat-end="">
-                        <td colspan="2" style="padding: 0">
+                        <td colspan="3" style="padding: 0">
                             <div collapse="isCollapsed">
-                                <h3>Pet details</h3>
-                                <p>some details about this pet.</p>
+                                <div class="bs-callout bs-callout-primary">
+                                    <h4>Request Data</h4>
+                                    <table class="table table-bordered table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th>Attribute</th>
+                                                <th>Value</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>Path</td>
+                                                <td>{{log.logRequest.path}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Method</td>
+                                                <td>{{log.logRequest.method}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Arrived At</td>
+                                                <td>{{log.logRequest.arrivedAt}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Content Type</td>
+                                                <td>{{log.logRequest.contentType}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Who Invoked Address</td>
+                                                <td>{{log.logRequest.whoInvokedAddress}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Header List</td>
+                                                <td>
+                                                    <ul>
+                                                        <li ng-repeat="header in log.logRequest.headerValueList">{{header.key}}: {{header.valueList}}</li>
+                                                    </ul>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>Query Param List</td>
+                                                <td>
+                                                    <ul>
+                                                        <li ng-repeat="queryParam in log.logRequest.queryParamValueList">{{queryParam.key}}: {{queryParam.valueList}}</li>
+                                                    </ul>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="bs-callout bs-callout-primary">
+                                    <h4>Response Sent</h4>
+                                    <table class="table table-bordered table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th>Attribute</th>
+                                                <th>Value</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>Status Code</td>
+                                                <td>{{log.logResponse.statusCode}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Body</td>
+                                                <td>{{log.logResponse.body}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Content Type</td>
+                                                <td>{{log.logResponse.contentType}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Header List</td>
+                                                <td>
+                                                    <ul>
+                                                        <li ng-repeat="header in log.logResponse.headerValueList">{{header.key}}: {{header.valueList}}</li>
+                                                    </ul>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="bs-callout bs-callout-primary">
+                                    <h4>uaiMockServer Log</h4>
+                                    <table class="table table-bordered table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr ng-repeat="logText in log.logList">
+                                                <td>{{logText}}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                         </td>
                     </tr>
                 </tbody>
             </table>
-
-
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Breed</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr ng-repeat-start="dog in dogs">
-                        <td><a href="#" ng-click="isCollapsed = !isCollapsed">{{dog.name}}</a></td>
-                        <td>{{dog.breed}}</td>
-                    </tr>
-                    <tr ng-repeat-end="">
-                        <td colspan="2" style="padding: 0">
-                            <div collapse="isCollapsed">
-                                <h3>Pet details</h3>
-                                <p>some details about this pet.</p>
-                            </div>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-            <p id="received" ></p>
         </div>
     </body>
     <script>
         var app = angular.module('uaiMockServerApp', ['tableSort', 'angular-growl', 'ngAnimate', 'ui.bootstrap']);
         app.controller('webSocketController', function($scope, $http, growl) {
-
-
             $scope.isCollapsed = true;
-            $scope.dogs = [
-                {
-                    name: "Sparky",
-                    breed: "Parson Russell Terrier"
-                }, {
-                    name: "Shep",
-                    breed: "German Shepard"
-                }
-            ];
-
-
 
             $scope.connectionStatus = 'offline';
             $scope.displayOnlineText = false;
@@ -104,15 +222,11 @@
                 if (window.WebSocket) {
                     $scope.socket = new WebSocket("ws://localhost:1234/uai-mock-server-gui-ws");
                     $scope.socket.onmessage = function (event) {
-                        $('#received').html($('#received').html() + "<br/>" + event.data)
-
-
                         $scope.$apply(function() {
                             var jsonObj = JSON.parse(event.data);
-                            $scope.webSocketLog.logRequestList.push(jsonObj.logRequest);
-                            console.log(jsonObj.logRequest);
-                        });
 
+                            $scope.webSocketLog.logRequestList.push(jsonObj);
+                        });
                     };
                     $scope.socket.onopen = function (event) {
                         $scope.$apply(function() {
@@ -136,16 +250,6 @@
             }
 
             $scope.connectToWebSocket();
-
-
-
-
-
-
-
-
-
-
         })
 </script>
 </html>

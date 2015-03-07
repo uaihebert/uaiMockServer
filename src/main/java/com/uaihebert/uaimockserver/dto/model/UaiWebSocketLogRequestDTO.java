@@ -3,7 +3,7 @@ package com.uaihebert.uaimockserver.dto.model;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UaiLogRequestDTO {
+public class UaiWebSocketLogRequestDTO {
 
     private String path;
     private String method;
@@ -14,7 +14,7 @@ public class UaiLogRequestDTO {
     private List<UaiLogPairValueDTO> headerValueList;
     private List<UaiLogPairValueDTO> queryParamValueList;
 
-    public UaiLogRequestDTO() {
+    public UaiWebSocketLogRequestDTO() {
     }
 
     public String getPath() {

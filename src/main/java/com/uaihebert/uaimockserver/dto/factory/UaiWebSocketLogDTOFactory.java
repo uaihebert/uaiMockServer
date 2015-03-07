@@ -1,8 +1,8 @@
 package com.uaihebert.uaimockserver.dto.factory;
 
-import com.uaihebert.uaimockserver.dto.model.WebSocketLogDTO;
+import com.uaihebert.uaimockserver.dto.model.UaiWebSocketLogDTO;
 import com.uaihebert.uaimockserver.dto.model.UaiLogPairValueDTO;
-import com.uaihebert.uaimockserver.dto.model.UaiLogRequestDTO;
+import com.uaihebert.uaimockserver.dto.model.UaiWebSocketLogRequestDTO;
 import io.undertow.server.HttpServerExchange;
 import io.undertow.util.HeaderValues;
 
@@ -15,24 +15,25 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-public final class WebSocketLogDTOFactory {
-    private WebSocketLogDTOFactory() {
+public final class UaiWebSocketLogDTOFactory {
+    private UaiWebSocketLogDTOFactory() {
     }
 
-    public static WebSocketLogDTO create(final HttpServerExchange exchange) {
-        WebSocketLogDTO webSocketLogDTO = new WebSocketLogDTO();
+    public static UaiWebSocketLogDTO create(final HttpServerExchange exchange) {
+        UaiWebSocketLogDTO uaiWebSocketLogDTO = new UaiWebSocketLogDTO();
 
-        final UaiLogRequestDTO logRequestDTO = createLogRequest(exchange);
+        final UaiWebSocketLogRequestDTO logRequestDTO = createLogRequest(exchange);
 
-        webSocketLogDTO.setLogRequest(logRequestDTO);
+        uaiWebSocketLogDTO.setLogRequest(logRequestDTO);
 
-        return webSocketLogDTO;
+        return uaiWebSocketLogDTO;
     }
 
-    private static UaiLogRequestDTO createLogRequest(final HttpServerExchange exchange) {
-        final UaiLogRequestDTO logRequestDTO = new UaiLogRequestDTO();
+    private static UaiWebSocketLogRequestDTO createLogRequest(final HttpServerExchange exchange) {
+        final UaiWebSocketLogRequestDTO logRequestDTO = new UaiWebSocketLogRequestDTO();
 
         // todo refactor here
+        logRequestDTO.setMethod(exchange.getRequestMethod().toString());
         logRequestDTO.setArrivedAt(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS").format(new Date()));
         logRequestDTO.setWhoInvokedAddress(exchange.getSourceAddress().getAddress().toString());
 

@@ -53,4 +53,13 @@ public class UaiHeader {
 
         return valueList;
     }
+
+    @Override
+    public String toString() {
+        return "UaiHeader{" +
+                "name='" + name + '\'' +
+                ", usingWildCard=" + usingWildCard +
+                ", valueList=" + valueList +
+                '}';
+    }
 }
