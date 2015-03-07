@@ -13,7 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  * */
-package com.uaihebert.uaimockserver.log;
+package com.uaihebert.uaimockserver.log.backend;
+
+import com.uaihebert.uaimockserver.log.gui.UaiWebSocketLog;
 
 /**
  * Project Log interface
@@ -41,20 +43,29 @@ public final class Log {
      */
     public static void info(final String text) {
         INSTANCE.info(text);
+        UaiWebSocketLog.addLogText("[INFO] " + text);
     }
 
     /**
      * Wil log a text with the INFO level. The text with be formatted using the String.format(...)
      */
     public static void infoFormatted(final String text, Object... parameterArray) {
-        INSTANCE.infoFormatted(text, parameterArray);
+        final String formattedText = String.format(text, parameterArray);
+
+        INSTANCE.info(formattedText);
+
+        UaiWebSocketLog.addLogText("[INFO] " + formattedText);
     }
 
     /**
      * Wil log a text with the WARN level. The text with be formatted using the String.format(...)
      */
     public static void warn(final String text, Object... parameterArray) {
-        INSTANCE.warnFormatted(text, parameterArray);
+        final String formattedText = String.format(text, parameterArray);
+
+        INSTANCE.warn(formattedText);
+
+        UaiWebSocketLog.addLogText("[WARN] " + formattedText);
     }
 
     /**
@@ -62,5 +73,7 @@ public final class Log {
      */
     public static void warn(final Exception exception) {
         INSTANCE.warn(exception);
+
+        UaiWebSocketLog.addLogText("[WARN] An exception just happened: " + exception.getMessage());
     }
 }

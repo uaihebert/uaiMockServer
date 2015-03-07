@@ -15,7 +15,7 @@
  * */
 package test.com.uaihebert.uaimockserver.util;
 
-import com.uaihebert.uaimockserver.log.LogBuilder;
+import com.uaihebert.uaimockserver.log.backend.LogBuilder;
 import com.uaihebert.uaimockserver.util.RequestHolder;
 import org.junit.Test;
 import org.junit.runner.RunWith;

@@ -1,34 +1,40 @@
 package com.uaihebert.uaimockserver.dto.factory;
 
-import com.uaihebert.uaimockserver.dto.model.LogDTO;
+import com.uaihebert.uaimockserver.dto.model.WebSocketLogDTO;
 import com.uaihebert.uaimockserver.dto.model.UaiLogPairValueDTO;
 import com.uaihebert.uaimockserver.dto.model.UaiLogRequestDTO;
 import io.undertow.server.HttpServerExchange;
 import io.undertow.util.HeaderValues;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.Deque;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-public final class LogDTOFactory {
-    private LogDTOFactory() {
+public final class WebSocketLogDTOFactory {
+    private WebSocketLogDTOFactory() {
     }
 
-    public static LogDTO create(final HttpServerExchange exchange) {
-        LogDTO logDTO = new LogDTO();
+    public static WebSocketLogDTO create(final HttpServerExchange exchange) {
+        WebSocketLogDTO webSocketLogDTO = new WebSocketLogDTO();
 
         final UaiLogRequestDTO logRequestDTO = createLogRequest(exchange);
 
-        logDTO.setLogRequestDTO(logRequestDTO);
+        webSocketLogDTO.setLogRequest(logRequestDTO);
 
-        return logDTO;
+        return webSocketLogDTO;
     }
 
     private static UaiLogRequestDTO createLogRequest(final HttpServerExchange exchange) {
         final UaiLogRequestDTO logRequestDTO = new UaiLogRequestDTO();
+
+        // todo refactor here
+        logRequestDTO.setArrivedAt(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS").format(new Date()));
+        logRequestDTO.setWhoInvokedAddress(exchange.getSourceAddress().getAddress().toString());
 
         logRequestDTO.setPath(exchange.getRequestPath());
 
@@ -62,6 +68,8 @@ public final class LogDTOFactory {
             final UaiLogPairValueDTO pairValueDTO = new UaiLogPairValueDTO(queryParamName, valueList);
             logRequestDTO.getQueryParamValueList().add(pairValueDTO);
         }
+
+
         return logRequestDTO;
     }
 }

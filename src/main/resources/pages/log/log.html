@@ -29,40 +29,90 @@
             Current status: <button disabled type="button" ng-class="{'btn btn-success': connectionStatus == 'connected', 'btn btn-danger': connectionStatus == 'offline'}"><div ng-show="displayOnlineText">Online</div><div ng-hide="displayOnlineText">Offline</div></button>
 
 
-<div class="left-nav">
-        <accordion close-others="true" >
-              <accordion-group  is-open="isopen"
-                                ng-repeat="item in items"
-                                ng-controller="webSocketController">
-                  <accordion-heading >
-                    {{item.desc}} - {{isopen}}
-                      <i class="pull-right glyphicon"
-                         ng-class="{'glyphicon-chevron-down': isopen, 'glyphicon-chevron-right': !isopen}"></i>
-                  </accordion-heading>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Breed</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat-start="log in webSocketLog.logRequestList">
+                        <td><a href="#" ng-click="isCollapsed = !isCollapsed">{{log.arrivedAt}}</a></td>
+                        <td>{{log.whoInvokedAddress}}</td>
+                    </tr>
+                    <tr ng-repeat-end="">
+                        <td colspan="2" style="padding: 0">
+                            <div collapse="isCollapsed">
+                                <h3>Pet details</h3>
+                                <p>some details about this pet.</p>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
 
-                  <div ng-repeat="subitem in item.subitems">{{subitem.desc}}</div>
-              </accordion-group>
-          </accordion>
-    </div>
 
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Breed</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat-start="dog in dogs">
+                        <td><a href="#" ng-click="isCollapsed = !isCollapsed">{{dog.name}}</a></td>
+                        <td>{{dog.breed}}</td>
+                    </tr>
+                    <tr ng-repeat-end="">
+                        <td colspan="2" style="padding: 0">
+                            <div collapse="isCollapsed">
+                                <h3>Pet details</h3>
+                                <p>some details about this pet.</p>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
             <p id="received" ></p>
         </div>
     </body>
     <script>
         var app = angular.module('uaiMockServerApp', ['tableSort', 'angular-growl', 'ngAnimate', 'ui.bootstrap']);
         app.controller('webSocketController', function($scope, $http, growl) {
+
+
+            $scope.isCollapsed = true;
+            $scope.dogs = [
+                {
+                    name: "Sparky",
+                    breed: "Parson Russell Terrier"
+                }, {
+                    name: "Shep",
+                    breed: "German Shepard"
+                }
+            ];
+
+
+
             $scope.connectionStatus = 'offline';
             $scope.displayOnlineText = false;
-
+            $scope.webSocketLog = {};
+            $scope.webSocketLog.logRequestList = [];
             $scope.connectToWebSocket = function() {
                 if (window.WebSocket) {
                     $scope.socket = new WebSocket("ws://localhost:1234/uai-mock-server-gui-ws");
                     $scope.socket.onmessage = function (event) {
-                        $scope.$apply(function() {
-                            $scope.connectionStatus = 'connected';
-                            $scope.displayOnlineText = true;
-                        });
                         $('#received').html($('#received').html() + "<br/>" + event.data)
+
+
+                        $scope.$apply(function() {
+                            var jsonObj = JSON.parse(event.data);
+                            $scope.webSocketLog.logRequestList.push(jsonObj.logRequest);
+                            console.log(jsonObj.logRequest);
+                        });
+
                     };
                     $scope.socket.onopen = function (event) {
                         $scope.$apply(function() {
@@ -90,68 +140,6 @@
 
 
 
-
-            $scope.$parent.isopen = ($scope.$parent.default === $scope.item);
-
-            $scope.$watch('isopen', function (newvalue, oldvalue, scope) {
-                $scope.$parent.isopen = newvalue;
-            });
-
-
-
-            $scope.items = [
-                {
-                    name: "item1",
-                    desc: "Item 1",
-                    subitems: [
-                        {
-                            name: "subitem1",
-                            desc: "Sub-Item 1"
-                        },
-                        {
-                            name: "subitem2",
-                            desc: "Sub-Item 2"
-                        },
-                        {
-                            name: "subitem2",
-                            desc: "Sub-Item 2"
-                        }]
-                },
-                {
-                    name: "item2",
-                    desc: "Item 2",
-                    subitems: [
-                        {
-                            name: "subitem1",
-                            desc: "Sub-Item 1"
-                        },
-                        {
-                            name: "subitem2",
-                            desc: "Sub-Item 2"
-                        },
-                        {
-                            name: "subitem2",
-                            desc: "Sub-Item 2"
-                        }]
-                },
-                {
-                    name: "item3",
-                    desc: "Item 3",
-                    subitems: [
-                        {
-                            name: "subitem1",
-                            desc: "Sub-Item 1"
-                        },
-                        {
-                            name: "subitem2",
-                            desc: "Sub-Item 2"
-                        },
-                        {
-                            name: "subitem2",
-                            desc: "Sub-Item 2"
-                        }]
-                }
-            ];
 
 
 

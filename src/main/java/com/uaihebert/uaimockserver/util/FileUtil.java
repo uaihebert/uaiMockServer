@@ -1,7 +1,7 @@
 package com.uaihebert.uaimockserver.util;
 
 import com.google.gson.GsonBuilder;
-import com.uaihebert.uaimockserver.log.Log;
+import com.uaihebert.uaimockserver.log.backend.Log;
 import com.uaihebert.uaimockserver.model.UaiMockServerConfig;
 import com.uaihebert.uaimockserver.context.UaiMockServerContext;
 import org.apache.commons.io.FileUtils;

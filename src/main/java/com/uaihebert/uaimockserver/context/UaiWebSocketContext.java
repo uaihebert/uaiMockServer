@@ -1,7 +1,7 @@
 package com.uaihebert.uaimockserver.context;
 
 import com.google.gson.Gson;
-import com.uaihebert.uaimockserver.dto.model.LogDTO;
+import com.uaihebert.uaimockserver.dto.model.WebSocketLogDTO;
 import com.uaihebert.uaimockserver.util.FileUtil;
 import io.undertow.websockets.core.WebSocketChannel;
 import io.undertow.websockets.core.WebSockets;
@@ -30,18 +30,17 @@ public final class UaiWebSocketContext {
                     toBeRemoved = i;
                     break;
                 }
-
             }
 
             CLIENT_LIST.remove(toBeRemoved);
         }
     }
 
-    public static void sendLog(final LogDTO logDTO) {
+    public static void sendLog(final WebSocketLogDTO webSocketLogDTO) {
         final Gson gson = FileUtil.GSON_BUILDER.create();
 
         for (WebSocketChannel clientChannel : CLIENT_LIST) {
-            WebSockets.sendText(gson.toJson(logDTO), clientChannel, null);
+            WebSockets.sendText(gson.toJson(webSocketLogDTO), clientChannel, null);
         }
     }
 }

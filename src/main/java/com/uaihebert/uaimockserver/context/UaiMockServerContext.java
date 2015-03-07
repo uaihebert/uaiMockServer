@@ -1,8 +1,8 @@
 package com.uaihebert.uaimockserver.context;
 
 import com.uaihebert.uaimockserver.factory.UaiMockServerConfigFactory;
-import com.uaihebert.uaimockserver.log.Log;
-import com.uaihebert.uaimockserver.log.LogBuilder;
+import com.uaihebert.uaimockserver.log.backend.Log;
+import com.uaihebert.uaimockserver.log.backend.LogBuilder;
 import com.uaihebert.uaimockserver.model.UaiMockServerConfig;
 import com.uaihebert.uaimockserver.model.UaiRoute;
 import com.uaihebert.uaimockserver.repository.UaiRouteRepository;

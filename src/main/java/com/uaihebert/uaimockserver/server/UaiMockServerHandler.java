@@ -15,10 +15,8 @@
  * */
 package com.uaihebert.uaimockserver.server;
 
-import com.uaihebert.uaimockserver.context.UaiWebSocketContext;
-import com.uaihebert.uaimockserver.dto.factory.LogDTOFactory;
-import com.uaihebert.uaimockserver.dto.model.LogDTO;
-import com.uaihebert.uaimockserver.log.Log;
+import com.uaihebert.uaimockserver.log.backend.Log;
+import com.uaihebert.uaimockserver.log.gui.UaiWebSocketLog;
 import com.uaihebert.uaimockserver.model.UaiRoute;
 import com.uaihebert.uaimockserver.util.RequestHolder;
 import com.uaihebert.uaimockserver.util.RouteFinderUtil;
@@ -35,7 +33,7 @@ public class UaiMockServerHandler implements HttpHandler {
 
     @Override
     public void handleRequest(final HttpServerExchange exchange) throws Exception {
-        final LogDTO logDTO = LogDTOFactory.create(exchange);
+        UaiWebSocketLog.start(exchange);
 
         try {
             Log.infoFormatted("Incoming request: method [%s] URI [%s]", exchange.getRequestMethod(), exchange.getRequestURI());
@@ -46,8 +44,7 @@ public class UaiMockServerHandler implements HttpHandler {
 
             responseHandler.process(exchange, uaiRoute.getResponse());
         } finally {
-            UaiWebSocketContext.sendLog(logDTO);
+            UaiWebSocketLog.log();
         }
-
     }
 }

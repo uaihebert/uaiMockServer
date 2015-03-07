@@ -13,32 +13,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  * */
-package com.uaihebert.uaimockserver.log;
-
-import org.pmw.tinylog.Logger;
+package com.uaihebert.uaimockserver.log.backend;
 
 /**
- * Class that will have contact with the Implementation Log used in the project
+ * This class will be used when the log is deactivated
+ * It suppose to do nothing. With this class the 'if (log.activated)' will be avoided
  */
-public class ActivatedLog implements LogWriter {
+public class DeactivatedLog implements LogWriter {
 
     @Override
     public void info(final String text) {
-        Logger.info(text);
     }
 
     @Override
-    public void infoFormatted(final String text, final Object... parameterArray) {
-        info(String.format(text, parameterArray));
+    public void warn(final String text) {
     }
 
     @Override
     public void warn(final Exception exception) {
-        Logger.warn(exception);
-    }
-
-    @Override
-    public void warnFormatted(final String text, final Object... parameterArray) {
-        Logger.warn(String.format(text, parameterArray));
     }
 }

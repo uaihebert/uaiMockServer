@@ -16,7 +16,7 @@
 package com.uaihebert.uaimockserver.validator;
 
 import com.uaihebert.uaimockserver.facade.RequestValidatorFacade;
-import com.uaihebert.uaimockserver.log.Log;
+import com.uaihebert.uaimockserver.log.backend.Log;
 import com.uaihebert.uaimockserver.model.UaiRoute;
 import com.uaihebert.uaimockserver.util.ExceptionUtil;
 import io.undertow.server.HttpServerExchange;

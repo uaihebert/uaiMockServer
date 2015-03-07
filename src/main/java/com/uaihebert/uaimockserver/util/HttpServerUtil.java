@@ -16,8 +16,7 @@
 package com.uaihebert.uaimockserver.util;
 
 import com.uaihebert.uaimockserver.context.UaiMockServerContext;
-import com.uaihebert.uaimockserver.context.UaiWebSocketContext;
-import com.uaihebert.uaimockserver.model.UaiWebSocketListener;
+import com.uaihebert.uaimockserver.model.UaiWebSocketCallback;
 import com.uaihebert.uaimockserver.server.UaiMockServerHandler;
 import com.uaihebert.uaimockserver.servlet.AngularMapServlet;
 import com.uaihebert.uaimockserver.servlet.CssMapServlet;
@@ -35,9 +34,6 @@ import io.undertow.server.handlers.resource.FileResourceManager;
 import io.undertow.servlet.Servlets;
 import io.undertow.servlet.api.DeploymentInfo;
 import io.undertow.servlet.api.DeploymentManager;
-import io.undertow.websockets.WebSocketConnectionCallback;
-import io.undertow.websockets.core.WebSocketChannel;
-import io.undertow.websockets.spi.WebSocketHttpExchange;
 
 import javax.servlet.ServletException;
 import java.io.File;
@@ -67,17 +63,8 @@ public final class HttpServerUtil {
                     .addPrefixPath(SERVLET_CONTEXT_PATH, createHtmlManager())
                     .addPrefixPath("/fonts/glyphicons-halflings-regular.ttf", Handlers.resource(new FileResourceManager(new File(fontTtf.getFile()), 0)))
                     .addPrefixPath("/fonts/glyphicons-halflings-regular.woff", Handlers.resource(new FileResourceManager(new File(fontWoff.getFile()), 0)))
-                    .addPrefixPath("/", new UaiMockServerHandler())
-                    .addPrefixPath(WEBSOCKET_CONTEXT_PATH, Handlers.websocket(new WebSocketConnectionCallback() {
-                        @Override
-                        public void onConnect(WebSocketHttpExchange exchange, WebSocketChannel channel) {
-                            channel.getReceiveSetter().set(new UaiWebSocketListener());
-
-                            UaiWebSocketContext.addClient(channel);
-
-                            channel.resumeReceives();
-                        }
-                    }));
+                    .addPrefixPath(WEBSOCKET_CONTEXT_PATH, Handlers.websocket(new UaiWebSocketCallback()))
+                    .addPrefixPath("/", new UaiMockServerHandler());
 
             httpServer = Undertow.builder()
                     .addHttpListener(UaiMockServerContext.INSTANCE.uaiMockServerConfig.getPort(), UaiMockServerContext.INSTANCE.uaiMockServerConfig.getHost())

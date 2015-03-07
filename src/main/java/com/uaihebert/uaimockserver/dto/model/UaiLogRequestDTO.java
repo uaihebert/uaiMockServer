@@ -4,22 +4,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UaiLogRequestDTO {
+
     private String path;
     private String method;
+    private String arrivedAt;
     private String contentType;
+    private String whoInvokedAddress;
 
     private List<UaiLogPairValueDTO> headerValueList;
     private List<UaiLogPairValueDTO> queryParamValueList;
 
     public UaiLogRequestDTO() {
-    }
-
-    public UaiLogRequestDTO(final String path, final String method, final String contentType, final List<UaiLogPairValueDTO> headerValueList, final List<UaiLogPairValueDTO> queryParamValueList) {
-        this.path = path;
-        this.method = method;
-        this.contentType = contentType;
-        this.headerValueList = headerValueList;
-        this.queryParamValueList = queryParamValueList;
     }
 
     public String getPath() {
@@ -44,6 +39,22 @@ public class UaiLogRequestDTO {
 
     public void setContentType(final String contentType) {
         this.contentType = contentType;
+    }
+
+    public String getWhoInvokedAddress() {
+        return whoInvokedAddress;
+    }
+
+    public void setWhoInvokedAddress(final String whoInvokedAddress) {
+        this.whoInvokedAddress = whoInvokedAddress;
+    }
+
+    public String getArrivedAt() {
+        return arrivedAt;
+    }
+
+    public void setArrivedAt(final String arrivedAt) {
+        this.arrivedAt = arrivedAt;
     }
 
     public List<UaiLogPairValueDTO> getHeaderValueList() {

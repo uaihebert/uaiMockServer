@@ -15,7 +15,7 @@
  * */
 package com.uaihebert.uaimockserver.server;
 
-import com.uaihebert.uaimockserver.log.Log;
+import com.uaihebert.uaimockserver.log.backend.Log;
 import com.uaihebert.uaimockserver.model.UaiHeader;
 import com.uaihebert.uaimockserver.model.UaiResponse;
 import io.undertow.server.HttpServerExchange;

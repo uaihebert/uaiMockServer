@@ -15,7 +15,7 @@
  * */
 package com.uaihebert.uaimockserver.validator;
 
-import com.uaihebert.uaimockserver.log.Log;
+import com.uaihebert.uaimockserver.log.backend.Log;
 import com.uaihebert.uaimockserver.model.UaiQueryParam;
 import com.uaihebert.uaimockserver.model.UaiRequest;
 import io.undertow.server.HttpServerExchange;

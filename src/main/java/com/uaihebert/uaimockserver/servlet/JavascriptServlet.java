@@ -26,3 +26,6 @@ public class JavascriptServlet extends AbstractServlet {
         printResource(httpResponse.getOutputStream(), "/javascript/" + fileName + ".js");
     }
 }
+// todo add in the UaiWebSocketLog the IP of who did the request
+// todo adjust active header menu in the GUI
+// todo create RootConfiguration page in the GUI

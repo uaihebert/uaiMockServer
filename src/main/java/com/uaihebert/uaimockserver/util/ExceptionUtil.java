@@ -15,7 +15,7 @@
  * */
 package com.uaihebert.uaimockserver.util;
 
-import com.uaihebert.uaimockserver.log.Log;
+import com.uaihebert.uaimockserver.log.backend.Log;
 
 /**
  * Class to help logging the exception

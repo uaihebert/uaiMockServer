@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  * */
-package com.uaihebert.uaimockserver.log;
+package com.uaihebert.uaimockserver.log.backend;
 
 import com.uaihebert.uaimockserver.context.UaiMockServerContext;
 import org.pmw.tinylog.Configurator;

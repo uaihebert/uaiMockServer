@@ -15,7 +15,7 @@
  * */
 package com.uaihebert.uaimockserver.util;
 
-import com.uaihebert.uaimockserver.log.Log;
+import com.uaihebert.uaimockserver.log.backend.Log;
 
 public final class RequestHolder {
     private static final String REQUEST_HOLDING_LOG = "Holding the request for [%s] milli seconds";

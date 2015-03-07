@@ -16,7 +16,7 @@
 package test.com.uaihebert.uaimockserver.util;
 
 import com.uaihebert.uaimockserver.context.UaiWebSocketContext;
-import com.uaihebert.uaimockserver.dto.factory.LogDTOFactory;
+import com.uaihebert.uaimockserver.dto.factory.WebSocketLogDTOFactory;
 import com.uaihebert.uaimockserver.dto.factory.UaiBasicConfigurationDTOFactory;
 import com.uaihebert.uaimockserver.dto.factory.UaiFileDTOFactory;
 import com.uaihebert.uaimockserver.dto.factory.UaiHeaderDTOFactory;
@@ -31,8 +31,9 @@ import com.uaihebert.uaimockserver.factory.UaiQueryParamFactory;
 import com.uaihebert.uaimockserver.factory.UaiRequestFactory;
 import com.uaihebert.uaimockserver.factory.UaiResponseFactory;
 import com.uaihebert.uaimockserver.factory.UaiRouteFactory;
-import com.uaihebert.uaimockserver.log.Log;
-import com.uaihebert.uaimockserver.log.LogBuilder;
+import com.uaihebert.uaimockserver.log.backend.Log;
+import com.uaihebert.uaimockserver.log.backend.LogBuilder;
+import com.uaihebert.uaimockserver.log.gui.UaiWebSocketLog;
 import com.uaihebert.uaimockserver.model.UaiMockServerConfig;
 import com.uaihebert.uaimockserver.repository.UaiRouteMapper;
 import com.uaihebert.uaimockserver.repository.UaiRouteRepository;
@@ -326,10 +327,19 @@ public class PrivateConstructorTest {
 
     @Test
     public void testLogDTOFactoryConstructor() throws Exception {
-        final Constructor<LogDTOFactory> constructor = LogDTOFactory.class.getDeclaredConstructor(new Class[0]);
+        final Constructor<WebSocketLogDTOFactory> constructor = WebSocketLogDTOFactory.class.getDeclaredConstructor(new Class[0]);
         constructor.setAccessible(true);
 
-        final LogDTOFactory createdObject = constructor.newInstance(new Object[0]);
+        final WebSocketLogDTOFactory createdObject = constructor.newInstance(new Object[0]);
+        assertNotNull(createdObject);
+    }
+
+    @Test
+    public void testWebSocketLogConstructor() throws Exception {
+        final Constructor<UaiWebSocketLog> constructor = UaiWebSocketLog.class.getDeclaredConstructor(new Class[0]);
+        constructor.setAccessible(true);
+
+        final UaiWebSocketLog createdObject = constructor.newInstance(new Object[0]);
         assertNotNull(createdObject);
     }
 }

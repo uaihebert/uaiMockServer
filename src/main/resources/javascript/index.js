@@ -7,6 +7,7 @@ app.config(['growlProvider', function(growlProvider) {
 app.controller('routeController', function($scope, $http, growl) {
     $scope.items = [{name: 'one', age: 30 },{ name: 'two', age: 27 },{ name: 'three', age: 50 }];
     $scope.loadTable = function(){
+        $scope.isCollapsed = true;
         $http.get('/uai-mock-server-gui/uaiRoute').
             success(function(data) {
                 $scope.routeRowList = [];

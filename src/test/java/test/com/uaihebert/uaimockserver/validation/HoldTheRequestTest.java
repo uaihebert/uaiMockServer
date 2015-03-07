@@ -35,7 +35,8 @@ public class HoldTheRequestTest {
 
     @Test
     public void isHoldingRequest() {
-        getRequestLapseWithNoHold(); // bootstrap request is slower than the next requests
+        // the first request is slower than the next requests
+        getRequestLapseWithNoHold();
 
         final long timeLapseRegularRequest = getRequestLapseWithNoHold();
         final long timeLapseRequestWithHold = getRequestLapseWithHold();
