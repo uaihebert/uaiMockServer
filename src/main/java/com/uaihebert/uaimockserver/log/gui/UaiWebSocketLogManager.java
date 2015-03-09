@@ -10,6 +10,8 @@ import io.undertow.server.HttpServerExchange;
 
 public final class UaiWebSocketLogManager {
     private static final ThreadLocal<UaiWebSocketLogDTO> THREAD_LOCAL = new ThreadLocal<UaiWebSocketLogDTO>();
+    private static final String errorMessageBody = "{\"errorMessage\": \"We have a problem with your request. Did you sent everything that was required? \n " +
+            "The error message is: [%s]\"}";
 
     private UaiWebSocketLogManager() {
     }
@@ -45,6 +47,17 @@ public final class UaiWebSocketLogManager {
 
     public static void setResponse(final UaiResponse uaiResponse) {
         final UaiWebSocketLogResponseDTO logResponseDTO = UaiWebSocketLogResponseDTOFactory.create(uaiResponse);
+        getCurrentLog().setLogResponse(logResponseDTO);
+    }
+
+    public static void exceptionDetected(final String message) {
+        getCurrentLog().setFinishedWithError();
+
+        // todo create a factory
+        final UaiWebSocketLogResponseDTO logResponseDTO = new UaiWebSocketLogResponseDTO();
+        logResponseDTO.setStatusCode(500);
+        logResponseDTO.setBody(String.format(errorMessageBody, message));
+
         getCurrentLog().setLogResponse(logResponseDTO);
     }
 }

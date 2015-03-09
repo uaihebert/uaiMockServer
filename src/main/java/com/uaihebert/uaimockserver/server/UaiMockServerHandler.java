@@ -45,7 +45,10 @@ public class UaiMockServerHandler implements HttpHandler {
             responseHandler.process(exchange, uaiRoute.getResponse());
 
             UaiWebSocketLogManager.setResponse(uaiRoute.getResponse());
-        } finally {
+        } catch (RuntimeException ex) {
+            UaiWebSocketLogManager.exceptionDetected(ex.getMessage());
+            throw ex;
+        }finally {
             UaiWebSocketLogManager.log();
         }
     }

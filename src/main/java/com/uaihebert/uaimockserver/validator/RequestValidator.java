@@ -27,11 +27,11 @@ import java.util.Set;
  * Will validate all data in the request
  */
 public final class RequestValidator {
-    private static final String URI_NOT_FOUND_MESSAGE = "We could not find the requested URI [%s] with the method [%s]. %n " +
+    private static final String URI_NOT_FOUND_MESSAGE = "%nWe could not find the requested URI [%s] with the method [%s]. %n " +
             "Check the config file and try to find the mapping. A \\ in the end of the URI will affect the result. %n " +
             "Also check if all the required query param and/header were sent. %n";
 
-    private static final String WRONG_HEADER_QUERY_PARAM_VALUE = "Check the Body/QueryParam/Headers sent.  %n " +
+    private static final String WRONG_HEADER_QUERY_PARAM_MESSAGE = "%nCheck the Body/QueryParam/Headers sent.  %n " +
             "We found the same headers but the values did not match";
 
     private RequestValidator() {
@@ -49,7 +49,7 @@ public final class RequestValidator {
             }
         }
 
-        final String errorText = String.format(WRONG_HEADER_QUERY_PARAM_VALUE);
+        final String errorText = String.format(WRONG_HEADER_QUERY_PARAM_MESSAGE);
         Log.warn(errorText);
 
         throw new IllegalArgumentException(errorText);

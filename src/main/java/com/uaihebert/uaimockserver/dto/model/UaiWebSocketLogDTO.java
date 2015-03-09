@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.List;
 
 public class UaiWebSocketLogDTO {
+    private boolean finishedWithError;
     private UaiWebSocketLogRequestDTO logRequest;
     private UaiWebSocketLogResponseDTO logResponse;
     private final List<String> logList = new ArrayList<String>();
@@ -31,5 +32,13 @@ public class UaiWebSocketLogDTO {
 
     public void setLogResponse(final UaiWebSocketLogResponseDTO logResponse) {
         this.logResponse = logResponse;
+    }
+
+    public boolean isFinishedWithError() {
+        return finishedWithError;
+    }
+
+    public void setFinishedWithError() {
+        this.finishedWithError = true;
     }
 }
