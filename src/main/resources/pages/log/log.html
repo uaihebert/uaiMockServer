@@ -85,15 +85,17 @@
     <body ng-controller="webSocketController" class="container">
         <div ng-include="'/uai-mock-server-gui/page?fileName=common/headerMenu'"></div>
         <div>
-            Current status: <button disabled type="button" ng-class="{'btn btn-success': connectionStatus == 'connected', 'btn btn-danger': connectionStatus == 'offline'}"><div ng-show="displayOnlineText">Online</div><div ng-hide="displayOnlineText">Offline</div></button>
-
-
+            <br/>
+            Current status: <span ng-class="{'label label-success': connectionStatus == 'connected', 'label label-danger': connectionStatus == 'offline'}">{{getConnectionStatus()}}</span>
+            <br/>
+            <br/>
             <table class="table">
                 <thead>
                     <tr>
                         <th>Request Time (yyyy-MM-dd HH:mm:ss.SSS)</th>
                         <th>Request IP Source</th>
                         <th>Response Code</th>
+                        <th>Returned as Expected?</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -101,11 +103,14 @@
                         <td><a href="#" ng-click="isCollapsed = !isCollapsed">{{log.logRequest.arrivedAt}}</a></td>
                         <td>{{log.logRequest.whoInvokedAddress}}</td>
                         <td>{{log.logResponse.statusCode}}</td>
+                        <td>
+                            <span ng-class="{'label label-success': log.finishedWithError == false, 'label label-danger':  log.finishedWithError == true}">{{getResponseText(log)}}</span>
+                        </td>
                     </tr>
                     <tr ng-repeat-end="">
-                        <td colspan="3" style="padding: 0">
+                        <td colspan="4" style="padding: 0">
                             <div collapse="isCollapsed">
-                                <div class="bs-callout bs-callout-primary">
+                                <div ng-class="getCalloutRequestClass(log)">
                                     <h4>Request Data</h4>
                                     <table class="table table-bordered table-striped">
                                         <thead>
@@ -154,7 +159,7 @@
                                         </tbody>
                                     </table>
                                 </div>
-                                <div class="bs-callout bs-callout-primary">
+                                <div ng-class="getCalloutRequestClass(log)">
                                     <h4>Response Sent</h4>
                                     <table class="table table-bordered table-striped">
                                         <thead>
@@ -187,7 +192,7 @@
                                         </tbody>
                                     </table>
                                 </div>
-                                <div class="bs-callout bs-callout-primary">
+                                <div ng-class="getCalloutRequestClass(log)">
                                     <h4>uaiMockServer Log</h4>
                                     <table class="table table-bordered table-striped">
                                         <thead>
@@ -250,6 +255,25 @@
             }
 
             $scope.connectToWebSocket();
+            $scope.getCalloutRequestClass = function (log) {
+                if (log.finishedWithError) {
+                    return 'bs-callout bs-callout-danger'
+                }
+
+                return 'bs-callout bs-callout-primary';
+            };
+
+            $scope.getResponseText = function (log) {
+                if (log.finishedWithError) {
+                    return 'Nooooooooo'
+                }
+
+                return 'Yes (:';
+            };
+
+            $scope.getConnectionStatus = function () {
+                return $scope.connectionStatus;
+            }
         })
 </script>
 </html>
