@@ -13,7 +13,7 @@ public class FaviconServletTest extends TestAbstract {
 
     @Test
     public void isReturning200OnIndex() {
-        final String url = "http://localhost:1234/uai-mock-server-gui/favicon";
+        final String url = "http://localhost:1234/favicon.ico";
 
         Client client = ClientBuilder.newClient();
         Response response = client.target(url).request().get();
@@ -23,7 +23,7 @@ public class FaviconServletTest extends TestAbstract {
 
     @Test
     public void isReturningContentAsPngType() {
-        final String url = "http://localhost:1234/uai-mock-server-gui/favicon";
+        final String url = "http://localhost:1234/favicon.ico";
 
         Client client = ClientBuilder.newClient();
         Response response = client.target(url).request().get();

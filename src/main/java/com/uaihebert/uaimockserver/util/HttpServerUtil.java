@@ -21,7 +21,6 @@ import com.uaihebert.uaimockserver.server.UaiMockServerHandler;
 import com.uaihebert.uaimockserver.servlet.AngularMapServlet;
 import com.uaihebert.uaimockserver.servlet.CssMapServlet;
 import com.uaihebert.uaimockserver.servlet.CssServlet;
-import com.uaihebert.uaimockserver.servlet.FaviconServlet;
 import com.uaihebert.uaimockserver.servlet.JavascriptServlet;
 import com.uaihebert.uaimockserver.servlet.UaiIndexServlet;
 import com.uaihebert.uaimockserver.servlet.UaiPageServlet;
@@ -58,11 +57,13 @@ public final class HttpServerUtil {
             // todo refactor here
             final URL fontTtf = Undertow.class.getResource("/fonts/glyphicons-halflings-regular.ttf");
             final URL fontWoff = Undertow.class.getResource("/fonts/glyphicons-halflings-regular.woff");
+            final URL favIco = Undertow.class.getResource("/images/favicon.png");
 
             final PathHandler path = Handlers.path(Handlers.redirect(SERVLET_CONTEXT_PATH))
                     .addPrefixPath(SERVLET_CONTEXT_PATH, createHtmlManager())
                     .addPrefixPath("/fonts/glyphicons-halflings-regular.ttf", Handlers.resource(new FileResourceManager(new File(fontTtf.getFile()), 0)))
                     .addPrefixPath("/fonts/glyphicons-halflings-regular.woff", Handlers.resource(new FileResourceManager(new File(fontWoff.getFile()), 0)))
+                    .addPrefixPath("/favicon.ico", Handlers.resource(new FileResourceManager(new File(favIco.getFile()), 0)))
                     .addPrefixPath(WEBSOCKET_CONTEXT_PATH, Handlers.websocket(new UaiWebSocketCallback()))
                     .addPrefixPath("/", new UaiMockServerHandler());
 
@@ -87,8 +88,6 @@ public final class HttpServerUtil {
                 .addServlets(
                         servlet("UaiIndexServlet", UaiIndexServlet.class).addMapping("/index"),
                         servlet("UaiPageServlet", UaiPageServlet.class).addMapping("/page"),
-                        servlet("FaviconServlet", FaviconServlet.class).addMapping("/favicon.ico"),
-                        servlet("FaviconServlet", FaviconServlet.class).addMapping("/favicon"),
                         servlet("JavascriptServlet", JavascriptServlet.class).addMapping("/javascript"),
                         servlet("CssServlet", CssServlet.class).addMapping("/css"),
                         servlet("CssMapServlet", CssMapServlet.class).addMapping("/bootstrap.css.map"),

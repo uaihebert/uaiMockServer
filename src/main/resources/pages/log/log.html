@@ -8,7 +8,7 @@
         <link rel="stylesheet" href="/uai-mock-server-gui/css?fileName=tableSort" />
         <link rel="stylesheet" href="/uai-mock-server-gui/css?fileName=index" />
         <link rel="stylesheet" href="/uai-mock-server-gui/css?fileName=growl" />
-
+        <link rel="stylesheet" href="/uai-mock-server-gui/css?fileName=log" />
 
         <script type="application/javascript" src="/uai-mock-server-gui/javascript?fileName=angular"></script>
         <script type="application/javascript" src="/uai-mock-server-gui/javascript?fileName=angular-animate"></script>
@@ -18,65 +18,6 @@
         <script type="application/javascript" src="/uai-mock-server-gui/javascript?fileName=angular-growl"></script>
         <script type="application/javascript" src="/uai-mock-server-gui/javascript?fileName=angular-sanitize"></script>
         <script type="application/javascript" src="/uai-mock-server-gui/javascript?fileName=ui-bootstrap-tpls"></script>
-
-        <style>
-            .bs-callout {
-                padding: 20px;
-                margin: 20px 0;
-                border: 1px solid #eee;
-                border-left-width: 5px;
-                border-radius: 3px;
-            }
-            .bs-callout h4 {
-                margin-top: 0;
-                margin-bottom: 5px;
-            }
-            .bs-callout p:last-child {
-                margin-bottom: 0;
-            }
-            .bs-callout code {
-                border-radius: 3px;
-            }
-            .bs-callout+.bs-callout {
-                margin-top: -5px;
-            }
-            .bs-callout-default {
-                border-left-color: #777;
-            }
-            .bs-callout-default h4 {
-                color: #777;
-            }
-            .bs-callout-primary {
-                border-left-color: #428bca;
-            }
-            .bs-callout-primary h4 {
-                color: #428bca;
-            }
-            .bs-callout-success {
-                border-left-color: #5cb85c;
-            }
-            .bs-callout-success h4 {
-                color: #5cb85c;
-            }
-            .bs-callout-danger {
-                border-left-color: #d9534f;
-            }
-            .bs-callout-danger h4 {
-                color: #d9534f;
-            }
-            .bs-callout-warning {
-                border-left-color: #f0ad4e;
-            }
-            .bs-callout-warning h4 {
-                color: #f0ad4e;
-            }
-            .bs-callout-info {
-                border-left-color: #5bc0de;
-            }
-            .bs-callout-info h4 {
-                color: #5bc0de;
-            }
-        </style>
 
         <title>
             UaiMockServer - GUI
@@ -214,66 +155,6 @@
             </table>
         </div>
     </body>
-    <script>
-        var app = angular.module('uaiMockServerApp', ['tableSort', 'angular-growl', 'ngAnimate', 'ui.bootstrap']);
-        app.controller('webSocketController', function($scope, $http, growl) {
-            $scope.isCollapsed = true;
 
-            $scope.connectionStatus = 'offline';
-            $scope.displayOnlineText = false;
-            $scope.webSocketLog = {};
-            $scope.webSocketLog.logRequestList = [];
-            $scope.connectToWebSocket = function() {
-                if (window.WebSocket) {
-                    $scope.socket = new WebSocket("ws://localhost:1234/uai-mock-server-gui-ws");
-                    $scope.socket.onmessage = function (event) {
-                        $scope.$apply(function() {
-                            var jsonObj = JSON.parse(event.data);
-
-                            $scope.webSocketLog.logRequestList.push(jsonObj);
-                        });
-                    };
-                    $scope.socket.onopen = function (event) {
-                        $scope.$apply(function() {
-                            $scope.connectionStatus = 'connected';
-                            $scope.displayOnlineText = true;
-                        });
-                    };
-                    $scope.socket.onclose = function (event) {
-                        $scope.$apply(function() {
-                            $scope.connectionStatus = 'offline';
-                            $scope.displayOnlineText = false;
-                        });
-                    };
-                } else {
-                    alert("Your browser does not support Websockets. (Use FireFox or Chrome)");
-                }
-            }
-
-            $scope.disconnectToWebSocket = function() {
-                $scope.socket.close();
-            }
-
-            $scope.connectToWebSocket();
-            $scope.getCalloutRequestClass = function (log) {
-                if (log.finishedWithError) {
-                    return 'bs-callout bs-callout-danger'
-                }
-
-                return 'bs-callout bs-callout-primary';
-            };
-
-            $scope.getResponseText = function (log) {
-                if (log.finishedWithError) {
-                    return 'Nooooooooo'
-                }
-
-                return 'Yes (:';
-            };
-
-            $scope.getConnectionStatus = function () {
-                return $scope.connectionStatus;
-            }
-        })
-</script>
+    <script type="application/javascript" src="/uai-mock-server-gui/javascript?fileName=log"></script>
 </html>
