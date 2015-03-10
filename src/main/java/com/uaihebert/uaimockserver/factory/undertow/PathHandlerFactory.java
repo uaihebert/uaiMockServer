@@ -3,8 +3,6 @@ package com.uaihebert.uaimockserver.factory.undertow;
 import com.uaihebert.uaimockserver.model.UaiWebSocketCallback;
 import com.uaihebert.uaimockserver.server.UaiMockServerHandler;
 import com.uaihebert.uaimockserver.servlet.AngularMapServlet;
-import com.uaihebert.uaimockserver.servlet.CssMapServlet;
-import com.uaihebert.uaimockserver.servlet.CssServlet;
 import com.uaihebert.uaimockserver.servlet.UaiIndexServlet;
 import com.uaihebert.uaimockserver.servlet.UaiPageServlet;
 import com.uaihebert.uaimockserver.servlet.UaiRootConfigurationsServlet;
@@ -35,17 +33,25 @@ public final class PathHandlerFactory {
         HANDLE_WRAPPER_LIST.add(HandleWrapperFactory.create("/favicon.ico", "/images/favicon.png"));
         HANDLE_WRAPPER_LIST.add(HandleWrapperFactory.create(SERVLET_CONTEXT_PATH + "rootConfig", "/pages/rootConfig/rootConfig.html"));
 
-        HANDLE_WRAPPER_LIST.add(HandleWrapperFactory.create(SERVLET_CONTEXT_PATH + "javascript/angular", "/javascript/angular.js"));
-        HANDLE_WRAPPER_LIST.add(HandleWrapperFactory.create(SERVLET_CONTEXT_PATH + "javascript/angular.js.map", "/javascript/angular.min.js.map"));
-        HANDLE_WRAPPER_LIST.add(HandleWrapperFactory.create(SERVLET_CONTEXT_PATH + "javascript/angular-animate", "/javascript/angular-animate.js"));
-        HANDLE_WRAPPER_LIST.add(HandleWrapperFactory.create(SERVLET_CONTEXT_PATH + "javascript/angular-growl", "/javascript/angular-growl.js"));
-        HANDLE_WRAPPER_LIST.add(HandleWrapperFactory.create(SERVLET_CONTEXT_PATH + "javascript/angular-sanitize", "/javascript/angular-sanitize.js"));
-        HANDLE_WRAPPER_LIST.add(HandleWrapperFactory.create(SERVLET_CONTEXT_PATH + "javascript/bootstrap", "/javascript/bootstrap.js"));
+        HANDLE_WRAPPER_LIST.add(HandleWrapperFactory.create(SERVLET_CONTEXT_PATH + "javascript/log", "/javascript/log.js"));
         HANDLE_WRAPPER_LIST.add(HandleWrapperFactory.create(SERVLET_CONTEXT_PATH + "javascript/index", "/javascript/index.js"));
         HANDLE_WRAPPER_LIST.add(HandleWrapperFactory.create(SERVLET_CONTEXT_PATH + "javascript/jquery", "/javascript/jquery.js"));
-        HANDLE_WRAPPER_LIST.add(HandleWrapperFactory.create(SERVLET_CONTEXT_PATH + "javascript/log", "/javascript/log.js"));
+        HANDLE_WRAPPER_LIST.add(HandleWrapperFactory.create(SERVLET_CONTEXT_PATH + "javascript/angular", "/javascript/angular.js"));
+        HANDLE_WRAPPER_LIST.add(HandleWrapperFactory.create(SERVLET_CONTEXT_PATH + "javascript/bootstrap", "/javascript/bootstrap.js"));
         HANDLE_WRAPPER_LIST.add(HandleWrapperFactory.create(SERVLET_CONTEXT_PATH + "javascript/tableSort", "/javascript/tableSort.js"));
+        HANDLE_WRAPPER_LIST.add(HandleWrapperFactory.create(SERVLET_CONTEXT_PATH + "javascript/angular-growl", "/javascript/angular-growl.js"));
+        HANDLE_WRAPPER_LIST.add(HandleWrapperFactory.create(SERVLET_CONTEXT_PATH + "javascript/angular.js.map", "/javascript/angular.min.js.map"));
+        HANDLE_WRAPPER_LIST.add(HandleWrapperFactory.create(SERVLET_CONTEXT_PATH + "javascript/angular-animate", "/javascript/angular-animate.js"));
+        HANDLE_WRAPPER_LIST.add(HandleWrapperFactory.create(SERVLET_CONTEXT_PATH + "javascript/angular-sanitize", "/javascript/angular-sanitize.js"));
         HANDLE_WRAPPER_LIST.add(HandleWrapperFactory.create(SERVLET_CONTEXT_PATH + "javascript/ui-bootstrap-tpls", "/javascript/ui-bootstrap-tpls.js"));
+
+        HANDLE_WRAPPER_LIST.add(HandleWrapperFactory.create(SERVLET_CONTEXT_PATH + "css/bootstrap.css.map", "/css/bootstrap.css.map"));
+
+        HANDLE_WRAPPER_LIST.add(HandleWrapperFactory.create(SERVLET_CONTEXT_PATH + "css/log", "/css/log.css"));
+        HANDLE_WRAPPER_LIST.add(HandleWrapperFactory.create(SERVLET_CONTEXT_PATH + "css/index", "/css/index.css"));
+        HANDLE_WRAPPER_LIST.add(HandleWrapperFactory.create(SERVLET_CONTEXT_PATH + "css/growl", "/css/growl.css"));
+        HANDLE_WRAPPER_LIST.add(HandleWrapperFactory.create(SERVLET_CONTEXT_PATH + "css/bootstrap", "/css/bootstrap.css"));
+        HANDLE_WRAPPER_LIST.add(HandleWrapperFactory.create(SERVLET_CONTEXT_PATH + "css/tableSort", "/css/tableSort.css"));
     }
 
     private PathHandlerFactory() {
@@ -74,8 +80,6 @@ public final class PathHandlerFactory {
                 .addServlets(
                         servlet("UaiIndexServlet", UaiIndexServlet.class).addMapping("/index"),
                         servlet("UaiPageServlet", UaiPageServlet.class).addMapping("/page"),
-                        servlet("CssServlet", CssServlet.class).addMapping("/css"),
-                        servlet("CssMapServlet", CssMapServlet.class).addMapping("/bootstrap.css.map"),
                         servlet("AngularMapServlet", AngularMapServlet.class).addMapping("/angular.js.map"),
                         servlet("UaiRootConfigurationsServlet", UaiRootConfigurationsServlet.class).addMapping("/rootConfigurations"),
                         servlet("UaiRouteServlet", UaiRouteServlet.class).addMapping("/uaiRoute")
