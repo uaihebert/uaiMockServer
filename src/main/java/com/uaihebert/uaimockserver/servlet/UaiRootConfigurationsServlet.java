@@ -5,6 +5,8 @@ import com.uaihebert.uaimockserver.context.UaiMockServerContext;
 import com.uaihebert.uaimockserver.dto.model.UaiBasicConfigurationDTO;
 import com.uaihebert.uaimockserver.dto.model.UaiFileDTO;
 import com.uaihebert.uaimockserver.model.UaiMockServerConfig;
+import com.uaihebert.uaimockserver.service.UaiRootContextService;
+import com.uaihebert.uaimockserver.util.RequestBodyExtractor;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -22,6 +24,15 @@ public class UaiRootConfigurationsServlet extends AbstractServlet {
         final String body = getRouteConfigurationBody();
         
         writeInResponse(httpResponse, body);
+    }
+
+    @Override
+    protected void doPut(final HttpServletRequest httpRequest, final HttpServletResponse httpResponse) throws ServletException, IOException {
+        final UaiBasicConfigurationDTO uaiRouteConfigDTO = RequestBodyExtractor.extract(httpRequest, UaiBasicConfigurationDTO.class);
+
+        UaiRootContextService.update(uaiRouteConfigDTO);
+
+        send204Response(httpResponse);
     }
 
     public String getRouteConfigurationBody() {

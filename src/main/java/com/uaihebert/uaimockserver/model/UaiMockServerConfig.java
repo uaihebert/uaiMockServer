@@ -103,6 +103,30 @@ public final class UaiMockServerConfig {
         return defaultContentTypeResponse;
     }
 
+    public void setPort(final Integer port) {
+        this.port = port;
+    }
+
+    public void setFileLog(final Boolean fileLog) {
+        this.fileLog = fileLog;
+    }
+
+    public void setConsoleLog(final Boolean consoleLog) {
+        this.consoleLog = consoleLog;
+    }
+
+    public void setHost(final String host) {
+        this.host = host;
+    }
+
+    public void setContext(final String context) {
+        this.context = context;
+    }
+
+    public void setDefaultContentTypeResponse(final String defaultContentTypeResponse) {
+        this.defaultContentTypeResponse = defaultContentTypeResponse;
+    }
+
     public List<UaiRoute> getRouteList() {
         if (routeList == null) {
             routeList = Collections.emptyList();

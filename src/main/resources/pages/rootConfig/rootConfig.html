@@ -36,7 +36,9 @@
             Default Content-Type: <input type="text" class="form-control" ng-model="rootConfig.defaultContentType" placeholder="A default Content-Type to be returned" /><br />
         </div>
 
-        <h4><span class="label label-info">Reading the data of the file: {{rootConfig.mainFilePath}}</span></h4>
+        <button type="button" class="btn btn-primary" ng-click="update()">Save changes</button>
+
+        <h4><span class="label label-info">Reading the data of the file: {{mainFilePath}}</span></h4>
 
         <div growl></div>
     </body>
@@ -59,7 +61,18 @@
                             $scope.rootConfig.host = data.host;
                             $scope.rootConfig.context = data.context;
                             $scope.rootConfig.defaultContentType = data.defaultContentType;
-                            $scope.rootConfig.mainFilePath = data.uaiMainFile.fullPath;
+                            $scope.mainFilePath = data.uaiMainFile.fullPath;
+                        }
+                ).error(function(){
+                            $scope.displayErrorGrowl();
+                        });
+            }
+
+            $scope.update = function () {
+                $http.put('/uai-mock-server-gui/rootConfigurations', $scope.rootConfig).
+                        success(function(data) {
+                            $scope.displaySuccessGrowl();
+                            $scope.loadData();
                         }
                 ).error(function(){
                             $scope.displayErrorGrowl();

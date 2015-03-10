@@ -38,6 +38,7 @@ import com.uaihebert.uaimockserver.log.gui.UaiWebSocketLogManager;
 import com.uaihebert.uaimockserver.model.UaiMockServerConfig;
 import com.uaihebert.uaimockserver.repository.UaiRouteMapper;
 import com.uaihebert.uaimockserver.repository.UaiRouteRepository;
+import com.uaihebert.uaimockserver.service.UaiRootContextService;
 import com.uaihebert.uaimockserver.service.UaiRouteService;
 import com.uaihebert.uaimockserver.util.ExceptionUtil;
 import com.uaihebert.uaimockserver.util.FileUtil;
@@ -350,6 +351,15 @@ public class PrivateConstructorTest {
         constructor.setAccessible(true);
 
         final UaiWebSocketLogResponseDTOFactory createdObject = constructor.newInstance(new Object[0]);
+        assertNotNull(createdObject);
+    }
+
+    @Test
+    public void testUaiRootContextServiceConstructor() throws Exception {
+        final Constructor<UaiRootContextService> constructor = UaiRootContextService.class.getDeclaredConstructor(new Class[0]);
+        constructor.setAccessible(true);
+
+        final UaiRootContextService createdObject = constructor.newInstance(new Object[0]);
         assertNotNull(createdObject);
     }
 }

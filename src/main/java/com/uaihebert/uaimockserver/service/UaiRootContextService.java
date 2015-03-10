@@ -1,0 +1,27 @@
+package com.uaihebert.uaimockserver.service;
+
+import com.uaihebert.uaimockserver.context.UaiMockServerContext;
+import com.uaihebert.uaimockserver.dto.model.UaiBasicConfigurationDTO;
+import com.uaihebert.uaimockserver.model.UaiMockServerConfig;
+import com.uaihebert.uaimockserver.util.FileUtil;
+
+public final class UaiRootContextService {
+    private UaiRootContextService() {
+    }
+
+    public static void update(final UaiBasicConfigurationDTO uaiRouteConfigDTO) {
+        final UaiMockServerConfig mainConfig = UaiMockServerContext.INSTANCE.uaiMockServerConfig;
+        mainConfig.setContext(uaiRouteConfigDTO.getContext());
+        mainConfig.setPort(uaiRouteConfigDTO.getPort());
+        mainConfig.setHost(uaiRouteConfigDTO.getHost());
+        mainConfig.setConsoleLog(uaiRouteConfigDTO.getConsoleLog());
+        mainConfig.setFileLog(uaiRouteConfigDTO.getFileLog());
+        mainConfig.setDefaultContentTypeResponse(uaiRouteConfigDTO.getDefaultContentType());
+
+        flushData();
+    }
+
+    private static void flushData() {
+        FileUtil.writeUpdatesToFile();
+    }
+}
