@@ -9,11 +9,11 @@ import javax.ws.rs.core.Response;
 
 import static org.junit.Assert.assertEquals;
 
-public class JavascriptServletTest extends TestAbstract {
+public class JavascriptGetTest extends TestAbstract {
 
     @Test
     public void isReturning200OnIndex() {
-        final String url = "http://localhost:1234/uai-mock-server-gui/javascript?fileName=angular";
+        final String url = "http://localhost:1234/uai-mock-server-gui/javascript/angular";
 
         Client client = ClientBuilder.newClient();
         Response response = client.target(url).request().get();
@@ -26,7 +26,7 @@ public class JavascriptServletTest extends TestAbstract {
 
     @Test
     public void isReturningContentAsJavascriptType() {
-        final String url = "http://localhost:1234/uai-mock-server-gui/javascript?fileName=angular";
+        final String url = "http://localhost:1234/uai-mock-server-gui/javascript/angular";
 
         Client client = ClientBuilder.newClient();
         Response response = client.target(url).request().get();
@@ -39,11 +39,11 @@ public class JavascriptServletTest extends TestAbstract {
 
     @Test
     public void isReturning500IfFileNotFound() {
-        final String url = "http://localhost:1234/uai-mock-server-gui/javascript";
+        final String url = "http://localhost:1234/uai-mock-server-gui/javascript/what";
 
         Client client = ClientBuilder.newClient();
         Response response = client.target(url).request().get();
 
-        assertEquals(500, response.getStatus());
+        assertEquals(404, response.getStatus());
     }
 }

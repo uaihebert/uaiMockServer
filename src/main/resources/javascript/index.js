@@ -242,7 +242,7 @@ app.controller('routeController', function($scope, $http, growl, $location) {
     }
 
     $scope.isActive = function(route) {
-        if ($location.path().contains(route)) {
+        if ($location.path().indexOf(route) > -1) {
             return 'active';
         }
 

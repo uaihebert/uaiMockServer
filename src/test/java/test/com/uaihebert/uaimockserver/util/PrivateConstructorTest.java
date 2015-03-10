@@ -32,6 +32,8 @@ import com.uaihebert.uaimockserver.factory.UaiQueryParamFactory;
 import com.uaihebert.uaimockserver.factory.UaiRequestFactory;
 import com.uaihebert.uaimockserver.factory.UaiResponseFactory;
 import com.uaihebert.uaimockserver.factory.UaiRouteFactory;
+import com.uaihebert.uaimockserver.factory.undertow.HandleWrapperFactory;
+import com.uaihebert.uaimockserver.factory.undertow.PathHandlerFactory;
 import com.uaihebert.uaimockserver.log.backend.Log;
 import com.uaihebert.uaimockserver.log.backend.LogBuilder;
 import com.uaihebert.uaimockserver.log.gui.UaiWebSocketLogManager;
@@ -360,6 +362,24 @@ public class PrivateConstructorTest {
         constructor.setAccessible(true);
 
         final UaiRootContextService createdObject = constructor.newInstance(new Object[0]);
+        assertNotNull(createdObject);
+    }
+
+    @Test
+    public void testUaiPathHandlerFactoryConstructor() throws Exception {
+        final Constructor<PathHandlerFactory> constructor = PathHandlerFactory.class.getDeclaredConstructor(new Class[0]);
+        constructor.setAccessible(true);
+
+        final PathHandlerFactory createdObject = constructor.newInstance(new Object[0]);
+        assertNotNull(createdObject);
+    }
+
+    @Test
+    public void testHandleWrapperFactoryConstructor() throws Exception {
+        final Constructor<HandleWrapperFactory> constructor = HandleWrapperFactory.class.getDeclaredConstructor(new Class[0]);
+        constructor.setAccessible(true);
+
+        final HandleWrapperFactory createdObject = constructor.newInstance(new Object[0]);
         assertNotNull(createdObject);
     }
 }

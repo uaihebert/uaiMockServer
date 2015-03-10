@@ -16,38 +16,14 @@
 package com.uaihebert.uaimockserver.util;
 
 import com.uaihebert.uaimockserver.context.UaiMockServerContext;
-import com.uaihebert.uaimockserver.model.UaiWebSocketCallback;
-import com.uaihebert.uaimockserver.server.UaiMockServerHandler;
-import com.uaihebert.uaimockserver.servlet.AngularMapServlet;
-import com.uaihebert.uaimockserver.servlet.CssMapServlet;
-import com.uaihebert.uaimockserver.servlet.CssServlet;
-import com.uaihebert.uaimockserver.servlet.JavascriptServlet;
-import com.uaihebert.uaimockserver.servlet.UaiIndexServlet;
-import com.uaihebert.uaimockserver.servlet.UaiPageServlet;
-import com.uaihebert.uaimockserver.servlet.UaiRootConfigurationsServlet;
-import com.uaihebert.uaimockserver.servlet.UaiRouteServlet;
-import io.undertow.Handlers;
+import com.uaihebert.uaimockserver.factory.undertow.PathHandlerFactory;
 import io.undertow.Undertow;
-import io.undertow.server.HttpHandler;
 import io.undertow.server.handlers.PathHandler;
-import io.undertow.server.handlers.resource.FileResourceManager;
-import io.undertow.servlet.Servlets;
-import io.undertow.servlet.api.DeploymentInfo;
-import io.undertow.servlet.api.DeploymentManager;
-
-import javax.servlet.ServletException;
-import java.io.File;
-import java.net.URL;
-
-import static io.undertow.servlet.Servlets.servlet;
 
 /**
  * This class is responsible for the servlet server instantiation
  */
 public final class HttpServerUtil {
-    private static final String SERVLET_CONTEXT_PATH = "/uai-mock-server-gui/";
-    private static final String WEBSOCKET_CONTEXT_PATH = "/uai-mock-server-gui-ws";
-
     private HttpServerUtil() {
     }
 
@@ -55,20 +31,7 @@ public final class HttpServerUtil {
         final Undertow httpServer;
 
         try {
-            // todo refactor here
-            final URL fontTtf = Undertow.class.getResource("/fonts/glyphicons-halflings-regular.ttf");
-            final URL fontWoff = Undertow.class.getResource("/fonts/glyphicons-halflings-regular.woff");
-            final URL favIco = Undertow.class.getResource("/images/favicon.png");
-            final URL rootConfigPage = Undertow.class.getResource("/pages/rootConfig/rootConfig.html");
-
-            final PathHandler path = Handlers.path(Handlers.redirect(SERVLET_CONTEXT_PATH))
-                    .addPrefixPath(SERVLET_CONTEXT_PATH, createHtmlManager())
-                    .addPrefixPath("/fonts/glyphicons-halflings-regular.ttf", Handlers.resource(new FileResourceManager(new File(fontTtf.getFile()), 0)))
-                    .addPrefixPath("/fonts/glyphicons-halflings-regular.woff", Handlers.resource(new FileResourceManager(new File(fontWoff.getFile()), 0)))
-                    .addPrefixPath("/favicon.ico", Handlers.resource(new FileResourceManager(new File(favIco.getFile()), 0)))
-                    .addPrefixPath(SERVLET_CONTEXT_PATH + "rootConfig", Handlers.resource(new FileResourceManager(new File(rootConfigPage.getFile()), 0)))
-                    .addPrefixPath(WEBSOCKET_CONTEXT_PATH, Handlers.websocket(new UaiWebSocketCallback()))
-                    .addPrefixPath("/", new UaiMockServerHandler());
+            final PathHandler path = PathHandlerFactory.create();
 
             httpServer = Undertow.builder()
                     .addHttpListener(UaiMockServerContext.INSTANCE.uaiMockServerConfig.getPort(), UaiMockServerContext.INSTANCE.uaiMockServerConfig.getHost())
@@ -81,29 +44,5 @@ public final class HttpServerUtil {
         }
 
         return httpServer;
-    }
-
-    // todo remove the servlets to serve static content, use the Undertow
-    // todo refactor URL -> maybe remove the SERVLET_CONTEXT_PATH and use only "/index"
-    private static HttpHandler createHtmlManager() throws ServletException {
-        final DeploymentInfo deploymentInfo = Servlets.deployment()
-                .setClassLoader(HttpServerUtil.class.getClassLoader())
-                .setContextPath(SERVLET_CONTEXT_PATH)
-                .setDeploymentName("uaiMockServer.war")
-                .addServlets(
-                        servlet("UaiIndexServlet", UaiIndexServlet.class).addMapping("/index"),
-                        servlet("UaiPageServlet", UaiPageServlet.class).addMapping("/page"),
-                        servlet("JavascriptServlet", JavascriptServlet.class).addMapping("/javascript"),
-                        servlet("CssServlet", CssServlet.class).addMapping("/css"),
-                        servlet("CssMapServlet", CssMapServlet.class).addMapping("/bootstrap.css.map"),
-                        servlet("AngularMapServlet", AngularMapServlet.class).addMapping("/angular.js.map"),
-                        servlet("UaiRootConfigurationsServlet", UaiRootConfigurationsServlet.class).addMapping("/rootConfigurations"),
-                        servlet("UaiRouteServlet", UaiRouteServlet.class).addMapping("/uaiRoute")
-                );
-
-        final DeploymentManager manager = Servlets.defaultContainer().addDeployment(deploymentInfo);
-        manager.deploy();
-
-        return manager.start();
     }
 }
