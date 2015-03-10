@@ -1,5 +1,8 @@
-var app = angular.module('uaiMockServerApp', ['tableSort', 'angular-growl', 'ngAnimate', 'ui.bootstrap']);
-app.controller('webSocketController', function($scope, $http, growl) {
+var app = angular.module('uaiMockServerApp', ['tableSort', 'angular-growl', 'ngAnimate', 'ui.bootstrap'], function($locationProvider){
+    $locationProvider.html5Mode(true);
+});
+
+app.controller('webSocketController', function($scope, $location) {
     $scope.isCollapsed = true;
 
     $scope.connectionStatus = 'offline';
@@ -56,5 +59,17 @@ app.controller('webSocketController', function($scope, $http, growl) {
 
     $scope.getConnectionStatus = function () {
         return $scope.connectionStatus;
+    }
+
+    $scope.isActive = function(route) {
+        if ($location.search()['fileName'].contains(route)) {
+            return 'active';
+        }
+
+        if ($location.path().contains(route)) {
+            return 'active';
+        }
+
+        return "";
     }
 })

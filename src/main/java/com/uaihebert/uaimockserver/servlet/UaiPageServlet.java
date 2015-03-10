@@ -15,6 +15,6 @@ public class UaiPageServlet extends AbstractServlet {
 
         final String fileName = httpRequest.getParameter("fileName");
 
-        printResource(httpResponse.getOutputStream(), "/pages/" + fileName + ".html");
+        printResource(httpResponse.getOutputStream(), "/pages/" + fileName.replace("_", "/") + ".html");
     }
 }

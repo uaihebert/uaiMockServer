@@ -1,10 +1,12 @@
-var app = angular.module('uaiMockServerApp', ['tableSort', 'angular-growl', 'ngAnimate']);
+var app = angular.module('uaiMockServerApp', ['tableSort', 'angular-growl', 'ngAnimate'], function($locationProvider){
+    $locationProvider.html5Mode(true);
+});
 
 app.config(['growlProvider', function(growlProvider) {
     growlProvider.globalTimeToLive(2500);
 }]);
 
-app.controller('routeController', function($scope, $http, growl) {
+app.controller('routeController', function($scope, $http, growl, $location) {
     $scope.items = [{name: 'one', age: 30 },{ name: 'two', age: 27 },{ name: 'three', age: 50 }];
     $scope.loadTable = function(){
         $scope.isCollapsed = true;
@@ -238,5 +240,13 @@ app.controller('routeController', function($scope, $http, growl) {
         ).error(function(){
                 $scope.displayErrorGrowl();
             });
+    }
+
+    $scope.isActive = function(route) {
+        if ($location.path().contains(route)) {
+            return 'active';
+        }
+
+        return "";
     }
 });

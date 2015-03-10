@@ -44,7 +44,7 @@ import static io.undertow.servlet.Servlets.servlet;
  * This class is responsible for the servlet server instantiation
  */
 public final class HttpServerUtil {
-    private static final String SERVLET_CONTEXT_PATH = "/uai-mock-server-gui";
+    private static final String SERVLET_CONTEXT_PATH = "/uai-mock-server-gui/";
     private static final String WEBSOCKET_CONTEXT_PATH = "/uai-mock-server-gui-ws";
 
     private HttpServerUtil() {
