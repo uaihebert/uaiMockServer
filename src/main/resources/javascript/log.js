@@ -66,10 +66,6 @@ app.controller('webSocketController', function($scope, $location) {
             return 'active';
         }
 
-        if ($location.path().contains(route)) {
-            return 'active';
-        }
-
         return "";
     }
 })
