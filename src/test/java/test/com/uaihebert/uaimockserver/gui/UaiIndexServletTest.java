@@ -21,6 +21,9 @@ public class UaiIndexServletTest {
         Client client = ClientBuilder.newClient();
         Response response = client.target(url).request().get();
 
+        // must read the entity or an NIOException will raise
+        response.readEntity(String.class);
+
         assertEquals(200, response.getStatus());
     }
 
@@ -30,6 +33,9 @@ public class UaiIndexServletTest {
 
         Client client = ClientBuilder.newClient();
         Response response = client.target(url).request().get();
+
+        // must read the entity or an NIOException will raise
+        response.readEntity(String.class);
 
         assertEquals(MediaType.TEXT_HTML, response.getMediaType().toString());
     }

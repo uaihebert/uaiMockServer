@@ -1,21 +1,19 @@
 package com.uaihebert.uaimockserver.servlet;
 
 import com.google.gson.Gson;
-import com.uaihebert.uaimockserver.configuration.ProjectConfiguration;
 import com.uaihebert.uaimockserver.dto.factory.UaiBasicConfigurationDTOFactory;
 import com.uaihebert.uaimockserver.dto.factory.UaiRouteDTOFactory;
 import com.uaihebert.uaimockserver.dto.model.UaiRouteDTO;
 import com.uaihebert.uaimockserver.dto.response.IndexResponseDTO;
-import com.uaihebert.uaimockserver.service.UaiRouteService;
 import com.uaihebert.uaimockserver.model.UaiRoute;
 import com.uaihebert.uaimockserver.repository.UaiRouteRepository;
+import com.uaihebert.uaimockserver.service.UaiRouteService;
 import com.uaihebert.uaimockserver.util.RequestBodyExtractor;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.io.OutputStream;
 import java.util.List;
 
 public class UaiRouteServlet extends AbstractServlet {
@@ -28,15 +26,7 @@ public class UaiRouteServlet extends AbstractServlet {
 
         final String body = createIndexGetResponse();
 
-        final OutputStream outputStream = httpResponse.getOutputStream();
-
-        try {
-            outputStream.write(body.getBytes(ProjectConfiguration.ENCODING.value));
-
-            outputStream.flush();
-        } finally {
-            outputStream.close();
-        }
+        writeInResponse(httpResponse, body);
     }
 
     private String createIndexGetResponse() {
@@ -51,40 +41,28 @@ public class UaiRouteServlet extends AbstractServlet {
 
     @Override
     protected void doPut(final HttpServletRequest httpRequest, final HttpServletResponse httpResponse) throws ServletException, IOException {
-        httpResponse.setContentType("application/json");
-        httpResponse.setStatus(204);
-
         final UaiRouteDTO uaiRouteDTO = RequestBodyExtractor.extract(httpRequest, UaiRouteDTO.class);
 
         UaiRouteService.editRoute(uaiRouteDTO);
 
-        final OutputStream outputStream = httpResponse.getOutputStream();
-        outputStream.close();
+        send204Response(httpResponse);
     }
 
     @Override
     protected void doPost(final HttpServletRequest httpRequest, final HttpServletResponse httpResponse) throws ServletException, IOException {
-        httpResponse.setContentType("application/json");
-        httpResponse.setStatus(204);
-
         final UaiRouteDTO uaiRouteDTO = RequestBodyExtractor.extract(httpRequest, UaiRouteDTO.class);
 
         UaiRouteService.createRoute(uaiRouteDTO);
 
-        final OutputStream outputStream = httpResponse.getOutputStream();
-        outputStream.close();
+        send204Response(httpResponse);
     }
 
     @Override
     protected void doDelete(final HttpServletRequest httpRequest, final HttpServletResponse httpResponse) throws ServletException, IOException {
-        httpResponse.setContentType("application/json");
-        httpResponse.setStatus(204);
-
         final String routeId = httpRequest.getParameter("routeId");
 
         UaiRouteService.deleteRoute(routeId);
 
-        final OutputStream outputStream = httpResponse.getOutputStream();
-        outputStream.close();
+        send204Response(httpResponse);
     }
 }

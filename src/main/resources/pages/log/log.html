@@ -27,7 +27,7 @@
         <div ng-include="'/uai-mock-server-gui/page?fileName=common/headerMenu'"></div>
         <div>
             <br/>
-            Current status: <span ng-class="{'label label-success': connectionStatus == 'connected', 'label label-danger': connectionStatus == 'offline'}">{{getConnectionStatus()}}</span>
+            <h2>Current status: <span ng-class="{'label label-success': connectionStatus == 'connected', 'label label-danger': connectionStatus == 'offline'}">{{getConnectionStatus()}}</span></h2>
             <br/>
             <br/>
             <table class="table">

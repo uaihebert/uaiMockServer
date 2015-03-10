@@ -24,6 +24,7 @@ import com.uaihebert.uaimockserver.servlet.CssServlet;
 import com.uaihebert.uaimockserver.servlet.JavascriptServlet;
 import com.uaihebert.uaimockserver.servlet.UaiIndexServlet;
 import com.uaihebert.uaimockserver.servlet.UaiPageServlet;
+import com.uaihebert.uaimockserver.servlet.UaiRootConfigurationsServlet;
 import com.uaihebert.uaimockserver.servlet.UaiRouteServlet;
 import io.undertow.Handlers;
 import io.undertow.Undertow;
@@ -58,12 +59,14 @@ public final class HttpServerUtil {
             final URL fontTtf = Undertow.class.getResource("/fonts/glyphicons-halflings-regular.ttf");
             final URL fontWoff = Undertow.class.getResource("/fonts/glyphicons-halflings-regular.woff");
             final URL favIco = Undertow.class.getResource("/images/favicon.png");
+            final URL rootConfigPage = Undertow.class.getResource("/pages/rootConfig/rootConfig.html");
 
             final PathHandler path = Handlers.path(Handlers.redirect(SERVLET_CONTEXT_PATH))
                     .addPrefixPath(SERVLET_CONTEXT_PATH, createHtmlManager())
                     .addPrefixPath("/fonts/glyphicons-halflings-regular.ttf", Handlers.resource(new FileResourceManager(new File(fontTtf.getFile()), 0)))
                     .addPrefixPath("/fonts/glyphicons-halflings-regular.woff", Handlers.resource(new FileResourceManager(new File(fontWoff.getFile()), 0)))
                     .addPrefixPath("/favicon.ico", Handlers.resource(new FileResourceManager(new File(favIco.getFile()), 0)))
+                    .addPrefixPath(SERVLET_CONTEXT_PATH + "rootConfig", Handlers.resource(new FileResourceManager(new File(rootConfigPage.getFile()), 0)))
                     .addPrefixPath(WEBSOCKET_CONTEXT_PATH, Handlers.websocket(new UaiWebSocketCallback()))
                     .addPrefixPath("/", new UaiMockServerHandler());
 
@@ -80,6 +83,8 @@ public final class HttpServerUtil {
         return httpServer;
     }
 
+    // todo remove the servlets to serve static content, use the Undertow
+    // todo refactor URL -> maybe remove the SERVLET_CONTEXT_PATH and use only "/index"
     private static HttpHandler createHtmlManager() throws ServletException {
         final DeploymentInfo deploymentInfo = Servlets.deployment()
                 .setClassLoader(HttpServerUtil.class.getClassLoader())
@@ -92,6 +97,7 @@ public final class HttpServerUtil {
                         servlet("CssServlet", CssServlet.class).addMapping("/css"),
                         servlet("CssMapServlet", CssMapServlet.class).addMapping("/bootstrap.css.map"),
                         servlet("AngularMapServlet", AngularMapServlet.class).addMapping("/angular.js.map"),
+                        servlet("UaiRootConfigurationsServlet", UaiRootConfigurationsServlet.class).addMapping("/rootConfigurations"),
                         servlet("UaiRouteServlet", UaiRouteServlet.class).addMapping("/uaiRoute")
                 );
 

@@ -7,7 +7,6 @@ app.config(['growlProvider', function(growlProvider) {
 }]);
 
 app.controller('routeController', function($scope, $http, growl, $location) {
-    $scope.items = [{name: 'one', age: 30 },{ name: 'two', age: 27 },{ name: 'three', age: 50 }];
     $scope.loadTable = function(){
         $scope.isCollapsed = true;
         $http.get('/uai-mock-server-gui/uaiRoute').
@@ -32,7 +31,7 @@ app.controller('routeController', function($scope, $http, growl, $location) {
             }
         ).error(function(){
                 $scope.displayErrorGrowl();
-            });;
+        });
     }
 
     $scope.loadTable();

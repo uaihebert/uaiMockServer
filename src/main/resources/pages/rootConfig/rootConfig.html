@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="uaiMockServerApp">
+    <head>
+        <meta charset="utf-8">
+        <link rel="icon" type="image/x-icon" href="/uai-mock-server-gui/favicon" />
+
+        <link rel="stylesheet" href="/uai-mock-server-gui/css?fileName=bootstrap" />
+        <link rel="stylesheet" href="/uai-mock-server-gui/css?fileName=tableSort" />
+        <link rel="stylesheet" href="/uai-mock-server-gui/css?fileName=index" />
+        <link rel="stylesheet" href="/uai-mock-server-gui/css?fileName=growl" />
+        <link rel="stylesheet" href="/uai-mock-server-gui/css?fileName=log" />
+
+        <script type="application/javascript" src="/uai-mock-server-gui/javascript?fileName=angular"></script>
+        <script type="application/javascript" src="/uai-mock-server-gui/javascript?fileName=angular-animate"></script>
+        <script type="application/javascript" src="/uai-mock-server-gui/javascript?fileName=tableSort"></script>
+        <script type="application/javascript" src="/uai-mock-server-gui/javascript?fileName=jquery"></script>
+        <script type="application/javascript" src="/uai-mock-server-gui/javascript?fileName=bootstrap"></script>
+        <script type="application/javascript" src="/uai-mock-server-gui/javascript?fileName=angular-growl"></script>
+        <script type="application/javascript" src="/uai-mock-server-gui/javascript?fileName=angular-sanitize"></script>
+        <script type="application/javascript" src="/uai-mock-server-gui/javascript?fileName=ui-bootstrap-tpls"></script>
+
+        <title>
+            UaiMockServer - GUI
+        </title>
+    </head>
+    <body ng-controller="rootConfigController" class="container">
+        <div ng-include="'/uai-mock-server-gui/page?fileName=common/headerMenu'"></div>
+
+        <h2><span class="label label-danger">An update here will only take effect after a reboot</span></h2>
+
+        <div name="requestForm" class="css-form"><br/><br/>
+            File Log: <input type="checkbox" ng-model="rootConfig.fileLog" /><br />
+            Console Log: <input type="checkbox" ng-model="rootConfig.consoleLog" /><br /><br />
+            Host: <input type="text" class="form-control" ng-model="rootConfig.host" placeholder="The IP that will be bound" /><br />
+            Context: <input type="text" class="form-control" ng-model="rootConfig.context" placeholder="The url context e.g. http://IP/CONTEXT" /><br />
+            Default Content-Type: <input type="text" class="form-control" ng-model="rootConfig.defaultContentType" placeholder="A default Content-Type to be returned" /><br />
+        </div>
+
+        <h4><span class="label label-info">Reading the data of the file: {{rootConfig.mainFilePath}}</span></h4>
+
+        <div growl></div>
+    </body>
+    <script>
+        var app = angular.module('uaiMockServerApp', ['tableSort', 'angular-growl', 'ngAnimate', 'ui.bootstrap'], function($locationProvider){
+            $locationProvider.html5Mode(true);
+        });
+
+        app.config(['growlProvider', function(growlProvider) {
+            growlProvider.globalTimeToLive(2500);
+        }]);
+
+        app.controller('rootConfigController', function($scope, $location, $http, growl) {
+            $scope.loadData = function(){
+                $http.get('/uai-mock-server-gui/rootConfigurations').
+                        success(function(data) {
+                            $scope.rootConfig = {};
+                            $scope.rootConfig.fileLog = data.fileLog;
+                            $scope.rootConfig.consoleLog = data.consoleLog;
+                            $scope.rootConfig.host = data.host;
+                            $scope.rootConfig.context = data.context;
+                            $scope.rootConfig.defaultContentType = data.defaultContentType;
+                            $scope.rootConfig.mainFilePath = data.uaiMainFile.fullPath;
+                        }
+                ).error(function(){
+                            $scope.displayErrorGrowl();
+                        });
+            }
+
+            $scope.isActive = function(route) {
+                if ($location.path().contains(route)) {
+                    return 'active';
+                }
+
+                return "";
+            }
+
+            $scope.loadData();
+
+            $scope.displaySuccessGrowl = function() {
+                growl.addSuccessMessage("Operation Confirmed (:");
+            }
+
+            $scope.displayErrorGrowl = function() {
+                growl.addErrorMessage("Check the log, something went wrong :(");
+            }
+        })
+    </script>
+</html>

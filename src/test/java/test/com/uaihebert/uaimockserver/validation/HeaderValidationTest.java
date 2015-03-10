@@ -15,8 +15,9 @@
  * */
 package test.com.uaihebert.uaimockserver.validation;
 
+import com.uaihebert.uaimockserver.runner.UaiMockServerRunner;
 import org.junit.Test;
-import test.com.uaihebert.uaimockserver.TestAbstract;
+import org.junit.runner.RunWith;
 
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
@@ -24,7 +25,8 @@ import javax.ws.rs.core.Response;
 
 import static org.junit.Assert.assertEquals;
 
-public class HeaderValidationTest extends TestAbstract {
+@RunWith(UaiMockServerRunner.class)
+public class HeaderValidationTest {
 
     @Test
     public void isGetWithoutRequiredHeaderReturningError(){

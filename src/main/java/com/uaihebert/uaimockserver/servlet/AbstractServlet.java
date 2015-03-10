@@ -29,6 +29,26 @@ class AbstractServlet extends HttpServlet {
         }
     }
 
+    void writeInResponse(final HttpServletResponse httpResponse, final String text) throws IOException {
+        final OutputStream outputStream = httpResponse.getOutputStream();
+
+        try {
+            outputStream.write(text.getBytes(ProjectConfiguration.ENCODING.value));
+
+            outputStream.flush();
+        } finally {
+            outputStream.close();
+        }
+    }
+
+    void send204Response(final HttpServletResponse httpResponse) throws IOException {
+        httpResponse.setContentType("application/json");
+        httpResponse.setStatus(204);
+
+        final OutputStream outputStream = httpResponse.getOutputStream();
+        outputStream.close();
+    }
+
     void addDefaultHeaders(final HttpServletResponse httpResponse) {
         httpResponse.addHeader("Access-Control-Allow-Headers", "Content-Type");
         httpResponse.addHeader("Access-Control-Allow-Methods", "GET, POST, DELETE, PUT");

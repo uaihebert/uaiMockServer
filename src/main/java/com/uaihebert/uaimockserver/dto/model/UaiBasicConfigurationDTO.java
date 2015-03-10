@@ -1,7 +1,11 @@
 package com.uaihebert.uaimockserver.dto.model;
 
+// todo rename to rootConfig...
 public class UaiBasicConfigurationDTO {
     private Integer port;
+
+    private Boolean fileLog;
+    private Boolean consoleLog;
 
     private String host;
     private String context;
@@ -47,8 +51,24 @@ public class UaiBasicConfigurationDTO {
     public UaiFileDTO getUaiMainFile() {
         return uaiMainFile;
     }
-
-    public void setMainUaiFile(final UaiFileDTO uaiFile) {
+    // todo create a delete button in the log event GUI
+    public void setUaiMainFile(final UaiFileDTO uaiFile) {
         this.uaiMainFile = uaiFile;
+    }
+
+    public Boolean getFileLog() {
+        return fileLog;
+    }
+
+    public void setFileLog(final Boolean fileLog) {
+        this.fileLog = fileLog;
+    }
+
+    public Boolean getConsoleLog() {
+        return consoleLog;
+    }
+
+    public void setConsoleLog(final Boolean consoleLog) {
+        this.consoleLog = consoleLog;
     }
 }
