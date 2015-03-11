@@ -10,7 +10,6 @@ import com.uaihebert.uaimockserver.repository.UaiRouteRepository;
 import java.util.ArrayList;
 import java.util.List;
 
-// todo create GUI to edit port/context etc
 public final class UaiMockServerContext {
     private static final String DEFAULT_CONFIGURATION_FILE_NAME = "uaiMockServer.json";
 

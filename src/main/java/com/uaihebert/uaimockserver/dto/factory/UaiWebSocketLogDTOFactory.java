@@ -32,7 +32,6 @@ public final class UaiWebSocketLogDTOFactory {
     private static UaiWebSocketLogRequestDTO createLogRequest(final HttpServerExchange exchange) {
         final UaiWebSocketLogRequestDTO logRequestDTO = new UaiWebSocketLogRequestDTO();
 
-        // todo refactor here
         logRequestDTO.setMethod(exchange.getRequestMethod().toString());
         logRequestDTO.setArrivedAt(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS").format(new Date()));
         logRequestDTO.setWhoInvokedAddress(exchange.getSourceAddress().getAddress().toString());
@@ -43,16 +42,15 @@ public final class UaiWebSocketLogDTOFactory {
             logRequestDTO.setContentType(exchange.getRequestHeaders().get("Content-Type").getFirst());
         }
 
-        for (HeaderValues headerValues : exchange.getRequestHeaders()) {
-            final String headerName = headerValues.getHeaderName().toString();
+        createHeaderList(exchange, logRequestDTO);
 
-            final String[] valueAsArray = headerValues.toArray();
+        createQueryParamList(exchange, logRequestDTO);
 
-            final UaiLogPairValueDTO pairValueDTO = new UaiLogPairValueDTO(headerName, Arrays.asList(valueAsArray));
 
-            logRequestDTO.getHeaderValueList().add(pairValueDTO);
-        }
+        return logRequestDTO;
+    }
 
+    private static void createQueryParamList(final HttpServerExchange exchange, final UaiWebSocketLogRequestDTO logRequestDTO) {
         for (Map.Entry<String, Deque<String>> queryParamValue : exchange.getQueryParameters().entrySet()) {
             final String queryParamName = queryParamValue.getKey();
             final Deque<String> stringDeque = queryParamValue.getValue();
@@ -69,8 +67,17 @@ public final class UaiWebSocketLogDTOFactory {
             final UaiLogPairValueDTO pairValueDTO = new UaiLogPairValueDTO(queryParamName, valueList);
             logRequestDTO.getQueryParamValueList().add(pairValueDTO);
         }
+    }
 
+    private static void createHeaderList(final HttpServerExchange exchange, final UaiWebSocketLogRequestDTO logRequestDTO) {
+        for (HeaderValues headerValues : exchange.getRequestHeaders()) {
+            final String headerName = headerValues.getHeaderName().toString();
 
-        return logRequestDTO;
+            final String[] valueAsArray = headerValues.toArray();
+
+            final UaiLogPairValueDTO pairValueDTO = new UaiLogPairValueDTO(headerName, Arrays.asList(valueAsArray));
+
+            logRequestDTO.getHeaderValueList().add(pairValueDTO);
+        }
     }
 }
