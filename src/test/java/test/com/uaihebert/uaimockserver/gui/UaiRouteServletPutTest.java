@@ -59,7 +59,7 @@ public class UaiRouteServletPutTest extends AbstractTestServletTests {
     }
 
     private UaiRouteDTO getRouteFromServer(final String routeName) {
-        final String url = "http://localhost:1234/uai-mock-server-gui/uaiRoute";
+        final String url = AbstractTestServletTests.GUI_URL + "uaiRoute";
 
         Client client = ClientBuilder.newClient();
         Response response = client.target(url).request().get();

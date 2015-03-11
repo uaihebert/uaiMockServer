@@ -62,7 +62,7 @@ app.controller('webSocketController', function($scope, $location) {
     }
 
     $scope.isActive = function(route) {
-        if ($location.search()['fileName'].indexOf(route) > -1) {
+        if ($location.path().indexOf(route) > -1) {
             return 'active';
         }
 

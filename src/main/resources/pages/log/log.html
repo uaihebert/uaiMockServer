@@ -23,7 +23,8 @@
         </title>
     </head>
     <body ng-controller="webSocketController" class="container">
-        <div ng-include="'/uai-mock-server-gui/page?fileName=common/headerMenu'"></div>
+        <div ng-include="'/uai-mock-server-gui/page/headerMenu'"></div>
+
         <div>
             <br/>
             <h2>Current status: <span ng-class="{'label label-success': connectionStatus == 'connected', 'label label-danger': connectionStatus == 'offline'}">{{getConnectionStatus()}}</span></h2>

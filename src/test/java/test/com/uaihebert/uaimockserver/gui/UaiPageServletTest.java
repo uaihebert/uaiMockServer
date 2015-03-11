@@ -16,7 +16,7 @@ public class UaiPageServletTest {
 
     @Test
     public void isReturning200OnAnyPage() {
-        final String url = "http://localhost:1234/uai-mock-server-gui/page?fileName=common/headerMenu";
+        final String url = "http://localhost:1234/uai-mock-server-gui/page/headerMenu";
 
         Client client = ClientBuilder.newClient();
         Response response = client.target(url).request().get();
@@ -29,7 +29,7 @@ public class UaiPageServletTest {
 
     @Test
     public void isReturningContentAsTextHtmlType() {
-        final String url = "http://localhost:1234/uai-mock-server-gui/page?fileName=common/headerMenu";
+        final String url = "http://localhost:1234/uai-mock-server-gui/page/headerMenu";
 
         Client client = ClientBuilder.newClient();
         Response response = client.target(url).request().get();

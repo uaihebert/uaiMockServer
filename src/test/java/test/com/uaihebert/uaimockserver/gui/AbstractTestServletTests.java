@@ -9,6 +9,8 @@ import javax.ws.rs.client.Entity;
 import javax.ws.rs.core.MediaType;
 
 public class AbstractTestServletTests {
+    public static final String GUI_URL = "http://localhost:1234/uai-mock-server-gui/";
+
     protected void executePut(final UaiRouteDTO toUpdateRoute) {
         final String url = "http://localhost:1234/uai-mock-server-gui/uaiRoute";
 

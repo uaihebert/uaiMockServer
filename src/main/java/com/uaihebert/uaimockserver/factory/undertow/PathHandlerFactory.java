@@ -2,9 +2,6 @@ package com.uaihebert.uaimockserver.factory.undertow;
 
 import com.uaihebert.uaimockserver.model.UaiWebSocketCallback;
 import com.uaihebert.uaimockserver.server.UaiMockServerHandler;
-import com.uaihebert.uaimockserver.servlet.AngularMapServlet;
-import com.uaihebert.uaimockserver.servlet.UaiIndexServlet;
-import com.uaihebert.uaimockserver.servlet.UaiPageServlet;
 import com.uaihebert.uaimockserver.servlet.UaiRootConfigurationsServlet;
 import com.uaihebert.uaimockserver.servlet.UaiRouteServlet;
 import com.uaihebert.uaimockserver.util.HttpServerUtil;
@@ -25,33 +22,45 @@ public final class PathHandlerFactory {
     private static final String SERVLET_CONTEXT_PATH = "/uai-mock-server-gui/";
     private static final String WEBSOCKET_CONTEXT_PATH = "/uai-mock-server-gui-ws";
 
+    private static final String CSS_CONTEXT_PATH = SERVLET_CONTEXT_PATH + "css/";
+    private static final String JAVASCRIPT_CONTEXT_PATH = SERVLET_CONTEXT_PATH + "javascript/";
+
     private static final List<HandleWrapper> HANDLE_WRAPPER_LIST = new ArrayList<HandleWrapper>();
 
     static {
         HANDLE_WRAPPER_LIST.add(HandleWrapperFactory.create("/fonts/glyphicons-halflings-regular.ttf"));
         HANDLE_WRAPPER_LIST.add(HandleWrapperFactory.create("/fonts/glyphicons-halflings-regular.woff"));
         HANDLE_WRAPPER_LIST.add(HandleWrapperFactory.create("/favicon.ico", "/images/favicon.png"));
+
+        HANDLE_WRAPPER_LIST.add(HandleWrapperFactory.create(JAVASCRIPT_CONTEXT_PATH + "log", "/javascript/log.js"));
+        HANDLE_WRAPPER_LIST.add(HandleWrapperFactory.create(JAVASCRIPT_CONTEXT_PATH + "index", "/javascript/index.js"));
+        HANDLE_WRAPPER_LIST.add(HandleWrapperFactory.create(JAVASCRIPT_CONTEXT_PATH + "jquery", "/javascript/jquery.js"));
+        HANDLE_WRAPPER_LIST.add(HandleWrapperFactory.create(JAVASCRIPT_CONTEXT_PATH + "angular", "/javascript/angular.js"));
+        HANDLE_WRAPPER_LIST.add(HandleWrapperFactory.create(JAVASCRIPT_CONTEXT_PATH + "bootstrap", "/javascript/bootstrap.js"));
+        HANDLE_WRAPPER_LIST.add(HandleWrapperFactory.create(JAVASCRIPT_CONTEXT_PATH + "rootConfig", "/javascript/rootConfig.js"));
+        HANDLE_WRAPPER_LIST.add(HandleWrapperFactory.create(JAVASCRIPT_CONTEXT_PATH + "tableSort", "/javascript/tableSort.js"));
+        HANDLE_WRAPPER_LIST.add(HandleWrapperFactory.create(JAVASCRIPT_CONTEXT_PATH + "angular-growl", "/javascript/angular-growl.js"));
+        HANDLE_WRAPPER_LIST.add(HandleWrapperFactory.create(JAVASCRIPT_CONTEXT_PATH + "angular.js.map", "/javascript/angular.min.js.map"));
+        HANDLE_WRAPPER_LIST.add(HandleWrapperFactory.create(JAVASCRIPT_CONTEXT_PATH + "angular-animate", "/javascript/angular-animate.js"));
+        HANDLE_WRAPPER_LIST.add(HandleWrapperFactory.create(JAVASCRIPT_CONTEXT_PATH + "angular-sanitize", "/javascript/angular-sanitize.js"));
+        HANDLE_WRAPPER_LIST.add(HandleWrapperFactory.create(JAVASCRIPT_CONTEXT_PATH + "ui-bootstrap-tpls", "/javascript/ui-bootstrap-tpls.js"));
+
+        HANDLE_WRAPPER_LIST.add(HandleWrapperFactory.create(CSS_CONTEXT_PATH + "log", "/css/log.css"));
+        HANDLE_WRAPPER_LIST.add(HandleWrapperFactory.create(CSS_CONTEXT_PATH + "index", "/css/index.css"));
+        HANDLE_WRAPPER_LIST.add(HandleWrapperFactory.create(CSS_CONTEXT_PATH + "growl", "/css/growl.css"));
+        HANDLE_WRAPPER_LIST.add(HandleWrapperFactory.create(CSS_CONTEXT_PATH + "tableSort", "/css/tableSort.css"));
+        HANDLE_WRAPPER_LIST.add(HandleWrapperFactory.create(CSS_CONTEXT_PATH + "bootstrap", "/css/bootstrap.css"));
+        HANDLE_WRAPPER_LIST.add(HandleWrapperFactory.create(CSS_CONTEXT_PATH + "bootstrap.css.map", "/css/bootstrap.css.map"));
+
+        HANDLE_WRAPPER_LIST.add(HandleWrapperFactory.create(SERVLET_CONTEXT_PATH + "log", "/pages/log/log.html"));
+        HANDLE_WRAPPER_LIST.add(HandleWrapperFactory.create(SERVLET_CONTEXT_PATH + "index", "/pages/index/index.html"));
         HANDLE_WRAPPER_LIST.add(HandleWrapperFactory.create(SERVLET_CONTEXT_PATH + "rootConfig", "/pages/rootConfig/rootConfig.html"));
-
-        HANDLE_WRAPPER_LIST.add(HandleWrapperFactory.create(SERVLET_CONTEXT_PATH + "javascript/log", "/javascript/log.js"));
-        HANDLE_WRAPPER_LIST.add(HandleWrapperFactory.create(SERVLET_CONTEXT_PATH + "javascript/index", "/javascript/index.js"));
-        HANDLE_WRAPPER_LIST.add(HandleWrapperFactory.create(SERVLET_CONTEXT_PATH + "javascript/jquery", "/javascript/jquery.js"));
-        HANDLE_WRAPPER_LIST.add(HandleWrapperFactory.create(SERVLET_CONTEXT_PATH + "javascript/angular", "/javascript/angular.js"));
-        HANDLE_WRAPPER_LIST.add(HandleWrapperFactory.create(SERVLET_CONTEXT_PATH + "javascript/bootstrap", "/javascript/bootstrap.js"));
-        HANDLE_WRAPPER_LIST.add(HandleWrapperFactory.create(SERVLET_CONTEXT_PATH + "javascript/tableSort", "/javascript/tableSort.js"));
-        HANDLE_WRAPPER_LIST.add(HandleWrapperFactory.create(SERVLET_CONTEXT_PATH + "javascript/angular-growl", "/javascript/angular-growl.js"));
-        HANDLE_WRAPPER_LIST.add(HandleWrapperFactory.create(SERVLET_CONTEXT_PATH + "javascript/angular.js.map", "/javascript/angular.min.js.map"));
-        HANDLE_WRAPPER_LIST.add(HandleWrapperFactory.create(SERVLET_CONTEXT_PATH + "javascript/angular-animate", "/javascript/angular-animate.js"));
-        HANDLE_WRAPPER_LIST.add(HandleWrapperFactory.create(SERVLET_CONTEXT_PATH + "javascript/angular-sanitize", "/javascript/angular-sanitize.js"));
-        HANDLE_WRAPPER_LIST.add(HandleWrapperFactory.create(SERVLET_CONTEXT_PATH + "javascript/ui-bootstrap-tpls", "/javascript/ui-bootstrap-tpls.js"));
-
-        HANDLE_WRAPPER_LIST.add(HandleWrapperFactory.create(SERVLET_CONTEXT_PATH + "css/bootstrap.css.map", "/css/bootstrap.css.map"));
-
-        HANDLE_WRAPPER_LIST.add(HandleWrapperFactory.create(SERVLET_CONTEXT_PATH + "css/log", "/css/log.css"));
-        HANDLE_WRAPPER_LIST.add(HandleWrapperFactory.create(SERVLET_CONTEXT_PATH + "css/index", "/css/index.css"));
-        HANDLE_WRAPPER_LIST.add(HandleWrapperFactory.create(SERVLET_CONTEXT_PATH + "css/growl", "/css/growl.css"));
-        HANDLE_WRAPPER_LIST.add(HandleWrapperFactory.create(SERVLET_CONTEXT_PATH + "css/bootstrap", "/css/bootstrap.css"));
-        HANDLE_WRAPPER_LIST.add(HandleWrapperFactory.create(SERVLET_CONTEXT_PATH + "css/tableSort", "/css/tableSort.css"));
+        HANDLE_WRAPPER_LIST.add(HandleWrapperFactory.create(SERVLET_CONTEXT_PATH + "page/headerMenu", "/pages/common/headerMenu.html"));
+        HANDLE_WRAPPER_LIST.add(HandleWrapperFactory.create(SERVLET_CONTEXT_PATH + "page/indexTable", "/pages/index/indexTable.html"));
+        HANDLE_WRAPPER_LIST.add(HandleWrapperFactory.create(SERVLET_CONTEXT_PATH + "page/routeDialog", "/pages/index/routeDialog.html"));
+        HANDLE_WRAPPER_LIST.add(HandleWrapperFactory.create(SERVLET_CONTEXT_PATH + "page/requestPanel", "/pages/index/requestPanel.html"));
+        HANDLE_WRAPPER_LIST.add(HandleWrapperFactory.create(SERVLET_CONTEXT_PATH + "page/deleteDialog", "/pages/index/deleteDialog.html"));
+        HANDLE_WRAPPER_LIST.add(HandleWrapperFactory.create(SERVLET_CONTEXT_PATH + "page/responsePanel", "/pages/index/responsePanel.html"));
     }
 
     private PathHandlerFactory() {
@@ -70,7 +79,6 @@ public final class PathHandlerFactory {
         return path;
     }
 
-    // todo remove the servlets to serve static content, use the Undertow
     // todo refactor URL -> maybe remove the SERVLET_CONTEXT_PATH and use only "/index"
     private static HttpHandler createHtmlManager() throws ServletException {
         final DeploymentInfo deploymentInfo = Servlets.deployment()
@@ -78,9 +86,6 @@ public final class PathHandlerFactory {
                 .setContextPath(SERVLET_CONTEXT_PATH)
                 .setDeploymentName("uaiMockServer.war")
                 .addServlets(
-                        servlet("UaiIndexServlet", UaiIndexServlet.class).addMapping("/index"),
-                        servlet("UaiPageServlet", UaiPageServlet.class).addMapping("/page"),
-                        servlet("AngularMapServlet", AngularMapServlet.class).addMapping("/angular.js.map"),
                         servlet("UaiRootConfigurationsServlet", UaiRootConfigurationsServlet.class).addMapping("/rootConfigurations"),
                         servlet("UaiRouteServlet", UaiRouteServlet.class).addMapping("/uaiRoute")
                 );
