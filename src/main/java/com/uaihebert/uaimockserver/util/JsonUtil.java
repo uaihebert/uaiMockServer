@@ -6,7 +6,7 @@ import com.google.gson.GsonBuilder;
 import java.util.Collection;
 
 public final class JsonUtil {
-    public static final GsonBuilder GSON_BUILDER = new GsonBuilder()
+    private static final GsonBuilder GSON_BUILDER = new GsonBuilder()
                                                         .setPrettyPrinting()
                                                         .disableHtmlEscaping()
                                                         .registerTypeHierarchyAdapter(Collection.class, new GsonCollectionAdapter())
