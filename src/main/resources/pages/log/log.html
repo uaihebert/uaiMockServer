@@ -37,6 +37,7 @@
                         <th>Request IP Source</th>
                         <th>Response Code</th>
                         <th>Returned as Expected?</th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -50,7 +51,7 @@
                         <td><button type="button" class="btn btn-danger" ng-click="webSocketLog.logRequestList.splice($index,1)">Delete (no confirmation)</button> </td>
                     </tr>
                     <tr ng-repeat-end="">
-                        <td colspan="4" style="padding: 0">
+                        <td colspan="5" style="padding: 0">
                             <div collapse="isCollapsed">
                                 <div ng-class="getCalloutRequestClass(log)">
                                     <h4>Request Data</h4>
