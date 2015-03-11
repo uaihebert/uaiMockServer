@@ -13,7 +13,7 @@
             <p class="requiredAttribute">* </p>Status Code:
             <input type="text" class="form-control" ng-model="selectedRouteRow.route.response.statusCode" placeholder="The Response Status Code: 200 or 201..."/><br />
             <p class="requiredAttribute">* </p>Content Type:
-            <input type="text" class="form-control" ng-model="selectedRouteRow.route.response.contentType" placeholder="Type your Content-Type here: {{basicConfiguration.defaultContentType}}" /><br />
+            <input type="text" class="form-control" ng-model="selectedRouteRow.route.response.contentType" placeholder="Type your Content-Type here: {{rootConfiguration.defaultContentType}}" /><br />
             Body:
             <textarea class="form-control" rows="3" ng-model="selectedRouteRow.route.response.body" placeholder='The body to be returned, e.g.: {"mockBody":{"title":"Hello World"}}'></textarea><br />
         </form>

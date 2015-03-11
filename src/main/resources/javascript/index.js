@@ -12,7 +12,7 @@ app.controller('routeController', function($scope, $http, growl, $location) {
         $http.get('/uaiGui/uaiRoute').
             success(function(data) {
                 $scope.routeRowList = [];
-                $scope.basicConfiguration = data.basicConfiguration;
+                $scope.rootConfiguration = data.rootConfiguration;
                 $scope.httpMethodArray = data.httpMethodArray;
 
                 for (var i = 0; i < data.routeList.length; i++) {
@@ -186,9 +186,9 @@ app.controller('routeController', function($scope, $http, growl, $location) {
         $scope.selectedRouteRow.route = {};
         $scope.selectedRouteRow.route.request = {};
         $scope.selectedRouteRow.route.response = {};
-        $scope.selectedRouteRow.route.response.contentType = $scope.basicConfiguration.defaultContentType;
+        $scope.selectedRouteRow.route.response.contentType = $scope.rootConfiguration.defaultContentType;
         $scope.selectedRouteRow.route.uaiFile = {};
-        $scope.selectedRouteRow.route.uaiFile.fullPath = $scope.basicConfiguration.uaiMainFile.fullPath;
+        $scope.selectedRouteRow.route.uaiFile.fullPath = $scope.rootConfiguration.uaiMainFile.fullPath;
 
         $('#myTab a:first').tab('show')
         $('#routeModal').modal('toggle');

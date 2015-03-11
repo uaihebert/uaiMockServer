@@ -2,7 +2,7 @@ package com.uaihebert.uaimockserver.servlet;
 
 import com.google.gson.Gson;
 import com.uaihebert.uaimockserver.context.UaiMockServerContext;
-import com.uaihebert.uaimockserver.dto.model.UaiBasicConfigurationDTO;
+import com.uaihebert.uaimockserver.dto.model.UaiRootConfigurationDTO;
 import com.uaihebert.uaimockserver.dto.model.UaiFileDTO;
 import com.uaihebert.uaimockserver.model.UaiMockServerConfig;
 import com.uaihebert.uaimockserver.service.UaiRootContextService;
@@ -28,7 +28,7 @@ public class UaiRootConfigurationsServlet extends AbstractServlet {
 
     @Override
     protected void doPut(final HttpServletRequest httpRequest, final HttpServletResponse httpResponse) throws ServletException, IOException {
-        final UaiBasicConfigurationDTO uaiRouteConfigDTO = RequestBodyExtractor.extract(httpRequest, UaiBasicConfigurationDTO.class);
+        final UaiRootConfigurationDTO uaiRouteConfigDTO = RequestBodyExtractor.extract(httpRequest, UaiRootConfigurationDTO.class);
 
         UaiRootContextService.update(uaiRouteConfigDTO);
 
@@ -36,7 +36,7 @@ public class UaiRootConfigurationsServlet extends AbstractServlet {
     }
 
     public String getRouteConfigurationBody() {
-        final UaiBasicConfigurationDTO configurationsDTO = new UaiBasicConfigurationDTO();
+        final UaiRootConfigurationDTO configurationsDTO = new UaiRootConfigurationDTO();
 
         final UaiMockServerConfig mainConfig = UaiMockServerContext.INSTANCE.uaiMockServerConfig;
         configurationsDTO.setHost(mainConfig.getHost());

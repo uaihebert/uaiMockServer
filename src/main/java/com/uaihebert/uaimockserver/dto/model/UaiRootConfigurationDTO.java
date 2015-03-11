@@ -1,7 +1,7 @@
 package com.uaihebert.uaimockserver.dto.model;
 
 // todo rename to rootConfig...
-public class UaiBasicConfigurationDTO {
+public class UaiRootConfigurationDTO {
     private Integer port;
 
     private Boolean fileLog;
@@ -13,7 +13,7 @@ public class UaiBasicConfigurationDTO {
 
     private UaiFileDTO uaiMainFile;
 
-    public UaiBasicConfigurationDTO() {
+    public UaiRootConfigurationDTO() {
     }
 
     public Integer getPort() {

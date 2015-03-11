@@ -1,7 +1,7 @@
 package com.uaihebert.uaimockserver.service;
 
 import com.uaihebert.uaimockserver.context.UaiMockServerContext;
-import com.uaihebert.uaimockserver.dto.model.UaiBasicConfigurationDTO;
+import com.uaihebert.uaimockserver.dto.model.UaiRootConfigurationDTO;
 import com.uaihebert.uaimockserver.model.UaiMockServerConfig;
 import com.uaihebert.uaimockserver.util.FileUtil;
 
@@ -9,7 +9,7 @@ public final class UaiRootContextService {
     private UaiRootContextService() {
     }
 
-    public static void update(final UaiBasicConfigurationDTO uaiRouteConfigDTO) {
+    public static void update(final UaiRootConfigurationDTO uaiRouteConfigDTO) {
         final UaiMockServerConfig mainConfig = UaiMockServerContext.INSTANCE.uaiMockServerConfig;
         mainConfig.setContext(uaiRouteConfigDTO.getContext());
         mainConfig.setPort(uaiRouteConfigDTO.getPort());

@@ -33,7 +33,7 @@ public final class UaiRouteDTOTestValidator {
     }
 
     private static void validateBasicConfiguration(final IndexResponseDTO uaiRouteDTOList) {
-        final UaiBasicConfigurationDTO basicConfiguration = uaiRouteDTOList.getBasicConfiguration();
+        final UaiRootConfigurationDTO basicConfiguration = uaiRouteDTOList.getRootConfiguration();
         assertNotNull("must have basicConfiguration", basicConfiguration);
 
         assertTrue(basicConfiguration.getPort() >= 0);

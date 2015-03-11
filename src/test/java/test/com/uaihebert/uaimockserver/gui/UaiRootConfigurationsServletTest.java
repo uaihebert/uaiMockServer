@@ -1,7 +1,7 @@
 package test.com.uaihebert.uaimockserver.gui;
 
 import com.google.gson.Gson;
-import com.uaihebert.uaimockserver.dto.model.UaiBasicConfigurationDTO;
+import com.uaihebert.uaimockserver.dto.model.UaiRootConfigurationDTO;
 import com.uaihebert.uaimockserver.util.StringUtils;
 import org.junit.Test;
 import test.com.uaihebert.uaimockserver.TestAbstract;
@@ -49,7 +49,7 @@ public class UaiRootConfigurationsServletTest extends TestAbstract {
 
         final String bodyAsString = response.readEntity(String.class);
 
-        final UaiBasicConfigurationDTO configurationsDTO = new Gson().fromJson(bodyAsString, UaiBasicConfigurationDTO.class);
+        final UaiRootConfigurationDTO configurationsDTO = new Gson().fromJson(bodyAsString, UaiRootConfigurationDTO.class);
 
         assertNotNull(configurationsDTO);
         assertNotNull(configurationsDTO.getPort());

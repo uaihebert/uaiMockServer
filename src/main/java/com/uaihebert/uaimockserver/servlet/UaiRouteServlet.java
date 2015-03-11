@@ -34,7 +34,7 @@ public class UaiRouteServlet extends AbstractServlet {
 
         final IndexResponseDTO indexResponseDTO = new IndexResponseDTO();
         indexResponseDTO.setRouteList(UaiRouteDTOFactory.create(uaiRouteList));
-        indexResponseDTO.setBasicConfiguration(UaiBasicConfigurationDTOFactory.create());
+        indexResponseDTO.setRootConfiguration(UaiBasicConfigurationDTOFactory.create());
 
         return new Gson().toJson(indexResponseDTO);
     }
