@@ -1,9 +1,9 @@
 package com.uaihebert.uaimockserver.factory;
 
-import com.google.gson.Gson;
 import com.uaihebert.uaimockserver.model.UaiFile;
 import com.uaihebert.uaimockserver.model.UaiMockServerConfig;
 import com.uaihebert.uaimockserver.util.FileUtil;
+import com.uaihebert.uaimockserver.util.JsonUtil;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -15,7 +15,7 @@ public final class UaiMockServerConfigFactory {
 
     public static UaiMockServerConfig create(final String fileName) {
         final String fileContent = FileUtil.getFileContent(fileName);
-        final UaiMockServerConfig uaiMockServerConfig = new Gson().fromJson(fileContent, UaiMockServerConfig.class);
+        final UaiMockServerConfig uaiMockServerConfig = JsonUtil.fromJson(fileContent, UaiMockServerConfig.class);
 
         final File file = FileUtil.findFile(fileName);
         uaiMockServerConfig.setUaiFile(new UaiFile(file.getName(), file.getAbsolutePath()));

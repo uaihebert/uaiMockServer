@@ -1,8 +1,7 @@
 package com.uaihebert.uaimockserver.context;
 
-import com.google.gson.Gson;
 import com.uaihebert.uaimockserver.dto.model.UaiWebSocketLogDTO;
-import com.uaihebert.uaimockserver.util.FileUtil;
+import com.uaihebert.uaimockserver.util.JsonUtil;
 import io.undertow.websockets.core.WebSocketChannel;
 import io.undertow.websockets.core.WebSockets;
 
@@ -37,8 +36,7 @@ public final class UaiWebSocketContext {
     }
 
     public static void sendLog(final UaiWebSocketLogDTO uaiWebSocketLogDTO) {
-        final Gson gson = FileUtil.GSON_BUILDER.create();
-        final String entityAsString = gson.toJson(uaiWebSocketLogDTO);
+        final String entityAsString = JsonUtil.toJsonWithNoEscaping(uaiWebSocketLogDTO);
 
         for (WebSocketChannel clientChannel : CLIENT_LIST) {
             WebSockets.sendText(entityAsString, clientChannel, null);

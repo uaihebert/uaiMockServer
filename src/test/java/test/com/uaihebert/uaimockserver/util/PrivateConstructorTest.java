@@ -45,6 +45,7 @@ import com.uaihebert.uaimockserver.service.UaiRouteService;
 import com.uaihebert.uaimockserver.util.ExceptionUtil;
 import com.uaihebert.uaimockserver.util.FileUtil;
 import com.uaihebert.uaimockserver.util.HttpServerUtil;
+import com.uaihebert.uaimockserver.util.JsonUtil;
 import com.uaihebert.uaimockserver.util.RequestBodyExtractor;
 import com.uaihebert.uaimockserver.util.RequestHolder;
 import com.uaihebert.uaimockserver.util.RouteFinderUtil;
@@ -380,6 +381,15 @@ public class PrivateConstructorTest {
         constructor.setAccessible(true);
 
         final HandleWrapperFactory createdObject = constructor.newInstance(new Object[0]);
+        assertNotNull(createdObject);
+    }
+    
+    @Test
+    public void testJsonUtilConstructor() throws Exception {
+        final Constructor<JsonUtil> constructor = JsonUtil.class.getDeclaredConstructor(new Class[0]);
+        constructor.setAccessible(true);
+
+        final JsonUtil createdObject = constructor.newInstance(new Object[0]);
         assertNotNull(createdObject);
     }
 }

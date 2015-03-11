@@ -1,11 +1,11 @@
 package com.uaihebert.uaimockserver.servlet;
 
-import com.google.gson.Gson;
 import com.uaihebert.uaimockserver.context.UaiMockServerContext;
-import com.uaihebert.uaimockserver.dto.model.UaiRootConfigurationDTO;
 import com.uaihebert.uaimockserver.dto.model.UaiFileDTO;
+import com.uaihebert.uaimockserver.dto.model.UaiRootConfigurationDTO;
 import com.uaihebert.uaimockserver.model.UaiMockServerConfig;
 import com.uaihebert.uaimockserver.service.UaiRootContextService;
+import com.uaihebert.uaimockserver.util.JsonUtil;
 import com.uaihebert.uaimockserver.util.RequestBodyExtractor;
 
 import javax.servlet.ServletException;
@@ -47,6 +47,6 @@ public class UaiRootConfigurationsServlet extends AbstractServlet {
         configurationsDTO.setUaiMainFile(new UaiFileDTO(mainConfig.getUaiFile().getName(), mainConfig.getUaiFile().getFullPath()));
         configurationsDTO.setDefaultContentType(mainConfig.getDefaultContentTypeResponse());
 
-        return new Gson().toJson(configurationsDTO);
+        return JsonUtil.toJson(configurationsDTO);
     }
 }

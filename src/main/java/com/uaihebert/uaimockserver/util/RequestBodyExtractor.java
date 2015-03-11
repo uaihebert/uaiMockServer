@@ -1,6 +1,5 @@
 package com.uaihebert.uaimockserver.util;
 
-import com.google.gson.Gson;
 import com.uaihebert.uaimockserver.configuration.ProjectConfiguration;
 import org.apache.commons.io.IOUtils;
 
@@ -15,6 +14,6 @@ public final class RequestBodyExtractor {
     public static <T> T extract(final HttpServletRequest httpServletRequest, Class<T> classToReturn) throws IOException {
         final String body = IOUtils.toString(httpServletRequest.getInputStream(), ProjectConfiguration.ENCODING.value);
 
-        return new Gson().fromJson(body, classToReturn);
+        return JsonUtil.fromJson(body, classToReturn);
     }
 }

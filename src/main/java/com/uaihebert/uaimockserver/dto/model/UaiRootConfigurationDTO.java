@@ -50,7 +50,7 @@ public class UaiRootConfigurationDTO {
     public UaiFileDTO getUaiMainFile() {
         return uaiMainFile;
     }
-    // todo create a delete button in the log event GUI
+
     public void setUaiMainFile(final UaiFileDTO uaiFile) {
         this.uaiMainFile = uaiFile;
     }

@@ -1,16 +1,14 @@
 package com.uaihebert.uaimockserver.util;
 
-import com.google.gson.GsonBuilder;
+import com.uaihebert.uaimockserver.context.UaiMockServerContext;
 import com.uaihebert.uaimockserver.log.backend.Log;
 import com.uaihebert.uaimockserver.model.UaiMockServerConfig;
-import com.uaihebert.uaimockserver.context.UaiMockServerContext;
 import org.apache.commons.io.FileUtils;
 
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.text.SimpleDateFormat;
-import java.util.Collection;
 import java.util.Date;
 
 public final class FileUtil {
@@ -18,13 +16,6 @@ public final class FileUtil {
             "We looked into the same folder of the jar and we could not find it. %n" +
             "Check if the is in the test/resources folder or in the same folder of the jar. %n" +
             "If you want you can use the full the file path.";
-
-    // todo put all gson generation in one class
-    public static final GsonBuilder GSON_BUILDER = new GsonBuilder()
-                                                        .setPrettyPrinting()
-                                                        .disableHtmlEscaping()
-                                                        .registerTypeHierarchyAdapter(Collection.class, new GsonCollectionAdapter())
-                                                        .setExclusionStrategies(new GsonAttributesToIgnore());
 
     private FileUtil() {
     }
@@ -62,13 +53,13 @@ public final class FileUtil {
     public static void writeUpdatesToFile() {
         final UaiMockServerConfig mainConfig = UaiMockServerContext.INSTANCE.uaiMockServerConfig;
 
-        final String mainJson = GSON_BUILDER.create().toJson(mainConfig);
+        final String mainJson = JsonUtil.toJsonWithNoEscaping(mainConfig);
 
         try {
             writeInFile(mainConfig, mainJson);
 
             for (UaiMockServerConfig secondaryConfig : UaiMockServerContext.INSTANCE.secondaryMappingList) {
-                final String secondaryJson = GSON_BUILDER.create().toJson(secondaryConfig);
+                final String secondaryJson = JsonUtil.toJsonWithNoEscaping(secondaryConfig);
                 writeInFile(secondaryConfig, secondaryJson);
             }
         } catch (IOException ex) {

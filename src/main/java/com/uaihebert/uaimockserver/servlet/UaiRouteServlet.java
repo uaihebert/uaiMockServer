@@ -1,6 +1,5 @@
 package com.uaihebert.uaimockserver.servlet;
 
-import com.google.gson.Gson;
 import com.uaihebert.uaimockserver.dto.factory.UaiBasicConfigurationDTOFactory;
 import com.uaihebert.uaimockserver.dto.factory.UaiRouteDTOFactory;
 import com.uaihebert.uaimockserver.dto.model.UaiRouteDTO;
@@ -8,6 +7,7 @@ import com.uaihebert.uaimockserver.dto.response.IndexResponseDTO;
 import com.uaihebert.uaimockserver.model.UaiRoute;
 import com.uaihebert.uaimockserver.repository.UaiRouteRepository;
 import com.uaihebert.uaimockserver.service.UaiRouteService;
+import com.uaihebert.uaimockserver.util.JsonUtil;
 import com.uaihebert.uaimockserver.util.RequestBodyExtractor;
 
 import javax.servlet.ServletException;
@@ -36,7 +36,7 @@ public class UaiRouteServlet extends AbstractServlet {
         indexResponseDTO.setRouteList(UaiRouteDTOFactory.create(uaiRouteList));
         indexResponseDTO.setRootConfiguration(UaiBasicConfigurationDTOFactory.create());
 
-        return new Gson().toJson(indexResponseDTO);
+        return JsonUtil.toJson(indexResponseDTO);
     }
 
     @Override

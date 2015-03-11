@@ -79,7 +79,6 @@ public final class PathHandlerFactory {
         return path;
     }
 
-    // todo refactor URL -> maybe remove the SERVLET_CONTEXT_PATH and use only "/index"
     private static HttpHandler createHtmlManager() throws ServletException {
         final DeploymentInfo deploymentInfo = Servlets.deployment()
                 .setClassLoader(HttpServerUtil.class.getClassLoader())
