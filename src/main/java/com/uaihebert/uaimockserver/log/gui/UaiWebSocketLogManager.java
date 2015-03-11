@@ -9,9 +9,9 @@ import com.uaihebert.uaimockserver.model.UaiResponse;
 import io.undertow.server.HttpServerExchange;
 
 public final class UaiWebSocketLogManager {
-    private static final ThreadLocal<UaiWebSocketLogDTO> THREAD_LOCAL = new ThreadLocal<UaiWebSocketLogDTO>();
-    private static final String errorMessageBody = "{\"errorMessage\": \"We have a problem with your request. Did you sent everything that was required? \n " +
+    private static final String ERROR_MESSAGE_BODY = "{\"errorMessage\": \"We have a problem with your request. Did you sent everything that was required? \n " +
             "The error message is: [%s]\"}";
+    private static final ThreadLocal<UaiWebSocketLogDTO> THREAD_LOCAL = new ThreadLocal<UaiWebSocketLogDTO>();
 
     private UaiWebSocketLogManager() {
     }
@@ -55,7 +55,7 @@ public final class UaiWebSocketLogManager {
 
         final UaiWebSocketLogResponseDTO logResponseDTO = new UaiWebSocketLogResponseDTO();
         logResponseDTO.setStatusCode(500);
-        logResponseDTO.setBody(String.format(errorMessageBody, message));
+        logResponseDTO.setBody(String.format(ERROR_MESSAGE_BODY, message));
 
         getCurrentLog().setLogResponse(logResponseDTO);
     }
