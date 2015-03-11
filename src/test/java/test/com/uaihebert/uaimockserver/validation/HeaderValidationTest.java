@@ -56,6 +56,24 @@ public class HeaderValidationTest {
     }
 
     @Test
+    public void isGetWithWrongRequiredHeaderValueWorking(){
+        final String url = "http://localhost:1234/uaiMockServer/requiredHeader";
+
+        final Client client = ClientBuilder.newClient();
+
+        final Response response = client
+                .target(url)
+                .request()
+                .header("X-UAI-LOGIN-HEADER", "MOCK_VALUE_WRONG")
+                .header("X-UAI-LOGIN-HEADER", "REQUIRED_WRONG")
+                .header("X-API-VERSION", "MOCK_VALUE_WRONG")
+                .header("X-API-VERSION", "REQUIRED_WRONG")
+                .get();
+
+        assertEquals(500, response.getStatus());
+    }
+
+    @Test
     public void isGetWithRequiredHeaderWorking(){
         final String url = "http://localhost:1234/uaiMockServer/requiredHeader";
 

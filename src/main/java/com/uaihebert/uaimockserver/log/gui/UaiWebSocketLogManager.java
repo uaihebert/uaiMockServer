@@ -53,7 +53,6 @@ public final class UaiWebSocketLogManager {
     public static void exceptionDetected(final String message) {
         getCurrentLog().setFinishedWithError();
 
-        // todo create a factory
         final UaiWebSocketLogResponseDTO logResponseDTO = new UaiWebSocketLogResponseDTO();
         logResponseDTO.setStatusCode(500);
         logResponseDTO.setBody(String.format(errorMessageBody, message));
