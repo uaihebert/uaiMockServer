@@ -139,7 +139,8 @@
                     <instrumentation>
                         <excludes>
                             <exclude>
-                                com/uaihebert/uaimockserver/main/UaiMockServerMain.class
+                                com/uaihebert/uaimockserver/main/UaiMockServerMain.class,
+                                com/uaihebert/uaimockserver/dto/model/*
                             </exclude>
                         </excludes>
                     </instrumentation>
@@ -321,13 +322,6 @@
             <version>1.5</version>
             <scope>test</scope>
         </dependency>
-
-
-
-
-
-
-
         <dependency>
             <groupId>javax.websocket</groupId>
             <artifactId>javax.websocket-client-api</artifactId>
@@ -358,14 +352,6 @@
             <version>1.0.1</version>
             <scope>test</scope>
         </dependency>
-
-
-
-
-
-
-
-
         <dependency>
             <groupId>org.powermock</groupId>
             <artifactId>powermock-api-mockito</artifactId>

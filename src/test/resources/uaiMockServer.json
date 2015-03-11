@@ -2,7 +2,7 @@
    "port":"1234",
    "host":"localhost",
    "fileLog":"false",
-   "consoleLog":"false",
+   "consoleLog":"true",
    "context":"/uaiMockServer",
    "defaultContentTypeResponse":"text/html;charset=UTF-8",
    "mappingRoutesFileList":[

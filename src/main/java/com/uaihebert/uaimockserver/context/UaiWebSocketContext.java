@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public final class UaiWebSocketContext {
+    private static final int NO_CLIENT_IS_CLOSED_YET = -1;
+
     private UaiWebSocketContext() {
     }
 
@@ -22,13 +24,17 @@ public final class UaiWebSocketContext {
 
     public static void removeClosed() {
         synchronized (CLIENT_LIST) {
-            int toBeRemoved = -1;
+            int toBeRemoved = NO_CLIENT_IS_CLOSED_YET;
 
             for (int i = 0; i < CLIENT_LIST.size(); i++) {
                 if (!CLIENT_LIST.get(i).isOpen()) {
                     toBeRemoved = i;
                     break;
                 }
+            }
+
+            if (toBeRemoved == NO_CLIENT_IS_CLOSED_YET) {
+                return;
             }
 
             CLIENT_LIST.remove(toBeRemoved);
@@ -40,6 +46,12 @@ public final class UaiWebSocketContext {
 
         for (WebSocketChannel clientChannel : CLIENT_LIST) {
             WebSockets.sendText(entityAsString, clientChannel, null);
+        }
+    }
+
+    public static void removeAllClients() {
+        synchronized (CLIENT_LIST) {
+            CLIENT_LIST.clear();
         }
     }
 }
