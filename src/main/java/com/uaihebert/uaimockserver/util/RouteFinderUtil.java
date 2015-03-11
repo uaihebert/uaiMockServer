@@ -1,7 +1,9 @@
 package com.uaihebert.uaimockserver.util;
 
+import com.uaihebert.uaimockserver.log.backend.Log;
 import com.uaihebert.uaimockserver.model.UaiHeader;
 import com.uaihebert.uaimockserver.model.UaiQueryParam;
+import com.uaihebert.uaimockserver.model.UaiRequest;
 import com.uaihebert.uaimockserver.model.UaiRoute;
 import com.uaihebert.uaimockserver.repository.UaiRouteRepository;
 import com.uaihebert.uaimockserver.validator.RequestValidator;
@@ -11,6 +13,12 @@ import java.util.HashSet;
 import java.util.Set;
 
 public final class RouteFinderUtil {
+    private static final String REQUIRED_HEADER_NOT_FOUND = "The required header [%s] was not found in the request";
+    private static final String REQUIRED_QUERY_PARAM_NOT_FOUND = "The required header [%s] was not found in the request";
+
+    private static final String REQUIRED_HEADER_LOG_TEXT = "For the Route [%s] we found [%s] of required Headers";
+    private static final String REQUIRED_QUERY_PARAM_LOG_TEXT = "For the Route [%s] we found [%s] of required QueryParameters";
+
     private RouteFinderUtil() {
     }
 
@@ -41,23 +49,53 @@ public final class RouteFinderUtil {
     private static Set<UaiRoute> findRoutesWithEqualAttributes(final Set<UaiRoute> uaiRouteList, final HttpServerExchange httpServerExchange) {
         final Set<UaiRoute> result = new HashSet<UaiRoute>();
 
-        routLoop:
         for (UaiRoute uaiRoute : uaiRouteList) {
-            for (UaiHeader uaiHeader : uaiRoute.getRequest().getRequiredHeaderList()) {
-                if (!httpServerExchange.getRequestHeaders().contains(uaiHeader.getName())) {
-                    continue routLoop;
-                }
-            }
+            boolean hasError = false;
 
-            for (UaiQueryParam uaiQueryParam : uaiRoute.getRequest().getRequiredQueryParamList()) {
-                if (!httpServerExchange.getQueryParameters().containsKey(uaiQueryParam.getName())) {
-                    continue routLoop;
-                }
+            final UaiRequest uaiRequest = uaiRoute.getRequest();
+
+            logTotalOfLists(httpServerExchange, uaiRequest);
+
+            hasError = validateHeaders(httpServerExchange, hasError, uaiRequest);
+
+            hasError = validateQueryParam(httpServerExchange, hasError, uaiRequest);
+
+            if (hasError) {
+                continue;
             }
 
             result.add(uaiRoute);
         }
 
         return result;
+    }
+
+    private static void logTotalOfLists(final HttpServerExchange httpServerExchange, final UaiRequest uaiRequest) {
+        final String requestKey = RouteMapKeyUtil.createKeyFromRequest(httpServerExchange);
+
+        Log.infoFormatted(REQUIRED_HEADER_LOG_TEXT, requestKey, uaiRequest.getRequiredHeaderList().size());
+        Log.infoFormatted(REQUIRED_QUERY_PARAM_LOG_TEXT, requestKey,  uaiRequest.getRequiredQueryParamList().size());
+    }
+
+    private static boolean validateQueryParam(final HttpServerExchange httpServerExchange, boolean hasError, final UaiRequest uaiRequest) {
+        for (UaiQueryParam uaiQueryParam : uaiRequest.getRequiredQueryParamList()) {
+            if (!httpServerExchange.getQueryParameters().containsKey(uaiQueryParam.getName())) {
+                Log.warn(REQUIRED_HEADER_NOT_FOUND, uaiQueryParam.getName());
+                hasError = true;
+            }
+        }
+
+        return hasError;
+    }
+
+    private static boolean validateHeaders(final HttpServerExchange httpServerExchange, boolean hasError, final UaiRequest uaiRequest) {
+        for (UaiHeader uaiHeader : uaiRequest.getRequiredHeaderList()) {
+            if (!httpServerExchange.getRequestHeaders().contains(uaiHeader.getName())) {
+                Log.warn(REQUIRED_QUERY_PARAM_NOT_FOUND, uaiHeader.getName());
+                hasError = true;
+            }
+        }
+
+        return hasError;
     }
 }

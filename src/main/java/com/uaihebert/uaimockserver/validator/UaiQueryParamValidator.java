@@ -27,6 +27,7 @@ import java.util.Map;
  * Will validate all the request query params if needed
  */
 public final class UaiQueryParamValidator implements RequestDataValidator {
+    private static final String WILD_CARD_TEXT = "The header [%s] is using the wildcard. Its content will not be checked.";
     private static final String QUERY_PARAM_VALUE_NOT_FOUND_MESSAGE = "%nThe required queryParamList [%s] has not the required values: [%s]";
 
     @Override
@@ -46,7 +47,7 @@ public final class UaiQueryParamValidator implements RequestDataValidator {
         final Deque<String> valueDeque = queryParameterMap.get(uaiQueryParam.getName());
 
         if (uaiQueryParam.isUsingWildCard()) {
-            Log.infoFormatted("The header [%s] is using the wildcard. Its content will not be checked.", uaiQueryParam.getName());
+            Log.infoFormatted(WILD_CARD_TEXT, uaiQueryParam.getName());
             return false;
         }
 

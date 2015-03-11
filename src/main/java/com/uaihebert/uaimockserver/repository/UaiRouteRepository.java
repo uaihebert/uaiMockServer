@@ -1,6 +1,7 @@
 package com.uaihebert.uaimockserver.repository;
 
 import com.uaihebert.uaimockserver.context.UaiMockServerContext;
+import com.uaihebert.uaimockserver.log.backend.Log;
 import com.uaihebert.uaimockserver.model.UaiRoute;
 import com.uaihebert.uaimockserver.util.FileUtil;
 
@@ -8,6 +9,8 @@ import java.util.List;
 import java.util.Set;
 
 public final class UaiRouteRepository {
+    private static final String ROUTE_FOUND_TEXT = "Found [%s] route(s) for the requested METHOD_URL [%s]";
+
     private UaiRouteRepository() {
     }
 
@@ -50,7 +53,11 @@ public final class UaiRouteRepository {
     }
 
     public static Set<UaiRoute> findRouteListByKey(final String requestKey) {
-        return UaiRouteMapper.findRouteListByKey(requestKey);
+        final Set<UaiRoute> routeList = UaiRouteMapper.findRouteListByKey(requestKey);
+
+        Log.infoFormatted(ROUTE_FOUND_TEXT, routeList.size(), requestKey);
+
+        return routeList;
     }
 
     public static List<UaiRoute> listAllRoutes() {

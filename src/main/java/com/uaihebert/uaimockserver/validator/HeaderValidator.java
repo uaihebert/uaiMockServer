@@ -26,6 +26,7 @@ import io.undertow.util.HeaderValues;
  * Will validate all the request headers if needed
  */
 public final class HeaderValidator implements RequestDataValidator {
+    private static final String WILD_CARD_USED = "The header [%s] is using the wildcard. Its content will not be checked.";
     private static final String HEADER_VALUE_NOT_FOUND_MESSAGE = "%nThe required value [%s] was not found in the header [%s]";
 
     @Override
@@ -45,7 +46,7 @@ public final class HeaderValidator implements RequestDataValidator {
         final HeaderValues headerValueList = requestHeaderMap.get(uaiHeader.getName());
 
         if (uaiHeader.isUsingWildCard()) {
-            Log.infoFormatted("The header [%s] is using the wildcard. Its content will not be checked.", uaiHeader.getName());
+            Log.infoFormatted(WILD_CARD_USED, uaiHeader.getName());
             return false;
         }
 
