@@ -1,6 +1,5 @@
 package com.uaihebert.uaimockserver.dto.model;
 
-// todo rename to rootConfig...
 public class UaiRootConfigurationDTO {
     private Integer port;
 

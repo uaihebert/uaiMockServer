@@ -47,7 +47,7 @@
                     <td>
                         <textarea class="form-control" rows="3" ng-model="header.valueList" placeholder="A list like VALUE or VALUE1,VALUE2"></textarea>
                         <br/>
-                        <button class="btn btn-danger" ng-click="selectedRouteRow.route.response.headerList.splice(key,1)">Delete (no confirmation)</button>
+                        <button class="btn btn-danger" ng-click="selectedRouteRow.route.response.headerList.splice($index,1)">Delete (no confirmation)</button>
                     </td>
                 </tr>
             </tbody>

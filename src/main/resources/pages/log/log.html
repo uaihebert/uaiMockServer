@@ -47,6 +47,7 @@
                         <td>
                             <span ng-class="{'label label-success': log.finishedWithError == false, 'label label-danger':  log.finishedWithError == true}">{{getResponseText(log)}}</span>
                         </td>
+                        <td><button type="button" class="btn btn-danger" ng-click="webSocketLog.logRequestList.splice($index,1)">Delete (no confirmation)</button> </td>
                     </tr>
                     <tr ng-repeat-end="">
                         <td colspan="4" style="padding: 0">
