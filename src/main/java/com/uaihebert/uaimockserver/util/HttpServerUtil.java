@@ -34,7 +34,7 @@ public final class HttpServerUtil {
             final PathHandler path = PathHandlerFactory.create();
 
             httpServer = Undertow.builder()
-                    .addHttpListener(UaiMockServerContext.INSTANCE.uaiMockServerConfig.getPort(), UaiMockServerContext.INSTANCE.uaiMockServerConfig.getHost())
+                    .addHttpListener(UaiMockServerContext.getInstance().uaiMockServerConfig.getPort(), UaiMockServerContext.getInstance().uaiMockServerConfig.getHost())
                     .setHandler(path)
                     .build();
 

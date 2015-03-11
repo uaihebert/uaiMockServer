@@ -13,7 +13,7 @@ import java.util.List;
 public final class UaiMockServerContext {
     private static final String DEFAULT_CONFIGURATION_FILE_NAME = "uaiMockServer.json";
 
-    public static UaiMockServerContext INSTANCE;
+    private static UaiMockServerContext INSTANCE;
 
     public final UaiMockServerConfig uaiMockServerConfig;
 
@@ -59,5 +59,9 @@ public final class UaiMockServerContext {
                 return;
             }
         }
+    }
+
+    public static UaiMockServerContext getInstance() {
+        return INSTANCE;
     }
 }

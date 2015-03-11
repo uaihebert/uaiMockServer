@@ -59,13 +59,13 @@ public class UaiMockServerContextTest {
     public void isDeletingFromSecondaryMapping() {
         UaiMockServerContext.createInstance("uaiMockServer.json");
 
-        final int totalBeforeDelete = UaiMockServerContext.INSTANCE.secondaryMappingList.get(0).getRouteList().size();
+        final int totalBeforeDelete = UaiMockServerContext.getInstance().secondaryMappingList.get(0).getRouteList().size();
 
-        final UaiRoute uaiRoute = UaiMockServerContext.INSTANCE.secondaryMappingList.get(0).getRouteList().get(0);
+        final UaiRoute uaiRoute = UaiMockServerContext.getInstance().secondaryMappingList.get(0).getRouteList().get(0);
 
-        UaiMockServerContext.INSTANCE.deleteRoute(uaiRoute);
+        UaiMockServerContext.getInstance().deleteRoute(uaiRoute);
 
-        final int totalAfterDelete = UaiMockServerContext.INSTANCE.secondaryMappingList.get(0).getRouteList().size();
+        final int totalAfterDelete = UaiMockServerContext.getInstance().secondaryMappingList.get(0).getRouteList().size();
 
         assertNotSame("making sure that the route was deleted", totalBeforeDelete, totalAfterDelete);
     }
@@ -75,8 +75,8 @@ public class UaiMockServerContextTest {
         UaiMockServerContext.createInstance("configWithoutFileMapList.json");
 
         try {
-            final UaiRoute aRoute = UaiMockServerContext.INSTANCE.uaiMockServerConfig.getRouteList().get(0);
-            UaiMockServerContext.INSTANCE.deleteRoute(aRoute);
+            final UaiRoute aRoute = UaiMockServerContext.getInstance().uaiMockServerConfig.getRouteList().get(0);
+            UaiMockServerContext.getInstance().deleteRoute(aRoute);
         } catch (Exception ex) {
             ex.printStackTrace();
             fail("should be no error");
@@ -90,7 +90,7 @@ public class UaiMockServerContextTest {
         try {
             final UaiRoute uaiRoute = new UaiRoute();
             uaiRoute.setUaiFile(new UaiFile("any", "any"));
-            UaiMockServerContext.INSTANCE.deleteRoute(uaiRoute);
+            UaiMockServerContext.getInstance().deleteRoute(uaiRoute);
         } catch (Exception ex) {
             ex.printStackTrace();
             fail("should be no error");

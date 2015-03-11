@@ -29,7 +29,7 @@ public final class UaiRouteRepository {
     public static void create(final UaiRoute uaiRoute) {
         UaiRouteMapper.addRoute(uaiRoute);
 
-        UaiMockServerContext.INSTANCE.addRoute(uaiRoute);
+        UaiMockServerContext.getInstance().addRoute(uaiRoute);
 
         flushData();
     }
@@ -43,7 +43,7 @@ public final class UaiRouteRepository {
     public static void delete(final String routeId) {
         final UaiRoute routeToDelete = UaiRouteMapper.deleteRoute(routeId);
 
-        UaiMockServerContext.INSTANCE.deleteRoute(routeToDelete);
+        UaiMockServerContext.getInstance().deleteRoute(routeToDelete);
 
         flushData();
     }

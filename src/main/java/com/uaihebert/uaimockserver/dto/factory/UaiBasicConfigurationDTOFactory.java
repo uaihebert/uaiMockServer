@@ -10,11 +10,11 @@ public final class UaiBasicConfigurationDTOFactory {
     public static UaiRootConfigurationDTO create() {
         final UaiRootConfigurationDTO uaiRootConfigurationDTO = new UaiRootConfigurationDTO();
 
-        uaiRootConfigurationDTO.setPort(UaiMockServerContext.INSTANCE.uaiMockServerConfig.getPort());
-        uaiRootConfigurationDTO.setHost(UaiMockServerContext.INSTANCE.uaiMockServerConfig.getHost());
-        uaiRootConfigurationDTO.setContext(UaiMockServerContext.INSTANCE.uaiMockServerConfig.getContext());
-        uaiRootConfigurationDTO.setDefaultContentType(UaiMockServerContext.INSTANCE.uaiMockServerConfig.getDefaultContentTypeResponse());
-        uaiRootConfigurationDTO.setUaiMainFile(UaiFileDTOFactory.create(UaiMockServerContext.INSTANCE.uaiMockServerConfig.getUaiFile()));
+        uaiRootConfigurationDTO.setPort(UaiMockServerContext.getInstance().uaiMockServerConfig.getPort());
+        uaiRootConfigurationDTO.setHost(UaiMockServerContext.getInstance().uaiMockServerConfig.getHost());
+        uaiRootConfigurationDTO.setContext(UaiMockServerContext.getInstance().uaiMockServerConfig.getContext());
+        uaiRootConfigurationDTO.setDefaultContentType(UaiMockServerContext.getInstance().uaiMockServerConfig.getDefaultContentTypeResponse());
+        uaiRootConfigurationDTO.setUaiMainFile(UaiFileDTOFactory.create(UaiMockServerContext.getInstance().uaiMockServerConfig.getUaiFile()));
 
         return uaiRootConfigurationDTO;
     }
