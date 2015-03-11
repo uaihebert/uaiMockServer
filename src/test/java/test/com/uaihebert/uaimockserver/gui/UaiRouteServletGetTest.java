@@ -35,7 +35,7 @@ public class UaiRouteServletGetTest {
 
     @Test
     public void isReturning200OnIndex() {
-        final String url = "http://localhost:1234/uai-mock-server-gui/uaiRoute";
+        final String url = AbstractTestServletTests.GUI_URL +  "uaiRoute";
 
         Client client = ClientBuilder.newClient();
         Response response = client.target(url).request().get();
@@ -48,7 +48,7 @@ public class UaiRouteServletGetTest {
 
     @Test
     public void isReturningContentAsJsonType() {
-        final String url = "http://localhost:1234/uai-mock-server-gui/uaiRoute";
+        final String url = AbstractTestServletTests.GUI_URL +  "uaiRoute";
 
         Client client = ClientBuilder.newClient();
         Response response = client.target(url).request().get();
@@ -61,7 +61,7 @@ public class UaiRouteServletGetTest {
 
     @Test
     public void isReturningABody() {
-        final String url = "http://localhost:1234/uai-mock-server-gui/uaiRoute";
+        final String url = AbstractTestServletTests.GUI_URL +  "uaiRoute";
 
         Client client = ClientBuilder.newClient();
         Response response = client.target(url).request().get();
@@ -75,7 +75,7 @@ public class UaiRouteServletGetTest {
 
     @Test
     public void validatingIfAllRouteAttributesAreReturned() {
-        final String url = "http://localhost:1234/uai-mock-server-gui/uaiRoute";
+        final String url = AbstractTestServletTests.GUI_URL +  "uaiRoute";
 
         Client client = ClientBuilder.newClient();
         Response response = client.target(url).request().get();

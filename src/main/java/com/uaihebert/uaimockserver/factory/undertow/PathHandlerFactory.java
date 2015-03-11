@@ -19,8 +19,8 @@ import java.util.List;
 import static io.undertow.servlet.Servlets.servlet;
 
 public final class PathHandlerFactory {
-    private static final String SERVLET_CONTEXT_PATH = "/uai-mock-server-gui/";
-    private static final String WEBSOCKET_CONTEXT_PATH = "/uai-mock-server-gui-ws";
+    private static final String SERVLET_CONTEXT_PATH = "/uaiGui/";
+    private static final String WEBSOCKET_CONTEXT_PATH = "/uaiGui-ws";
 
     private static final String CSS_CONTEXT_PATH = SERVLET_CONTEXT_PATH + "css/";
     private static final String JAVASCRIPT_CONTEXT_PATH = SERVLET_CONTEXT_PATH + "javascript/";

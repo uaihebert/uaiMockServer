@@ -59,10 +59,8 @@ public class UaiRouteServletPutTest extends AbstractTestServletTests {
     }
 
     private UaiRouteDTO getRouteFromServer(final String routeName) {
-        final String url = AbstractTestServletTests.GUI_URL + "uaiRoute";
-
         Client client = ClientBuilder.newClient();
-        Response response = client.target(url).request().get();
+        Response response = client.target(GUI_SERVLET_URL).request().get();
 
         final String bodyAsString = response.readEntity(String.class);
 

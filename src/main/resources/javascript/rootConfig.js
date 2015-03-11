@@ -8,7 +8,7 @@ app.config(['growlProvider', function(growlProvider) {
 
 app.controller('rootConfigController', function($scope, $location, $http, growl) {
     $scope.loadData = function(){
-        $http.get('/uai-mock-server-gui/rootConfigurations').
+        $http.get('/uaiGui/rootConfigurations').
             success(function(data) {
                 $scope.rootConfig = {};
 
@@ -27,7 +27,7 @@ app.controller('rootConfigController', function($scope, $location, $http, growl)
     }
 
     $scope.update = function () {
-        $http.put('/uai-mock-server-gui/rootConfigurations', $scope.rootConfig).
+        $http.put('/uaiGui/rootConfigurations', $scope.rootConfig).
             success(function(data) {
                 $scope.displaySuccessGrowl();
                 $scope.loadData();

@@ -15,7 +15,7 @@ public class JavascriptGetTest {
 
     @Test
     public void isReturning200OnIndex() {
-        final String url = "http://localhost:1234/uai-mock-server-gui/javascript/angular";
+        final String url = AbstractTestServletTests.GUI_URL + "javascript/angular";
 
         Client client = ClientBuilder.newClient();
         Response response = client.target(url).request().get();
@@ -28,7 +28,7 @@ public class JavascriptGetTest {
 
     @Test
     public void isReturningContentAsJavascriptType() {
-        final String url = "http://localhost:1234/uai-mock-server-gui/javascript/angular";
+        final String url = AbstractTestServletTests.GUI_URL + "javascript/angular";
 
         Client client = ClientBuilder.newClient();
         Response response = client.target(url).request().get();
@@ -41,7 +41,7 @@ public class JavascriptGetTest {
 
     @Test
     public void isReturning500IfFileNotFound() {
-        final String url = "http://localhost:1234/uai-mock-server-gui/javascript/what";
+        final String url = AbstractTestServletTests.GUI_URL + "javascript/what";
 
         Client client = ClientBuilder.newClient();
         Response response = client.target(url).request().get();

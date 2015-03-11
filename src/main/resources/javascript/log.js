@@ -11,7 +11,7 @@ app.controller('webSocketController', function($scope, $location) {
     $scope.webSocketLog.logRequestList = [];
     $scope.connectToWebSocket = function() {
         if (window.WebSocket) {
-            $scope.socket = new WebSocket("ws://localhost:1234/uai-mock-server-gui-ws");
+            $scope.socket = new WebSocket("ws://localhost:1234/uaiGui-ws");
             $scope.socket.onmessage = function (event) {
                 $scope.$apply(function() {
                     var jsonObj = JSON.parse(event.data);

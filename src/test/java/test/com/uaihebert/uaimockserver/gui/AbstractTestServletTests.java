@@ -9,17 +9,18 @@ import javax.ws.rs.client.Entity;
 import javax.ws.rs.core.MediaType;
 
 public class AbstractTestServletTests {
-    public static final String GUI_URL = "http://localhost:1234/uai-mock-server-gui/";
+    public static final String GUI_URL = "http://localhost:1234/uaiGui/";
+    public static final String GUI_SERVLET_URL = GUI_URL + "uaiRoute";
 
     protected void executePut(final UaiRouteDTO toUpdateRoute) {
-        final String url = "http://localhost:1234/uai-mock-server-gui/uaiRoute";
+        final String url = GUI_SERVLET_URL;
 
         Client client = ClientBuilder.newClient();
         client.target(url).request().put(Entity.entity(new Gson().toJson(toUpdateRoute), MediaType.APPLICATION_JSON_TYPE));
     }
 
     protected void executePost(final UaiRouteDTO toUpdateRoute) {
-        final String url = "http://localhost:1234/uai-mock-server-gui/uaiRoute";
+        final String url = GUI_SERVLET_URL;
 
         Client client = ClientBuilder.newClient();
         client.target(url).request().post(Entity.entity(new Gson().toJson(toUpdateRoute), MediaType.APPLICATION_JSON_TYPE));

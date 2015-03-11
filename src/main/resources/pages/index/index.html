@@ -2,32 +2,32 @@
 <html lang="en" ng-app="uaiMockServerApp">
     <head>
         <meta charset="utf-8">
-        <link rel="stylesheet" href="/uai-mock-server-gui/css/bootstrap" />
-        <link rel="stylesheet" href="/uai-mock-server-gui/css/tableSort" />
-        <link rel="stylesheet" href="/uai-mock-server-gui/css/index" />
-        <link rel="stylesheet" href="/uai-mock-server-gui/css/growl" />
+        <link rel="stylesheet" href="/uaiGui/css/bootstrap" />
+        <link rel="stylesheet" href="/uaiGui/css/tableSort" />
+        <link rel="stylesheet" href="/uaiGui/css/index" />
+        <link rel="stylesheet" href="/uaiGui/css/growl" />
 
-        <script type="application/javascript" src="/uai-mock-server-gui/javascript/angular"></script>
-        <script type="application/javascript" src="/uai-mock-server-gui/javascript/angular-animate"></script>
-        <script type="application/javascript" src="/uai-mock-server-gui/javascript/tableSort"></script>
-        <script type="application/javascript" src="/uai-mock-server-gui/javascript/jquery"></script>
-        <script type="application/javascript" src="/uai-mock-server-gui/javascript/bootstrap"></script>
-        <script type="application/javascript" src="/uai-mock-server-gui/javascript/angular-growl"></script>
-        <script type="application/javascript" src="/uai-mock-server-gui/javascript/angular-sanitize"></script>
-        <script type="application/javascript" src="/uai-mock-server-gui/javascript/index"></script>
+        <script type="application/javascript" src="/uaiGui/javascript/angular"></script>
+        <script type="application/javascript" src="/uaiGui/javascript/angular-animate"></script>
+        <script type="application/javascript" src="/uaiGui/javascript/tableSort"></script>
+        <script type="application/javascript" src="/uaiGui/javascript/jquery"></script>
+        <script type="application/javascript" src="/uaiGui/javascript/bootstrap"></script>
+        <script type="application/javascript" src="/uaiGui/javascript/angular-growl"></script>
+        <script type="application/javascript" src="/uaiGui/javascript/angular-sanitize"></script>
+        <script type="application/javascript" src="/uaiGui/javascript/index"></script>
 
         <title>
             UaiMockServer - GUI
         </title>
     </head>
     <body ng-controller="routeController" class="container">
-        <div ng-include="'/uai-mock-server-gui/page/headerMenu'"></div>
+        <div ng-include="'/uaiGui/page/headerMenu'"></div>
 
-        <div ng-include="'/uai-mock-server-gui/page/indexTable'"></div>
+        <div ng-include="'/uaiGui/page/indexTable'"></div>
 
-        <div ng-include="'/uai-mock-server-gui/page/routeDialog'"></div>
+        <div ng-include="'/uaiGui/page/routeDialog'"></div>
 
-        <div ng-include="'/uai-mock-server-gui/page/deleteDialog'"></div>
+        <div ng-include="'/uaiGui/page/deleteDialog'"></div>
 
         <button type="button" class="btn btn-primary" ng-click="displayCreateNew()">Create New</button>
 

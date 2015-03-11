@@ -28,7 +28,7 @@ public class UaiRouteServletDeleteTest extends AbstractTestServletTests {
     }
 
     private IndexResponseDTO listAll() {
-        final String url = "http://localhost:1234/uai-mock-server-gui/uaiRoute";
+        final String url = AbstractTestServletTests.GUI_URL +  "uaiRoute";
 
         Client client = ClientBuilder.newClient();
         Response response = client.target(url).request().get();
@@ -44,7 +44,7 @@ public class UaiRouteServletDeleteTest extends AbstractTestServletTests {
 
         final UaiRouteDTO deleted = listAll().getRouteList().get(0);
 
-        final String url = "http://localhost:1234/uai-mock-server-gui/uaiRoute?routeId="+deleted.getId();
+        final String url = AbstractTestServletTests.GUI_URL +  "uaiRoute?routeId="+deleted.getId();
 
         final Client client = ClientBuilder.newClient();
         client.target(url).request().delete();

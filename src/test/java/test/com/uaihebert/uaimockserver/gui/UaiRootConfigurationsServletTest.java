@@ -19,7 +19,7 @@ public class UaiRootConfigurationsServletTest extends TestAbstract {
 
     @Test
     public void isReturning200OnIndex() {
-        final String url = "http://localhost:1234/uai-mock-server-gui/rootConfigurations";
+        final String url = AbstractTestServletTests.GUI_URL +  "rootConfigurations";
 
         Client client = ClientBuilder.newClient();
         Response response = client.target(url).request().get();
@@ -32,7 +32,7 @@ public class UaiRootConfigurationsServletTest extends TestAbstract {
 
     @Test
     public void isReturningContentAsJsonType() {
-        final String url = "http://localhost:1234/uai-mock-server-gui/rootConfigurations";
+        final String url = AbstractTestServletTests.GUI_URL +  "rootConfigurations";
 
         Client client = ClientBuilder.newClient();
         Response response = client.target(url).request().get();
@@ -42,7 +42,7 @@ public class UaiRootConfigurationsServletTest extends TestAbstract {
 
     @Test
     public void isReturningContent() {
-        final String url = "http://localhost:1234/uai-mock-server-gui/rootConfigurations";
+        final String url = AbstractTestServletTests.GUI_URL +  "rootConfigurations";
 
         Client client = ClientBuilder.newClient();
         Response response = client.target(url).request().get();

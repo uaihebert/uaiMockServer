@@ -15,7 +15,7 @@ public class CssMapGetTest {
 
     @Test
     public void isReturning200OnIndex() {
-        final String url = "http://localhost:1234/uai-mock-server-gui/css/bootstrap.css.map";
+        final String url = AbstractTestServletTests.GUI_URL + "css/bootstrap.css.map";
 
         Client client = ClientBuilder.newClient();
         Response response = client.target(url).request().get();
@@ -28,7 +28,7 @@ public class CssMapGetTest {
 
     @Test
     public void isReturningContentAsCssType() {
-        final String url = "http://localhost:1234/uai-mock-server-gui/css/bootstrap.css.map";
+        final String url = AbstractTestServletTests.GUI_URL + "css/bootstrap.css.map";
 
         Client client = ClientBuilder.newClient();
         Response response = client.target(url).request().get();

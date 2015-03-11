@@ -9,7 +9,7 @@ app.config(['growlProvider', function(growlProvider) {
 app.controller('routeController', function($scope, $http, growl, $location) {
     $scope.loadTable = function(){
         $scope.isCollapsed = true;
-        $http.get('/uai-mock-server-gui/uaiRoute').
+        $http.get('/uaiGui/uaiRoute').
             success(function(data) {
                 $scope.routeRowList = [];
                 $scope.basicConfiguration = data.basicConfiguration;
@@ -118,7 +118,7 @@ app.controller('routeController', function($scope, $http, growl, $location) {
         }
 
         if ($scope.action === 'update') {
-            $http.put('/uai-mock-server-gui/uaiRoute', $scope.selectedRouteRow.route).
+            $http.put('/uaiGui/uaiRoute', $scope.selectedRouteRow.route).
                 success(function(data) {
                     finishWithSuccess();
                 }
@@ -126,7 +126,7 @@ app.controller('routeController', function($scope, $http, growl, $location) {
                     $scope.displayErrorGrowl();
                 });
         } else {
-            $http.post('/uai-mock-server-gui/uaiRoute', $scope.selectedRouteRow.route).
+            $http.post('/uaiGui/uaiRoute', $scope.selectedRouteRow.route).
                 success(function(data) {
                     finishWithSuccess();
                 }
@@ -230,7 +230,7 @@ app.controller('routeController', function($scope, $http, growl, $location) {
     }
 
     $scope.delete = function () {
-        $http.delete('/uai-mock-server-gui/uaiRoute?routeId='+$scope.selectedRouteRow.route.id).
+        $http.delete('/uaiGui/uaiRoute?routeId='+$scope.selectedRouteRow.route.id).
             success(function(data) {
                 $scope.loadTable();
                 $('#deleteRouteModal').modal('toggle');

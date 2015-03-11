@@ -35,7 +35,7 @@ public class UaiRouteServletPostTest {
     }
 
     private IndexResponseDTO listAll() {
-        final String url = "http://localhost:1234/uai-mock-server-gui/uaiRoute";
+        final String url = AbstractTestServletTests.GUI_URL + "uaiRoute";
 
         Client client = ClientBuilder.newClient();
         Response response = client.target(url).request().get();
@@ -51,7 +51,7 @@ public class UaiRouteServletPostTest {
 
         final String entity = createEntity();
 
-        final String url = "http://localhost:1234/uai-mock-server-gui/uaiRoute";
+        final String url = AbstractTestServletTests.GUI_URL + "uaiRoute";
 
         final Client client = ClientBuilder.newClient();
         final Response post = client.target(url).request().post(Entity.entity(entity, MediaType.APPLICATION_JSON_TYPE));

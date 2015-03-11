@@ -16,7 +16,7 @@ public class UaiIndexServletTest {
 
     @Test
     public void isReturning200OnIndex() {
-        final String url = "http://localhost:1234/uai-mock-server-gui/index";
+        final String url = AbstractTestServletTests.GUI_URL + "index";
 
         Client client = ClientBuilder.newClient();
         Response response = client.target(url).request().get();
@@ -29,7 +29,7 @@ public class UaiIndexServletTest {
 
     @Test
     public void isReturningContentAsTextHtmlType() {
-        final String url = "http://localhost:1234/uai-mock-server-gui/index";
+        final String url = AbstractTestServletTests.GUI_URL + "index";
 
         Client client = ClientBuilder.newClient();
         Response response = client.target(url).request().get();
