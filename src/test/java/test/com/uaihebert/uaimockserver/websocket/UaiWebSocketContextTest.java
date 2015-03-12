@@ -9,6 +9,11 @@ public class UaiWebSocketContextTest {
 
     @Test
     public void isRemovingWithoutError() {
+        final WebSocket07Channel opened1 = Mockito.mock(WebSocket07Channel.class);
+        Mockito.when(opened1.isOpen()).thenReturn(true);
+        UaiWebSocketContext.addClient(opened1);
+        UaiWebSocketContext.removeClosed();
+
         final WebSocket07Channel closed1 = Mockito.mock(WebSocket07Channel.class);
         UaiWebSocketContext.addClient(closed1);
 
@@ -18,10 +23,6 @@ public class UaiWebSocketContextTest {
         final WebSocket07Channel opened2 = Mockito.mock(WebSocket07Channel.class);
         Mockito.when(opened2.isOpen()).thenReturn(true);
 
-        final WebSocket07Channel opened1 = Mockito.mock(WebSocket07Channel.class);
-        Mockito.when(opened1.isOpen()).thenReturn(true);
-
-        UaiWebSocketContext.addClient(opened1);
         UaiWebSocketContext.addClient(opened2);
 
         UaiWebSocketContext.removeClosed();
