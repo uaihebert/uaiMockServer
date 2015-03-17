@@ -26,4 +26,12 @@ public final class UaiRouteService {
     public static void deleteRoute(final String routeId) {
         UaiRouteRepository.delete(routeId);
     }
+
+    public static void clone(final String routeId) {
+        final UaiRoute uaiRoute = UaiRouteRepository.findById(routeId);
+
+        final UaiRoute clonedRoute = UaiRouteFactory.clone(uaiRoute);
+
+        UaiRouteRepository.create(clonedRoute);
+    }
 }

@@ -3,6 +3,7 @@ package com.uaihebert.uaimockserver.factory.undertow;
 import com.uaihebert.uaimockserver.model.UaiWebSocketCallback;
 import com.uaihebert.uaimockserver.server.UaiMockServerHandler;
 import com.uaihebert.uaimockserver.servlet.UaiRootConfigurationsServlet;
+import com.uaihebert.uaimockserver.servlet.UaiRouteCloneServlet;
 import com.uaihebert.uaimockserver.servlet.UaiRouteServlet;
 import com.uaihebert.uaimockserver.util.HttpServerUtil;
 import io.undertow.Handlers;
@@ -85,8 +86,9 @@ public final class PathHandlerFactory {
                 .setContextPath(SERVLET_CONTEXT_PATH)
                 .setDeploymentName("uaiMockServer.war")
                 .addServlets(
-                        servlet("UaiRootConfigurationsServlet", UaiRootConfigurationsServlet.class).addMapping("/rootConfigurations"),
-                        servlet("UaiRouteServlet", UaiRouteServlet.class).addMapping("/uaiRoute")
+                        servlet("UaiRouteServlet", UaiRouteServlet.class).addMapping("/uaiRoute"),
+                        servlet("UaiRouteCloneServlet", UaiRouteCloneServlet.class).addMapping("/uaiRoute/clone"),
+                        servlet("UaiRootConfigurationsServlet", UaiRootConfigurationsServlet.class).addMapping("/rootConfigurations")
                 );
 
         final DeploymentManager manager = Servlets.defaultContainer().addDeployment(deploymentInfo);

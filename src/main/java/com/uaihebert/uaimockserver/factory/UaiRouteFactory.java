@@ -26,6 +26,8 @@ import com.uaihebert.uaimockserver.util.StringUtils;
  * This factory will create an instance of the UaiRoute.java
  */
 public final class UaiRouteFactory {
+    public static final String CLONE_PREFIX = "[CLONED] ";
+
     private UaiRouteFactory() {
     }
 
@@ -53,5 +55,25 @@ public final class UaiRouteFactory {
         uaiRoute.setRequest(uaiRequest);
         uaiRoute.setResponse(uaiResponse);
         uaiRoute.setUaiFile(uaiFile);
+    }
+
+    public static UaiRoute clone(final UaiRoute uaiRoute) {
+        final UaiRequest request = uaiRoute.getRequest();
+
+        final String newName = CLONE_PREFIX + request.getName();
+
+        final UaiRequest clonedRequest = new UaiRequest(
+                newName,
+                request.getPath(),
+                request.getMethod(),
+                request.getDescription(),
+                request.getRequiredContentType(),
+                request.getHoldTheRequestInMilli(),
+                request.isBodyRequired(),
+                request.getRequiredHeaderList(),
+                request.getRequiredQueryParamList()
+        );
+
+        return new UaiRoute(uaiRoute.getUaiFile(), clonedRequest, uaiRoute.getResponse());
     }
 }
