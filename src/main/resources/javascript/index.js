@@ -98,6 +98,12 @@ app.controller('routeController', function($scope, $http, growl, $location) {
         return null;
     }
 
+    $scope.finishWithSuccess = function() {
+        $scope.loadTable();
+        $('#routeModal').modal('toggle');
+        $scope.displaySuccessGrowl();
+    }
+
     $scope.saveRoute = function() {
         $scope.selectedRouteRow.route.request.requiredHeaderList = $scope.convertStringToList($scope.selectedRouteRow.route.request.requiredHeaderList);
         $scope.selectedRouteRow.route.request.requiredQueryParamList = $scope.convertStringToList($scope.selectedRouteRow.route.request.requiredQueryParamList);
@@ -111,16 +117,10 @@ app.controller('routeController', function($scope, $http, growl, $location) {
             return;
         }
 
-        function finishWithSuccess() {
-            $scope.loadTable();
-            $('#routeModal').modal('toggle');
-            $scope.displaySuccessGrowl();
-        }
-
         if ($scope.action === 'update') {
             $http.put('/uaiGui/uaiRoute', $scope.selectedRouteRow.route).
                 success(function(data) {
-                    finishWithSuccess();
+                    $scope.finishWithSuccess();
                 }
             ).error(function(){
                     $scope.displayErrorGrowl();
@@ -128,7 +128,7 @@ app.controller('routeController', function($scope, $http, growl, $location) {
         } else {
             $http.post('/uaiGui/uaiRoute', $scope.selectedRouteRow.route).
                 success(function(data) {
-                    finishWithSuccess();
+                    $scope.finishWithSuccess();
                 }
             ).error(function(){
                     $scope.displayErrorGrowl();
@@ -247,5 +247,18 @@ app.controller('routeController', function($scope, $http, growl, $location) {
         }
 
         return "";
+    }
+
+    $scope.cloneIt = function($event, routeRow) {
+        $event.stopPropagation();
+
+        $http.post('/uaiGui/uaiRoute/clone?routeId='+routeRow.route.id).
+            success(function(data) {
+                $scope.loadTable();
+                $scope.displaySuccessGrowl();
+            }
+        ).error(function(){
+                $scope.displayErrorGrowl();
+            });
     }
 });

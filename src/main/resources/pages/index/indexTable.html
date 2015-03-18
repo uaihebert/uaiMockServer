@@ -11,15 +11,17 @@
                 <th ts-criteria="requestPath|lowercase">Request Path</th>
                 <th ts-criteria="responseCode">Response Code</th>
                 <th ts-criteria="responseContentType|lowercase">Response ContentType</th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
-            <tr ng-repeat="routeRow in routeRowList track by routeRow.requestPath" ng-click="displaySelected(routeRow);" ts-repeat>
+            <tr ng-repeat="routeRow in routeRowList track by routeRow.route.id" ng-click="displaySelected(routeRow);" ts-repeat>
                 <td>{{routeRow.requestName}}</td>
                 <td>{{routeRow.requestMethod}}</td>
                 <td>{{routeRow.requestPath}}</td>
                 <td>{{routeRow.responseCode}}</td>
                 <td>{{routeRow.responseContentType}}</td>
+                <td ng-click="$event.stopPropagation();"><button class="btn btn-info" type="button" ng-click="cloneIt($event, routeRow);">Clone this guy</button></td>
             </tr>
         </tbody>
     </table>

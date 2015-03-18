@@ -47,8 +47,10 @@ public class UaiRouteServletClonePostTest {
         assertEquals(204, post.getStatus());
 
         final List<UaiRoute> routeList = UaiMockServerContext.getInstance().uaiMockServerConfig.getRouteList();
+
         for (UaiRoute route : routeList) {
             final UaiRequest uaiRequest = route.getRequest();
+
             if (clonedName.equals(uaiRequest.getName())) {
                 return;
             }

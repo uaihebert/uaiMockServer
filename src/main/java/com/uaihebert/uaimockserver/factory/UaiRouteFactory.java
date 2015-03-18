@@ -27,6 +27,7 @@ import com.uaihebert.uaimockserver.util.StringUtils;
  */
 public final class UaiRouteFactory {
     public static final String CLONE_PREFIX = "[CLONED] ";
+    public static final String CLONE_SUFFIX = "_CLONED";
 
     private UaiRouteFactory() {
     }
@@ -61,10 +62,11 @@ public final class UaiRouteFactory {
         final UaiRequest request = uaiRoute.getRequest();
 
         final String newName = CLONE_PREFIX + request.getName();
+        final String newPath = request.getPath() + CLONE_SUFFIX;
 
         final UaiRequest clonedRequest = new UaiRequest(
                 newName,
-                request.getPath(),
+                newPath,
                 request.getMethod(),
                 request.getDescription(),
                 request.getRequiredContentType(),
