@@ -50,17 +50,11 @@ public final class RouteFinderUtil {
         final Set<UaiRoute> result = new HashSet<UaiRoute>();
 
         for (UaiRoute uaiRoute : uaiRouteList) {
-            boolean hasError = false;
-
             final UaiRequest uaiRequest = uaiRoute.getRequest();
 
             logTotalOfLists(httpServerExchange, uaiRequest);
 
-            hasError = validateHeaders(httpServerExchange, hasError, uaiRequest);
-
-            hasError = validateQueryParam(httpServerExchange, hasError, uaiRequest);
-
-            if (hasError) {
+            if (hasErrorInTheMetaData(httpServerExchange, uaiRequest)) {
                 continue;
             }
 
@@ -70,6 +64,10 @@ public final class RouteFinderUtil {
         return result;
     }
 
+    private static boolean hasErrorInTheMetaData(final HttpServerExchange httpServerExchange, final UaiRequest uaiRequest) {
+        return validateHeaders(httpServerExchange, uaiRequest) || validateQueryParam(httpServerExchange, uaiRequest);
+    }
+
     private static void logTotalOfLists(final HttpServerExchange httpServerExchange, final UaiRequest uaiRequest) {
         final String requestKey = RouteMapKeyUtil.createKeyFromRequest(httpServerExchange);
 
@@ -77,7 +75,9 @@ public final class RouteFinderUtil {
         Log.infoFormatted(REQUIRED_QUERY_PARAM_LOG_TEXT, requestKey,  uaiRequest.getRequiredQueryParamList().size());
     }
 
-    private static boolean validateQueryParam(final HttpServerExchange httpServerExchange, boolean hasError, final UaiRequest uaiRequest) {
+    private static boolean validateQueryParam(final HttpServerExchange httpServerExchange, final UaiRequest uaiRequest) {
+        boolean hasError = false;
+
         for (UaiQueryParam uaiQueryParam : uaiRequest.getRequiredQueryParamList()) {
             if (!httpServerExchange.getQueryParameters().containsKey(uaiQueryParam.getName())) {
                 Log.warn(REQUIRED_HEADER_NOT_FOUND, uaiQueryParam.getName());
@@ -88,7 +88,9 @@ public final class RouteFinderUtil {
         return hasError;
     }
 
-    private static boolean validateHeaders(final HttpServerExchange httpServerExchange, boolean hasError, final UaiRequest uaiRequest) {
+    private static boolean validateHeaders(final HttpServerExchange httpServerExchange, final UaiRequest uaiRequest) {
+        boolean hasError = false;
+
         for (UaiHeader uaiHeader : uaiRequest.getRequiredHeaderList()) {
             if (!httpServerExchange.getRequestHeaders().contains(uaiHeader.getName())) {
                 Log.warn(REQUIRED_QUERY_PARAM_NOT_FOUND, uaiHeader.getName());
