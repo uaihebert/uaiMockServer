@@ -70,6 +70,11 @@ app.controller('routeController', function($scope, $http, growl, $location) {
             error.errorHtml += "<li>request.path was not found</li>";
         }
 
+        if (route.request.path != null && route.request.path.indexOf("/") != 0) {
+            error.hasError = true;
+            error.errorHtml += "<li>request.path must start with /</li>";
+        }
+
         if (route.request.method == null || route.request.method.trim() == "") {
             error.hasError = true;
             error.errorHtml += "<li>request.method was not found</li>";
@@ -185,6 +190,7 @@ app.controller('routeController', function($scope, $http, growl, $location) {
         $scope.selectedRouteRow = {};
         $scope.selectedRouteRow.route = {};
         $scope.selectedRouteRow.route.request = {};
+        $scope.selectedRouteRow.route.request.path = "/";
         $scope.selectedRouteRow.route.response = {};
         $scope.selectedRouteRow.route.response.contentType = $scope.rootConfiguration.defaultContentType;
         $scope.selectedRouteRow.route.uaiFile = {};
