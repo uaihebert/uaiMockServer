@@ -29,29 +29,19 @@ You need to add the project to your pom:
 <dependency>
     <groupId>uaihebert.com</groupId>
     <artifactId>uaiMockServer</artifactId>
-    <version>MOST_RECENT_VERSION</version>
+    <version>1.1.0</version>
     <scope>test</scope>
 </dependency>
 ```
 
 All you need now is a class to start/shutdown the server:
 ```java
-public class YourTest {
-    private static UaiMockServer uaiMockServer;
-
-    @BeforeClass
-    public static void beforeClass() {
-        uaiMockServer = UaiMockServer.start();
-    }
-
-    @AfterClass
-    public static void afterClass() {
-        uaiMockServer.shutdown();
-    }
+@RunWith(UaiMockServerRunner.class)
+public class YourTestClass {
 
     @Test
-    public void aTest() {
-        // execute a real HTTP request, no mock needed. 
+    public void yourTest(){
+        // test executing the http request
     }
 }
 ```
