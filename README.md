@@ -1,6 +1,8 @@
 # uaiMockServer
 
-### CodeStatus ---> [![Build Status](https://travis-ci.org/uaihebert/uaiMockServer.svg?branch=master)](https://travis-ci.org/uaihebert/uaiMockServer) [![Coverage Status](https://coveralls.io/repos/uaihebert/uaiMockServer/badge.svg?branch=master)](https://coveralls.io/r/uaihebert/uaiMockServer?branch=master) [![Maven Central](https://maven-badges.herokuapp.com/maven-central/uaihebert.com/uaiMockServer/badge.svg)](https://maven-badges.herokuapp.com/maven-central/uaihebert.com/uaiMockServer)
+[![Build Status](https://travis-ci.org/uaihebert/uaiMockServer.svg?branch=master)](https://travis-ci.org/uaihebert/uaiMockServer) [![Coverage Status](https://coveralls.io/repos/uaihebert/uaiMockServer/badge.svg?branch=master)](https://coveralls.io/r/uaihebert/uaiMockServer?branch=master) [![Maven Central](https://maven-badges.herokuapp.com/maven-central/uaihebert.com/uaiMockServer/badge.svg)](https://maven-badges.herokuapp.com/maven-central/uaihebert.com/uaiMockServer)
+
+[![License][license-image]][license-url] [![Gitter][gitter-image]][gitter-url]
 
 uaiMockServer will create a Rest Server for you with only one command line.
 
@@ -45,3 +47,11 @@ public class YourTestClass {
     }
 }
 ```
+
+
+
+[gitter-url]: https://gitter.im/uaihebert/uaiMockServer
+[gitter-image]: https://badges.gitter.im/Join%20Chat.svg
+
+[license-url]: https://gitter.im/uaihebert/uaiMockServer/blob/master/LICENSE
+[license-image]: https://img.shields.io/badge/license-MIT-blue.svg?style=flat
