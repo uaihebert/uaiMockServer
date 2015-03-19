@@ -15,7 +15,7 @@ public class JavascriptGetTest {
 
     @Test
     public void isReturning200OnIndex() {
-        final String url = AbstractTestServletTests.GUI_URL + "javascript/angular";
+        final String url = AbstractTestServletTests.GUI_URL + "javascript?fileName=angular";
 
         Client client = ClientBuilder.newClient();
         Response response = client.target(url).request().get();
@@ -28,7 +28,7 @@ public class JavascriptGetTest {
 
     @Test
     public void isReturningContentAsJavascriptType() {
-        final String url = AbstractTestServletTests.GUI_URL + "javascript/angular";
+        final String url = AbstractTestServletTests.GUI_URL + "javascript?fileName=angular";
 
         Client client = ClientBuilder.newClient();
         Response response = client.target(url).request().get();

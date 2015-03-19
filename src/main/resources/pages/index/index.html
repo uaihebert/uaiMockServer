@@ -2,32 +2,36 @@
 <html lang="en" ng-app="uaiMockServerApp">
     <head>
         <meta charset="utf-8">
-        <link rel="stylesheet" href="/uaiGui/css/bootstrap" />
-        <link rel="stylesheet" href="/uaiGui/css/tableSort" />
-        <link rel="stylesheet" href="/uaiGui/css/index" />
-        <link rel="stylesheet" href="/uaiGui/css/growl" />
 
-        <script type="application/javascript" src="/uaiGui/javascript/angular"></script>
-        <script type="application/javascript" src="/uaiGui/javascript/angular-animate"></script>
-        <script type="application/javascript" src="/uaiGui/javascript/tableSort"></script>
-        <script type="application/javascript" src="/uaiGui/javascript/jquery"></script>
-        <script type="application/javascript" src="/uaiGui/javascript/bootstrap"></script>
-        <script type="application/javascript" src="/uaiGui/javascript/angular-growl"></script>
-        <script type="application/javascript" src="/uaiGui/javascript/angular-sanitize"></script>
-        <script type="application/javascript" src="/uaiGui/javascript/index"></script>
+        <link type="image/x-icon" href="/uaiGui/favicon" rel="icon" />
+        <link type="image/x-icon" href="/uaiGui/favicon" rel="shortcut icon" />
+
+        <link rel="stylesheet" href="/uaiGui/css?fileName=bootstrap" />
+        <link rel="stylesheet" href="/uaiGui/css?fileName=tableSort" />
+        <link rel="stylesheet" href="/uaiGui/css?fileName=index" />
+        <link rel="stylesheet" href="/uaiGui/css?fileName=growl" />
+
+        <script type="application/javascript" src="/uaiGui/javascript?fileName=angular"></script>
+        <script type="application/javascript" src="/uaiGui/javascript?fileName=angular-animate"></script>
+        <script type="application/javascript" src="/uaiGui/javascript?fileName=tableSort"></script>
+        <script type="application/javascript" src="/uaiGui/javascript?fileName=jquery"></script>
+        <script type="application/javascript" src="/uaiGui/javascript?fileName=bootstrap"></script>
+        <script type="application/javascript" src="/uaiGui/javascript?fileName=angular-growl"></script>
+        <script type="application/javascript" src="/uaiGui/javascript?fileName=angular-sanitize"></script>
+        <script type="application/javascript" src="/uaiGui/javascript?fileName=index"></script>
 
         <title>
             UaiMockServer - GUI
         </title>
     </head>
     <body ng-controller="routeController" class="container">
-        <div ng-include="'/uaiGui/page/headerMenu'"></div>
+        <div ng-include="'/uaiGui/page?fileName=common/headerMenu'"></div>
 
-        <div ng-include="'/uaiGui/page/indexTable'"></div>
+        <div ng-include="'/uaiGui/page?fileName=index/indexTable'"></div>
 
-        <div ng-include="'/uaiGui/page/routeDialog'"></div>
+        <div ng-include="'/uaiGui/page?fileName=index/routeDialog'"></div>
 
-        <div ng-include="'/uaiGui/page/deleteDialog'"></div>
+        <div ng-include="'/uaiGui/page?fileName=index/deleteDialog'"></div>
 
         <button type="button" class="btn btn-primary" ng-click="displayCreateNew()">Create New</button>
 

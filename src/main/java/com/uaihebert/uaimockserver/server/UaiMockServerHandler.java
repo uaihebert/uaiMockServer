@@ -18,10 +18,14 @@ package com.uaihebert.uaimockserver.server;
 import com.uaihebert.uaimockserver.log.backend.Log;
 import com.uaihebert.uaimockserver.log.gui.UaiWebSocketLogManager;
 import com.uaihebert.uaimockserver.model.UaiRoute;
+import com.uaihebert.uaimockserver.servlet.FaviconServlet;
 import com.uaihebert.uaimockserver.util.RequestHolder;
 import com.uaihebert.uaimockserver.util.RouteFinderUtil;
 import io.undertow.server.HttpHandler;
 import io.undertow.server.HttpServerExchange;
+import io.undertow.util.Headers;
+
+import java.io.IOException;
 
 /**
  * This class is the responsible for handling a incoming request.
@@ -33,6 +37,11 @@ public class UaiMockServerHandler implements HttpHandler {
 
     @Override
     public void handleRequest(final HttpServerExchange exchange) throws Exception {
+        if (exchange.getRequestPath().equals("/favicon.ico")) {
+            sendFavIconInResponse(exchange);
+            return;
+        }
+
         UaiWebSocketLogManager.start(exchange);
 
         try {
@@ -51,5 +60,13 @@ public class UaiMockServerHandler implements HttpHandler {
         }finally {
             UaiWebSocketLogManager.log();
         }
+    }
+
+    private void sendFavIconInResponse(final HttpServerExchange exchange) throws IOException {
+        exchange.getResponseHeaders().put(Headers.CONTENT_TYPE, "image/png");
+
+        exchange.startBlocking();
+
+        new FaviconServlet().writeFavIco(exchange.getOutputStream());
     }
 }

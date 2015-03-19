@@ -16,7 +16,7 @@ public class UaiPageServletTest {
 
     @Test
     public void isReturning200OnAnyPage() {
-        final String url = AbstractTestServletTests.GUI_URL + "page/headerMenu";
+        final String url = AbstractTestServletTests.GUI_URL + "page?fileName=index/indexTable";
 
         Client client = ClientBuilder.newClient();
         Response response = client.target(url).request().get();
@@ -29,7 +29,7 @@ public class UaiPageServletTest {
 
     @Test
     public void isReturningContentAsTextHtmlType() {
-        final String url = AbstractTestServletTests.GUI_URL + "page/headerMenu";
+        final String url = AbstractTestServletTests.GUI_URL + "page?fileName=index/indexTable";
 
         Client client = ClientBuilder.newClient();
         Response response = client.target(url).request().get();

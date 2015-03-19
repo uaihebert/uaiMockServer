@@ -3,27 +3,30 @@
     <head>
         <meta charset="utf-8">
 
-        <link rel="stylesheet" href="/uaiGui/css/bootstrap" />
-        <link rel="stylesheet" href="/uaiGui/css/tableSort" />
-        <link rel="stylesheet" href="/uaiGui/css/index" />
-        <link rel="stylesheet" href="/uaiGui/css/growl" />
-        <link rel="stylesheet" href="/uaiGui/css/log" />
+        <link type="image/png"  href="/uaiGui/favicon" rel="icon" />
+        <link type="image/png"  href="/uaiGui/favicon" rel="shortcut icon" />
 
-        <script type="application/javascript" src="/uaiGui/javascript/angular"></script>
-        <script type="application/javascript" src="/uaiGui/javascript/angular-animate"></script>
-        <script type="application/javascript" src="/uaiGui/javascript/tableSort"></script>
-        <script type="application/javascript" src="/uaiGui/javascript/jquery"></script>
-        <script type="application/javascript" src="/uaiGui/javascript/bootstrap"></script>
-        <script type="application/javascript" src="/uaiGui/javascript/angular-growl"></script>
-        <script type="application/javascript" src="/uaiGui/javascript/angular-sanitize"></script>
-        <script type="application/javascript" src="/uaiGui/javascript/ui-bootstrap-tpls"></script>
+        <link rel="stylesheet" href="/uaiGui/css?fileName=bootstrap" />
+        <link rel="stylesheet" href="/uaiGui/css?fileName=tableSort" />
+        <link rel="stylesheet" href="/uaiGui/css?fileName=index" />
+        <link rel="stylesheet" href="/uaiGui/css?fileName=growl" />
+        <link rel="stylesheet" href="/uaiGui/css?fileName=log" />
+
+        <script type="application/javascript" src="/uaiGui/javascript?fileName=angular"></script>
+        <script type="application/javascript" src="/uaiGui/javascript?fileName=angular-animate"></script>
+        <script type="application/javascript" src="/uaiGui/javascript?fileName=tableSort"></script>
+        <script type="application/javascript" src="/uaiGui/javascript?fileName=jquery"></script>
+        <script type="application/javascript" src="/uaiGui/javascript?fileName=bootstrap"></script>
+        <script type="application/javascript" src="/uaiGui/javascript?fileName=angular-growl"></script>
+        <script type="application/javascript" src="/uaiGui/javascript?fileName=angular-sanitize"></script>
+        <script type="application/javascript" src="/uaiGui/javascript?fileName=ui-bootstrap-tpls"></script>
 
         <title>
             UaiMockServer - GUI
         </title>
     </head>
     <body ng-controller="webSocketController" class="container">
-        <div ng-include="'/uaiGui/page/headerMenu'"></div>
+        <div ng-include="'/uaiGui/page?fileName=common/headerMenu'"></div>
 
         <div>
             <br/>
@@ -157,5 +160,5 @@
             </table>
         </div>
     </body>
-    <script type="application/javascript" src="/uaiGui/javascript/log"></script>
+    <script type="application/javascript" src="/uaiGui/javascript?fileName=log"></script>
 </html>

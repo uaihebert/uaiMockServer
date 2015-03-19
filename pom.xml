@@ -39,7 +39,7 @@
   </scm>
 
     <properties>
-        <undertow>1.2.0.Beta8</undertow>
+        <undertow>1.1.3.Final</undertow>
         <jersey.version>2.6</jersey.version>
         <powermock.version>1.6.1</powermock.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

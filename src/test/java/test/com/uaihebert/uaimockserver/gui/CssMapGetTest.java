@@ -15,7 +15,7 @@ public class CssMapGetTest {
 
     @Test
     public void isReturning200OnIndex() {
-        final String url = AbstractTestServletTests.GUI_URL + "css/bootstrap.css.map";
+        final String url = AbstractTestServletTests.GUI_URL + "bootstrap.css.map";
 
         Client client = ClientBuilder.newClient();
         Response response = client.target(url).request().get();
@@ -28,7 +28,7 @@ public class CssMapGetTest {
 
     @Test
     public void isReturningContentAsCssType() {
-        final String url = AbstractTestServletTests.GUI_URL + "css/bootstrap.css.map";
+        final String url = AbstractTestServletTests.GUI_URL + "bootstrap.css.map";
 
         Client client = ClientBuilder.newClient();
         Response response = client.target(url).request().get();
@@ -36,6 +36,6 @@ public class CssMapGetTest {
         // must read the entity or an NIOException will raise
         response.readEntity(String.class);
 
-        assertEquals("application/octet-stream", response.getMediaType().toString());
+        assertEquals("text/plain", response.getMediaType().toString());
     }
 }

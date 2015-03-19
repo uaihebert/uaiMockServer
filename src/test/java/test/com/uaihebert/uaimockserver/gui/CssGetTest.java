@@ -15,7 +15,7 @@ public class CssGetTest {
 
     @Test
     public void isReturning200OnIndex() {
-        final String url = AbstractTestServletTests.GUI_URL + "css/bootstrap";
+        final String url = AbstractTestServletTests.GUI_URL + "css?fileName=bootstrap";
 
         Client client = ClientBuilder.newClient();
         Response response = client.target(url).request().get();
@@ -28,7 +28,7 @@ public class CssGetTest {
 
     @Test
     public void isReturningContentAsCssType() {
-        final String url = AbstractTestServletTests.GUI_URL + "css/bootstrap";
+        final String url = AbstractTestServletTests.GUI_URL + "css?fileName=bootstrap";
 
         Client client = ClientBuilder.newClient();
         Response response = client.target(url).request().get();
