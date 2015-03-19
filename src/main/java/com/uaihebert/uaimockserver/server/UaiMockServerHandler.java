@@ -18,14 +18,16 @@ package com.uaihebert.uaimockserver.server;
 import com.uaihebert.uaimockserver.log.backend.Log;
 import com.uaihebert.uaimockserver.log.gui.UaiWebSocketLogManager;
 import com.uaihebert.uaimockserver.model.UaiRoute;
-import com.uaihebert.uaimockserver.servlet.FaviconServlet;
 import com.uaihebert.uaimockserver.util.RequestHolder;
 import com.uaihebert.uaimockserver.util.RouteFinderUtil;
 import io.undertow.server.HttpHandler;
 import io.undertow.server.HttpServerExchange;
 import io.undertow.util.Headers;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.io.OutputStream;
 
 /**
  * This class is the responsible for handling a incoming request.
@@ -37,7 +39,8 @@ public class UaiMockServerHandler implements HttpHandler {
 
     @Override
     public void handleRequest(final HttpServerExchange exchange) throws Exception {
-        if (exchange.getRequestPath().equals("/favicon.ico")) {
+        // firefox will invoke this URL
+        if ("/favicon.ico".equals(exchange.getRequestPath())) {
             sendFavIconInResponse(exchange);
             return;
         }
@@ -67,6 +70,14 @@ public class UaiMockServerHandler implements HttpHandler {
 
         exchange.startBlocking();
 
-        new FaviconServlet().writeFavIco(exchange.getOutputStream());
+        writeFavIco(exchange.getOutputStream());
+    }
+
+    public void writeFavIco(final OutputStream outputStream) throws IOException {
+        final BufferedImage bufferedImage = ImageIO.read(getClass().getResourceAsStream("/images/favicon.png"));
+
+        ImageIO.write(bufferedImage, "png", outputStream);
+
+        outputStream.close();
     }
 }

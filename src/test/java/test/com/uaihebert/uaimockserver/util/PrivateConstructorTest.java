@@ -32,7 +32,6 @@ import com.uaihebert.uaimockserver.factory.UaiQueryParamFactory;
 import com.uaihebert.uaimockserver.factory.UaiRequestFactory;
 import com.uaihebert.uaimockserver.factory.UaiResponseFactory;
 import com.uaihebert.uaimockserver.factory.UaiRouteFactory;
-import com.uaihebert.uaimockserver.factory.undertow.HandleWrapperFactory;
 import com.uaihebert.uaimockserver.factory.undertow.PathHandlerFactory;
 import com.uaihebert.uaimockserver.log.backend.Log;
 import com.uaihebert.uaimockserver.log.backend.LogBuilder;
@@ -375,15 +374,6 @@ public class PrivateConstructorTest {
         assertNotNull(createdObject);
     }
 
-    @Test
-    public void testHandleWrapperFactoryConstructor() throws Exception {
-        final Constructor<HandleWrapperFactory> constructor = HandleWrapperFactory.class.getDeclaredConstructor(new Class[0]);
-        constructor.setAccessible(true);
-
-        final HandleWrapperFactory createdObject = constructor.newInstance(new Object[0]);
-        assertNotNull(createdObject);
-    }
-    
     @Test
     public void testJsonUtilConstructor() throws Exception {
         final Constructor<JsonUtil> constructor = JsonUtil.class.getDeclaredConstructor(new Class[0]);

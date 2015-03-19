@@ -9,7 +9,7 @@ import javax.ws.rs.core.Response;
 
 import static org.junit.Assert.assertEquals;
 
-public class FaviconServletTest extends TestAbstract {
+public class UaiFaviconServletTest extends TestAbstract {
 
     @Test
     public void isReturning200OnIndex() {
