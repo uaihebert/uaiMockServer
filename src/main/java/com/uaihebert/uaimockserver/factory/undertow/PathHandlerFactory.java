@@ -2,10 +2,10 @@ package com.uaihebert.uaimockserver.factory.undertow;
 
 import com.uaihebert.uaimockserver.model.UaiWebSocketCallback;
 import com.uaihebert.uaimockserver.server.UaiMockServerHandler;
-import com.uaihebert.uaimockserver.servlet.AngularMapServlet;
-import com.uaihebert.uaimockserver.servlet.CssMapServlet;
-import com.uaihebert.uaimockserver.servlet.CssServlet;
-import com.uaihebert.uaimockserver.servlet.JavascriptServlet;
+import com.uaihebert.uaimockserver.servlet.UAiAngularMapServlet;
+import com.uaihebert.uaimockserver.servlet.UaiCssMapServlet;
+import com.uaihebert.uaimockserver.servlet.UaiCssServlet;
+import com.uaihebert.uaimockserver.servlet.UaiJavascriptServlet;
 import com.uaihebert.uaimockserver.servlet.UaiIndexServlet;
 import com.uaihebert.uaimockserver.servlet.UaiPageServlet;
 import com.uaihebert.uaimockserver.servlet.UaiRootConfigurationsServlet;
@@ -31,12 +31,10 @@ public final class PathHandlerFactory {
     }
 
     public static PathHandler create() throws ServletException {
-        final PathHandler path = Handlers.path(Handlers.redirect(SERVLET_CONTEXT_PATH))
+        return Handlers.path(Handlers.redirect(SERVLET_CONTEXT_PATH))
                 .addPrefixPath(SERVLET_CONTEXT_PATH, createHtmlManager())
                 .addPrefixPath(WEBSOCKET_CONTEXT_PATH, Handlers.websocket(new UaiWebSocketCallback()))
                 .addPrefixPath("/", new UaiMockServerHandler());
-
-        return path;
     }
 
     private static HttpHandler createHtmlManager() throws ServletException {
@@ -47,10 +45,10 @@ public final class PathHandlerFactory {
                 .addServlets(
                         servlet("UaiIndexServlet", UaiIndexServlet.class).addMapping("/index"),
                         servlet("UaiPageServlet", UaiPageServlet.class).addMapping("/page"),
-                        servlet("JavascriptServlet", JavascriptServlet.class).addMapping("/javascript"),
-                        servlet("CssServlet", CssServlet.class).addMapping("/css"),
-                        servlet("CssMapServlet", CssMapServlet.class).addMapping("/bootstrap.css.map"),
-                        servlet("AngularMapServlet", AngularMapServlet.class).addMapping("/angular.js.map"),
+                        servlet("JavascriptServlet", UaiJavascriptServlet.class).addMapping("/javascript"),
+                        servlet("CssServlet", UaiCssServlet.class).addMapping("/css"),
+                        servlet("CssMapServlet", UaiCssMapServlet.class).addMapping("/bootstrap.css.map"),
+                        servlet("AngularMapServlet", UAiAngularMapServlet.class).addMapping("/angular.js.map"),
                         servlet("UaiRouteServlet", UaiRouteServlet.class).addMapping("/uaiRoute"),
                         servlet("UaiRouteCloneServlet", UaiRouteCloneServlet.class).addMapping("/uaiRoute/clone"),
                         servlet("UaiRootConfigurationsServlet", UaiRootConfigurationsServlet.class).addMapping("/rootConfigurations")

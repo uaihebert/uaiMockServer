@@ -11,7 +11,7 @@ import javax.ws.rs.core.Response;
 import static org.junit.Assert.assertEquals;
 
 @RunWith(UaiMockServerRunner.class)
-public class AngularMapServletTest {
+public class UAiAngularMapServletTest {
 
     @Test
     public void isReturning200OnIndex() {

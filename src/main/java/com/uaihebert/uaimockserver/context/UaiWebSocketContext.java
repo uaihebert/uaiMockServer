@@ -11,10 +11,10 @@ import java.util.List;
 public final class UaiWebSocketContext {
     private static final int NO_CLIENT_IS_CLOSED_YET = -1;
 
+    private static final List<WebSocketChannel> CLIENT_LIST = new ArrayList<WebSocketChannel>();
+
     private UaiWebSocketContext() {
     }
-
-    private static final List<WebSocketChannel> CLIENT_LIST = new ArrayList<WebSocketChannel>();
 
     public static void addClient(final WebSocketChannel newClient) {
         synchronized (CLIENT_LIST){

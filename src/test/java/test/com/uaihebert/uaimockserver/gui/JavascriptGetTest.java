@@ -38,14 +38,4 @@ public class JavascriptGetTest {
 
         assertEquals("application/javascript", response.getMediaType().toString());
     }
-
-    @Test
-    public void isReturning500IfFileNotFound() {
-        final String url = AbstractTestServletTests.GUI_URL + "javascript/what";
-
-        Client client = ClientBuilder.newClient();
-        Response response = client.target(url).request().get();
-
-        assertEquals(404, response.getStatus());
-    }
 }

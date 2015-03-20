@@ -5,14 +5,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-public class AngularMapServlet extends AbstractServlet {
+public class UaiCssServlet extends AbstractServlet {
 
     @Override
     protected void doGet(final HttpServletRequest httpRequest, final HttpServletResponse httpResponse) throws ServletException, IOException {
-        httpResponse.setContentType("text/plain");
+        httpResponse.setContentType("text/css");
 
         super.addDefaultHeaders(httpResponse);
 
-        printResource(httpResponse.getOutputStream(), "/javascript/angular.min.js.map");
+        final String fileName = httpRequest.getParameter("fileName");
+
+        printResource(httpResponse.getOutputStream(), "/css/" + fileName + ".css");
     }
 }
