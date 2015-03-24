@@ -1,0 +1,36 @@
+{
+  "port": "1234",
+  "host": "localhost",
+  "fileLog": "false",
+  "consoleLog": "true",
+  "context": "/uaiMockServer",
+  "defaultContentTypeResponse": "text/html;charset=UTF-8",
+  "routeList": [
+    {
+      "request": {
+        "name": "Hello World",
+        "path": "/",
+        "method": "GET",
+        "requiredContentType": "text/html"
+      },
+      "response": {
+        "contentType": "application/json;charset=UTF-8",
+        "statusCode": 200,
+        "body": "{'mockBody':{'title':'Hello World'}}"
+      }
+    },
+    {
+      "request": {
+        "name": "To Be Edited",
+        "path": "/toBeEdited",
+        "method": "GET",
+        "requiredContentType": "text/html"
+      },
+      "response": {
+        "contentType": "application/json;charset=UTF-8",
+        "statusCode": 200,
+        "body": "{'mockBody':{'title':'Hello World'}}"
+      }
+    }
+  ]
+}

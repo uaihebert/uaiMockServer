@@ -54,6 +54,7 @@ public class UaiRouteServletPutTest extends AbstractTestServletTests {
 
         // rollback
         toUpdateRoute.getRequest().setDescription(oldDesc);
+        executePut(toUpdateRoute);
 
         assertEquals("making sure that both names are equals", newDesc, updatedDesc);
     }
@@ -67,7 +68,7 @@ public class UaiRouteServletPutTest extends AbstractTestServletTests {
         final IndexResponseDTO toUpdateIndex = new Gson().fromJson(bodyAsString, IndexResponseDTO.class);
 
         for (UaiRouteDTO uaiRouteDTO : toUpdateIndex.getRouteList()) {
-            if (uaiRouteDTO.getRequest().getName().equals(routeName)) {
+            if (routeName.equals(uaiRouteDTO.getRequest().getName())) {
                 return uaiRouteDTO;
             }
         }

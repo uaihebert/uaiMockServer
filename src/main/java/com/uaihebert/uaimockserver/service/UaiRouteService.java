@@ -14,7 +14,7 @@ public final class UaiRouteService {
 
         UaiRouteFactory.setDTOValueToEntity(uaiRoute, uaiRouteDTO);
 
-        UaiRouteRepository.update(uaiRoute);
+        UaiRouteRepository.update();
     }
 
     public static void createRoute(final UaiRouteDTO uaiRouteDTO) {

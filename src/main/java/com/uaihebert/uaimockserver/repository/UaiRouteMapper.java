@@ -20,25 +20,27 @@ public final class UaiRouteMapper {
     }
 
     public static void addRoute(final UaiRoute uaiRoute) {
-        final String key = RouteMapKeyUtil.createKey(uaiRoute.getRequest().getMethod(), uaiRoute.getRequest().getPath());
-
-        addRoute(key, uaiRoute);
-    }
-
-    private static void addRoute(final String key, final UaiRoute uaiRoute) {
         setInMapById(uaiRoute);
-        setInMapByPath(key, uaiRoute);
+        loadMapByKey();
     }
 
     private static void setInMapById(final UaiRoute uaiRoute) {
         ROUTE_MAP_BY_ID.put(uaiRoute.getId(), uaiRoute);
     }
 
-    public static void updateRoute(final UaiRoute uaiRoute) {
-        final String key = RouteMapKeyUtil.createKey(uaiRoute.getRequest().getMethod(), uaiRoute.getRequest().getPath());
+    public static void updateRoute() {
+        loadMapByKey();
+    }
 
-        deleteRoute(uaiRoute.getId());
-        addRoute(key, uaiRoute);
+    public static void loadMapByKey() {
+        synchronized (ROUTE_MAP_BY_PATH) {
+            ROUTE_MAP_BY_PATH.clear();
+
+            for (UaiRoute uaiRoute : ROUTE_MAP_BY_ID.values()) {
+                final String key = RouteMapKeyUtil.createKey(uaiRoute.getRequest().getMethod(), uaiRoute.getRequest().getPath());
+                setInMapByPath(key, uaiRoute);
+            }
+        }
     }
 
     public static UaiRoute deleteRoute(final String routeId) {
@@ -83,6 +85,7 @@ public final class UaiRouteMapper {
     }
 
     public static void resetRouteMapData() {
+        ROUTE_MAP_BY_ID.clear();
         ROUTE_MAP_BY_PATH.clear();
     }
 

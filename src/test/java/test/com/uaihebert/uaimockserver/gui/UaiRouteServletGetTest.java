@@ -2,36 +2,22 @@ package test.com.uaihebert.uaimockserver.gui;
 
 import com.google.gson.Gson;
 import com.uaihebert.uaimockserver.dto.response.IndexResponseDTO;
-import com.uaihebert.uaimockserver.model.UaiMockServerConfig;
-import com.uaihebert.uaimockserver.server.UaiMockServer;
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
+import com.uaihebert.uaimockserver.runner.UaiMockServerRunner;
+import com.uaihebert.uaimockserver.runner.UaiRunnerMockServerConfiguration;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import java.net.URL;
-
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
+@RunWith(UaiMockServerRunner.class)
+@UaiRunnerMockServerConfiguration(configurationFile = "configForListAllRoutes.json")
 public class UaiRouteServletGetTest {
-    private static UaiMockServer uaiMockServer;
-
-    @BeforeClass
-    public static void before() {
-        final URL resource = UaiMockServerConfig.class.getResource("/configForListAllRoutes.json");
-
-        uaiMockServer = UaiMockServer.start(resource.getFile());
-    }
-
-    @AfterClass
-    public static void after() {
-        uaiMockServer.shutdown();
-    }
 
     @Test
     public void isReturning200OnIndex() {

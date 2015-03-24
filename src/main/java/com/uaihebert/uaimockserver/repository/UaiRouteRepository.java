@@ -16,6 +16,7 @@ public final class UaiRouteRepository {
 
     public static void configureRouteData() {
         UaiRouteMapper.configureRouteData();
+        UaiRouteMapper.loadMapByKey();
     }
 
     public static UaiRoute findById(final String routeId) {
@@ -34,8 +35,8 @@ public final class UaiRouteRepository {
         flushData();
     }
 
-    public static void update(final UaiRoute uaiRoute) {
-        UaiRouteMapper.updateRoute(uaiRoute);
+    public static void update() {
+        UaiRouteMapper.updateRoute();
 
         flushData();
     }
@@ -62,6 +63,10 @@ public final class UaiRouteRepository {
 
     public static List<UaiRoute> listAllRoutes() {
         return UaiRouteMapper.listAllRoutes();
+    }
+
+    public static int count() {
+        return listAllRoutes().size();
     }
 
     public static void clearData() {

@@ -7,6 +7,8 @@ import org.junit.Test;
 
 import java.io.File;
 
+import static org.junit.Assert.assertTrue;
+
 public class FileUtilTest {
 
     @Test(expected = IllegalArgumentException.class)
@@ -26,5 +28,12 @@ public class FileUtilTest {
         UaiMockServerContext.getInstance().uaiMockServerConfig.setUaiFile(new UaiFile("\\invalid", "\\invalid"));
 
         FileUtil.writeUpdatesToFile();
+    }
+
+    @Test
+    public void isReturningFileWhenItIsValid() {
+        final File file = FileUtil.findFile("uaiMockServer.json");
+        final File fileThatExists = FileUtil.findFile(file.getAbsolutePath());
+        assertTrue("must be a real file", fileThatExists.isFile());
     }
 }
