@@ -43,6 +43,16 @@ public final class UaiRequestFactory {
         final List<UaiHeader> requiredHeaderList = UaiHeaderFactory.create(request.getRequiredHeaderList());
         final List<UaiQueryParam> requiredQueryParamList = UaiQueryParamFactory.create(request.getRequiredQueryParamList());
 
-        return new UaiRequest(name, path, method, description, contentType, holdRequestInMilli, bodyRequired, requiredHeaderList, requiredQueryParamList);
+        return new UaiRequest.UaiRequestBuilder()
+                .isBodyRequired(bodyRequired)
+                .holdTheRequestInMilli(holdRequestInMilli)
+                .name(name)
+                .path(path)
+                .method(method)
+                .description(description)
+                .requiredContentType(contentType)
+                .requiredHeaderList(requiredHeaderList)
+                .requiredQueryParamList(requiredQueryParamList)
+                .build();
     }
 }

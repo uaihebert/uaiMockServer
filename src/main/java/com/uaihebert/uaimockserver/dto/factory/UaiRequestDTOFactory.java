@@ -13,13 +13,13 @@ public final class UaiRequestDTOFactory {
 
     public static UaiRequestDTO create(final UaiRequest uaiRequest) {
         final UaiRequestDTO uaiRequestDTO = new UaiRequestDTO();
-        uaiRequestDTO.setBodyRequired(uaiRequest.isBodyRequired());
-        uaiRequestDTO.setHoldRequestInMilli(uaiRequest.getHoldTheRequestInMilli());
-        uaiRequestDTO.setMethod(uaiRequest.getMethod());
-        uaiRequestDTO.setName(uaiRequest.getName());
-        uaiRequestDTO.setDescription(uaiRequest.getDescription());
-        uaiRequestDTO.setPath(uaiRequest.getPath());
-        uaiRequestDTO.setRequiredContentType(uaiRequest.getRequiredContentType());
+        uaiRequestDTO.setBodyRequired(uaiRequest.isBodyRequired);
+        uaiRequestDTO.setHoldRequestInMilli(uaiRequest.holdTheRequestInMilli);
+        uaiRequestDTO.setMethod(uaiRequest.method);
+        uaiRequestDTO.setName(uaiRequest.name);
+        uaiRequestDTO.setDescription(uaiRequest.description);
+        uaiRequestDTO.setPath(uaiRequest.path);
+        uaiRequestDTO.setRequiredContentType(uaiRequest.requiredContentType);
 
         final List<UaiHeaderDTO> uaiHeaderDTOList = UaiHeaderDTOFactory.create(uaiRequest.getRequiredHeaderList());
         uaiRequestDTO.setRequiredHeaderList(uaiHeaderDTOList);

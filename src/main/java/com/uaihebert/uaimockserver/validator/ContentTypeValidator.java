@@ -30,7 +30,7 @@ public final class ContentTypeValidator implements RequestDataValidator {
 
     @Override
     public boolean isInvalid(final UaiRequest uaiRequest, final HttpServerExchange exchange) {
-        final String requiredContentType = uaiRequest.getRequiredContentType();
+        final String requiredContentType = uaiRequest.requiredContentType;
 
         if (StringUtils.isBlank(requiredContentType)) {
             return false;

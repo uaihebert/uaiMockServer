@@ -22,60 +22,32 @@ import java.util.List;
  * Class that will hold all the request data
  */
 public final class UaiRequest {
-    private String name;
-    private String path;
-    private String method;
-    private String description;
-    private String requiredContentType;
+    public final String name;
+    public final String path;
+    public final String method;
+    public final String description;
+    public final String requiredContentType;
 
-    private Long holdTheRequestInMilli;
+    public final Long holdTheRequestInMilli;
 
-    private Boolean isBodyRequired;
+    public final Boolean isBodyRequired;
 
     private List<UaiHeader> requiredHeaderList;
     private List<UaiQueryParam> requiredQueryParamList;
 
-    public UaiRequest() {
-    }
+    private UaiRequest(final UaiRequestBuilder builder) {
+        this.name = builder.name;
+        this.path = builder.path;
+        this.method = builder.method;
+        this.description = builder.description;
+        this.requiredContentType = builder.requiredContentType;
 
-    public UaiRequest(final String name, final String path, final String method, final String description, final String requiredContentType, final Long holdTheRequestInMilli, final Boolean isBodyRequired, final List<UaiHeader> requiredHeaderList, final List<UaiQueryParam> requiredQueryParamList) {
-        this.name = name;
-        this.path = path;
-        this.method = method;
-        this.description = description;
-        this.requiredContentType = requiredContentType;
-        this.holdTheRequestInMilli = holdTheRequestInMilli;
-        this.isBodyRequired = isBodyRequired;
-        this.requiredHeaderList = requiredHeaderList;
-        this.requiredQueryParamList = requiredQueryParamList;
-    }
+        this.holdTheRequestInMilli = builder.holdTheRequestInMilli;
 
-    public String getName() {
-        return name;
-    }
+        this.isBodyRequired = builder.isBodyRequired;
 
-    public String getPath() {
-        return path;
-    }
-
-    public String getMethod() {
-        return method;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public String getRequiredContentType() {
-        return requiredContentType;
-    }
-
-    public Long getHoldTheRequestInMilli() {
-        return holdTheRequestInMilli;
-    }
-
-    public Boolean isBodyRequired() {
-        return isBodyRequired;
+        this.requiredHeaderList = builder.requiredHeaderList;
+        this.requiredQueryParamList = builder.requiredQueryParamList;
     }
 
     public List<UaiHeader> getRequiredHeaderList() {
@@ -92,5 +64,69 @@ public final class UaiRequest {
         }
 
         return requiredQueryParamList;
+    }
+
+    public static class UaiRequestBuilder {
+        private String name;
+        private String path;
+        private String method;
+        private String description;
+        private String requiredContentType;
+
+        private Long holdTheRequestInMilli;
+
+        private Boolean isBodyRequired;
+
+        private List<UaiHeader> requiredHeaderList;
+        private List<UaiQueryParam> requiredQueryParamList;
+
+        public UaiRequestBuilder name(final String name) {
+            this.name = name;
+            return this;
+        }
+
+        public UaiRequestBuilder path(final String path) {
+            this.path = path;
+            return this;
+        }
+
+        public UaiRequestBuilder method(final String method) {
+            this.method = method;
+            return this;
+        }
+
+        public UaiRequestBuilder description(final String description) {
+            this.description = description;
+            return this;
+        }
+
+        public UaiRequestBuilder requiredContentType(final String requiredContentType) {
+            this.requiredContentType = requiredContentType;
+            return this;
+        }
+
+        public UaiRequestBuilder holdTheRequestInMilli(final Long holdTheRequestInMilli) {
+            this.holdTheRequestInMilli = holdTheRequestInMilli;
+            return this;
+        }
+
+        public UaiRequestBuilder isBodyRequired(final Boolean isBodyRequired) {
+            this.isBodyRequired = isBodyRequired;
+            return this;
+        }
+
+        public UaiRequestBuilder requiredHeaderList(final List<UaiHeader> requiredHeaderList) {
+            this.requiredHeaderList = requiredHeaderList;
+            return this;
+        }
+
+        public UaiRequestBuilder requiredQueryParamList(final List<UaiQueryParam> requiredQueryParamList) {
+            this.requiredQueryParamList = requiredQueryParamList;
+            return this;
+        }
+
+        public UaiRequest build() {
+            return new UaiRequest(this);
+        }
     }
 }

@@ -61,20 +61,22 @@ public final class UaiRouteFactory {
     public static UaiRoute clone(final UaiRoute uaiRoute) {
         final UaiRequest request = uaiRoute.getRequest();
 
-        final String newName = CLONE_PREFIX + request.getName();
-        final String newPath = request.getPath() + CLONE_SUFFIX;
+        final String newName = CLONE_PREFIX + request.name;
+        final String newPath = request.path + CLONE_SUFFIX;
 
-        final UaiRequest clonedRequest = new UaiRequest(
-                newName,
-                newPath,
-                request.getMethod(),
-                request.getDescription(),
-                request.getRequiredContentType(),
-                request.getHoldTheRequestInMilli(),
-                request.isBodyRequired(),
-                request.getRequiredHeaderList(),
-                request.getRequiredQueryParamList()
-        );
+
+
+        final UaiRequest clonedRequest = new UaiRequest.UaiRequestBuilder()
+                .isBodyRequired(request.isBodyRequired)
+                .holdTheRequestInMilli(request.holdTheRequestInMilli)
+                .name(newName)
+                .path(newPath)
+                .method(request.method)
+                .description(request.description)
+                .requiredContentType(request.requiredContentType)
+                .requiredHeaderList(request.getRequiredHeaderList())
+                .requiredQueryParamList(request.getRequiredQueryParamList())
+                .build();
 
         return new UaiRoute(uaiRoute.getUaiFile(), clonedRequest, uaiRoute.getResponse());
     }

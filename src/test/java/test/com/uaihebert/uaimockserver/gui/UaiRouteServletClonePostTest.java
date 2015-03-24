@@ -31,7 +31,7 @@ public class UaiRouteServletClonePostTest {
         final String requestName = UUID.randomUUID().toString();
         final String clonedName = UaiRouteFactory.CLONE_PREFIX + requestName;
 
-        final UaiRequest request = new UaiRequest(requestName, null, null, null, null, null, null, null, null);
+        final UaiRequest request = new UaiRequest.UaiRequestBuilder().name(requestName).build();
 
         final UaiRoute uaiRoute = new UaiRoute(new UaiFile("any", "any"), request, new UaiResponse());
         uaiRoute.createId();
@@ -51,7 +51,7 @@ public class UaiRouteServletClonePostTest {
         for (UaiRoute route : routeList) {
             final UaiRequest uaiRequest = route.getRequest();
 
-            if (clonedName.equals(uaiRequest.getName())) {
+            if (clonedName.equals(uaiRequest.name)) {
                 return;
             }
         }

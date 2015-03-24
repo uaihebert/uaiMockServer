@@ -14,6 +14,7 @@ import java.util.Set;
 
 public final class UaiRouteMapper {
     private static final Map<String, UaiRoute> ROUTE_MAP_BY_ID = new HashMap<String, UaiRoute>();
+    private static final Map<String, UaiRoute> ROUTE_MAP_BY_APPLICATION = new HashMap<String, UaiRoute>();
     private static final Map<String, Set<UaiRoute>> ROUTE_MAP_BY_PATH = new HashMap<String, Set<UaiRoute>>();
 
     private UaiRouteMapper() {
@@ -37,7 +38,7 @@ public final class UaiRouteMapper {
             ROUTE_MAP_BY_PATH.clear();
 
             for (UaiRoute uaiRoute : ROUTE_MAP_BY_ID.values()) {
-                final String key = RouteMapKeyUtil.createKey(uaiRoute.getRequest().getMethod(), uaiRoute.getRequest().getPath());
+                final String key = RouteMapKeyUtil.createKey(uaiRoute.getRequest().method, uaiRoute.getRequest().path);
                 setInMapByPath(key, uaiRoute);
             }
         }
@@ -46,7 +47,7 @@ public final class UaiRouteMapper {
     public static UaiRoute deleteRoute(final String routeId) {
         final UaiRoute routeToDelete = ROUTE_MAP_BY_ID.get(routeId);
 
-        final String key = RouteMapKeyUtil.createKey(routeToDelete.getRequest().getMethod(), routeToDelete.getRequest().getPath());
+        final String key = RouteMapKeyUtil.createKey(routeToDelete.getRequest().method, routeToDelete.getRequest().path);
 
         final Set<UaiRoute> uaiRouteList = getRouteList(key);
         uaiRouteList.remove(routeToDelete);

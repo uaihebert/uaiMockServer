@@ -27,8 +27,8 @@ public final class BodyValidator implements RequestDataValidator {
 
     @Override
     public boolean isInvalid(final UaiRequest uaiRequest, final HttpServerExchange exchange) {
-        if (uaiRequest.isBodyRequired() != null && uaiRequest.isBodyRequired() && exchange.getRequestContentLength() < 1) {
-            Log.warn(BODY_VALIDATOR_ERROR_MESSAGE, uaiRequest.getMethod(), uaiRequest.getPath());
+        if (uaiRequest.isBodyRequired != null && uaiRequest.isBodyRequired && exchange.getRequestContentLength() < 1) {
+            Log.warn(BODY_VALIDATOR_ERROR_MESSAGE, uaiRequest.method, uaiRequest.path);
             return true;
         }
 
