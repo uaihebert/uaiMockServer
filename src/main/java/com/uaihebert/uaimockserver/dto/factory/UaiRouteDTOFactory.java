@@ -36,6 +36,7 @@ public final class UaiRouteDTOFactory {
 
         final UaiRouteDTO uaiRouteDTO = new UaiRouteDTO();
         uaiRouteDTO.setId(uaiRoute.getId());
+        uaiRouteDTO.setProject(uaiRoute.getProject());
         uaiRouteDTO.setUaiFile(uaiFileDTO);
         uaiRouteDTO.setRequest(uaiRequestDTO);
         uaiRouteDTO.setResponse(uaiResponseDTO);

@@ -40,10 +40,10 @@ public final class UaiRouteFactory {
         final UaiFile uaiFile = new UaiFile(uaiRouteDTO.getUaiFile().getName(), uaiRouteDTO.getUaiFile().getFullPath());
 
         if (StringUtils.isBlank(uaiRouteDTO.getId())) {
-            return new UaiRoute(uaiFile, uaiRequest, uaiResponse);
+            return new UaiRoute(uaiFile, uaiRequest, uaiResponse, uaiRouteDTO.getProject());
         }
 
-        return new UaiRoute(uaiRouteDTO.getId(), uaiFile, uaiRequest, uaiResponse);
+        return new UaiRoute(uaiRouteDTO.getId(), uaiFile, uaiRequest, uaiResponse, uaiRouteDTO.getProject());
     }
 
     public static void setDTOValueToEntity(final UaiRoute uaiRoute, final UaiRouteDTO uaiRouteDTO) {
@@ -64,8 +64,6 @@ public final class UaiRouteFactory {
         final String newName = CLONE_PREFIX + request.name;
         final String newPath = request.path + CLONE_SUFFIX;
 
-
-
         final UaiRequest clonedRequest = new UaiRequest.UaiRequestBuilder()
                 .isBodyRequired(request.isBodyRequired)
                 .holdTheRequestInMilli(request.holdTheRequestInMilli)
@@ -78,6 +76,6 @@ public final class UaiRouteFactory {
                 .requiredQueryParamList(request.getRequiredQueryParamList())
                 .build();
 
-        return new UaiRoute(uaiRoute.getUaiFile(), clonedRequest, uaiRoute.getResponse());
+        return new UaiRoute(uaiRoute.getUaiFile(), clonedRequest, uaiRoute.getResponse(), uaiRoute.getProject());
     }
 }

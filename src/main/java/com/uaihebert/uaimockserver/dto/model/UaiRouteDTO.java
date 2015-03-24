@@ -2,6 +2,7 @@ package com.uaihebert.uaimockserver.dto.model;
 
 public class UaiRouteDTO {
     private String id;
+    private String project;
     private UaiFileDTO uaiFile;
     private UaiRequestDTO request;
     private UaiResponseDTO response;
@@ -39,5 +40,13 @@ public class UaiRouteDTO {
 
     public void setResponse(final UaiResponseDTO response) {
         this.response = response;
+    }
+
+    public String getProject() {
+        return project;
+    }
+
+    public void setProject(final String project) {
+        this.project = project;
     }
 }

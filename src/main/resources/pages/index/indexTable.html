@@ -1,4 +1,8 @@
 <div>
+    Filter by Project: <select class="form-control" ng-model="currentProject" ng-options="project for project in projectList" ng-change="loadTable(currentProject)" >
+    </select>
+    <br/>
+
     <table class="table table-hover pointer" ts-wrapper>
         <thead>
             <colgroup>

@@ -66,10 +66,15 @@ public final class UaiRequest {
         return requiredQueryParamList;
     }
 
+    /**
+     * Request Builder
+     * The only way to create an object of the UaiRequest type
+     */
     public static class UaiRequestBuilder {
         private String name;
         private String path;
         private String method;
+        private String project;
         private String description;
         private String requiredContentType;
 

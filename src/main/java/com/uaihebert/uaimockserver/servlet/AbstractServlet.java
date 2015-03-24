@@ -11,6 +11,8 @@ import java.io.OutputStream;
 
 class AbstractServlet extends HttpServlet {
     void writeInResponse(final HttpServletResponse httpResponse, final String text) throws IOException {
+        httpResponse.setContentType("application/json");
+
         final OutputStream outputStream = httpResponse.getOutputStream();
 
         try {

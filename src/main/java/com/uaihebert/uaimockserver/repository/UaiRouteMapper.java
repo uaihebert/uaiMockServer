@@ -1,9 +1,10 @@
 package com.uaihebert.uaimockserver.repository;
 
-import com.uaihebert.uaimockserver.model.UaiMockServerConfig;
 import com.uaihebert.uaimockserver.context.UaiMockServerContext;
+import com.uaihebert.uaimockserver.model.UaiMockServerConfig;
 import com.uaihebert.uaimockserver.model.UaiRoute;
 import com.uaihebert.uaimockserver.util.RouteMapKeyUtil;
+import com.uaihebert.uaimockserver.util.StringUtils;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -13,9 +14,11 @@ import java.util.Map;
 import java.util.Set;
 
 public final class UaiRouteMapper {
+    public static final String ALL_PROJECT = "ALL_PROJECTS";
+
     private static final Map<String, UaiRoute> ROUTE_MAP_BY_ID = new HashMap<String, UaiRoute>();
-    private static final Map<String, UaiRoute> ROUTE_MAP_BY_APPLICATION = new HashMap<String, UaiRoute>();
     private static final Map<String, Set<UaiRoute>> ROUTE_MAP_BY_PATH = new HashMap<String, Set<UaiRoute>>();
+    private static final Map<String, Set<UaiRoute>> ROUTE_MAP_BY_APPLICATION = new HashMap<String, Set<UaiRoute>>();
 
     private UaiRouteMapper() {
     }
@@ -75,7 +78,17 @@ public final class UaiRouteMapper {
         return uaiRouteList;
     }
 
-    public static List<UaiRoute> listAllRoutes() {
+    public static List<UaiRoute> listAllRoutes(final String selectedProject) {
+        if (StringUtils.isBlank(selectedProject)) {
+            return extractWithoutFilter();
+        }
+
+        final List<UaiRoute> resultList = new ArrayList<UaiRoute>(ROUTE_MAP_BY_APPLICATION.get(selectedProject));
+
+        return resultList;
+    }
+
+    private static List<UaiRoute> extractWithoutFilter() {
         final List<UaiRoute> resultList = new ArrayList<UaiRoute>();
 
         for (Set<UaiRoute> uaiRouteList : ROUTE_MAP_BY_PATH.values()) {
@@ -88,6 +101,7 @@ public final class UaiRouteMapper {
     public static void resetRouteMapData() {
         ROUTE_MAP_BY_ID.clear();
         ROUTE_MAP_BY_PATH.clear();
+        ROUTE_MAP_BY_APPLICATION.clear();
     }
 
     public static Set<UaiRoute> findRouteListByKey(final String requestKey) {
@@ -118,5 +132,39 @@ public final class UaiRouteMapper {
                 UaiRouteRepository.addFromFile(uaiRoute);
             }
         }
+    }
+
+    public static void loadRouteByProject() {
+        ROUTE_MAP_BY_APPLICATION.clear();
+
+        final List<UaiRoute> uaiRouteList = UaiRouteRepository.listAllRoutes();
+        ROUTE_MAP_BY_APPLICATION.put(ALL_PROJECT, new HashSet<UaiRoute>(uaiRouteList));
+
+        for (UaiRoute uaiRoute : uaiRouteList) {
+            final String project = uaiRoute.getProject();
+
+            if (StringUtils.isBlank(project)) {
+                continue;
+            }
+
+            final Set<UaiRoute> uaiRouteSet;
+
+            if (!ROUTE_MAP_BY_APPLICATION.containsKey(project)) {
+                uaiRouteSet = new HashSet<UaiRoute>();
+                ROUTE_MAP_BY_APPLICATION.put(project, uaiRouteSet);
+            } else {
+                uaiRouteSet = ROUTE_MAP_BY_APPLICATION.get(project);
+            }
+
+            uaiRouteSet.add(uaiRoute);
+        }
+    }
+
+    public static List<String> extractProjectFromRoutes() {
+        final ArrayList<String> projectList = new ArrayList<String>(ROUTE_MAP_BY_APPLICATION.keySet());
+
+        projectList.remove(ALL_PROJECT);
+
+        return projectList;
     }
 }

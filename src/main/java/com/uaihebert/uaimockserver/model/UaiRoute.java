@@ -23,6 +23,7 @@ import java.util.UUID;
  */
 public class UaiRoute {
     private String id;
+    private String project;
     private UaiFile uaiFile;
     private UaiRequest request;
     private UaiResponse response;
@@ -31,18 +32,20 @@ public class UaiRoute {
 
     }
 
-    public UaiRoute(final UaiFile uaiFile, final UaiRequest request, final UaiResponse response) {
+    public UaiRoute(final UaiFile uaiFile, final UaiRequest request, final UaiResponse response, final String project) {
         createId();
         this.uaiFile = uaiFile;
         this.request = request;
         this.response = response;
+        this.project = project;
     }
 
-    public UaiRoute(final String id, final UaiFile uaiFile, final UaiRequest request, final UaiResponse response) {
+    public UaiRoute(final String id, final UaiFile uaiFile, final UaiRequest request, final UaiResponse response, final String project) {
         this.id = id;
         this.uaiFile = uaiFile;
         this.request = request;
         this.response = response;
+        this.project = project;
     }
 
     public void createId() {
@@ -90,5 +93,13 @@ public class UaiRoute {
 
     public void setResponse(final UaiResponse response) {
         this.response = response;
+    }
+
+    public String getProject() {
+        return project;
+    }
+
+    public void setProject(final String project) {
+        this.project = project;
     }
 }

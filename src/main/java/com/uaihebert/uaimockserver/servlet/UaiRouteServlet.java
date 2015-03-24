@@ -5,6 +5,7 @@ import com.uaihebert.uaimockserver.dto.factory.UaiRouteDTOFactory;
 import com.uaihebert.uaimockserver.dto.model.UaiRouteDTO;
 import com.uaihebert.uaimockserver.dto.response.IndexResponseDTO;
 import com.uaihebert.uaimockserver.model.UaiRoute;
+import com.uaihebert.uaimockserver.repository.UaiRouteMapper;
 import com.uaihebert.uaimockserver.repository.UaiRouteRepository;
 import com.uaihebert.uaimockserver.service.UaiRouteService;
 import com.uaihebert.uaimockserver.util.JsonUtil;
@@ -20,20 +21,25 @@ public class UaiRouteServlet extends AbstractServlet {
 
     @Override
     protected void doGet(final HttpServletRequest httpRequest, final HttpServletResponse httpResponse) throws ServletException, IOException {
-        httpResponse.setContentType("application/json");
+        final String selectedProject = httpRequest.getParameter("selectedProject");
+
+        System.out.println(selectedProject);
 
         super.addDefaultHeaders(httpResponse);
 
-        final String body = createIndexGetResponse();
+        final String body = createIndexGetResponse(selectedProject);
 
         writeInResponse(httpResponse, body);
     }
 
-    private String createIndexGetResponse() {
-        final List<UaiRoute> uaiRouteList = UaiRouteRepository.listAllRoutes();
+    private String createIndexGetResponse(final String selectedProject) {
+        final List<UaiRoute> uaiRouteList = UaiRouteRepository.listAllRoutes(selectedProject);
 
         final IndexResponseDTO indexResponseDTO = new IndexResponseDTO();
+
         indexResponseDTO.setRouteList(UaiRouteDTOFactory.create(uaiRouteList));
+        indexResponseDTO.setDefaultProject(UaiRouteMapper.ALL_PROJECT);
+        indexResponseDTO.setProjectList(UaiRouteMapper.extractProjectFromRoutes());
         indexResponseDTO.setRootConfiguration(UaiBasicConfigurationDTOFactory.create());
 
         return JsonUtil.toJson(indexResponseDTO);

@@ -17,6 +17,7 @@ public final class UaiRouteRepository {
     public static void configureRouteData() {
         UaiRouteMapper.configureRouteData();
         UaiRouteMapper.loadMapByKey();
+        UaiRouteMapper.loadRouteByProject();
     }
 
     public static UaiRoute findById(final String routeId) {
@@ -62,7 +63,11 @@ public final class UaiRouteRepository {
     }
 
     public static List<UaiRoute> listAllRoutes() {
-        return UaiRouteMapper.listAllRoutes();
+        return listAllRoutes(null);
+    }
+
+    public static List<UaiRoute> listAllRoutes(final String selectedProject) {
+        return UaiRouteMapper.listAllRoutes(selectedProject);
     }
 
     public static int count() {

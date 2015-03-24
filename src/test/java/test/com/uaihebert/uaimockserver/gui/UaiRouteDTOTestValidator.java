@@ -28,6 +28,7 @@ public final class UaiRouteDTOTestValidator {
         assertNotNull("must have a routList", uaiRouteDTOList.getHttpMethodArray());
 
         assertTrue("Must have httpMethods", uaiRouteDTOList.getHttpMethodArray().length > 0);
+        assertTrue("Must have default project", StringUtils.isNotBlank(uaiRouteDTOList.getDefaultProject()));
 
         validateBasicConfiguration(uaiRouteDTOList);
     }
@@ -50,6 +51,7 @@ public final class UaiRouteDTOTestValidator {
 
     private static void validate(final UaiRouteDTO uaiRouteDTO) {
         assertTrue(StringUtils.isNotBlank(uaiRouteDTO.getId()));
+        assertTrue(StringUtils.isNotBlank(uaiRouteDTO.getProject()));
         validateUaiFile(uaiRouteDTO.getUaiFile());
         validateRequest(uaiRouteDTO.getRequest());
         validateResponse(uaiRouteDTO.getResponse());

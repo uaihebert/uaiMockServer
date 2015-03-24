@@ -7,6 +7,7 @@
   "defaultContentTypeResponse": "text/html;charset=UTF-8",
   "routeList": [
     {
+      "project":"project01",
       "request": {
         "name": "All Configurations 01",
         "path": "/allConfigs01",
@@ -69,6 +70,7 @@
       }
     },
     {
+      "project":"project01",
       "request": {
         "name": "All Configurations 02",
         "path": "/allConfigs02",

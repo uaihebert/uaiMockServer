@@ -26,6 +26,7 @@ import static org.junit.Assert.fail;
 @RunWith(UaiMockServerRunner.class)
 @UaiRunnerMockServerConfiguration(configurationFile = "routePostTest.json")
 public class UaiRouteServletClonePostTest {
+
     @Test
     public void isCloning() {
         final String requestName = UUID.randomUUID().toString();
@@ -33,7 +34,7 @@ public class UaiRouteServletClonePostTest {
 
         final UaiRequest request = new UaiRequest.UaiRequestBuilder().name(requestName).build();
 
-        final UaiRoute uaiRoute = new UaiRoute(new UaiFile("any", "any"), request, new UaiResponse());
+        final UaiRoute uaiRoute = new UaiRoute(new UaiFile("any", "any"), request, new UaiResponse(), null);
         uaiRoute.createId();
 
         UaiRouteRepository.create(uaiRoute);

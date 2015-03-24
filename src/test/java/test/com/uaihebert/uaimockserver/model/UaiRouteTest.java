@@ -12,23 +12,23 @@ public class UaiRouteTest {
 
     @Test
     public void isEqualsWorking() {
-        final UaiRoute uaiRoute1 = new UaiRoute("111", null, null, null);
-        final UaiRoute uaiRoute2 = new UaiRoute("111", null, null, null);
+        final UaiRoute uaiRoute1 = new UaiRoute("111", null, null, null, null);
+        final UaiRoute uaiRoute2 = new UaiRoute("111", null, null, null, null);
 
         assertTrue(uaiRoute1.equals(uaiRoute2));
     }
 
     @Test
     public void isNotEqualsWorking1() {
-        final UaiRoute uaiRoute1 = new UaiRoute("111", null, null, null);
-        final UaiRoute uaiRoute2 = new UaiRoute("222", null, null, null);
+        final UaiRoute uaiRoute1 = new UaiRoute("111", null, null, null, null);
+        final UaiRoute uaiRoute2 = new UaiRoute("222", null, null, null, null);
 
         assertFalse(uaiRoute1.equals(uaiRoute2));
     }
 
     @Test
     public void isNotEqualsWorking2() {
-        final UaiRoute uaiRoute1 = new UaiRoute("111", null, null, null);
+        final UaiRoute uaiRoute1 = new UaiRoute("111", null, null, null, null);
 
         assertFalse(uaiRoute1.equals(new Date()));
     }

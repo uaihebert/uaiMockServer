@@ -12,6 +12,9 @@ public class IndexResponseDTO {
     private List<UaiRouteDTO> routeList;
     private UaiRootConfigurationDTO rootConfiguration;
 
+    private String defaultProject;
+    private List<String> projectList;
+
     public HttpMethod[] getHttpMethodArray() {
         return httpMethodArray;
     }
@@ -30,5 +33,21 @@ public class IndexResponseDTO {
 
     public void setRootConfiguration(final UaiRootConfigurationDTO rootConfiguration) {
         this.rootConfiguration = rootConfiguration;
+    }
+
+    public String getDefaultProject() {
+        return defaultProject;
+    }
+
+    public void setDefaultProject(final String defaultProject) {
+        this.defaultProject = defaultProject;
+    }
+
+    public List<String> getProjectList() {
+        return projectList;
+    }
+
+    public void setProjectList(final List<String> projectList) {
+        this.projectList = projectList;
     }
 }

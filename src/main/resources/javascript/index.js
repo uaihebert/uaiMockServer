@@ -7,13 +7,38 @@ app.config(['growlProvider', function(growlProvider) {
 }]);
 
 app.controller('routeController', function($scope, $http, growl, $location) {
-    $scope.loadTable = function(){
+    $scope.currentProject = "";
+
+    $scope.loadTable = function(selectedProject){
         $scope.isCollapsed = true;
-        $http.get('/uaiGui/uaiRoute').
+
+        $scope.projectFilter = "";
+
+        if (selectedProject != null && selectedProject != "") {
+            $scope.currentProject = selectedProject;
+        }
+
+        if ($scope.currentProject != "") {
+            $scope.projectFilter = "?selectedProject=" + $scope.currentProject;
+        }
+
+        $http.get('/uaiGui/uaiRoute' + $scope.projectFilter).
             success(function(data) {
                 $scope.routeRowList = [];
                 $scope.rootConfiguration = data.rootConfiguration;
                 $scope.httpMethodArray = data.httpMethodArray;
+
+                $scope.projectList = [];
+
+                if ($scope.currentProject == "") {
+                    $scope.currentProject = data.defaultProject;
+                }
+
+                $scope.projectList.push(data.defaultProject);
+
+                if (data.projectList != null && data.projectList.length > 0) {
+                    $scope.projectList =  $scope.projectList.concat(data.projectList);
+                }
 
                 for (var i = 0; i < data.routeList.length; i++) {
                     var routeRow = {};
