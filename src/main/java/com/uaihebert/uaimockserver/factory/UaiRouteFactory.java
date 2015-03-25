@@ -56,6 +56,7 @@ public final class UaiRouteFactory {
         uaiRoute.setRequest(uaiRequest);
         uaiRoute.setResponse(uaiResponse);
         uaiRoute.setUaiFile(uaiFile);
+        uaiRoute.setProject(uaiRouteDTO.getProject());
     }
 
     public static UaiRoute clone(final UaiRoute uaiRoute) {

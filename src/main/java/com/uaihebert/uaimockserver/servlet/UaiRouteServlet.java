@@ -23,8 +23,6 @@ public class UaiRouteServlet extends AbstractServlet {
     protected void doGet(final HttpServletRequest httpRequest, final HttpServletResponse httpResponse) throws ServletException, IOException {
         final String selectedProject = httpRequest.getParameter("selectedProject");
 
-        System.out.println(selectedProject);
-
         super.addDefaultHeaders(httpResponse);
 
         final String body = createIndexGetResponse(selectedProject);

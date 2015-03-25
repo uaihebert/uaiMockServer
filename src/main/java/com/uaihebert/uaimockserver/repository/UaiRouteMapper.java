@@ -34,6 +34,7 @@ public final class UaiRouteMapper {
 
     public static void updateRoute() {
         loadMapByKey();
+        loadRouteByProject();
     }
 
     public static void loadMapByKey() {
