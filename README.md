@@ -31,7 +31,7 @@ You need to add the project to your pom:
 <dependency>
     <groupId>uaihebert.com</groupId>
     <artifactId>uaiMockServer</artifactId>
-    <version>1.1.1</version>
+    <version>1.1.2</version>
     <scope>test</scope>
 </dependency>
 ```
