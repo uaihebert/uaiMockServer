@@ -74,7 +74,6 @@ public final class UaiRequest {
         private String name;
         private String path;
         private String method;
-        private String project;
         private String description;
         private String requiredContentType;
 

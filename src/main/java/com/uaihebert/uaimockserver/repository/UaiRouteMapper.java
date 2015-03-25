@@ -14,7 +14,7 @@ import java.util.Map;
 import java.util.Set;
 
 public final class UaiRouteMapper {
-    public static final String ALL_PROJECT = "ALL_PROJECTS";
+    public static final String ALL_PROJECT = "ALL PROJECTS";
 
     private static final Map<String, UaiRoute> ROUTE_MAP_BY_ID = new HashMap<String, UaiRoute>();
     private static final Map<String, Set<UaiRoute>> ROUTE_MAP_BY_PATH = new HashMap<String, Set<UaiRoute>>();
@@ -58,6 +58,9 @@ public final class UaiRouteMapper {
 
         ROUTE_MAP_BY_ID.remove(routeToDelete.getId());
 
+        loadMapByKey();
+        loadRouteByProject();
+
         return routeToDelete;
     }
 
@@ -80,13 +83,11 @@ public final class UaiRouteMapper {
     }
 
     public static List<UaiRoute> listAllRoutes(final String selectedProject) {
-        if (StringUtils.isBlank(selectedProject)) {
+        if (!ROUTE_MAP_BY_APPLICATION.containsKey(selectedProject)) {
             return extractWithoutFilter();
         }
 
-        final List<UaiRoute> resultList = new ArrayList<UaiRoute>(ROUTE_MAP_BY_APPLICATION.get(selectedProject));
-
-        return resultList;
+        return new ArrayList<UaiRoute>(ROUTE_MAP_BY_APPLICATION.get(selectedProject));
     }
 
     private static List<UaiRoute> extractWithoutFilter() {
@@ -162,7 +163,7 @@ public final class UaiRouteMapper {
     }
 
     public static List<String> extractProjectFromRoutes() {
-        final ArrayList<String> projectList = new ArrayList<String>(ROUTE_MAP_BY_APPLICATION.keySet());
+        final List<String> projectList = new ArrayList<String>(ROUTE_MAP_BY_APPLICATION.keySet());
 
         projectList.remove(ALL_PROJECT);
 

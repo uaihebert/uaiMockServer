@@ -63,7 +63,7 @@ public final class UaiRouteRepository {
     }
 
     public static List<UaiRoute> listAllRoutes() {
-        return listAllRoutes(null);
+        return listAllRoutes(UaiRouteMapper.ALL_PROJECT);
     }
 
     public static List<UaiRoute> listAllRoutes(final String selectedProject) {
