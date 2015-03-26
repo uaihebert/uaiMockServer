@@ -4,6 +4,8 @@ import com.uaihebert.uaimockserver.context.UaiMockServerContext;
 import com.uaihebert.uaimockserver.log.backend.Log;
 import com.uaihebert.uaimockserver.model.UaiRoute;
 import com.uaihebert.uaimockserver.util.FileUtil;
+import com.uaihebert.uaimockserver.util.RouteMapKeyUtil;
+import io.undertow.server.HttpServerExchange;
 
 import java.util.List;
 import java.util.Set;
@@ -54,7 +56,9 @@ public final class UaiRouteRepository {
         FileUtil.writeUpdatesToFile();
     }
 
-    public static Set<UaiRoute> findRouteListByKey(final String requestKey) {
+    public static Set<UaiRoute> findRouteListByKey(final HttpServerExchange httpServerExchange) {
+        final String requestKey = RouteMapKeyUtil.createKeyFromRequest(httpServerExchange);
+
         final Set<UaiRoute> routeList = UaiRouteMapper.findRouteListByKey(requestKey);
 
         Log.infoFormatted(ROUTE_FOUND_TEXT, routeList.size(), requestKey);

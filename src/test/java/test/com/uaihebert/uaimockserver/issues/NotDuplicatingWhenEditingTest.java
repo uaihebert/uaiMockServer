@@ -18,7 +18,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 
 @RunWith(UaiMockServerRunner.class)
-@UaiRunnerMockServerConfiguration(configurationFile = "notDuplicatingWhenEditing.json")
+@UaiRunnerMockServerConfiguration(configurationFile = "issueNotDuplicatingWhenEditing.json")
 public class NotDuplicatingWhenEditingTest extends AbstractTestServletTests {
     private static final String TO_BE_EDITED_NAME = "To Be Edited";
 

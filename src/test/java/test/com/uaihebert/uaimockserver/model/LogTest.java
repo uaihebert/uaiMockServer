@@ -39,4 +39,14 @@ public class LogTest {
 
         assertEquals(500, response.getStatus());
     }
+
+    @Test
+    public void invokingWarnMethodOnDeactivatedWarnWithExceptionForCoverage() {
+        final String url = "http://localhost:1234/uaiMockServer/noLogUnknownWithNoLog";
+
+        Client client = ClientBuilder.newClient();
+        Response response = client.target(url).request().get();
+
+        assertEquals(500, response.getStatus());
+    }
 }

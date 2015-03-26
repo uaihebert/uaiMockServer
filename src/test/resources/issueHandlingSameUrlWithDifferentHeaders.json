@@ -1,0 +1,44 @@
+{
+  "port": "1234",
+  "host": "localhost",
+  "fileLog": "false",
+  "consoleLog": "true",
+  "context": "/uaiMockServer",
+  "defaultContentTypeResponse": "text/html;charset=UTF-8",
+  "routeList": [
+    {
+      "request": {
+        "path": "/headerAmountTest",
+        "method": "GET"
+      },
+      "response": {
+        "contentType": "application/json;charset=UTF-8",
+        "statusCode": 204
+      }
+    },
+    {
+      "request": {
+        "path": "/headerAmountTest",
+        "method": "GET",
+        "requiredHeaderList":[
+          {
+            "name": "A_HEADER_03",
+            "valueList": [
+              "A_VALUE"
+            ]
+          },
+          {
+            "name": "A_HEADER_04",
+            "valueList": [
+              "A_VALUE"
+            ]
+          }
+        ]
+    },
+      "response": {
+        "contentType": "application/json;charset=UTF-8",
+        "statusCode": 201
+      }
+    }
+  ]
+}

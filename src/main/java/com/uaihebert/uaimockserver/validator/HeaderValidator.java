@@ -27,7 +27,8 @@ import io.undertow.util.HeaderValues;
  */
 public final class HeaderValidator implements RequestDataValidator {
     private static final String WILD_CARD_USED = "The header [%s] is using the wildcard. Its content will not be checked.";
-    private static final String HEADER_VALUE_NOT_FOUND_MESSAGE = "%nThe required value [%s] was not found in the header [%s]";
+    private static final String REQUIRED_HEADER_NOT_FOUND = "The required header [%s] was not found in the request";
+    private static final String HEADER_VALUE_NOT_FOUND_MESSAGE = "%nThe required value %s was not found in the header [%s]";
 
     @Override
     public boolean isInvalid(final UaiRequest uaiRequest, final HttpServerExchange exchange) {
@@ -42,8 +43,14 @@ public final class HeaderValidator implements RequestDataValidator {
         return false;
     }
 
+    // todo make here log all wrong headers
     private boolean isInvalidHeader(final UaiHeader uaiHeader, final HeaderMap requestHeaderMap) {
         final HeaderValues headerValueList = requestHeaderMap.get(uaiHeader.getName());
+
+        if (headerValueList == null) {
+            Log.warn(REQUIRED_HEADER_NOT_FOUND, uaiHeader.getName());
+            return true;
+        }
 
         if (uaiHeader.isUsingWildCard()) {
             Log.infoFormatted(WILD_CARD_USED, uaiHeader.getName());
@@ -51,7 +58,7 @@ public final class HeaderValidator implements RequestDataValidator {
         }
 
         if (!headerValueList.containsAll(uaiHeader.getValueList())) {
-            Log.warn(HEADER_VALUE_NOT_FOUND_MESSAGE, uaiHeader.getName(), uaiHeader.getValueList());
+            Log.warn(HEADER_VALUE_NOT_FOUND_MESSAGE, uaiHeader.getValueList(), uaiHeader.getName());
             return true;
         }
 

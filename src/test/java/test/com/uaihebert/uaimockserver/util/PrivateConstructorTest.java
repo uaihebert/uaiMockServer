@@ -50,7 +50,6 @@ import com.uaihebert.uaimockserver.util.RequestHolder;
 import com.uaihebert.uaimockserver.util.RouteFinderUtil;
 import com.uaihebert.uaimockserver.util.RouteMapKeyUtil;
 import com.uaihebert.uaimockserver.util.StringUtils;
-import com.uaihebert.uaimockserver.validator.RequestValidator;
 import org.junit.Test;
 
 import java.lang.reflect.Constructor;
@@ -83,15 +82,6 @@ public class PrivateConstructorTest {
         constructor.setAccessible(true);
 
         final HttpServerUtil createdObject = constructor.newInstance(new Object[0]);
-        assertNotNull(createdObject);
-    }
-
-    @Test
-    public void testRequestValidatorConstructor() throws Exception {
-        final Constructor<RequestValidator> constructor = RequestValidator.class.getDeclaredConstructor(new Class[0]);
-        constructor.setAccessible(true);
-
-        final RequestValidator createdObject = constructor.newInstance(new Object[0]);
         assertNotNull(createdObject);
     }
 

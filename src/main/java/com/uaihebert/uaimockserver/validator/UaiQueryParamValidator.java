@@ -28,6 +28,7 @@ import java.util.Map;
  */
 public final class UaiQueryParamValidator implements RequestDataValidator {
     private static final String WILD_CARD_TEXT = "The header [%s] is using the wildcard. Its content will not be checked.";
+    private static final String QUERY_PARAM_NOT_FOUND_MESSAGE = "%nThe required queryParam [%s] was not found in the request";
     private static final String QUERY_PARAM_VALUE_NOT_FOUND_MESSAGE = "%nThe required queryParamList [%s] has not the required values: [%s]";
 
     @Override
@@ -46,13 +47,18 @@ public final class UaiQueryParamValidator implements RequestDataValidator {
     private boolean isInvalidQueryParam(final UaiQueryParam uaiQueryParam, final Map<String, Deque<String>> queryParameterMap) {
         final Deque<String> valueDeque = queryParameterMap.get(uaiQueryParam.getName());
 
+        if (valueDeque == null) {
+            Log.warn(QUERY_PARAM_NOT_FOUND_MESSAGE, uaiQueryParam.getName());
+            return true;
+        }
+
         if (uaiQueryParam.isUsingWildCard()) {
             Log.infoFormatted(WILD_CARD_TEXT, uaiQueryParam.getName());
             return false;
         }
 
         if (!valueDeque.containsAll(uaiQueryParam.getValueList())) {
-            Log.warn(QUERY_PARAM_VALUE_NOT_FOUND_MESSAGE, uaiQueryParam.getName(), uaiQueryParam.getValueList());
+            Log.warn(QUERY_PARAM_VALUE_NOT_FOUND_MESSAGE, uaiQueryParam.getValueList(), uaiQueryParam.getName());
             return true;
         }
 
