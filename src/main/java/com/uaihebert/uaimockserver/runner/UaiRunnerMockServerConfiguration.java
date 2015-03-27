@@ -15,7 +15,6 @@ import java.lang.annotation.Target;
 public @interface UaiRunnerMockServerConfiguration {
     /**
      * You can set the configuration file using relative path or full Path.
-     * <p></p>
      * If your configuration file is in the test/resources directory, just write the file name
      */
     String configurationFile() default "uaiMockServer.config";

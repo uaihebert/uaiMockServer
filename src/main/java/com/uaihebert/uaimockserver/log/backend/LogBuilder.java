@@ -22,9 +22,7 @@ import org.pmw.tinylog.writers.FileWriter;
 
 /**
  * This builder will create an instance of the Log
- * <p></p>
  * If the log is deactivated, a class will be created that executes no actions
- * <p></p>
  * It is not necessary to do if (log.isActive) around the code
  */
 public final class LogBuilder {
