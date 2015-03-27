@@ -73,7 +73,9 @@ public final class UaiRouteDTOTestValidator {
         assertTrue(request.getHoldRequestInMilli() > 0);
         assertTrue(request.isBodyRequired());
         validateHeader(request.getRequiredHeaderList());
+        validateHeader(request.getOptionalHeaderList());
         validateQueryParam(request.getRequiredQueryParamList());
+        validateQueryParam(request.getOptionalQueryParamList());
         assertFalse(request.getRequiredQueryParamList().isEmpty());
     }
 

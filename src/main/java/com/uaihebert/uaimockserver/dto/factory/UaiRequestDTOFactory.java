@@ -21,11 +21,17 @@ public final class UaiRequestDTOFactory {
         uaiRequestDTO.setPath(uaiRequest.path);
         uaiRequestDTO.setRequiredContentType(uaiRequest.requiredContentType);
 
-        final List<UaiHeaderDTO> uaiHeaderDTOList = UaiHeaderDTOFactory.create(uaiRequest.getRequiredHeaderList());
-        uaiRequestDTO.setRequiredHeaderList(uaiHeaderDTOList);
+        final List<UaiHeaderDTO> uaiRequiredHeaderDTOList = UaiHeaderDTOFactory.create(uaiRequest.getRequiredHeaderList());
+        uaiRequestDTO.setRequiredHeaderList(uaiRequiredHeaderDTOList);
 
-        final List<UaiQueryParamDTO> uaiQueryParamDTOList = UaiQueryParamDTOFactory.create(uaiRequest.getRequiredQueryParamList());
-        uaiRequestDTO.setRequiredQueryParamList(uaiQueryParamDTOList);
+        final List<UaiQueryParamDTO> uaiRequiredQueryParamDTOList = UaiQueryParamDTOFactory.create(uaiRequest.getRequiredQueryParamList());
+        uaiRequestDTO.setRequiredQueryParamList(uaiRequiredQueryParamDTOList);
+
+        final List<UaiHeaderDTO> uaiOptionalHeaderDTOList = UaiHeaderDTOFactory.create(uaiRequest.getOptionalHeaderList());
+        uaiRequestDTO.setOptionalHeaderList(uaiOptionalHeaderDTOList);
+
+        final List<UaiQueryParamDTO> uaiOptionalQueryParamDTOList = UaiQueryParamDTOFactory.create(uaiRequest.getOptionalQueryParamList());
+        uaiRequestDTO.setOptionalQueryParamList(uaiOptionalQueryParamDTOList);
 
         return uaiRequestDTO;
     }

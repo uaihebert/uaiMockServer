@@ -13,6 +13,9 @@ public class UaiRequestDTO {
 
     private Boolean isBodyRequired;
 
+    private List<UaiHeaderDTO> optionalHeaderList;
+    private List<UaiQueryParamDTO> optionalQueryParamList;
+
     private List<UaiHeaderDTO> requiredHeaderList;
     private List<UaiQueryParamDTO> requiredQueryParamList;
 
@@ -86,5 +89,21 @@ public class UaiRequestDTO {
 
     public void setRequiredQueryParamList(final List<UaiQueryParamDTO> requiredQueryParamList) {
         this.requiredQueryParamList = requiredQueryParamList;
+    }
+
+    public List<UaiHeaderDTO> getOptionalHeaderList() {
+        return optionalHeaderList;
+    }
+
+    public void setOptionalHeaderList(final List<UaiHeaderDTO> optionalHeaderList) {
+        this.optionalHeaderList = optionalHeaderList;
+    }
+
+    public List<UaiQueryParamDTO> getOptionalQueryParamList() {
+        return optionalQueryParamList;
+    }
+
+    public void setOptionalQueryParamList(final List<UaiQueryParamDTO> optionalQueryParamList) {
+        this.optionalQueryParamList = optionalQueryParamList;
     }
 }

@@ -31,7 +31,38 @@
             ]
           }
         ],
+        "optionalHeaderList": [
+          {
+            "name": "X-UAI-LOGIN-HEADER",
+            "valueList": [
+              "HEADER_VALUE_01",
+              "HEADER_VALUE_02"
+            ]
+          },
+          {
+            "name": "X-API-VERSION",
+            "valueList": [
+              "HEADER_VALUE_03"
+            ]
+          }
+        ],
         "requiredQueryParamList": [
+          {
+            "name": "queryParam01",
+            "valueList": [
+              "QUERY_PARAM_VALUE_01",
+              "QUERY_PARAM_VALUE_02"
+            ]
+          },
+          {
+            "name": "queryParam02",
+            "valueList": [
+              "QUERY_PARAM_VALUE_03",
+              "QUERY_PARAM_VALUE_04"
+            ]
+          }
+        ],
+        "optionalQueryParamList": [
           {
             "name": "queryParam01",
             "valueList": [
@@ -94,7 +125,38 @@
             ]
           }
         ],
+        "optionalHeaderList": [
+          {
+            "name": "X-UAI-LOGIN-HEADER",
+            "valueList": [
+              "HEADER_VALUE_01",
+              "HEADER_VALUE_02"
+            ]
+          },
+          {
+            "name": "X-API-VERSION",
+            "valueList": [
+              "HEADER_VALUE_03"
+            ]
+          }
+        ],
         "requiredQueryParamList": [
+          {
+            "name": "queryParam01",
+            "valueList": [
+              "QUERY_PARAM_VALUE_01",
+              "QUERY_PARAM_VALUE_02"
+            ]
+          },
+          {
+            "name": "queryParam02",
+            "valueList": [
+              "QUERY_PARAM_VALUE_03",
+              "QUERY_PARAM_VALUE_04"
+            ]
+          }
+        ],
+        "optionalQueryParamList": [
           {
             "name": "queryParam01",
             "valueList": [
