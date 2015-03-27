@@ -32,18 +32,19 @@ public final class HeaderValidator implements RequestDataValidator {
 
     @Override
     public boolean isInvalid(final UaiRequest uaiRequest, final HttpServerExchange exchange) {
+        boolean isInvalid = false;
+
         for (UaiHeader uaiHeader : uaiRequest.getRequiredHeaderList()) {
             final HeaderMap requestHeaderMap = exchange.getRequestHeaders();
 
             if (isInvalidHeader(uaiHeader, requestHeaderMap)) {
-                return true;
+                isInvalid = true;
             }
         }
 
-        return false;
+        return isInvalid;
     }
 
-    // todo make here log all wrong headers
     private boolean isInvalidHeader(final UaiHeader uaiHeader, final HeaderMap requestHeaderMap) {
         final HeaderValues headerValueList = requestHeaderMap.get(uaiHeader.getName());
 

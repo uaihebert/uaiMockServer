@@ -33,15 +33,17 @@ public final class UaiQueryParamValidator implements RequestDataValidator {
 
     @Override
     public boolean isInvalid(final UaiRequest uaiRequest, final HttpServerExchange exchange) {
+        boolean isInvalid = false;
+
         for (UaiQueryParam uaiQueryParam : uaiRequest.getRequiredQueryParamList()) {
             final Map<String, Deque<String>> queryParameterMap = exchange.getQueryParameters();
 
             if (isInvalidQueryParam(uaiQueryParam, queryParameterMap)) {
-                return true;
+                isInvalid = true;
             }
         }
 
-        return false;
+        return isInvalid;
     }
 
     private boolean isInvalidQueryParam(final UaiQueryParam uaiQueryParam, final Map<String, Deque<String>> queryParameterMap) {

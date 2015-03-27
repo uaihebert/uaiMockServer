@@ -16,27 +16,19 @@ public final class RouteFinderUtil {
     private static final String INVALID_DATA_MESSAGE = "Whe found the request URI, but some data was missing. Check your: HEADER," +
             "QUERY_PARAM,CONTENT-TYPE,BODY";
 
-    private static final String REQUIRED_HEADER_LOG_TEXT = "For the Route [%s] we found [%s] of required Headers";
-    private static final String REQUIRED_QUERY_PARAM_LOG_TEXT = "For the Route [%s] we found [%s] of required QueryParameters";
-
     private static final String URI_NOT_FOUND_MESSAGE = "%nWe could not find the requested URI [%s] with the method [%s]. %n " +
             "Check the config file and try to find the mapping. A \\ in the end of the URI will affect the result. %n " +
             "Also check if all the required query param and/header were sent. %n";
 
-    private static final String WRONG_HEADER_QUERY_PARAM_MESSAGE = "%nCheck the Body/QueryParam/Headers sent.  %n " +
-            "We found the same headers but the values did not match";
-
     private RouteFinderUtil() {
     }
 
-    // todo work with log. make sure that the header and queryParam log will be logged
-
     /**
-     * This method will return the routes with the requests that has the same attributes.
+     * This method will return the route of the received request
      * <p/>
      * It will check for the same queryParam and header
      * <p/>
-     * We can have an URLs like:
+     * We can have URLs like:
      * <p/>
      * http://uaimockserver.com?queryParam=A ----> return 201
      * http://uaimockserver.com?queryParam=B ----> return 204
@@ -45,7 +37,7 @@ public final class RouteFinderUtil {
      * @return the route.
      */
     public static UaiRoute findValidRoute(final HttpServerExchange httpServerExchange) {
-        final List<UaiRoute> orderedList = getOrderedRouteByKey(httpServerExchange);
+        final List<UaiRoute> orderedList = getSortedRouteByKey(httpServerExchange);
 
         if (orderedList.isEmpty()) {
             final String errorText = String.format(URI_NOT_FOUND_MESSAGE, httpServerExchange.getRequestURI(), httpServerExchange.getRequestMethod());
@@ -65,7 +57,7 @@ public final class RouteFinderUtil {
         throw new IllegalArgumentException(errorText);
     }
 
-    private static List<UaiRoute> getOrderedRouteByKey(final HttpServerExchange httpServerExchange) {
+    private static List<UaiRoute> getSortedRouteByKey(final HttpServerExchange httpServerExchange) {
         final Set<UaiRoute> uaiRouteList = UaiRouteRepository.findRouteListByKey(httpServerExchange);
 
         final List<UaiRoute> listToOrder = filterRoutesIfNeeded(new ArrayList<UaiRoute>(uaiRouteList));
@@ -76,6 +68,12 @@ public final class RouteFinderUtil {
     }
 
     private static List<UaiRoute> filterRoutesIfNeeded(final List<UaiRoute> orderedList) {
+        final List<UaiRoute> uaiRouteList = filterByHeader(orderedList);
+        
+        return filterByQueryParam(uaiRouteList);
+    }
+
+    private static List<UaiRoute> filterByHeader(final List<UaiRoute> orderedList) {
         boolean hasRequiredHeader = hasRequiredHeader(orderedList);
 
         if (!hasRequiredHeader) {
@@ -95,10 +93,41 @@ public final class RouteFinderUtil {
         return uaiRouteList;
     }
 
+    private static List<UaiRoute> filterByQueryParam(final List<UaiRoute> orderedList) {
+        boolean hasRequiredQueryParam = hasRequiredQueryParam(orderedList);
+
+        if (!hasRequiredQueryParam) {
+            return orderedList;
+        }
+
+        final List<UaiRoute> uaiRouteList = new ArrayList<UaiRoute>();
+
+        for (UaiRoute uaiRoute : orderedList) {
+            if (uaiRoute.getRequest().getRequiredQueryParamList().isEmpty()) {
+                continue;
+            }
+
+            uaiRouteList.add(uaiRoute);
+        }
+
+        return uaiRouteList;
+    }
+
     private static boolean hasRequiredHeader(final List<UaiRoute> orderedList) {
         for (UaiRoute uaiRoute : orderedList) {
             final UaiRequest request = uaiRoute.getRequest();
             if (!request.getRequiredHeaderList().isEmpty()) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    private static boolean hasRequiredQueryParam(final List<UaiRoute> orderedList) {
+        for (UaiRoute uaiRoute : orderedList) {
+            final UaiRequest request = uaiRoute.getRequest();
+            if (!request.getRequiredQueryParamList().isEmpty()) {
                 return true;
             }
         }
