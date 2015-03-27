@@ -25,11 +25,11 @@ public final class RouteFinderUtil {
 
     /**
      * This method will return the route of the received request
-     * <p/>
+     * <p></p>
      * It will check for the same queryParam and header
-     * <p/>
+     * <p></p>
      * We can have URLs like:
-     * <p/>
+     * <p></p>
      * http://uaimockserver.com?queryParam=A ----> return 201
      * http://uaimockserver.com?queryParam=B ----> return 204
      *
@@ -50,11 +50,9 @@ public final class RouteFinderUtil {
             }
         }
 
-        final String errorText = String.format(INVALID_DATA_MESSAGE);
+        Log.warn(INVALID_DATA_MESSAGE);
 
-        Log.warn(errorText);
-
-        throw new IllegalArgumentException(errorText);
+        throw new IllegalArgumentException(INVALID_DATA_MESSAGE);
     }
 
     private static List<UaiRoute> getSortedRouteByKey(final HttpServerExchange httpServerExchange) {

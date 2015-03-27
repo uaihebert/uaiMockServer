@@ -19,7 +19,7 @@ import com.uaihebert.uaimockserver.log.gui.UaiWebSocketLogManager;
 
 /**
  * Project Log interface
- * <p/>
+ * <p></p>
  * The implementation used will be hidden of the project behind this interface
  */
 public final class Log {

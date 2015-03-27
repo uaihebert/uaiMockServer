@@ -19,7 +19,7 @@ import com.uaihebert.uaimockserver.server.UaiMockServer;
 
 /**
  * Only a bootstrap class.
- * <p/>
+ * <p></p>
  * Right now there is no need to test it
  */
 public class UaiMockServerMain {
