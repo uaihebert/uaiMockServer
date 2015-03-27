@@ -15,6 +15,7 @@
  * */
 package com.uaihebert.uaimockserver.validator;
 
+import com.uaihebert.uaimockserver.facade.RequestValidatorFacade;
 import com.uaihebert.uaimockserver.log.backend.Log;
 import com.uaihebert.uaimockserver.model.UaiRequest;
 import io.undertow.server.HttpServerExchange;
@@ -26,12 +27,10 @@ public final class BodyValidator implements RequestDataValidator {
     private static final String BODY_VALIDATOR_ERROR_MESSAGE = "%nThe Route [%s - %s] was defined with the body as mandatory. Send a body in your request or set the bodyRequired to false. %n";
 
     @Override
-    public boolean isInvalid(final UaiRequest uaiRequest, final HttpServerExchange exchange) {
+    public void validate(final UaiRequest uaiRequest, final HttpServerExchange exchange, final RequestValidatorFacade.RequestAnalysisResult result) {
         if (uaiRequest.isBodyRequired != null && uaiRequest.isBodyRequired && exchange.getRequestContentLength() < 1) {
             Log.warn(BODY_VALIDATOR_ERROR_MESSAGE, uaiRequest.method, uaiRequest.path);
-            return true;
+            result.abortTheRequest();
         }
-
-        return false;
     }
 }

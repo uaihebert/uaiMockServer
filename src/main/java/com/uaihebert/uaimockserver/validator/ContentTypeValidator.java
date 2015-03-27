@@ -15,6 +15,7 @@
  * */
 package com.uaihebert.uaimockserver.validator;
 
+import com.uaihebert.uaimockserver.facade.RequestValidatorFacade;
 import com.uaihebert.uaimockserver.log.backend.Log;
 import com.uaihebert.uaimockserver.model.UaiRequest;
 import com.uaihebert.uaimockserver.util.StringUtils;
@@ -29,20 +30,18 @@ public final class ContentTypeValidator implements RequestDataValidator {
     private static final String HEADER_VALUE_NOT_FOUND_MESSAGE = "%nThe required contentType [%s] was not found in the header request. Make sure that you have send it";
 
     @Override
-    public boolean isInvalid(final UaiRequest uaiRequest, final HttpServerExchange exchange) {
+    public void validate(final UaiRequest uaiRequest, final HttpServerExchange exchange, final RequestValidatorFacade.RequestAnalysisResult result) {
         final String requiredContentType = uaiRequest.requiredContentType;
 
         if (StringUtils.isBlank(requiredContentType)) {
-            return false;
+            return;
         }
 
         final HeaderValues headerValues = exchange.getRequestHeaders().get(Headers.CONTENT_TYPE);
 
         if (headerValues == null) {
             Log.warn(HEADER_VALUE_NOT_FOUND_MESSAGE, requiredContentType);
-            return true;
+            result.abortTheRequest();
         }
-
-        return false;
     }
 }

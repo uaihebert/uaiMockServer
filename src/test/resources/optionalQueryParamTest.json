@@ -1,0 +1,59 @@
+{
+  "port": "1234",
+  "host": "localhost",
+  "fileLog": "false",
+  "consoleLog": "TRUE",
+  "context": "/uaiMockServer",
+  "defaultContentTypeResponse": "text/html;charset=UTF-8",
+  "routeList": [
+    {
+      "request": {
+        "path": "/optionalQueryParamTest",
+        "method": "GET",
+        "optionalQueryParamList": [
+          {
+            "name": "OPTIONAL_01",
+            "valueList": [
+              "01"
+            ]
+          },
+          {
+            "name": "OPTIONAL_02",
+            "valueList": [
+              "02"
+            ]
+          }
+        ]
+      },
+      "response": {
+        "statusCode": "204"
+      }
+    },
+    {
+      "request": {
+        "path": "/optionalQueryParamTest",
+        "method": "GET",
+        "optionalQueryParamList": [
+          {
+            "name": "OPTIONAL_03",
+            "valueList": [
+              "UAI_*"
+            ]
+          }
+        ]
+      },
+      "response": {
+        "statusCode": "202"
+      }
+    },
+    {
+      "request": {
+        "path": "/optionalQueryParamTest",
+        "method": "GET"
+      },
+      "response": {
+        "statusCode": "201"
+      }
+    }
+  ]
+}

@@ -1,0 +1,82 @@
+{
+  "port": "1234",
+  "host": "localhost",
+  "fileLog": "false",
+  "consoleLog": "false",
+  "context": "/uaiMockServer",
+  "defaultContentTypeResponse": "text/html;charset=UTF-8",
+  "routeList": [
+    {
+      "request": {
+        "path": "/sameURLUsingQuery",
+        "method": "GET",
+        "requiredQueryParamList": [
+          {
+            "name": "QUERY_01",
+            "valueList": [
+              "QUERY_VALUE_01"
+            ]
+          }
+        ]
+      },
+      "response": {
+        "contentType": "application/json;charset=UTF-8",
+        "statusCode": "201"
+      }
+    },
+    {
+      "request": {
+        "path": "/sameURLUsingQuery",
+        "method": "GET",
+        "requiredQueryParamList": [
+          {
+            "name": "QUERY_02",
+            "valueList": [
+              "QUERY_VALUE_02"
+            ]
+          }
+        ]
+      },
+      "response": {
+        "contentType": "application/json;charset=UTF-8",
+        "statusCode": "202"
+      }
+    },
+    {
+      "request": {
+        "path": "/sameURLUsingQuery",
+        "method": "GET",
+        "requiredQueryParamList": [
+          {
+            "name": "QUERY_03",
+            "valueList": [
+              "QUERY_VALUE_0AAA"
+            ]
+          }
+        ]
+      },
+      "response": {
+        "contentType": "application/json;charset=UTF-8",
+        "statusCode": "203"
+      }
+    },
+    {
+      "request": {
+        "path": "/sameURLUsingQuery",
+        "method": "GET",
+        "requiredQueryParamList": [
+          {
+            "name": "QUERY_03",
+            "valueList": [
+              "QUERY_VALUE_0BBB"
+            ]
+          }
+        ]
+      },
+      "response": {
+        "contentType": "application/json;charset=UTF-8",
+        "statusCode": "204"
+      }
+    }
+  ]
+}

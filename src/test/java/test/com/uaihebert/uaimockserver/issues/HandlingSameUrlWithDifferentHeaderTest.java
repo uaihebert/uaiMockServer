@@ -14,7 +14,6 @@ import static org.junit.Assert.assertEquals;
 @RunWith(UaiMockServerRunner.class)
 @UaiRunnerMockServerConfiguration(configurationFile = "issueHandlingSameUrlWithDifferentHeaders.json")
 public class HandlingSameUrlWithDifferentHeaderTest {
-    // todo create a test like this for queryParam
 
     @Test
     public void isReturningResponseCorrect() {

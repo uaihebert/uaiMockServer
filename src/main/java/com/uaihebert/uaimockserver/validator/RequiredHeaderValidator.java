@@ -15,6 +15,7 @@
  * */
 package com.uaihebert.uaimockserver.validator;
 
+import com.uaihebert.uaimockserver.facade.RequestValidatorFacade;
 import com.uaihebert.uaimockserver.log.backend.Log;
 import com.uaihebert.uaimockserver.model.UaiHeader;
 import com.uaihebert.uaimockserver.model.UaiRequest;
@@ -25,44 +26,37 @@ import io.undertow.util.HeaderValues;
 /**
  * Will validate all the request headers if needed
  */
-public final class HeaderValidator implements RequestDataValidator {
+public final class RequiredHeaderValidator implements RequestDataValidator {
     private static final String WILD_CARD_USED = "The header [%s] is using the wildcard. Its content will not be checked.";
     private static final String REQUIRED_HEADER_NOT_FOUND = "The required header [%s] was not found in the request";
     private static final String HEADER_VALUE_NOT_FOUND_MESSAGE = "%nThe required value %s was not found in the header [%s]";
 
     @Override
-    public boolean isInvalid(final UaiRequest uaiRequest, final HttpServerExchange exchange) {
-        boolean isInvalid = false;
-
+    public void validate(final UaiRequest uaiRequest, final HttpServerExchange exchange, final RequestValidatorFacade.RequestAnalysisResult result) {
         for (UaiHeader uaiHeader : uaiRequest.getRequiredHeaderList()) {
             final HeaderMap requestHeaderMap = exchange.getRequestHeaders();
 
-            if (isInvalidHeader(uaiHeader, requestHeaderMap)) {
-                isInvalid = true;
-            }
+            validateHeader(uaiHeader, requestHeaderMap, result);
         }
-
-        return isInvalid;
     }
 
-    private boolean isInvalidHeader(final UaiHeader uaiHeader, final HeaderMap requestHeaderMap) {
+    private void validateHeader(final UaiHeader uaiHeader, final HeaderMap requestHeaderMap, final RequestValidatorFacade.RequestAnalysisResult result) {
         final HeaderValues headerValueList = requestHeaderMap.get(uaiHeader.getName());
 
         if (headerValueList == null) {
             Log.warn(REQUIRED_HEADER_NOT_FOUND, uaiHeader.getName());
-            return true;
+            result.setInvalid();
+            return;
         }
 
         if (uaiHeader.isUsingWildCard()) {
             Log.infoFormatted(WILD_CARD_USED, uaiHeader.getName());
-            return false;
+            return;
         }
 
         if (!headerValueList.containsAll(uaiHeader.getValueList())) {
             Log.warn(HEADER_VALUE_NOT_FOUND_MESSAGE, uaiHeader.getValueList(), uaiHeader.getName());
-            return true;
+            result.setInvalid();
         }
-
-        return false;
     }
 }

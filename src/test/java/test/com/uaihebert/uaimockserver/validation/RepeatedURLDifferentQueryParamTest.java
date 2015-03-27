@@ -12,64 +12,60 @@ import javax.ws.rs.core.Response;
 import static org.junit.Assert.assertEquals;
 
 @RunWith(UaiMockServerRunner.class)
-@UaiRunnerMockServerConfiguration(configurationFile = "repeatedUrlWithHeaderTest.json")
-public class RepeatedURLDifferentHeaderTest {
+@UaiRunnerMockServerConfiguration(configurationFile = "repeatedUrlWithQueryParamTest.json")
+public class RepeatedURLDifferentQueryParamTest {
 
     @Test
-    public void isFindingUrlWithDifferentHeader01(){
-        final String url = "http://localhost:1234/uaiMockServer/sameURLUsingHeader";
+    public void isFindingUrlWithDifferentQuery01(){
+        final String url = "http://localhost:1234/uaiMockServer/sameURLUsingQuery?QUERY_01=QUERY_VALUE_01";
 
         final Client client = ClientBuilder.newClient();
 
         final Response response = client
                 .target(url)
                 .request()
-                .header("HEADER-01", "HEADER_VALUE_01")
                 .get();
 
         assertEquals(201, response.getStatus());
     }
 
     @Test
-    public void isFindingUrlWithDifferentHeader02(){
-        final String url = "http://localhost:1234/uaiMockServer/sameURLUsingHeader";
+    public void isFindingUrlWithDifferentQuery02(){
+        final String url = "http://localhost:1234/uaiMockServer/sameURLUsingQuery?QUERY_02=QUERY_VALUE_02";
 
         final Client client = ClientBuilder.newClient();
 
         final Response response = client
                 .target(url)
                 .request()
-                .header("HEADER-02", "HEADER_VALUE_02")
                 .get();
 
         assertEquals(202, response.getStatus());
     }
 
     @Test
-    public void isFindingUrlWithDifferentHeader03(){
-        final String url = "http://localhost:1234/uaiMockServer/sameURLUsingHeader";
+    public void isFindingUrlWithDifferentQuery03(){
+        final String url = "http://localhost:1234/uaiMockServer/sameURLUsingQuery?QUERY_03=QUERY_VALUE_0AAA";
 
         final Client client = ClientBuilder.newClient();
 
         final Response response = client
                 .target(url)
                 .request()
-                .header("HEADER-03", "HEADER_VALUE_0AAA")
                 .get();
 
         assertEquals(203, response.getStatus());
     }
 
     @Test
-    public void isFindingUrlWithDifferentHeader04(){
-        final String url = "http://localhost:1234/uaiMockServer/sameURLUsingHeader";
+    public void isFindingUrlWithDifferentQuery04(){
+        final String url = "http://localhost:1234/uaiMockServer/sameURLUsingQuery?QUERY_03=QUERY_VALUE_0BBB";
 
         final Client client = ClientBuilder.newClient();
 
         final Response response = client
                 .target(url)
                 .request()
-                .header("HEADER-03", "HEADER_VALUE_0BBB")
                 .get();
 
         assertEquals(204, response.getStatus());
@@ -77,7 +73,7 @@ public class RepeatedURLDifferentHeaderTest {
 
     @Test
     public void isThrowingExceptionIfNoneIsFound(){
-        final String url = "http://localhost:1234/uaiMockServer/sameURLUsingHeader";
+        final String url = "http://localhost:1234/uaiMockServer/sameURLUsingQuery";
 
         final Client client = ClientBuilder.newClient();
 

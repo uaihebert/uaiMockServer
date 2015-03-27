@@ -26,6 +26,8 @@ public class RouteComparator implements Comparator<UaiRoute> {
 
         total += firstRequest.getRequiredHeaderList().size();
         total += firstRequest.getRequiredQueryParamList().size();
+        total += firstRequest.getOptionalHeaderList().size();
+        total += firstRequest.getOptionalQueryParamList().size();
 
         return total;
     }

@@ -3,9 +3,11 @@ package com.uaihebert.uaimockserver.facade;
 import com.uaihebert.uaimockserver.model.UaiRequest;
 import com.uaihebert.uaimockserver.validator.BodyValidator;
 import com.uaihebert.uaimockserver.validator.ContentTypeValidator;
-import com.uaihebert.uaimockserver.validator.HeaderValidator;
+import com.uaihebert.uaimockserver.validator.OptionalHeaderValidator;
+import com.uaihebert.uaimockserver.validator.OptionalQueryParamValidator;
 import com.uaihebert.uaimockserver.validator.RequestDataValidator;
-import com.uaihebert.uaimockserver.validator.UaiQueryParamValidator;
+import com.uaihebert.uaimockserver.validator.RequiredHeaderValidator;
+import com.uaihebert.uaimockserver.validator.RequiredQueryParamValidator;
 import io.undertow.server.HttpServerExchange;
 
 import java.util.ArrayList;
@@ -17,21 +19,45 @@ public final class RequestValidatorFacade {
 
     static {
         REQUEST_DATA_VALIDATOR_LIST.add(new BodyValidator());
-        REQUEST_DATA_VALIDATOR_LIST.add(new HeaderValidator());
         REQUEST_DATA_VALIDATOR_LIST.add(new ContentTypeValidator());
-        REQUEST_DATA_VALIDATOR_LIST.add(new UaiQueryParamValidator());
+        REQUEST_DATA_VALIDATOR_LIST.add(new OptionalHeaderValidator());
+        REQUEST_DATA_VALIDATOR_LIST.add(new RequiredHeaderValidator());
+        REQUEST_DATA_VALIDATOR_LIST.add(new OptionalQueryParamValidator());
+        REQUEST_DATA_VALIDATOR_LIST.add(new RequiredQueryParamValidator());
     }
 
     private RequestValidatorFacade() {
     }
 
-    public static boolean isValidRequest(final UaiRequest uaiRequest, final HttpServerExchange exchange) {
+    public static RequestAnalysisResult isValidRequest(final UaiRequest uaiRequest, final HttpServerExchange exchange) {
+        final RequestAnalysisResult requestAnalysisResult = new RequestAnalysisResult();
+
         for (RequestDataValidator requestDataValidator : REQUEST_DATA_VALIDATOR_LIST) {
-            if (requestDataValidator.isInvalid(uaiRequest, exchange)) {
-                return false;
-            }
+            requestDataValidator.validate(uaiRequest, exchange, requestAnalysisResult);
         }
 
-        return true;
+        return requestAnalysisResult;
+    }
+
+    public static class RequestAnalysisResult {
+        private boolean valid = true;
+        private boolean abortTheRequest;
+
+        public boolean isValid() {
+            return valid;
+        }
+
+        public boolean isAbortTheRequest() {
+            return abortTheRequest;
+        }
+
+        public void abortTheRequest() {
+            setInvalid();
+            abortTheRequest = true;
+        }
+
+        public void setInvalid() {
+            valid = false;
+        }
     }
 }

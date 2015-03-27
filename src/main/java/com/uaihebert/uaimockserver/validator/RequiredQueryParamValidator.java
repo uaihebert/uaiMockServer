@@ -15,6 +15,7 @@
  * */
 package com.uaihebert.uaimockserver.validator;
 
+import com.uaihebert.uaimockserver.facade.RequestValidatorFacade;
 import com.uaihebert.uaimockserver.log.backend.Log;
 import com.uaihebert.uaimockserver.model.UaiQueryParam;
 import com.uaihebert.uaimockserver.model.UaiRequest;
@@ -26,44 +27,37 @@ import java.util.Map;
 /**
  * Will validate all the request query params if needed
  */
-public final class UaiQueryParamValidator implements RequestDataValidator {
+public final class RequiredQueryParamValidator implements RequestDataValidator {
     private static final String WILD_CARD_TEXT = "The header [%s] is using the wildcard. Its content will not be checked.";
     private static final String QUERY_PARAM_NOT_FOUND_MESSAGE = "%nThe required queryParam [%s] was not found in the request";
     private static final String QUERY_PARAM_VALUE_NOT_FOUND_MESSAGE = "%nThe required queryParamList [%s] has not the required values: [%s]";
 
     @Override
-    public boolean isInvalid(final UaiRequest uaiRequest, final HttpServerExchange exchange) {
-        boolean isInvalid = false;
-
+    public void validate(final UaiRequest uaiRequest, final HttpServerExchange exchange, final RequestValidatorFacade.RequestAnalysisResult result) {
         for (UaiQueryParam uaiQueryParam : uaiRequest.getRequiredQueryParamList()) {
             final Map<String, Deque<String>> queryParameterMap = exchange.getQueryParameters();
 
-            if (isInvalidQueryParam(uaiQueryParam, queryParameterMap)) {
-                isInvalid = true;
-            }
+            validatedQueryParam(uaiQueryParam, queryParameterMap, result);
         }
-
-        return isInvalid;
     }
 
-    private boolean isInvalidQueryParam(final UaiQueryParam uaiQueryParam, final Map<String, Deque<String>> queryParameterMap) {
+    private void validatedQueryParam(final UaiQueryParam uaiQueryParam, final Map<String, Deque<String>> queryParameterMap, final RequestValidatorFacade.RequestAnalysisResult result) {
         final Deque<String> valueDeque = queryParameterMap.get(uaiQueryParam.getName());
 
         if (valueDeque == null) {
             Log.warn(QUERY_PARAM_NOT_FOUND_MESSAGE, uaiQueryParam.getName());
-            return true;
+            result.setInvalid();
+            return;
         }
 
         if (uaiQueryParam.isUsingWildCard()) {
             Log.infoFormatted(WILD_CARD_TEXT, uaiQueryParam.getName());
-            return false;
+            return;
         }
 
         if (!valueDeque.containsAll(uaiQueryParam.getValueList())) {
             Log.warn(QUERY_PARAM_VALUE_NOT_FOUND_MESSAGE, uaiQueryParam.getValueList(), uaiQueryParam.getName());
-            return true;
+            result.setInvalid();
         }
-
-        return false;
     }
 }

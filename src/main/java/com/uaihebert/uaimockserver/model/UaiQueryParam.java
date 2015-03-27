@@ -23,11 +23,10 @@ import java.util.List;
  */
 public class UaiQueryParam {
     private String name;
-    private boolean usingWildCard;
-    private List<String> valueList;
 
-    public UaiQueryParam() {
-    }
+    private boolean usingWildCard;
+
+    private List<String> valueList;
 
     public UaiQueryParam(final String name, final boolean usingWildCard, final List<String> valueList) {
         this.name = name;

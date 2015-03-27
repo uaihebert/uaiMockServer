@@ -22,7 +22,6 @@ import java.util.List;
  * Class that will hold all the header data
  */
 public class UaiHeader {
-
     private final String name;
 
     private boolean usingWildCard;

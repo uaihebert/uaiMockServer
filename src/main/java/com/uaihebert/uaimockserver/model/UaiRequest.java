@@ -15,6 +15,7 @@
  * */
 package com.uaihebert.uaimockserver.model;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -32,7 +33,10 @@ public final class UaiRequest {
 
     public final Boolean isBodyRequired;
 
+    private List<UaiHeader> optionalHeaderList;
     private List<UaiHeader> requiredHeaderList;
+
+    private List<UaiQueryParam> optionalQueryParamList;
     private List<UaiQueryParam> requiredQueryParamList;
 
     private UaiRequest(final UaiRequestBuilder builder) {
@@ -48,6 +52,9 @@ public final class UaiRequest {
 
         this.requiredHeaderList = builder.requiredHeaderList;
         this.requiredQueryParamList = builder.requiredQueryParamList;
+
+        this.optionalHeaderList = builder.optionalHeaderList;
+        this.optionalQueryParamList = builder.optionalQueryParamList;
     }
 
     public List<UaiHeader> getRequiredHeaderList() {
@@ -58,12 +65,46 @@ public final class UaiRequest {
         return requiredHeaderList;
     }
 
+    public List<UaiHeader> getAllHeadersList() {
+        List<UaiHeader> uaiHeaderList = new ArrayList<UaiHeader>();
+
+        uaiHeaderList.addAll(getOptionalHeaderList());
+        uaiHeaderList.addAll(getRequiredHeaderList());
+
+        return uaiHeaderList;
+    }
+
     public List<UaiQueryParam> getRequiredQueryParamList() {
         if (requiredQueryParamList == null) {
             requiredQueryParamList = Collections.emptyList();
         }
 
         return requiredQueryParamList;
+    }
+
+    public List<UaiQueryParam> getAllQueryParam() {
+        final List<UaiQueryParam> uaiQueryParamList = new ArrayList<UaiQueryParam>();
+
+        uaiQueryParamList.addAll(getOptionalQueryParamList());
+        uaiQueryParamList.addAll(getRequiredQueryParamList());
+
+        return uaiQueryParamList;
+    }
+
+    public List<UaiHeader> getOptionalHeaderList() {
+        if (optionalHeaderList == null) {
+            optionalHeaderList = Collections.emptyList();
+        }
+
+        return optionalHeaderList;
+    }
+
+    public List<UaiQueryParam> getOptionalQueryParamList() {
+        if (optionalQueryParamList == null) {
+            optionalQueryParamList = Collections.emptyList();
+        }
+
+        return optionalQueryParamList;
     }
 
     /**
@@ -82,7 +123,10 @@ public final class UaiRequest {
         private Boolean isBodyRequired;
 
         private List<UaiHeader> requiredHeaderList;
+        private List<UaiHeader> optionalHeaderList;
+
         private List<UaiQueryParam> requiredQueryParamList;
+        private List<UaiQueryParam> optionalQueryParamList;
 
         public UaiRequestBuilder name(final String name) {
             this.name = name;

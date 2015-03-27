@@ -62,14 +62,14 @@ public final class UaiMockServerConfig {
     }
 
     private void defineIfRequestQueryParamUsingWildCard(final UaiRoute uaiRoute) {
-        for (UaiQueryParam uaiQueryParam : uaiRoute.getRequest().getRequiredQueryParamList()) {
+        for (UaiQueryParam uaiQueryParam : uaiRoute.getRequest().getAllQueryParam()) {
             final boolean usingWildCard = uaiQueryParam.getValueList().contains(ValidatorConstants.VALID_WILD_CARD.text);
             uaiQueryParam.setUsingWildCard(usingWildCard);
         }
     }
 
     private void defineIfRequestHeaderUsingWildCard(final UaiRoute uaiRoute) {
-        for (UaiHeader uaiHeader : uaiRoute.getRequest().getRequiredHeaderList()) {
+        for (UaiHeader uaiHeader : uaiRoute.getRequest().getAllHeadersList()) {
             final boolean usingWildCard = uaiHeader.getValueList().contains(ValidatorConstants.VALID_WILD_CARD.text);
             uaiHeader.setUsingWildCard(usingWildCard);
         }

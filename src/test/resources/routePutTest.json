@@ -13,7 +13,6 @@
         "method":"GET",
         "description":"Sample with all configurations 01",
         "isBodyRequired":"true",
-        "holdTheRequestInMilli":"100",
         "requiredContentType":"application/json",
         "requiredHeaderList":[
           {

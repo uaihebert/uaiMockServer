@@ -1,0 +1,59 @@
+{
+  "port": "1234",
+  "host": "localhost",
+  "fileLog": "false",
+  "consoleLog": "false",
+  "context": "/uaiMockServer",
+  "defaultContentTypeResponse": "text/html;charset=UTF-8",
+  "routeList": [
+    {
+      "request": {
+        "path": "/optionalHeaderTest",
+        "method": "GET",
+        "optionalHeaderList": [
+          {
+            "name": "OPTIONAL_01",
+            "valueList": [
+              "01"
+            ]
+          },
+          {
+            "name": "OPTIONAL_02",
+            "valueList": [
+              "02"
+            ]
+          }
+        ]
+      },
+      "response": {
+        "statusCode": "204"
+      }
+    },
+    {
+      "request": {
+        "path": "/optionalHeaderTest",
+        "method": "GET",
+        "optionalHeaderList": [
+          {
+            "name": "OPTIONAL_03",
+            "valueList": [
+              "UAI_*"
+            ]
+          }
+        ]
+      },
+      "response": {
+        "statusCode": "202"
+      }
+    },
+    {
+      "request": {
+        "path": "/optionalHeaderTest",
+        "method": "GET"
+      },
+      "response": {
+        "statusCode": "201"
+      }
+    }
+  ]
+}

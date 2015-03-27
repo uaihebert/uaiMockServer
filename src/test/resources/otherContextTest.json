@@ -8,13 +8,10 @@
 	"routeList" : [
 	    {
 			"request" : {
-				"name" : "Other Context Test",
 				"path" : "/otherContext",
-				"method" : "GET",
-				"holdTheRequestInMilli" : 100
+				"method" : "GET"
 			},
 			"response" : {
-				"contentType" : "application/json;charset=UTF-8",
 				"statusCode" : "204"
 			}
 	    }

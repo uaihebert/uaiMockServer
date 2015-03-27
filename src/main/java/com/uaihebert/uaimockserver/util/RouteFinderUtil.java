@@ -42,8 +42,15 @@ public final class RouteFinderUtil {
         }
 
         for (UaiRoute uaiRoute : orderedList) {
-            if (RequestValidatorFacade.isValidRequest(uaiRoute.getRequest(), httpServerExchange)) {
+
+            final RequestValidatorFacade.RequestAnalysisResult validRequest = RequestValidatorFacade.isValidRequest(uaiRoute.getRequest(), httpServerExchange);
+
+            if (validRequest.isValid()) {
                 return uaiRoute;
+            }
+
+            if (validRequest.isAbortTheRequest()) {
+                break;
             }
         }
 
