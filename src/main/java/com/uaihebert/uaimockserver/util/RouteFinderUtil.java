@@ -27,8 +27,8 @@ public final class RouteFinderUtil {
      * This method will return the route of the received request
      * It will check for the same queryParam and header
      * We can have URLs like:
-     * http://uaimockserver.com?queryParam=A ----> return 201
-     * http://uaimockserver.com?queryParam=B ----> return 204
+     * http://uaimockserver.com?queryParam=A returns 201
+     * http://uaimockserver.com?queryParam=B returns 204
      *
      * @param httpServerExchange the current request
      * @return the route.
@@ -64,7 +64,7 @@ public final class RouteFinderUtil {
 
     private static List<UaiRoute> filterRoutesIfNeeded(final List<UaiRoute> orderedList) {
         final List<UaiRoute> uaiRouteList = filterByHeader(orderedList);
-        
+
         return filterByQueryParam(uaiRouteList);
     }
 
