@@ -34,7 +34,7 @@
     <div class="panel-heading" role="tab" id="headingRequestTwo">
       <h4 class="panel-title">
         <a class="collapsed" data-toggle="collapse" data-parent="#accordionRequest" href="#collapseRequestTwo" aria-expanded="false" aria-controls="collapseRequestTwo">
-          Header List
+          [Required] Header List
         </a>
       </h4>
     </div>
@@ -69,7 +69,7 @@
     <div class="panel-heading" role="tab" id="headingRequestThree">
       <h4 class="panel-title">
         <a class="collapsed" data-toggle="collapse" data-parent="#accordionRequest" href="#collapseRequestThree" aria-expanded="false" aria-controls="collapseRequestThree">
-          Query Param List
+          [Required] Query Param List
         </a>
       </h4>
     </div>
@@ -93,6 +93,76 @@
                         <textarea class="form-control" rows="3" ng-model="queryParam.valueList" placeholder="A list like VALUE or VALUE1,VALUE2"></textarea>
                         <br/>
                         <button class="btn btn-danger" ng-click="selectedRouteRow.route.request.requiredQueryParamList.splice($index,1)">Delete (no confirmation)</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingRequestFour">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordionRequest" href="#collapseRequestFour" aria-expanded="false" aria-controls="collapseRequestFour">
+          [Optional] Header List
+        </a>
+      </h4>
+    </div>
+    <div id="collapseRequestFour" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingRequestFour">
+      <div class="panel-body">
+        <table class="table table-hover pointer">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Value List</th>
+                </tr>
+            </thead>
+            <tbody>
+                <button class="btn btn-success" ng-click="addOptionalHeaderRequest(selectedRouteRow.route.request)">Add New</button>
+                <tr ng-repeat="header in selectedRouteRow.route.request.optionalHeaderList">
+                    <td>
+                        <input type="text" class="form-control" ng-model="header.name" placeholder="The name of the header"/><br />
+                        <h6>You must split the Array values with a comma ","</h6>
+                    </td>
+                    <td>
+                        <textarea class="form-control" rows="3" ng-model="header.valueList" placeholder="A list like VALUE or VALUE1,VALUE2"></textarea>
+                        <br/>
+                        <button class="btn btn-danger" ng-click="selectedRouteRow.route.request.optionalHeaderList.splice($index,1)">Delete (no confirmation)</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingRequestFive">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordionRequest" href="#collapseRequestFive" aria-expanded="false" aria-controls="collapseRequestFive">
+          [Optional] QueryParam List
+        </a>
+      </h4>
+    </div>
+    <div id="collapseRequestFive" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingRequestFive">
+      <div class="panel-body">
+        <table class="table table-hover pointer">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Value List</th>
+                </tr>
+            </thead>
+            <tbody>
+                <button class="btn btn-success" ng-click="addOptionalQueryParamRequest(selectedRouteRow.route.request)">Add New</button>
+                <tr ng-repeat="queryParam in selectedRouteRow.route.request.optionalQueryParamList">
+                    <td>
+                        <input type="text" class="form-control" ng-model="queryParam.name" placeholder="The name of the queryParam"/><br />
+                        <h6>You must split the Array values with a comma ","</h6>
+                    </td>
+                    <td>
+                        <textarea class="form-control" rows="3" ng-model="queryParam.valueList" placeholder="A list like VALUE or VALUE1,VALUE2"></textarea>
+                        <br/>
+                        <button class="btn btn-danger" ng-click="selectedRouteRow.route.request.optionalQueryParamList.splice($index,1)">Delete (no confirmation)</button>
                     </td>
                 </tr>
             </tbody>

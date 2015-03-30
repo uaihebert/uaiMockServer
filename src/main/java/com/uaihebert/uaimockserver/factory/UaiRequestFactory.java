@@ -41,7 +41,9 @@ public final class UaiRequestFactory {
         final String contentType = request.getRequiredContentType();
 
         final List<UaiHeader> requiredHeaderList = UaiHeaderFactory.create(request.getRequiredHeaderList());
+        final List<UaiHeader> optionalHeaderList = UaiHeaderFactory.create(request.getOptionalHeaderList());
         final List<UaiQueryParam> requiredQueryParamList = UaiQueryParamFactory.create(request.getRequiredQueryParamList());
+        final List<UaiQueryParam> optionalQueryParamList = UaiQueryParamFactory.create(request.getOptionalQueryParamList());
 
         return new UaiRequest.UaiRequestBuilder()
                 .isBodyRequired(bodyRequired)
@@ -51,7 +53,9 @@ public final class UaiRequestFactory {
                 .method(method)
                 .description(description)
                 .requiredContentType(contentType)
+                .optionalHeaderList(optionalHeaderList)
                 .requiredHeaderList(requiredHeaderList)
+                .optionalQueryParamList(optionalQueryParamList)
                 .requiredQueryParamList(requiredQueryParamList)
                 .build();
     }

@@ -168,8 +168,18 @@ public final class UaiRequest {
             return this;
         }
 
+        public UaiRequestBuilder optionalHeaderList(final List<UaiHeader> optionalHeaderList) {
+            this.optionalHeaderList = optionalHeaderList;
+            return this;
+        }
+
         public UaiRequestBuilder requiredQueryParamList(final List<UaiQueryParam> requiredQueryParamList) {
             this.requiredQueryParamList = requiredQueryParamList;
+            return this;
+        }
+
+        public UaiRequestBuilder optionalQueryParamList(final List<UaiQueryParam> optionalQueryParamList) {
+            this.optionalQueryParamList = optionalQueryParamList;
             return this;
         }
 

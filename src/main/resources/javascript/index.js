@@ -115,6 +115,7 @@ app.controller('routeController', function($scope, $http, growl, $location) {
             error.errorHtml += "<li>response.contentType was not found</li>";
         }
 
+        // todo ver como validar optional values
         $scope.hasErrorInList("Request ---> HeaderList", route.request.requiredHeaderList, error);
         $scope.hasErrorInList("Request ---> QueryParamList", route.request.requiredQueryParamList, error);
 
@@ -136,7 +137,9 @@ app.controller('routeController', function($scope, $http, growl, $location) {
 
     $scope.saveRoute = function() {
         $scope.selectedRouteRow.route.request.requiredHeaderList = $scope.convertStringToList($scope.selectedRouteRow.route.request.requiredHeaderList);
+        $scope.selectedRouteRow.route.request.optionalHeaderList = $scope.convertStringToList($scope.selectedRouteRow.route.request.optionalHeaderList);
         $scope.selectedRouteRow.route.request.requiredQueryParamList = $scope.convertStringToList($scope.selectedRouteRow.route.request.requiredQueryParamList);
+        $scope.selectedRouteRow.route.request.optionalQueryParamList = $scope.convertStringToList($scope.selectedRouteRow.route.request.optionalQueryParamList);
         $scope.selectedRouteRow.route.response.headerList = $scope.convertStringToList($scope.selectedRouteRow.route.response.headerList);
 
         var errorText = $scope.getErrorText($scope.selectedRouteRow.route);
@@ -244,6 +247,14 @@ app.controller('routeController', function($scope, $http, growl, $location) {
         request.requiredHeaderList.push({name:"", valueList: []});
     }
 
+    $scope.addOptionalHeaderRequest = function (request) {
+        if (request.optionalHeaderList == null) {
+            request.optionalHeaderList = [];
+        }
+
+        request.optionalHeaderList.push({name:"", valueList: []});
+    }
+
     $scope.addNewHeaderResponse = function (response) {
         if (response.headerList == null) {
             response.headerList = [];
@@ -258,6 +269,14 @@ app.controller('routeController', function($scope, $http, growl, $location) {
         }
 
         request.requiredQueryParamList.push({name:"", valueList: []});
+    }
+
+    $scope.addOptionalQueryParamRequest = function (request) {
+        if (request.optionalQueryParamList == null) {
+            request.optionalQueryParamList = [];
+        }
+
+        request.optionalQueryParamList.push({name:"", valueList: []});
     }
 
     $scope.delete = function () {

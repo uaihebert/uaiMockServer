@@ -8,6 +8,7 @@
   "routeList": [
     {
       "request": {
+        "name":"two query params",
         "path": "/optionalQueryParamTest",
         "method": "GET",
         "optionalQueryParamList": [
@@ -31,6 +32,7 @@
     },
     {
       "request": {
+        "name":"one query param",
         "path": "/optionalQueryParamTest",
         "method": "GET",
         "optionalQueryParamList": [
@@ -48,6 +50,7 @@
     },
     {
       "request": {
+        "name":"no query param",
         "path": "/optionalQueryParamTest",
         "method": "GET"
       },
