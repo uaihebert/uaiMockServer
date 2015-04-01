@@ -33,5 +33,7 @@ public final class UaiRouteService {
         final UaiRoute clonedRoute = UaiRouteFactory.clone(uaiRoute);
 
         UaiRouteRepository.create(clonedRoute);
+
+        UaiRouteRepository.update();
     }
 }
