@@ -144,7 +144,7 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr ng-repeat="logText in log.logList">
+                                            <tr ng-repeat="logText in log.logList track by $index">
                                                 <td>{{logText}}</td>
                                             </tr>
                                         </tbody>

@@ -18,19 +18,31 @@ package com.uaihebert.uaimockserver.validator;
 import com.uaihebert.uaimockserver.facade.RequestValidatorFacade;
 import com.uaihebert.uaimockserver.log.backend.Log;
 import com.uaihebert.uaimockserver.model.UaiRequest;
+import com.uaihebert.uaimockserver.util.RequestBodyUtil;
 import io.undertow.server.HttpServerExchange;
 
 /**
  * Will validate all the request body if needed
  */
 public final class BodyValidator implements RequestDataValidator {
+    private static final String NO_BODY_MESSAGE = "No Request Body was detected in the request";
+    private static final String RECEIVED_BODY_MESSAGE = "We received the following body: [%s]";
     private static final String BODY_VALIDATOR_ERROR_MESSAGE = "%nThe Route [%s - %s] was defined with the body as mandatory. Send a body in your request or set the bodyRequired to false. %n";
 
     @Override
     public void validate(final UaiRequest uaiRequest, final HttpServerExchange exchange, final RequestValidatorFacade.RequestAnalysisResult result) {
-        if (uaiRequest.isBodyRequired != null && uaiRequest.isBodyRequired && exchange.getRequestContentLength() < 1) {
+        final boolean requestHasNoBody = exchange == null || exchange.getRequestContentLength() < 1;
+
+        if (requestHasNoBody) {
+            Log.info(NO_BODY_MESSAGE);
+        } else {
+            final String bodyAsString = RequestBodyUtil.convertToString(exchange);
+            Log.infoFormatted(RECEIVED_BODY_MESSAGE, bodyAsString);
+        }
+
+        if (uaiRequest.isBodyRequired != null && uaiRequest.isBodyRequired && requestHasNoBody) {
             Log.warn(BODY_VALIDATOR_ERROR_MESSAGE, uaiRequest.method, uaiRequest.path);
             result.abortTheRequest();
         }
     }
-}
+ }

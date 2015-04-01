@@ -140,6 +140,7 @@
                         <excludes>
                             <exclude>
                                 com/uaihebert/uaimockserver/main/UaiMockServerMain.class,
+                                com/uaihebert/uaimockserver/util/RequestBodyUtil.class,
                                 com/uaihebert/uaimockserver/dto/model/*
                             </exclude>
                         </excludes>

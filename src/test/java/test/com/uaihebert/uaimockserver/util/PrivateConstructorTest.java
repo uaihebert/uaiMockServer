@@ -46,6 +46,7 @@ import com.uaihebert.uaimockserver.util.FileUtil;
 import com.uaihebert.uaimockserver.util.HttpServerUtil;
 import com.uaihebert.uaimockserver.util.JsonUtil;
 import com.uaihebert.uaimockserver.util.RequestBodyExtractor;
+import com.uaihebert.uaimockserver.util.RequestBodyUtil;
 import com.uaihebert.uaimockserver.util.RequestHolder;
 import com.uaihebert.uaimockserver.util.RouteFinderUtil;
 import com.uaihebert.uaimockserver.util.RouteMapKeyUtil;
@@ -370,6 +371,15 @@ public class PrivateConstructorTest {
         constructor.setAccessible(true);
 
         final JsonUtil createdObject = constructor.newInstance(new Object[0]);
+        assertNotNull(createdObject);
+    }
+
+    @Test
+    public void testRequestBodyUtilConstructor() throws Exception {
+        final Constructor<RequestBodyUtil> constructor = RequestBodyUtil.class.getDeclaredConstructor(new Class[0]);
+        constructor.setAccessible(true);
+
+        final RequestBodyUtil createdObject = constructor.newInstance(new Object[0]);
         assertNotNull(createdObject);
     }
 }
