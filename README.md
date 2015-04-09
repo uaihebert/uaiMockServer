@@ -1,6 +1,6 @@
 # uaiMockServer
 
-[![Build Status](https://travis-ci.org/uaihebert/uaiMockServer.svg?branch=master)](https://travis-ci.org/uaihebert/uaiMockServer) [![Coverage Status](https://coveralls.io/repos/uaihebert/uaiMockServer/badge.svg?branch=master)](https://coveralls.io/r/uaihebert/uaiMockServer?branch=master) [![Maven Central](https://maven-badges.herokuapp.com/maven-central/uaihebert.com/uaiMockServer/badge.svg)](https://maven-badges.herokuapp.com/maven-central/uaihebert.com/uaiMockServer)
+[![Drone][drone-image]][drone-url] [![Travis][travis-image]][travis-url] [![Coverage][coverage-image]][coverage-url] [![Maven Central][maven-image]][maven-url]
 
 [![License][license-image]][license-url] [![Gitter][gitter-image]][gitter-url]
 
@@ -48,10 +48,20 @@ public class YourTestClass {
 }
 ```
 
+[maven-url]: https://maven-badges.herokuapp.com/maven-central/uaihebert.com/uaiMockServer
+[maven-image]: https://maven-badges.herokuapp.com/maven-central/uaihebert.com/uaiMockServer/badge.svg
 
+[coverage-url]: https://coveralls.io/r/uaihebert/uaiMockServer?branch=master
+[coverage-image]: https://coveralls.io/repos/uaihebert/uaiMockServer/badge.svg?branch=master
+
+[travis-url]: https://travis-ci.org/uaihebert/uaiMockServer
+[travis-image]: https://travis-ci.org/uaihebert/uaiMockServer.svg?branch=master
 
 [gitter-url]: https://gitter.im/uaihebert/uaiMockServer
 [gitter-image]: https://badges.gitter.im/Join%20Chat.svg
 
 [license-url]: https://gitter.im/uaihebert/uaiMockServer/blob/master/LICENSE
 [license-image]: https://img.shields.io/badge/license-MIT-blue.svg?style=flat
+
+[drone-url]: https://drone.io/github.com/uaihebert/uaiMockServer/latest
+[drone-image]: https://drone.io/github.com/uaihebert/uaiMockServer/status.png
