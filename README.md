@@ -4,7 +4,7 @@
 
 [![License][license-image]][license-url] [![Gitter][gitter-image]][gitter-url]
 
-Issue board: https://waffle.io/uaihebert/uaimockserver
+Issue board: [![In Progress][waffle-image-progress]][waffle-url] [![Issues Board][waffle-image]][waffle-url] <---- I am sure that you could help ;)
 
 uaiMockServer will create a Rest Server for you with only one command line.
 
@@ -67,3 +67,7 @@ public class YourTestClass {
 
 [drone-url]: https://drone.io/github.com/uaihebert/uaiMockServer/latest
 [drone-image]: https://drone.io/github.com/uaihebert/uaiMockServer/status.png
+
+[waffle-url]: http://waffle.io/uaihebert/uaimockserver
+[waffle-image]: https://badge.waffle.io/uaihebert/uaimockserver.svg?label=ready&title=Next%20Features
+[waffle-image-progress]: https://badge.waffle.io/uaihebert/uaimockserver.svg?label=in%20progress&title=In%20Progress
