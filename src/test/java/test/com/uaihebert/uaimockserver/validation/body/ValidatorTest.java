@@ -1,4 +1,4 @@
-package test.com.uaihebert.uaimockserver.validation;
+package test.com.uaihebert.uaimockserver.validation.body;
 
 import com.uaihebert.uaimockserver.facade.RequestValidatorFacade;
 import com.uaihebert.uaimockserver.model.UaiRequest;
@@ -7,9 +7,8 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertTrue;
 
-public class BodyValidatorTest {
+public class ValidatorTest {
     private final BodyValidator bodyValidator = new BodyValidator();
-
 
     @Test
     public void isWorkingWhenConfigIsNull() {

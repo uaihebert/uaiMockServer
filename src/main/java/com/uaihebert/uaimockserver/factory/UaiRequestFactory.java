@@ -16,6 +16,7 @@
 package com.uaihebert.uaimockserver.factory;
 
 import com.uaihebert.uaimockserver.dto.model.UaiRequestDTO;
+import com.uaihebert.uaimockserver.model.BodyValidationType;
 import com.uaihebert.uaimockserver.model.UaiHeader;
 import com.uaihebert.uaimockserver.model.UaiQueryParam;
 import com.uaihebert.uaimockserver.model.UaiRequest;
@@ -39,6 +40,7 @@ public final class UaiRequestFactory {
         final String method = request.getMethod();
         final String description = request.getDescription();
         final String contentType = request.getRequiredContentType();
+        final BodyValidationType bodyValidationType = request.getBodyValidationType();
 
         final List<UaiHeader> requiredHeaderList = UaiHeaderFactory.create(request.getRequiredHeaderList());
         final List<UaiHeader> optionalHeaderList = UaiHeaderFactory.create(request.getOptionalHeaderList());
@@ -57,6 +59,7 @@ public final class UaiRequestFactory {
                 .requiredHeaderList(requiredHeaderList)
                 .optionalQueryParamList(optionalQueryParamList)
                 .requiredQueryParamList(requiredQueryParamList)
+                .bodyValidationType(bodyValidationType)
                 .build();
     }
 }

@@ -3,6 +3,7 @@ package com.uaihebert.uaimockserver.dto.response;
 import com.uaihebert.uaimockserver.constants.HttpMethod;
 import com.uaihebert.uaimockserver.dto.model.UaiRootConfigurationDTO;
 import com.uaihebert.uaimockserver.dto.model.UaiRouteDTO;
+import com.uaihebert.uaimockserver.model.BodyValidationType;
 
 import java.util.List;
 
@@ -14,6 +15,8 @@ public class IndexResponseDTO {
 
     private String defaultProject;
     private List<String> projectList;
+
+    private List<BodyValidationType> bodyValidationTypeList;
 
     public HttpMethod[] getHttpMethodArray() {
         return httpMethodArray;
@@ -49,5 +52,13 @@ public class IndexResponseDTO {
 
     public void setProjectList(final List<String> projectList) {
         this.projectList = projectList;
+    }
+
+    public List<BodyValidationType> getBodyValidationTypeList() {
+        return bodyValidationTypeList;
+    }
+
+    public void setBodyValidationTypeList(List<BodyValidationType> bodyValidationTypeList) {
+        this.bodyValidationTypeList = bodyValidationTypeList;
     }
 }

@@ -1,0 +1,22 @@
+{
+  "port" : "1234",
+  "host" : "localhost",
+  "fileLog" : "false",
+  "consoleLog" : "true",
+  "context" : "/uaiMockServer",
+  "defaultContentTypeResponse" : "text/html;charset=UTF-8",
+  "routeList" : [
+    {
+      "request" : {
+        "path" : "/rawBodyRequired",
+        "isBodyRequired": "true",
+        "method" : "POST",
+        "body": "I SHOULD BE PRESENT"
+      },
+      "response" : {
+        "contentType" : "application/json;charset=UTF-8",
+        "statusCode" : "204"
+      }
+    }
+  ]
+}

@@ -4,6 +4,7 @@ import com.uaihebert.uaimockserver.dto.factory.UaiBasicConfigurationDTOFactory;
 import com.uaihebert.uaimockserver.dto.factory.UaiRouteDTOFactory;
 import com.uaihebert.uaimockserver.dto.model.UaiRouteDTO;
 import com.uaihebert.uaimockserver.dto.response.IndexResponseDTO;
+import com.uaihebert.uaimockserver.model.BodyValidationType;
 import com.uaihebert.uaimockserver.model.UaiRoute;
 import com.uaihebert.uaimockserver.repository.UaiRouteMapper;
 import com.uaihebert.uaimockserver.repository.UaiRouteRepository;
@@ -15,6 +16,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
 
 public class UaiRouteServlet extends AbstractServlet {
@@ -39,6 +41,7 @@ public class UaiRouteServlet extends AbstractServlet {
         indexResponseDTO.setDefaultProject(UaiRouteMapper.ALL_PROJECT);
         indexResponseDTO.setProjectList(UaiRouteMapper.extractProjectFromRoutes());
         indexResponseDTO.setRootConfiguration(UaiBasicConfigurationDTOFactory.create());
+        indexResponseDTO.setBodyValidationTypeList(Arrays.asList(BodyValidationType.values()));
 
         return JsonUtil.toJson(indexResponseDTO);
     }

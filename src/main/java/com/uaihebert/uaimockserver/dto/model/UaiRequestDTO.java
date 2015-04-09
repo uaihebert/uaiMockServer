@@ -1,5 +1,7 @@
 package com.uaihebert.uaimockserver.dto.model;
 
+import com.uaihebert.uaimockserver.model.BodyValidationType;
+
 import java.util.List;
 
 public class UaiRequestDTO {
@@ -8,6 +10,8 @@ public class UaiRequestDTO {
     private String method;
     private String description;
     private String requiredContentType;
+
+    private BodyValidationType bodyValidationType;
 
     private Long holdRequestInMilli;
 
@@ -105,5 +109,17 @@ public class UaiRequestDTO {
 
     public void setOptionalQueryParamList(final List<UaiQueryParamDTO> optionalQueryParamList) {
         this.optionalQueryParamList = optionalQueryParamList;
+    }
+
+    public BodyValidationType getBodyValidationType() {
+        return bodyValidationType;
+    }
+
+    public void setBodyValidationType(BodyValidationType bodyValidationType) {
+        this.bodyValidationType = bodyValidationType;
+    }
+
+    public void setIsBodyRequired(Boolean isBodyRequired) {
+        this.isBodyRequired = isBodyRequired;
     }
 }

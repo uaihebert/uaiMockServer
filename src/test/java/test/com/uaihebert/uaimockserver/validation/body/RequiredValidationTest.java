@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  * */
-package test.com.uaihebert.uaimockserver.validation;
+package test.com.uaihebert.uaimockserver.validation.body;
 
 import org.junit.Test;
 import test.com.uaihebert.uaimockserver.TestAbstract;
@@ -26,7 +26,7 @@ import javax.ws.rs.core.Response;
 
 import static org.junit.Assert.assertEquals;
 
-public class BodyValidationTest extends TestAbstract {
+public class RequiredValidationTest extends TestAbstract {
 
     @Test
     public void isPostWithRequiredBodyReturning204() {

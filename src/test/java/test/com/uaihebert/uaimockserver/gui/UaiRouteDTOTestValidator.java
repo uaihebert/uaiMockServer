@@ -31,6 +31,8 @@ public final class UaiRouteDTOTestValidator {
         assertFalse("Must have other project", uaiRouteDTOList.getProjectList().isEmpty());
         assertTrue("Must have default project", StringUtils.isNotBlank(uaiRouteDTOList.getDefaultProject()));
 
+        assertFalse("Must have body validation type", uaiRouteDTOList.getBodyValidationTypeList().isEmpty());
+
         validateBasicConfiguration(uaiRouteDTOList);
     }
 

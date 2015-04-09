@@ -23,6 +23,13 @@ import java.util.List;
  * Class that will hold all the request data
  */
 public final class UaiRequest {
+    private List<UaiHeader> optionalHeaderList;
+
+    private List<UaiHeader> requiredHeaderList;
+    private List<UaiQueryParam> optionalQueryParamList;
+
+    private List<UaiQueryParam> requiredQueryParamList;
+
     public final String name;
     public final String path;
     public final String method;
@@ -33,11 +40,7 @@ public final class UaiRequest {
 
     public final Boolean isBodyRequired;
 
-    private List<UaiHeader> optionalHeaderList;
-    private List<UaiHeader> requiredHeaderList;
-
-    private List<UaiQueryParam> optionalQueryParamList;
-    private List<UaiQueryParam> requiredQueryParamList;
+    public final BodyValidationType bodyValidationType;
 
     private UaiRequest(final UaiRequestBuilder builder) {
         this.name = builder.name;
@@ -55,6 +58,8 @@ public final class UaiRequest {
 
         this.optionalHeaderList = builder.optionalHeaderList;
         this.optionalQueryParamList = builder.optionalQueryParamList;
+
+        this.bodyValidationType = builder.bodyValidationType;
     }
 
     public List<UaiHeader> getRequiredHeaderList() {
@@ -128,6 +133,8 @@ public final class UaiRequest {
         private List<UaiQueryParam> requiredQueryParamList;
         private List<UaiQueryParam> optionalQueryParamList;
 
+        private BodyValidationType bodyValidationType;
+
         public UaiRequestBuilder name(final String name) {
             this.name = name;
             return this;
@@ -180,6 +187,11 @@ public final class UaiRequest {
 
         public UaiRequestBuilder optionalQueryParamList(final List<UaiQueryParam> optionalQueryParamList) {
             this.optionalQueryParamList = optionalQueryParamList;
+            return this;
+        }
+
+        public UaiRequestBuilder bodyValidationType(final BodyValidationType bodyValidationType) {
+            this.bodyValidationType = bodyValidationType;
             return this;
         }
 
