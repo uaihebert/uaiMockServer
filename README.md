@@ -4,6 +4,8 @@
 
 [![License][license-image]][license-url] [![Gitter][gitter-image]][gitter-url]
 
+Issue board: https://waffle.io/uaihebert/uaimockserver
+
 uaiMockServer will create a Rest Server for you with only one command line.
 
 This code can create a Standalone jar or you could add the project in your pom.xml and run it with your TDD tests.
