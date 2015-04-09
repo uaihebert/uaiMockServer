@@ -4,7 +4,11 @@
 
 [![License][license-image]][license-url] [![Gitter][gitter-image]][gitter-url]
 
-Issue board: [![In Progress][waffle-image-progress]][waffle-url] [![Issues Board][waffle-image]][waffle-url] <---- I am sure that you could help ;)
+---------------------------------------------------------------
+
+[![In Progress][waffle-image-progress]][waffle-url] [![Issues Board][waffle-image]][waffle-url] <---- I am sure that you could help ;)
+
+---------------------------------------------------------------
 
 uaiMockServer will create a Rest Server for you with only one command line.
 
