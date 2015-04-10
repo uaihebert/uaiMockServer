@@ -27,6 +27,7 @@ app.controller('routeController', function($scope, $http, growl, $location) {
                 $scope.routeRowList = [];
                 $scope.rootConfiguration = data.rootConfiguration;
                 $scope.httpMethodArray = data.httpMethodArray;
+                $scope.bodyValidationTypeList = data.bodyValidationTypeList;
 
                 $scope.projectList = [];
 
@@ -310,5 +311,15 @@ app.controller('routeController', function($scope, $http, growl, $location) {
         ).error(function(){
                 $scope.displayErrorGrowl();
             });
+    }
+
+    $scope.bodyRequired = function($event) {
+        if (!$scope.selectedRouteRow.route.request.isBodyRequired) {
+            return;
+        }
+
+        if ($scope.selectedRouteRow.route.request.bodyValidationType == null) {
+            $scope.selectedRouteRow.route.request.bodyValidationType = 'VALIDATE_IF_PRESENT_ONLY'
+        }
     }
 });

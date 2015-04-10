@@ -204,11 +204,19 @@ public final class UaiRequest {
         }
 
         public UaiRequest build() {
-            if (bodyValidationType == null && isBodyRequired != null && isBodyRequired) {
-                bodyValidationType = BodyValidationType.VALIDATE_IF_PRESENT_ONLY;
-            }
+            setBodyValidation();
 
             return new UaiRequest(this);
+        }
+
+        private void setBodyValidation() {
+            if (isBodyRequired == null) {
+                isBodyRequired = false;
+            }
+
+            if (isBodyRequired && bodyValidationType == null) {
+                bodyValidationType = BodyValidationType.VALIDATE_IF_PRESENT_ONLY;
+            }
         }
     }
 }
