@@ -25,7 +25,7 @@ public final class UaiRouteMapper {
 
     public static void addRoute(final UaiRoute uaiRoute) {
         setInMapById(uaiRoute);
-        loadMapByKey();
+        updateRoute();
     }
 
     private static void setInMapById(final UaiRoute uaiRoute) {
@@ -58,8 +58,7 @@ public final class UaiRouteMapper {
 
         ROUTE_MAP_BY_ID.remove(routeToDelete.getId());
 
-        loadMapByKey();
-        loadRouteByProject();
+        updateRoute();
 
         return routeToDelete;
     }

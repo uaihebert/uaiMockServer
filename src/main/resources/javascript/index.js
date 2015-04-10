@@ -41,6 +41,9 @@ app.controller('routeController', function($scope, $http, growl, $location) {
                     $scope.projectList =  $scope.projectList.concat(data.projectList);
                 }
 
+                console.log(">>>>>")
+                console.log(data.routeList)
+
                 for (var i = 0; i < data.routeList.length; i++) {
                     var routeRow = {};
 
