@@ -45,6 +45,9 @@ public class UaiRouteServletClonePostTest {
         final Client client = ClientBuilder.newClient();
         final Response post = client.target(url).request().post(Entity.entity("", MediaType.APPLICATION_JSON_TYPE));
 
+        // if we do not read the return, an error might be thrown
+        post.readEntity(String.class);
+
         assertEquals(204, post.getStatus());
 
         final List<UaiRoute> routeList = UaiMockServerContext.getInstance().uaiMockServerConfig.getRouteList();

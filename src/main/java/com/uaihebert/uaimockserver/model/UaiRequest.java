@@ -41,7 +41,7 @@ public final class UaiRequest {
 
     public final Boolean isBodyRequired;
 
-    public final BodyValidationType bodyValidationType;
+    private BodyValidationType bodyValidationType;
 
     private UaiRequest(final UaiRequestBuilder builder) {
         this.name = builder.name;
@@ -112,6 +112,14 @@ public final class UaiRequest {
         }
 
         return optionalQueryParamList;
+    }
+
+    public BodyValidationType getBodyValidationType() {
+        if (isBodyRequired != null && isBodyRequired && bodyValidationType == null) {
+            bodyValidationType = BodyValidationType.VALIDATE_IF_PRESENT_ONLY;
+        }
+
+        return bodyValidationType;
     }
 
     /**
@@ -204,19 +212,7 @@ public final class UaiRequest {
         }
 
         public UaiRequest build() {
-            setBodyValidation();
-
             return new UaiRequest(this);
-        }
-
-        private void setBodyValidation() {
-            if (isBodyRequired == null) {
-                isBodyRequired = false;
-            }
-
-            if (isBodyRequired && bodyValidationType == null) {
-                bodyValidationType = BodyValidationType.VALIDATE_IF_PRESENT_ONLY;
-            }
         }
     }
 }

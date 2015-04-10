@@ -18,7 +18,6 @@ package com.uaihebert.uaimockserver.validator;
 import com.uaihebert.uaimockserver.configuration.ProjectConfiguration;
 import com.uaihebert.uaimockserver.facade.RequestValidatorFacade;
 import com.uaihebert.uaimockserver.log.backend.Log;
-import com.uaihebert.uaimockserver.model.BodyValidationType;
 import com.uaihebert.uaimockserver.model.UaiRequest;
 import io.undertow.server.HttpServerExchange;
 
@@ -30,8 +29,6 @@ import java.util.Scanner;
 public final class BodyValidator implements RequestDataValidator {
     private static final String NO_BODY_MESSAGE = "No Request Body was detected in the request";
     private static final String RECEIVED_BODY_MESSAGE = "We received the following body: [%s]";
-    private static final String WRONG_RAW_TEXT_BODY = "We received a body with the following text in the body [%s], but the required body is [%s]";
-    private static final String BODY_VALIDATOR_ERROR_MESSAGE = "%nThe Route [%s - %s] was defined with the body as mandatory. Send a body in your request or set the bodyRequired to false. %n";
 
     @Override
     public void validate(final UaiRequest uaiRequest, final HttpServerExchange exchange, final RequestValidatorFacade.RequestAnalysisResult result) {
@@ -49,20 +46,7 @@ public final class BodyValidator implements RequestDataValidator {
             return;
         }
 
-        if (requestHasNoBody) {
-            Log.warn(BODY_VALIDATOR_ERROR_MESSAGE, uaiRequest.method, uaiRequest.path);
-            result.abortTheRequest();
-        }
-
-        if (BodyValidationType.VALIDATE_IF_PRESENT_ONLY.equals(uaiRequest.bodyValidationType)) {
-            return;
-        }
-
-        if (BodyValidationType.RAW_TEXT.equals(uaiRequest.bodyValidationType) && !uaiRequest.body.equals(body)) {
-            Log.warn(WRONG_RAW_TEXT_BODY, body, uaiRequest.body);
-            result.abortTheRequest();
-            return;
-        }
+        uaiRequest.getBodyValidationType().validate(body, uaiRequest, result);
     }
 
     private String extractBody(final HttpServerExchange exchange) {

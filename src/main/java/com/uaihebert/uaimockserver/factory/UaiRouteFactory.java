@@ -73,7 +73,7 @@ public final class UaiRouteFactory {
                 .method(request.method)
                 .description(request.description)
                 .body(request.body)
-                .bodyValidationType(request.bodyValidationType)
+                .bodyValidationType(request.getBodyValidationType())
                 .requiredContentType(request.requiredContentType)
                 .requiredHeaderList(request.getRequiredHeaderList())
                 .requiredQueryParamList(request.getRequiredQueryParamList())
