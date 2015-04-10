@@ -17,6 +17,8 @@ public final class UaiRequestDTOFactory {
         uaiRequestDTO.setHoldRequestInMilli(uaiRequest.holdTheRequestInMilli);
         uaiRequestDTO.setMethod(uaiRequest.method);
         uaiRequestDTO.setName(uaiRequest.name);
+        uaiRequestDTO.setBody(uaiRequest.body);
+        uaiRequestDTO.setBodyValidationType(uaiRequest.bodyValidationType);
         uaiRequestDTO.setDescription(uaiRequest.description);
         uaiRequestDTO.setPath(uaiRequest.path);
         uaiRequestDTO.setRequiredContentType(uaiRequest.requiredContentType);

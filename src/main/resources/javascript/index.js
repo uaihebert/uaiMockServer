@@ -313,7 +313,7 @@ app.controller('routeController', function($scope, $http, growl, $location) {
             });
     }
 
-    $scope.bodyRequired = function($event) {
+    $scope.bodyRequired = function() {
         if (!$scope.selectedRouteRow.route.request.isBodyRequired) {
             return;
         }
@@ -321,5 +321,15 @@ app.controller('routeController', function($scope, $http, growl, $location) {
         if ($scope.selectedRouteRow.route.request.bodyValidationType == null) {
             $scope.selectedRouteRow.route.request.bodyValidationType = 'VALIDATE_IF_PRESENT_ONLY'
         }
+    }
+
+    $scope.displayRequestBody = function() {
+        if ($scope.selectedRouteRow == null) {
+            return false;
+        }
+
+        return $scope.selectedRouteRow.route.request.bodyValidationType != null &&
+               $scope.selectedRouteRow.route.request.bodyValidationType != "" &&
+               $scope.selectedRouteRow.route.request.bodyValidationType != 'VALIDATE_IF_PRESENT_ONLY'
     }
 });

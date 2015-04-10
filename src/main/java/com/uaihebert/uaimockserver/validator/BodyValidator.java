@@ -20,7 +20,6 @@ import com.uaihebert.uaimockserver.facade.RequestValidatorFacade;
 import com.uaihebert.uaimockserver.log.backend.Log;
 import com.uaihebert.uaimockserver.model.BodyValidationType;
 import com.uaihebert.uaimockserver.model.UaiRequest;
-import com.uaihebert.uaimockserver.util.RequestBodyUtil;
 import io.undertow.server.HttpServerExchange;
 
 import java.util.Scanner;
@@ -43,8 +42,7 @@ public final class BodyValidator implements RequestDataValidator {
         if (requestHasNoBody) {
             Log.info(NO_BODY_MESSAGE);
         } else {
-            final String bodyAsString = RequestBodyUtil.convertToString(exchange);
-            Log.infoFormatted(RECEIVED_BODY_MESSAGE, bodyAsString);
+            Log.infoFormatted(RECEIVED_BODY_MESSAGE, body);
         }
 
         if (uaiRequest.isBodyRequired == null || !uaiRequest.isBodyRequired) {
