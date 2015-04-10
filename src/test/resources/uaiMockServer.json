@@ -76,6 +76,8 @@
       "request":{
         "name":"Required Query Param Test",
         "path":"/requiredQueryParam",
+        "isBodyRequired": "false",
+
         "method":"GET",
         "requiredQueryParamList":[
           {

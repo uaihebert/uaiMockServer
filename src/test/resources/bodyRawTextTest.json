@@ -9,9 +9,10 @@
     {
       "request" : {
         "path" : "/rawBodyRequired",
-        "isBodyRequired": "true",
         "method" : "POST",
-        "body": "I SHOULD BE PRESENT"
+        "body": "I SHOULD BE PRESENT",
+        "isBodyRequired": "true",
+        "bodyValidationType":"RAW_TEXT"
       },
       "response" : {
         "contentType" : "application/json;charset=UTF-8",

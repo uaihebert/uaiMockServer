@@ -37,6 +37,7 @@ public final class UaiRequestFactory {
 
         final String name = request.getName();
         final String path = request.getPath();
+        final String body = request.getBody();
         final String method = request.getMethod();
         final String description = request.getDescription();
         final String contentType = request.getRequiredContentType();
@@ -52,6 +53,7 @@ public final class UaiRequestFactory {
                 .holdTheRequestInMilli(holdRequestInMilli)
                 .name(name)
                 .path(path)
+                .body(body)
                 .method(method)
                 .description(description)
                 .requiredContentType(contentType)

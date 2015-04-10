@@ -32,6 +32,7 @@ public final class UaiRequest {
 
     public final String name;
     public final String path;
+    public final String body;
     public final String method;
     public final String description;
     public final String requiredContentType;
@@ -45,6 +46,7 @@ public final class UaiRequest {
     private UaiRequest(final UaiRequestBuilder builder) {
         this.name = builder.name;
         this.path = builder.path;
+        this.body = builder.body;
         this.method = builder.method;
         this.description = builder.description;
         this.requiredContentType = builder.requiredContentType;
@@ -119,6 +121,7 @@ public final class UaiRequest {
     public static class UaiRequestBuilder {
         private String name;
         private String path;
+        private String body;
         private String method;
         private String description;
         private String requiredContentType;
@@ -137,6 +140,11 @@ public final class UaiRequest {
 
         public UaiRequestBuilder name(final String name) {
             this.name = name;
+            return this;
+        }
+
+        public UaiRequestBuilder body(final String body) {
+            this.body = body;
             return this;
         }
 
@@ -196,6 +204,10 @@ public final class UaiRequest {
         }
 
         public UaiRequest build() {
+            if (bodyValidationType == null && isBodyRequired != null && isBodyRequired) {
+                bodyValidationType = BodyValidationType.VALIDATE_IF_PRESENT_ONLY;
+            }
+
             return new UaiRequest(this);
         }
     }

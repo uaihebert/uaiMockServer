@@ -16,5 +16,5 @@
 package com.uaihebert.uaimockserver.model;
 
 public enum BodyValidationType {
-    TEXT
+    VALIDATE_IF_PRESENT_ONLY, RAW_TEXT
 }

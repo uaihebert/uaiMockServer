@@ -7,6 +7,7 @@ import java.util.List;
 public class UaiRequestDTO {
     private String name;
     private String path;
+    private String body;
     private String method;
     private String description;
     private String requiredContentType;
@@ -121,5 +122,13 @@ public class UaiRequestDTO {
 
     public void setIsBodyRequired(Boolean isBodyRequired) {
         this.isBodyRequired = isBodyRequired;
+    }
+
+    public String getBody() {
+        return body;
+    }
+
+    public void setBody(final String body) {
+        this.body = body;
     }
 }
