@@ -16,22 +16,9 @@
 package test.com.uaihebert.uaimockserver.util;
 
 import com.uaihebert.uaimockserver.context.UaiWebSocketContext;
-import com.uaihebert.uaimockserver.dto.factory.UaiBasicConfigurationDTOFactory;
-import com.uaihebert.uaimockserver.dto.factory.UaiFileDTOFactory;
-import com.uaihebert.uaimockserver.dto.factory.UaiHeaderDTOFactory;
-import com.uaihebert.uaimockserver.dto.factory.UaiQueryParamDTOFactory;
-import com.uaihebert.uaimockserver.dto.factory.UaiRequestDTOFactory;
-import com.uaihebert.uaimockserver.dto.factory.UaiResponseDTOFactory;
-import com.uaihebert.uaimockserver.dto.factory.UaiRouteDTOFactory;
-import com.uaihebert.uaimockserver.dto.factory.UaiWebSocketLogDTOFactory;
-import com.uaihebert.uaimockserver.dto.factory.UaiWebSocketLogResponseDTOFactory;
+import com.uaihebert.uaimockserver.dto.factory.*;
 import com.uaihebert.uaimockserver.facade.RequestValidatorFacade;
-import com.uaihebert.uaimockserver.factory.UaiHeaderFactory;
-import com.uaihebert.uaimockserver.factory.UaiMockServerConfigFactory;
-import com.uaihebert.uaimockserver.factory.UaiQueryParamFactory;
-import com.uaihebert.uaimockserver.factory.UaiRequestFactory;
-import com.uaihebert.uaimockserver.factory.UaiResponseFactory;
-import com.uaihebert.uaimockserver.factory.UaiRouteFactory;
+import com.uaihebert.uaimockserver.factory.*;
 import com.uaihebert.uaimockserver.factory.undertow.PathHandlerFactory;
 import com.uaihebert.uaimockserver.log.backend.Log;
 import com.uaihebert.uaimockserver.log.backend.LogBuilder;
@@ -41,15 +28,8 @@ import com.uaihebert.uaimockserver.repository.UaiRouteMapper;
 import com.uaihebert.uaimockserver.repository.UaiRouteRepository;
 import com.uaihebert.uaimockserver.service.UaiRootContextService;
 import com.uaihebert.uaimockserver.service.UaiRouteService;
-import com.uaihebert.uaimockserver.util.ExceptionUtil;
-import com.uaihebert.uaimockserver.util.FileUtil;
-import com.uaihebert.uaimockserver.util.HttpServerUtil;
-import com.uaihebert.uaimockserver.util.JsonUtil;
-import com.uaihebert.uaimockserver.util.RequestBodyExtractor;
-import com.uaihebert.uaimockserver.util.RequestHolder;
-import com.uaihebert.uaimockserver.util.RouteFinderUtil;
-import com.uaihebert.uaimockserver.util.RouteMapKeyUtil;
-import com.uaihebert.uaimockserver.util.StringUtils;
+import com.uaihebert.uaimockserver.util.*;
+import com.uaihebert.uaimockserver.validator.body.UaiJSONCompareWrapper;
 import org.junit.Test;
 
 import java.lang.reflect.Constructor;
@@ -370,6 +350,15 @@ public class PrivateConstructorTest {
         constructor.setAccessible(true);
 
         final JsonUtil createdObject = constructor.newInstance(new Object[0]);
+        assertNotNull(createdObject);
+    }
+
+    @Test
+    public void testUaiJSONCompareWrapperConstructor() throws Exception {
+        final Constructor<UaiJSONCompareWrapper> constructor = UaiJSONCompareWrapper.class.getDeclaredConstructor(new Class[0]);
+        constructor.setAccessible(true);
+
+        final UaiJSONCompareWrapper createdObject = constructor.newInstance(new Object[0]);
         assertNotNull(createdObject);
     }
 }
