@@ -6,6 +6,7 @@ import com.uaihebert.uaimockserver.dto.model.UaiRequestDTO;
 import com.uaihebert.uaimockserver.dto.model.UaiResponseDTO;
 import com.uaihebert.uaimockserver.dto.model.UaiRouteDTO;
 import com.uaihebert.uaimockserver.dto.response.IndexResponseDTO;
+import com.uaihebert.uaimockserver.model.BodyValidationType;
 import com.uaihebert.uaimockserver.model.UaiMockServerConfig;
 import com.uaihebert.uaimockserver.runner.UaiMockServerRunner;
 import com.uaihebert.uaimockserver.runner.UaiRunnerMockServerConfiguration;
@@ -67,7 +68,12 @@ public class UaiRouteServletPostTest {
 
         final UaiRouteDTO uaiRouteDTO = new UaiRouteDTO();
         uaiRouteDTO.setUaiFile(new UaiFileDTO("routePostTest.json", resource.getFile()));
-        uaiRouteDTO.setRequest(new UaiRequestDTO());
+
+        UaiRequestDTO request = new UaiRequestDTO();
+        request.setBodyRequired(true);
+        request.setBodyValidationType(BodyValidationType.VALIDATE_IF_PRESENT_ONLY);
+
+        uaiRouteDTO.setRequest(request);
         uaiRouteDTO.setResponse(new UaiResponseDTO());
 
         return new Gson().toJson(uaiRouteDTO);

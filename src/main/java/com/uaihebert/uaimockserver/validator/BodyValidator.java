@@ -52,18 +52,16 @@ public final class BodyValidator implements RequestDataValidator {
         if (requestHasNoBody) {
             Log.warn(BODY_VALIDATOR_ERROR_MESSAGE, uaiRequest.method, uaiRequest.path);
             result.abortTheRequest();
-
-            if (BodyValidationType.VALIDATE_IF_PRESENT_ONLY.equals(uaiRequest.bodyValidationType)) {
-                return;
-            }
         }
 
-        if (BodyValidationType.RAW_TEXT.equals(uaiRequest.bodyValidationType)) {
-            if (!uaiRequest.body.equals(body)) {
-                Log.warn(WRONG_RAW_TEXT_BODY, body, uaiRequest.body);
-                result.abortTheRequest();
-                return;
-            }
+        if (BodyValidationType.VALIDATE_IF_PRESENT_ONLY.equals(uaiRequest.bodyValidationType)) {
+            return;
+        }
+
+        if (BodyValidationType.RAW_TEXT.equals(uaiRequest.bodyValidationType) && !uaiRequest.body.equals(body)) {
+            Log.warn(WRONG_RAW_TEXT_BODY, body, uaiRequest.body);
+            result.abortTheRequest();
+            return;
         }
     }
 

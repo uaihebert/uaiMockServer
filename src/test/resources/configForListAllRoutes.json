@@ -14,6 +14,7 @@
         "method": "GET",
         "description": "Sample with all configurations 01",
         "isBodyRequired": "true",
+        "bodyValidationType": "VALIDATE_IF_PRESENT_ONLY",
         "holdTheRequestInMilli": "100",
         "requiredContentType": "application/json",
         "requiredHeaderList": [
@@ -108,6 +109,7 @@
         "method": "GET",
         "description": "Sample with all configurations 02",
         "isBodyRequired": "true",
+        "bodyValidationType": "VALIDATE_IF_PRESENT_ONLY",
         "holdTheRequestInMilli": "100",
         "requiredContentType": "application/json",
         "requiredHeaderList": [

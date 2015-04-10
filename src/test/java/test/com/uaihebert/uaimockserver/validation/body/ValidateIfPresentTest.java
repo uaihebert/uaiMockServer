@@ -26,7 +26,7 @@ import javax.ws.rs.core.Response;
 
 import static org.junit.Assert.assertEquals;
 
-public class RequiredValidationTest extends TestAbstract {
+public class ValidateIfPresentTest extends TestAbstract {
 
     @Test
     public void isPostWithRequiredBodyReturning204() {
