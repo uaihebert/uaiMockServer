@@ -45,6 +45,12 @@ public class UaiJSONComparatorErrorTest {
         final List<FieldComparisonFailure> failureList = jsonCompareResult.getFieldFailures();
 
         assertTrue("all the missing fields should be present", failureList.size() == 3);
+
+        for (FieldComparisonFailure failure : failureList) {
+            System.out.println(failure.getField());
+            System.out.println(failure.getExpected());
+            System.out.println(failure.getActual());
+        }
     }
 
     @Test
@@ -53,7 +59,7 @@ public class UaiJSONComparatorErrorTest {
             final String badFormattedJSON = "";
             UaiJSONCompareWrapper.compareJSON("{id:1, age:1, aNumber:1}", badFormattedJSON, STRICT_COMPARATOR);
             fail("should have an error");
-        } catch (final RuntimeException ex) {
+        } catch (final IllegalStateException ex) {
             // its the expected error
         }
     }

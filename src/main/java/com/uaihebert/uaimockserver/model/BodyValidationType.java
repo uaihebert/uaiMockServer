@@ -18,6 +18,12 @@ package com.uaihebert.uaimockserver.model;
 import com.uaihebert.uaimockserver.facade.RequestValidatorFacade;
 import com.uaihebert.uaimockserver.log.backend.Log;
 import com.uaihebert.uaimockserver.util.StringUtils;
+import com.uaihebert.uaimockserver.validator.body.UaiJSONComparator;
+import com.uaihebert.uaimockserver.validator.body.UaiJSONCompareWrapper;
+import com.uaihebert.uaimockserver.validator.body.UaiJsonFieldFailureLogger;
+import org.skyscreamer.jsonassert.JSONCompareMode;
+import org.skyscreamer.jsonassert.JSONCompareResult;
+import org.skyscreamer.jsonassert.comparator.JSONComparator;
 
 public enum BodyValidationType {
     VALIDATE_IF_PRESENT_ONLY {
@@ -41,10 +47,33 @@ public enum BodyValidationType {
             Log.warn(WRONG_RAW_TEXT_BODY, body, uaiRequest.body);
             result.abortTheRequest();
         }
+    },
+    JSON_BODY_WITH_STRICT_VALIDATION {
+        @Override
+        public void validate(final String body, final UaiRequest uaiRequest, final RequestValidatorFacade.RequestAnalysisResult result) {
+            VALIDATE_IF_PRESENT_ONLY.validate(body, uaiRequest, result);
+
+            if (result.isAbortTheRequest()) {
+                return;
+            }
+
+            final JSONCompareResult jsonResult = UaiJSONCompareWrapper.compareJSON(uaiRequest.body, body, STRICT_COMPARATOR);
+
+            if (!jsonResult.failed()) {
+                return;
+            }
+
+            UaiJsonFieldFailureLogger.logFailure(JSON_BODY_STRICT_ERROR_MESSAGE, jsonResult);
+
+            result.abortTheRequest();
+        }
     };
 
-    private static final String WRONG_RAW_TEXT_BODY = "We received a body with the following text in the body [%s], but the required body is [%s]";
+    private static final JSONComparator STRICT_COMPARATOR = new UaiJSONComparator(JSONCompareMode.STRICT);
+
+    private static final String WRONG_RAW_TEXT_BODY = "Using the RAW_TEXT validation we received a body with the following text in the body [%s], but the required body is [%s]";
     private static final String BODY_VALIDATOR_ERROR_MESSAGE = "%nThe Route [%s - %s] was defined with the body as mandatory. Send a body in your request or set the bodyRequired to false. %n";
+    private static final String JSON_BODY_STRICT_ERROR_MESSAGE = "%nUsing the JSON_BODY_WITH_STRICT_VALIDATION validation we found an error with the attribute [%s]. %nWe was expecting [%s] but what we detected was ---> [%s] %n";
 
     public abstract void validate(final String body, final UaiRequest uaiRequest, final RequestValidatorFacade.RequestAnalysisResult result);
 }
