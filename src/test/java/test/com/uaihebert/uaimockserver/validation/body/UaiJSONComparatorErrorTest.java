@@ -16,7 +16,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-public class UaiJSONComparatorTest {
+public class UaiJSONComparatorErrorTest {
     private static final JSONComparator STRICT_COMPARATOR = new UaiJSONComparator(JSONCompareMode.STRICT);
 
     @Test
@@ -59,11 +59,11 @@ public class UaiJSONComparatorTest {
     }
 
     @Test
-    public void isComparingWithSuccess() {
-        final JSONCompareResult jsonCompareResult = UaiJSONCompareWrapper.compareJSON("{id:1}", "{id:1}", STRICT_COMPARATOR);
+    public void isListingErrorWithWrongValueInAttribute() {
+        final JSONCompareResult jsonCompareResult = UaiJSONCompareWrapper.compareJSON("{id:1}", "{id:2}", STRICT_COMPARATOR);
 
         final List<FieldComparisonFailure> failureList = jsonCompareResult.getFieldFailures();
 
-        assertTrue("Should not have any error", failureList.isEmpty());
+        assertTrue("all the missing fields should be present", failureList.size() == 1);
     }
 }
