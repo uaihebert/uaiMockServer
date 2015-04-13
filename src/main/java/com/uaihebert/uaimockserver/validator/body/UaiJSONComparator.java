@@ -32,4 +32,17 @@ public class UaiJSONComparator extends DefaultComparator implements JSONComparat
             }
         }
     }
+
+    @Override
+    protected void checkJsonObjectKeysActualInExpected(String prefix, JSONObject expected, JSONObject actual, JSONCompareResult result) {
+        final Set<String> actualKeys = getKeys(actual);
+
+        for (String key : actualKeys) {
+            if (!expected.has(key)) {
+                result.unexpected(prefix, key);
+                final Object actualValue = actual.opt(key);
+                result.fail(key, actualValue, String.format("The [%s] is not mapped", key));
+            }
+        }
+    }
 }

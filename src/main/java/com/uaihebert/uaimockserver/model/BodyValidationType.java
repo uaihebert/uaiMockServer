@@ -49,7 +49,7 @@ public enum BodyValidationType {
             result.abortTheRequest();
         }
     },
-    JSON_BODY_WITH_STRICT_VALIDATION {
+    JSON_MATCHING_ALL_RECEIVED_ATTRIBUTES {
         @Override
         public void validate(final String body, final UaiRequest uaiRequest, final RequestValidatorFacade.RequestAnalysisResult result) {
             VALIDATE_IF_PRESENT_ONLY.validate(body, uaiRequest, result);
@@ -65,6 +65,26 @@ public enum BodyValidationType {
             }
 
             UaiJsonFieldFailureLogger.logFailure(JSON_BODY_STRICT_ERROR_MESSAGE, jsonResult);
+
+            result.abortTheRequest();
+        }
+    },
+    JSON_MATCHING_ONLY_DEFINED_ATTRIBUTES {
+        @Override
+        public void validate(final String body, final UaiRequest uaiRequest, final RequestValidatorFacade.RequestAnalysisResult result) {
+            VALIDATE_IF_PRESENT_ONLY.validate(body, uaiRequest, result);
+
+            if (result.isAbortTheRequest()) {
+                return;
+            }
+
+            final JSONCompareResult jsonResult = UaiJSONCompareWrapper.compareJSON(uaiRequest.body, body, LENIENT_COMPARATOR);
+
+            if (!jsonResult.failed()) {
+                return;
+            }
+
+            UaiJsonFieldFailureLogger.logFailure(JSON_BODY_LENIENT_ERROR_MESSAGE, jsonResult);
 
             result.abortTheRequest();
         }
@@ -107,10 +127,12 @@ public enum BodyValidationType {
     };
 
     private static final JSONComparator STRICT_COMPARATOR = new UaiJSONComparator(JSONCompareMode.STRICT);
+    private static final JSONComparator LENIENT_COMPARATOR = new UaiJSONComparator(JSONCompareMode.LENIENT);
 
     private static final String WRONG_RAW_TEXT_BODY = "Using the RAW_TEXT validation we received a body with the following text in the body [%s], but the required body is [%s]";
     private static final String BODY_VALIDATOR_ERROR_MESSAGE = "%nThe Route [%s - %s] was defined with the body as mandatory. Send a body in your request or set the bodyRequired to false. %n";
-    private static final String JSON_BODY_STRICT_ERROR_MESSAGE = "%nUsing the JSON_BODY_WITH_STRICT_VALIDATION validation we found an error with the attribute [%s]. %nWe was expecting [%s] but what we detected was ---> [%s] %n";
+    private static final String JSON_BODY_STRICT_ERROR_MESSAGE = "%nUsing the JSON_MATCHING_ALL_RECEIVED_ATTRIBUTES validation we found an error with the attribute [%s]. %nWe received [%s] but what we detected was ---> [%s] %n";
+    private static final String JSON_BODY_LENIENT_ERROR_MESSAGE = "%nUsing the JSON_MATCHING_ONLY_DEFINED_ATTRIBUTES validation we found an error with the attribute [%s]. %nWe was expecting [%s] but what we detected was ---> [%s] %n";
     private static final String WRONG_XML_BODY_WITH_STRICT_ATTRIBUTE_ORDER = "%nUsing the WRONG_XML_BODY_WITH_STRICT_ATTRIBUTE_ORDER validation we found and error with the XML that we received [%s]; the received XML is not equal to the expected body [%s]. Check the values and the attribute order. %n";
     private static final String WRONG_XML_BODY_WITHOUT_STRICT_ATTRIBUTE_ORDER = "%nUsing the WRONG_XML_BODY_WITHOUT_STRICT_ATTRIBUTE_ORDER validation we found and error with the XML that we received [%s]; the received XML is not equal to the expected body [%s]. Check the values and the attribute order. %n";
 

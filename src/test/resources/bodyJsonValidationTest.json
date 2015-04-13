@@ -12,7 +12,20 @@
         "method" : "POST",
         "body": "{id:1,age:33}",
         "isBodyRequired": "true",
-        "bodyValidationType":"JSON_BODY_WITH_STRICT_VALIDATION"
+        "bodyValidationType":"JSON_MATCHING_ALL_RECEIVED_ATTRIBUTES"
+      },
+      "response" : {
+        "contentType" : "application/json;charset=UTF-8",
+        "statusCode" : "204"
+      }
+    },
+    {
+      "request" : {
+        "path" : "/jsonLenientBodyRequired",
+        "method" : "POST",
+        "body": "{id:1,age:33}",
+        "isBodyRequired": "true",
+        "bodyValidationType":"JSON_MATCHING_ONLY_DEFINED_ATTRIBUTES"
       },
       "response" : {
         "contentType" : "application/json;charset=UTF-8",

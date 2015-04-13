@@ -15,11 +15,11 @@ import static org.junit.Assert.assertEquals;
 
 @RunWith(UaiMockServerRunner.class)
 @UaiRunnerMockServerConfiguration(configurationFile = "bodyJsonValidationTest.json")
-public class JsonStrictBodyTest {
+public class JsonLenientBodyTest {
 
     @Test
     public void isRejectingWhenNoBody() {
-        final String url = "http://localhost:1234/uaiMockServer/jsonStrictBodyRequired";
+        final String url = "http://localhost:1234/uaiMockServer/jsonLenientBodyRequired";
 
         final Client client = ClientBuilder.newClient();
 
@@ -30,7 +30,7 @@ public class JsonStrictBodyTest {
 
     @Test
     public void isRejectingWhenAllAttributesWithWrongValueInBody() {
-        final String url = "http://localhost:1234/uaiMockServer/jsonStrictBodyRequired";
+        final String url = "http://localhost:1234/uaiMockServer/jsonLenientBodyRequired";
 
         final Client client = ClientBuilder.newClient();
 
@@ -41,7 +41,7 @@ public class JsonStrictBodyTest {
 
     @Test
     public void isRejectingWhenOnlyOneCorrectValueInBody() {
-        final String url = "http://localhost:1234/uaiMockServer/jsonStrictBodyRequired";
+        final String url = "http://localhost:1234/uaiMockServer/jsonLenientBodyRequired";
 
         final Client client = ClientBuilder.newClient();
 
@@ -52,7 +52,7 @@ public class JsonStrictBodyTest {
 
     @Test
     public void isAcceptingTheCorrectValue() {
-        final String url = "http://localhost:1234/uaiMockServer/jsonStrictBodyRequired";
+        final String url = "http://localhost:1234/uaiMockServer/jsonLenientBodyRequired";
 
         final Client client = ClientBuilder.newClient();
 
@@ -62,14 +62,13 @@ public class JsonStrictBodyTest {
     }
 
     @Test
-    public void isNotAcceptingExtraValues() {
-        final String url = "http://localhost:1234/uaiMockServer/jsonStrictBodyRequired";
+    public void isAcceptingExtraValues() {
+        final String url = "http://localhost:1234/uaiMockServer/jsonLenientBodyRequired";
 
         final Client client = ClientBuilder.newClient();
 
         final Response response = client.target(url).request().post(Entity.entity("{id:1,age:33,aNumber:3333}", MediaType.TEXT_PLAIN_TYPE));
 
-        assertEquals(500, response.getStatus());
+        assertEquals(204, response.getStatus());
     }
-
 }
