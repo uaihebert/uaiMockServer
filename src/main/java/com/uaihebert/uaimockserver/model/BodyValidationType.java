@@ -21,6 +21,7 @@ import com.uaihebert.uaimockserver.util.StringUtils;
 import com.uaihebert.uaimockserver.validator.body.UaiJSONComparator;
 import com.uaihebert.uaimockserver.validator.body.UaiJSONCompareWrapper;
 import com.uaihebert.uaimockserver.validator.body.UaiJsonFieldFailureLogger;
+import com.uaihebert.uaimockserver.validator.body.XmlUnitWrapper;
 import org.skyscreamer.jsonassert.JSONCompareMode;
 import org.skyscreamer.jsonassert.JSONCompareResult;
 import org.skyscreamer.jsonassert.comparator.JSONComparator;
@@ -33,7 +34,7 @@ public enum BodyValidationType {
                 return;
             }
 
-            Log.warn(BODY_VALIDATOR_ERROR_MESSAGE, uaiRequest.method, uaiRequest.path);
+            Log.warnFormatted(BODY_VALIDATOR_ERROR_MESSAGE, uaiRequest.method, uaiRequest.path);
             result.abortTheRequest();
         }
     },
@@ -44,7 +45,7 @@ public enum BodyValidationType {
                 return;
             }
 
-            Log.warn(WRONG_RAW_TEXT_BODY, body, uaiRequest.body);
+            Log.warnFormatted(WRONG_RAW_TEXT_BODY, body, uaiRequest.body);
             result.abortTheRequest();
         }
     },
@@ -67,6 +68,24 @@ public enum BodyValidationType {
 
             result.abortTheRequest();
         }
+    },
+    XML_BODY_WITH_SAME_ATTRIBUTE_ORDER {
+        @Override
+        public void validate(final String body, final UaiRequest uaiRequest, final RequestValidatorFacade.RequestAnalysisResult result) {
+            VALIDATE_IF_PRESENT_ONLY.validate(body, uaiRequest, result);
+
+            if (result.isAbortTheRequest()) {
+                return;
+            }
+
+            if (XmlUnitWrapper.isIdentical(uaiRequest.body, body)) {
+                return;
+            }
+
+            Log.warnFormatted(WRONG_XML_BODY_ATTRIBUTE_ORDERED, body, uaiRequest.body);
+
+            result.abortTheRequest();
+        }
     };
 
     private static final JSONComparator STRICT_COMPARATOR = new UaiJSONComparator(JSONCompareMode.STRICT);
@@ -74,6 +93,7 @@ public enum BodyValidationType {
     private static final String WRONG_RAW_TEXT_BODY = "Using the RAW_TEXT validation we received a body with the following text in the body [%s], but the required body is [%s]";
     private static final String BODY_VALIDATOR_ERROR_MESSAGE = "%nThe Route [%s - %s] was defined with the body as mandatory. Send a body in your request or set the bodyRequired to false. %n";
     private static final String JSON_BODY_STRICT_ERROR_MESSAGE = "%nUsing the JSON_BODY_WITH_STRICT_VALIDATION validation we found an error with the attribute [%s]. %nWe was expecting [%s] but what we detected was ---> [%s] %n";
+    private static final String WRONG_XML_BODY_ATTRIBUTE_ORDERED = "%nUsing the WRONG_XML_BODY_ATTRIBUTE_ORDERED validation we found and error with the XML that we received [%s]; the received XML is not equal to the expected body [%s]. Check the values and the attribute order. %n";
 
     public abstract void validate(final String body, final UaiRequest uaiRequest, final RequestValidatorFacade.RequestAnalysisResult result);
 }

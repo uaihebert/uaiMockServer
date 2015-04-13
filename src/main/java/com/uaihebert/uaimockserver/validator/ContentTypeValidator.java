@@ -40,7 +40,7 @@ public final class ContentTypeValidator implements RequestDataValidator {
         final HeaderValues headerValues = exchange.getRequestHeaders().get(Headers.CONTENT_TYPE);
 
         if (headerValues == null) {
-            Log.warn(HEADER_VALUE_NOT_FOUND_MESSAGE, requiredContentType);
+            Log.warnFormatted(HEADER_VALUE_NOT_FOUND_MESSAGE, requiredContentType);
             result.abortTheRequest();
         }
     }

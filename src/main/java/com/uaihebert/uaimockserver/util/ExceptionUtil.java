@@ -25,7 +25,7 @@ public final class ExceptionUtil {
     }
 
     public static void logBeforeThrowing(final RuntimeException runtimeException) {
-        Log.warn(runtimeException);
+        Log.warnFormatted(runtimeException);
         throw runtimeException;
     }
 }

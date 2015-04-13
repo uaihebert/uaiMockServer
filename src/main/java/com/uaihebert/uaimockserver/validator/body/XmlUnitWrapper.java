@@ -31,7 +31,7 @@ public final class XmlUnitWrapper {
      * @return if they have same value and child order
      */
     public static boolean isIdentical(final String expected, final String actual) {
-        final Diff diff = createDiffResult(expected, actual);
+        final Diff diff = createDiffResult(expected, actual, false);
 
         return diff.identical();
     }
@@ -44,12 +44,13 @@ public final class XmlUnitWrapper {
      * @return if they have same value
      */
     public static boolean isSimilar(final String expected, final String actual) {
-        final Diff diff = createDiffResult(expected, actual);
+        final Diff diff = createDiffResult(expected, actual, true);
 
         return diff.similar();
     }
 
-    private static Diff createDiffResult(String expected, String actual) {
+    private static Diff createDiffResult(final String expected, final String actual, final boolean ignoreAttributeOrder) {
+        XMLUnit.setIgnoreAttributeOrder(ignoreAttributeOrder);
         try {
             return XMLUnit.compareXML(expected, actual);
         } catch (SAXException e) {

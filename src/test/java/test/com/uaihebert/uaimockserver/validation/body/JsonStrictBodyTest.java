@@ -15,7 +15,7 @@ import static org.junit.Assert.assertEquals;
 
 @RunWith(UaiMockServerRunner.class)
 @UaiRunnerMockServerConfiguration(configurationFile = "bodyJsonStrictTest.json")
-public class StrictJsonBodyTest {
+public class JsonStrictBodyTest {
 
     @Test
     public void isRejectingWhenNoBody() {

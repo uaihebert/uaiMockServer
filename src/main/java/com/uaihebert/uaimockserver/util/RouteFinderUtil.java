@@ -53,7 +53,7 @@ public final class RouteFinderUtil {
             }
         }
 
-        Log.warn(INVALID_DATA_MESSAGE);
+        Log.warnFormatted(INVALID_DATA_MESSAGE);
 
         throw new IllegalArgumentException(INVALID_DATA_MESSAGE);
     }

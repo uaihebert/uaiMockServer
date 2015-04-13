@@ -45,7 +45,7 @@ public final class RequiredQueryParamValidator implements RequestDataValidator {
         final Deque<String> valueDeque = queryParameterMap.get(uaiQueryParam.getName());
 
         if (valueDeque == null) {
-            Log.warn(QUERY_PARAM_NOT_FOUND_MESSAGE, uaiQueryParam.getName());
+            Log.warnFormatted(QUERY_PARAM_NOT_FOUND_MESSAGE, uaiQueryParam.getName());
             result.setInvalid();
             return;
         }
@@ -56,7 +56,7 @@ public final class RequiredQueryParamValidator implements RequestDataValidator {
         }
 
         if (!valueDeque.containsAll(uaiQueryParam.getValueList())) {
-            Log.warn(QUERY_PARAM_VALUE_NOT_FOUND_MESSAGE, uaiQueryParam.getValueList(), uaiQueryParam.getName());
+            Log.warnFormatted(QUERY_PARAM_VALUE_NOT_FOUND_MESSAGE, uaiQueryParam.getValueList(), uaiQueryParam.getName());
             result.setInvalid();
         }
     }

@@ -44,7 +44,7 @@ public final class RequiredHeaderValidator implements RequestDataValidator {
         final HeaderValues headerValueList = requestHeaderMap.get(uaiHeader.getName());
 
         if (headerValueList == null) {
-            Log.warn(REQUIRED_HEADER_NOT_FOUND, uaiHeader.getName());
+            Log.warnFormatted(REQUIRED_HEADER_NOT_FOUND, uaiHeader.getName());
             result.setInvalid();
             return;
         }
@@ -55,7 +55,7 @@ public final class RequiredHeaderValidator implements RequestDataValidator {
         }
 
         if (!headerValueList.containsAll(uaiHeader.getValueList())) {
-            Log.warn(HEADER_VALUE_NOT_FOUND_MESSAGE, uaiHeader.getValueList(), uaiHeader.getName());
+            Log.warnFormatted(HEADER_VALUE_NOT_FOUND_MESSAGE, uaiHeader.getValueList(), uaiHeader.getName());
             result.setInvalid();
         }
     }

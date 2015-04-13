@@ -38,7 +38,7 @@ public class OptionalQueryParamValidator implements RequestDataValidator{
         }
 
         if (!valueDeque.containsAll(uaiQueryParam.getValueList())) {
-            Log.warn(HEADER_VALUE_NOT_FOUND_MESSAGE, uaiQueryParam.getValueList(), uaiQueryParam.getName());
+            Log.warnFormatted(HEADER_VALUE_NOT_FOUND_MESSAGE, uaiQueryParam.getValueList(), uaiQueryParam.getName());
             result.abortTheRequest();
         }
     }
