@@ -47,6 +47,8 @@ class AbstractServlet extends HttpServlet {
         httpResponse.setStatus(204);
 
         final OutputStream outputStream = httpResponse.getOutputStream();
+
+        outputStream.flush();
         outputStream.close();
     }
 
