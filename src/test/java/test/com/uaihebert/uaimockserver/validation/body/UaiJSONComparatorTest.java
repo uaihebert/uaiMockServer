@@ -66,4 +66,19 @@ public class UaiJSONComparatorTest {
 
         assertTrue("Should not have any error", failureList.isEmpty());
     }
+
+    @Test
+    public void isComparingWithLine() {
+        final String jsonWithoutLines = "{id:1,age:33}";
+        final String jsonWithLines = "" +
+                "{" +
+                "   id:1," +
+                "   age:33" +
+                "}";
+        final JSONCompareResult jsonCompareResult = UaiJSONCompareWrapper.compareJSON(jsonWithoutLines, jsonWithLines, STRICT_COMPARATOR);
+
+        final List<FieldComparisonFailure> failureList = jsonCompareResult.getFieldFailures();
+
+        assertTrue("Should not have any error", failureList.isEmpty());
+    }
 }

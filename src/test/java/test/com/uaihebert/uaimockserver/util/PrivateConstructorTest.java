@@ -30,6 +30,7 @@ import com.uaihebert.uaimockserver.service.UaiRootContextService;
 import com.uaihebert.uaimockserver.service.UaiRouteService;
 import com.uaihebert.uaimockserver.util.*;
 import com.uaihebert.uaimockserver.validator.body.UaiJSONCompareWrapper;
+import com.uaihebert.uaimockserver.validator.body.XmlUnitWrapper;
 import org.junit.Test;
 
 import java.lang.reflect.Constructor;
@@ -359,6 +360,15 @@ public class PrivateConstructorTest {
         constructor.setAccessible(true);
 
         final UaiJSONCompareWrapper createdObject = constructor.newInstance(new Object[0]);
+        assertNotNull(createdObject);
+    }
+
+    @Test
+    public void testXmlUnitWrapperConstructor() throws Exception {
+        final Constructor<XmlUnitWrapper> constructor = XmlUnitWrapper.class.getDeclaredConstructor(new Class[0]);
+        constructor.setAccessible(true);
+
+        final XmlUnitWrapper createdObject = constructor.newInstance(new Object[0]);
         assertNotNull(createdObject);
     }
 }
