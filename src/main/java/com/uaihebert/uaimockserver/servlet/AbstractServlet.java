@@ -23,6 +23,7 @@ class AbstractServlet extends HttpServlet {
             outputStream.close();
         }
     }
+
     void printResource(final OutputStream writer, final String resourcePath) throws IOException {
         final InputStreamReader streamReader = new InputStreamReader(AbstractServlet.class.getResourceAsStream(resourcePath), ProjectConfiguration.ENCODING.value);
         final BufferedReader bufferedReader = new BufferedReader(streamReader);
@@ -46,10 +47,7 @@ class AbstractServlet extends HttpServlet {
         httpResponse.setContentType("application/json");
         httpResponse.setStatus(204);
 
-        final OutputStream outputStream = httpResponse.getOutputStream();
-
-        outputStream.flush();
-        outputStream.close();
+        writeInResponse(httpResponse, "");
     }
 
     void addDefaultHeaders(final HttpServletResponse httpResponse) {
