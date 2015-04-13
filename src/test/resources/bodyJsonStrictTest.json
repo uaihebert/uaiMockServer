@@ -1,0 +1,23 @@
+{
+  "port" : "1234",
+  "host" : "localhost",
+  "fileLog" : "false",
+  "consoleLog" : "true",
+  "context" : "/uaiMockServer",
+  "defaultContentTypeResponse" : "text/html;charset=UTF-8",
+  "routeList" : [
+    {
+      "request" : {
+        "path" : "/jsonStrictBodyRequired",
+        "method" : "POST",
+        "body": "{id:1,age:33}",
+        "isBodyRequired": "true",
+        "bodyValidationType":"JSON_BODY_WITH_STRICT_VALIDATION"
+      },
+      "response" : {
+        "contentType" : "application/json;charset=UTF-8",
+        "statusCode" : "204"
+      }
+    }
+  ]
+}

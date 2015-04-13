@@ -13,7 +13,7 @@ public class UaiJSONCompareWrapper {
         try {
             return JSONCompare.compareJSON(expectedStr, actualStr, comparator);
         } catch (JSONException ex) {
-            throw new RuntimeException(ex);
+            throw new IllegalStateException(ex);
         }
     }
 }

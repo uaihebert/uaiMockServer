@@ -46,7 +46,7 @@ public final class UaiResponse {
         return "UaiResponse{" +
                 "statusCode=" + statusCode +
                 ", body='" + body + '\'' +
-                ", requiredContentType='" + contentType + '\'' +
+                ", contentType='" + contentType + '\'' +
                 ", headerList=" + headerList +
                 '}';
     }

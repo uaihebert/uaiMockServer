@@ -16,7 +16,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-public class UaiJSONComparatorTest {
+public class UaiJSONComparatorErrorTest {
     private static final JSONComparator STRICT_COMPARATOR = new UaiJSONComparator(JSONCompareMode.STRICT);
 
     @Test
@@ -45,6 +45,12 @@ public class UaiJSONComparatorTest {
         final List<FieldComparisonFailure> failureList = jsonCompareResult.getFieldFailures();
 
         assertTrue("all the missing fields should be present", failureList.size() == 3);
+
+        for (FieldComparisonFailure failure : failureList) {
+            System.out.println(failure.getField());
+            System.out.println(failure.getExpected());
+            System.out.println(failure.getActual());
+        }
     }
 
     @Test
@@ -53,18 +59,18 @@ public class UaiJSONComparatorTest {
             final String badFormattedJSON = "";
             UaiJSONCompareWrapper.compareJSON("{id:1, age:1, aNumber:1}", badFormattedJSON, STRICT_COMPARATOR);
             fail("should have an error");
-        } catch (final RuntimeException ex) {
+        } catch (final IllegalStateException ex) {
             // its the expected error
         }
     }
 
     @Test
-    public void isComparingWithSuccess() {
-        final JSONCompareResult jsonCompareResult = UaiJSONCompareWrapper.compareJSON("{id:1}", "{id:1}", STRICT_COMPARATOR);
+    public void isListingErrorWithWrongValueInAttribute() {
+        final JSONCompareResult jsonCompareResult = UaiJSONCompareWrapper.compareJSON("{id:1}", "{id:2}", STRICT_COMPARATOR);
 
         final List<FieldComparisonFailure> failureList = jsonCompareResult.getFieldFailures();
 
-        assertTrue("Should not have any error", failureList.isEmpty());
+        assertTrue("all the missing fields should be present", failureList.size() == 1);
     }
 
     @Test

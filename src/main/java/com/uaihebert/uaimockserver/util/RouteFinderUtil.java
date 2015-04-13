@@ -13,8 +13,7 @@ import java.util.List;
 import java.util.Set;
 
 public final class RouteFinderUtil {
-    private static final String INVALID_DATA_MESSAGE = "Whe found the request URI, but some data was missing. Check your: HEADER," +
-            "QUERY_PARAM,CONTENT-TYPE,BODY";
+    private static final String INVALID_DATA_MESSAGE = "There is a problem with your request. Check the log to see the detailed error.";
 
     private static final String URI_NOT_FOUND_MESSAGE = "%nWe could not find the requested URI [%s] with the method [%s]. %n " +
             "Check the config file and try to find the mapping. A \\ in the end of the URI will affect the result. %n " +
