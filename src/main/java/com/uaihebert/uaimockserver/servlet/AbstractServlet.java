@@ -43,7 +43,8 @@ class AbstractServlet extends HttpServlet {
         httpResponse.setContentType("application/json");
         httpResponse.setStatus(204);
 
-        httpResponse.getOutputStream().close();
+        // have to send it or it will give an error in travis-ci
+        writeInResponse(httpResponse, "{empty:body}");
     }
 
     void addDefaultHeaders(final HttpServletResponse httpResponse) {
