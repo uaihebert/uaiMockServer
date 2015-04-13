@@ -12,7 +12,20 @@
         "method" : "POST",
         "body": "<person> <id>1</id> <age>33</age> </person>",
         "isBodyRequired": "true",
-        "bodyValidationType":"XML_BODY_WITH_SAME_ATTRIBUTE_ORDER"
+        "bodyValidationType":"XML_BODY_WITH_STRICT_ATTRIBUTE_ORDER"
+      },
+      "response" : {
+        "contentType" : "application/json;charset=UTF-8",
+        "statusCode" : "204"
+      }
+    },
+    {
+      "request" : {
+        "path" : "/xmlWithoutOrderTest",
+        "method" : "POST",
+        "body": "<person> <id>1</id> <age>33</age> </person>",
+        "isBodyRequired": "true",
+        "bodyValidationType":"XML_BODY_WITHOUT_STRICT_ATTRIBUTE_ORDER"
       },
       "response" : {
         "contentType" : "application/json;charset=UTF-8",

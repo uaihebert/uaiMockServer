@@ -9,11 +9,11 @@ import java.io.IOException;
 /**
  * Will compare XML. For now, the default is always to ignore white space, otherwise the examples below would not
  * be equals:
- * <name>JC</name>
+ * &lt;name&gt;JC&lt;/name&gt;
  * compared to
- * <name>
+ * &lt;name&gt;
  *     JC
- * </name>
+ * &lt;/name&gt;
  */
 public final class XmlUnitWrapper {
     private XmlUnitWrapper() {

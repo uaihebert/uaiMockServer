@@ -15,11 +15,11 @@ import static org.junit.Assert.assertEquals;
 
 @RunWith(UaiMockServerRunner.class)
 @UaiRunnerMockServerConfiguration(configurationFile = "bodyXmlValidationTest.json")
-public class XmlBodyWithOrderTest {
+public class XmlBodyWithoutOrderTest {
 
     @Test
     public void isRejectingWhenNoBody() {
-        final String url = "http://localhost:1234/uaiMockServer/xmlWithOrderTest";
+        final String url = "http://localhost:1234/uaiMockServer/xmlWithoutOrderTest";
 
         final Client client = ClientBuilder.newClient();
 
@@ -30,7 +30,7 @@ public class XmlBodyWithOrderTest {
 
     @Test
     public void isRejectingWhenAllAttributesWithWrongValueInBody() {
-        final String url = "http://localhost:1234/uaiMockServer/xmlWithOrderTest";
+        final String url = "http://localhost:1234/uaiMockServer/xmlWithoutOrderTest";
 
         final Client client = ClientBuilder.newClient();
 
@@ -41,7 +41,7 @@ public class XmlBodyWithOrderTest {
 
     @Test
     public void isRejectingWhenOnlyOneCorrectValueInBody() {
-        final String url = "http://localhost:1234/uaiMockServer/xmlWithOrderTest";
+        final String url = "http://localhost:1234/uaiMockServer/xmlWithoutOrderTest";
 
         final Client client = ClientBuilder.newClient();
 
@@ -51,19 +51,19 @@ public class XmlBodyWithOrderTest {
     }
 
     @Test
-    public void isRaisingErrorWhenTheOrderIsNotEqual() {
-        final String url = "http://localhost:1234/uaiMockServer/xmlWithOrderTest";
+    public void isAcceptingTheCorrectValueWithDifferentOrder() {
+        final String url = "http://localhost:1234/uaiMockServer/xmlWithoutOrderTest";
 
         final Client client = ClientBuilder.newClient();
 
         final Response response = client.target(url).request().post(Entity.entity("<person> <age>33</age> <id>1</id> </person>", MediaType.TEXT_PLAIN_TYPE));
 
-        assertEquals(500, response.getStatus());
+        assertEquals(204, response.getStatus());
     }
 
     @Test
     public void isAcceptingTheCorrectValue() {
-        final String url = "http://localhost:1234/uaiMockServer/xmlWithOrderTest";
+        final String url = "http://localhost:1234/uaiMockServer/xmlWithoutOrderTest";
 
         final Client client = ClientBuilder.newClient();
 
