@@ -43,7 +43,7 @@ class AbstractServlet extends HttpServlet {
         httpResponse.setContentType("application/json");
         httpResponse.setStatus(204);
 
-        writeInResponse(httpResponse, "{empty:body}");
+        httpResponse.getOutputStream().close();
     }
 
     void addDefaultHeaders(final HttpServletResponse httpResponse) {
