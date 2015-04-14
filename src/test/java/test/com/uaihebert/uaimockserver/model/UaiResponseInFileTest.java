@@ -3,10 +3,10 @@ package test.com.uaihebert.uaimockserver.model;
 import com.uaihebert.uaimockserver.runner.UaiMockServerRunner;
 import com.uaihebert.uaimockserver.runner.UaiRunnerMockServerConfiguration;
 import com.uaihebert.uaimockserver.util.FileUtil;
-import org.apache.commons.io.IOUtils;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import javax.imageio.ImageIO;
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
@@ -14,6 +14,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.ext.MessageBodyReader;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -40,10 +41,27 @@ public class UaiResponseInFileTest {
 
         final InputStream receivedImage = response.readEntity(InputStream.class);
 
+        final BufferedImage read1 = ImageIO.read(receivedImage);
+
         final InputStream desiredImage = getDesiredFile("sampleImage.jpg");
 
-        final boolean isSame = IOUtils.contentEquals(desiredImage, receivedImage);
-        assertTrue(String.format("the image must be the same. desired [%s] received [%s]", desiredImage, receivedImage), isSame);
+        final BufferedImage read2 = ImageIO.read(desiredImage);
+
+        assertTrue(String.format("the image must be the same.", desiredImage, receivedImage), imagesAreEqual(read1, read2));
+    }
+
+    private boolean imagesAreEqual(BufferedImage image1, BufferedImage image2) {
+        if (image1.getWidth() != image2.getWidth() || image1.getHeight() != image2.getHeight()) {
+            return false;
+        }
+        for (int x = 1; x < image2.getWidth(); x++) {
+            for (int y = 1; y < image2.getHeight(); y++) {
+                if (image1.getRGB(x, y) != image2.getRGB(x, y)) {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 
 
