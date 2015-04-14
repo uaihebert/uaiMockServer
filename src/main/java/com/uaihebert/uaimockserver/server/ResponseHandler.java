@@ -48,6 +48,7 @@ class ResponseHandler {
         if (uaiResponse.isBodyPointingToFile() && StringUtils.isNotBlank(uaiResponse.getBodyPath())) {
             final ByteBuffer wrap = FileUtil.getFileAsByteBuffer(uaiResponse.getBodyPath());
 
+            exchange.startBlocking();
             exchange.getResponseSender().send(wrap);
         }
     }
