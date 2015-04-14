@@ -17,7 +17,9 @@ class AbstractServlet extends HttpServlet {
 
         try {
             outputStream.write(text.getBytes(ProjectConfiguration.ENCODING.value));
+            outputStream.flush();
         } finally {
+            outputStream.close();
         }
     }
 
@@ -32,6 +34,7 @@ class AbstractServlet extends HttpServlet {
                 writer.write(currentLine.getBytes(ProjectConfiguration.ENCODING.value));
             }
 
+            writer.flush();
         } finally {
             writer.close();
             streamReader.close();
