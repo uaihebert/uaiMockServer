@@ -42,9 +42,8 @@ public class UaiResponseInFileTest {
 
         final InputStream desiredImage = getDesiredFile("sampleImage.jpg");
 
-
         final boolean isSame = IOUtils.contentEquals(desiredImage, receivedImage);
-        assertTrue("the image must be the same", isSame);
+        assertTrue(String.format("the image must be the same. desired [%s] received [%s]", desiredImage, receivedImage), isSame);
     }
 
 
