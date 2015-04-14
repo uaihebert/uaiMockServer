@@ -31,7 +31,7 @@ import static org.junit.Assert.assertTrue;
 public class HoldTheRequestTest {
 
     private static final String ASSERTING_TEXT = "asserting that the time lapse with hold [%s] is >= than regular request [%s]";
-    private static final int MIN_TIME_WAITTING = 490;
+    private static final int MIN_TIME_WAITING = 490;
 
     @Test
     public void isHoldingRequest() {
@@ -41,7 +41,7 @@ public class HoldTheRequestTest {
         final long timeLapseRegularRequest = getRequestLapseWithNoHold();
         final long timeLapseRequestWithHold = getRequestLapseWithHold();
 
-        final long regularRequestWithHoldTime = timeLapseRegularRequest + MIN_TIME_WAITTING;
+        final long regularRequestWithHoldTime = timeLapseRegularRequest + MIN_TIME_WAITING;
 
         assertTrue(String.format(ASSERTING_TEXT, timeLapseRequestWithHold, regularRequestWithHoldTime), timeLapseRequestWithHold >= regularRequestWithHoldTime);
     }
