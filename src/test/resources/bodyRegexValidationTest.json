@@ -1,0 +1,62 @@
+{
+  "port" : "1234",
+  "host" : "localhost",
+  "fileLog" : "false",
+  "consoleLog" : "true",
+  "context" : "/uaiMockServer",
+  "defaultContentTypeResponse" : "text/html;charset=UTF-8",
+  "routeList" : [
+    {
+      "request" : {
+        "path" : "/regexBodyRequired",
+        "method" : "POST",
+        "body": "id:\\s?\\d{3,4}\n\\.regex\nuaihebert",
+        "isBodyRequired": "true",
+        "bodyValidationType":"BY_REGEX"
+      },
+      "response" : {
+        "contentType" : "application/json;charset=UTF-8",
+        "statusCode" : "204"
+      }
+    },
+    {
+      "request" : {
+        "path" : "/regexNotMatchAny",
+        "method" : "POST",
+        "body": "id:\\s?\\d{3,4}\n\\.regex\nuaihebert",
+        "isBodyRequired": "true",
+        "bodyValidationType":"BY_REGEX"
+      },
+      "response" : {
+        "contentType" : "application/json;charset=UTF-8",
+        "statusCode" : "204"
+      }
+    },
+    {
+      "request" : {
+        "path" : "/regexNotMatchOne",
+        "method" : "POST",
+        "body": "id:\\s?\\d{3,4}\n\\.regex\nuaihebert",
+        "isBodyRequired": "true",
+        "bodyValidationType":"BY_REGEX"
+      },
+      "response" : {
+        "contentType" : "application/json;charset=UTF-8",
+        "statusCode" : "204"
+      }
+    },
+    {
+      "request" : {
+        "path" : "/regexMatchAll",
+        "method" : "POST",
+        "body": "id:\\s?\\d{3,4}\n\\.regex\nuaihebert",
+        "isBodyRequired": "true",
+        "bodyValidationType":"BY_REGEX"
+      },
+      "response" : {
+        "contentType" : "application/json;charset=UTF-8",
+        "statusCode" : "204"
+      }
+    }
+  ]
+}
