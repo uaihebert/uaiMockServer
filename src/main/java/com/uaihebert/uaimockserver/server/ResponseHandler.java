@@ -76,6 +76,8 @@ class ResponseHandler {
             while ((count = inputStream.read(buf)) >= 0) {
                 writer.write(buf, 0, count);
             }
+
+            writer.flush();
         } finally {
             writer.close();
             streamReader.close();
