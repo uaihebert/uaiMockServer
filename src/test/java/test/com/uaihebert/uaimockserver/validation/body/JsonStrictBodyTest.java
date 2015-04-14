@@ -71,5 +71,4 @@ public class JsonStrictBodyTest {
 
         assertEquals(500, response.getStatus());
     }
-
 }

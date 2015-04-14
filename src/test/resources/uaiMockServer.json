@@ -42,8 +42,8 @@
         "method":"GET"
       },
       "response":{
-        "statusCode":200,
-        "body":"{'mockBody':{'title':'Hello World'}}"
+        "statusCode":204,
+        "bodyPointingToFile": true
       }
     },
     {

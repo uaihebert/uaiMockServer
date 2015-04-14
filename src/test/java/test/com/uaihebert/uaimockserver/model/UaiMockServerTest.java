@@ -58,8 +58,8 @@ public class UaiMockServerTest extends TestAbstract {
         Client client = ClientBuilder.newClient();
         Response response = client.target(url).request().get();
 
-        assertEquals(200, response.getStatus());
-        assertEquals("making sure that the deafultContentTypeWasReturned", "text/html;charset=UTF-8", response.getHeaderString(Headers.CONTENT_TYPE.toString()));
+        assertEquals(204, response.getStatus());
+        assertEquals("making sure that the defaultContentTypeWasReturned", "text/html;charset=UTF-8", response.getHeaderString(Headers.CONTENT_TYPE.toString()));
     }
 
     @Test

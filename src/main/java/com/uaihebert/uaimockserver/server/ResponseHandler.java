@@ -40,12 +40,12 @@ class ResponseHandler {
     }
 
     private void defineResponseBody(HttpServerExchange exchange, UaiResponse uaiResponse) {
-        if (uaiResponse.getBody() != null) {
+        if (!uaiResponse.isBodyPointingToFile() && uaiResponse.getBody() != null) {
             exchange.getResponseSender().send(uaiResponse.getBody());
             return;
         }
 
-        if (StringUtils.isNotBlank(uaiResponse.getBodyPath())) {
+        if (uaiResponse.isBodyPointingToFile() && StringUtils.isNotBlank(uaiResponse.getBodyPath())) {
             final ByteBuffer wrap = FileUtil.getFileAsByteBuffer(uaiResponse.getBodyPath());
 
             exchange.getResponseSender().send(wrap);

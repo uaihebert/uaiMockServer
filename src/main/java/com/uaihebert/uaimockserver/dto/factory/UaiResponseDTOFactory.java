@@ -14,6 +14,7 @@ public class UaiResponseDTOFactory {
         final UaiResponseDTO uaiResponseDTO = new UaiResponseDTO();
         uaiResponseDTO.setStatusCode(uaiResponse.getStatusCode());
         uaiResponseDTO.setBody(uaiResponse.getBody());
+        uaiResponseDTO.setBodyPath(uaiResponse.getBodyPath());
         uaiResponseDTO.setContentType(uaiResponse.getContentType());
         uaiResponseDTO.setBodyPointingToFile(uaiResponse.isBodyPointingToFile());
 
