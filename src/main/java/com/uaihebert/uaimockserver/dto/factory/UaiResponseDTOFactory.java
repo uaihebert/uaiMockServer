@@ -15,6 +15,7 @@ public class UaiResponseDTOFactory {
         uaiResponseDTO.setStatusCode(uaiResponse.getStatusCode());
         uaiResponseDTO.setBody(uaiResponse.getBody());
         uaiResponseDTO.setContentType(uaiResponse.getContentType());
+        uaiResponseDTO.setBodyPointingToFile(uaiResponse.isBodyPointingToFile());
 
         final List<UaiHeaderDTO> uaiHeaderDTOList = UaiHeaderDTOFactory.create(uaiResponse.getHeaderList());
         uaiResponseDTO.setHeaderList(uaiHeaderDTOList);

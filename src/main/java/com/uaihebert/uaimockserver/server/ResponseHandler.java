@@ -18,9 +18,13 @@ package com.uaihebert.uaimockserver.server;
 import com.uaihebert.uaimockserver.log.backend.Log;
 import com.uaihebert.uaimockserver.model.UaiHeader;
 import com.uaihebert.uaimockserver.model.UaiResponse;
+import com.uaihebert.uaimockserver.util.FileUtil;
+import com.uaihebert.uaimockserver.util.StringUtils;
 import io.undertow.server.HttpServerExchange;
 import io.undertow.util.Headers;
 import io.undertow.util.HttpString;
+
+import java.nio.ByteBuffer;
 
 class ResponseHandler {
     public void process(final HttpServerExchange exchange, final UaiResponse uaiResponse) {
@@ -32,8 +36,19 @@ class ResponseHandler {
 
         setResponseHeaders(uaiResponse, exchange);
 
+        defineResponseBody(exchange, uaiResponse);
+    }
+
+    private void defineResponseBody(HttpServerExchange exchange, UaiResponse uaiResponse) {
         if (uaiResponse.getBody() != null) {
             exchange.getResponseSender().send(uaiResponse.getBody());
+            return;
+        }
+
+        if (StringUtils.isNotBlank(uaiResponse.getBodyPath())) {
+            final ByteBuffer wrap = FileUtil.getFileAsByteBuffer(uaiResponse.getBodyPath());
+
+            exchange.getResponseSender().send(wrap);
         }
     }
 

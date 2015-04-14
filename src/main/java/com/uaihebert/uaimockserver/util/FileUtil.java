@@ -4,10 +4,14 @@ import com.uaihebert.uaimockserver.context.UaiMockServerContext;
 import com.uaihebert.uaimockserver.log.backend.Log;
 import com.uaihebert.uaimockserver.model.UaiMockServerConfig;
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.IOUtils;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URL;
+import java.nio.ByteBuffer;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -79,5 +83,19 @@ public final class FileUtil {
         final String formattedDate = new SimpleDateFormat("yyyy_MM_dd_hh_mm_ss_sss").format(new Date());
 
         FileUtils.copyFile(new File(fullPath), new File(fullPath.replace(".json", "_" + formattedDate + ".back.json")));
+    }
+
+    public static ByteBuffer getFileAsByteBuffer(String bodyPath) {
+        try {
+            final File file = findFile(bodyPath);
+
+            final InputStream inputStream = new FileInputStream(file);
+
+            final byte[] bytes = IOUtils.toByteArray(inputStream);
+
+            return ByteBuffer.wrap(bytes);
+        } catch (IOException e) {
+            throw new IllegalArgumentException("problem opening the file: " + bodyPath, e);
+        }
     }
 }

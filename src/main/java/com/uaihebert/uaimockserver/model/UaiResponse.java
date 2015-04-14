@@ -26,7 +26,10 @@ import java.util.List;
 public final class UaiResponse {
     private int statusCode;
 
+    private boolean bodyPointingToFile;
+
     private String body;
+    private String bodyPath;
     private String contentType;
 
     private List<UaiHeader> headerList;
@@ -34,11 +37,13 @@ public final class UaiResponse {
     public UaiResponse() {
     }
 
-    public UaiResponse(final int statusCode, final String body, final String contentType, final List<UaiHeader> headerList) {
+    public UaiResponse(final int statusCode, final String body, final String contentType, final List<UaiHeader> headerList, final String bodyPath, final boolean bodyPointingToFile) {
         this.statusCode = statusCode;
         this.body = body;
+        this.bodyPath = bodyPath;
         this.contentType = contentType;
         this.headerList = headerList;
+        this.bodyPointingToFile = bodyPointingToFile;
     }
 
     @Override
@@ -59,8 +64,16 @@ public final class UaiResponse {
         return body;
     }
 
+    public String getBodyPath() {
+        return bodyPath;
+    }
+
     public String getContentType() {
         return contentType;
+    }
+
+    public boolean isBodyPointingToFile() {
+        return bodyPointingToFile;
     }
 
     public List<UaiHeader> getHeaderList() {

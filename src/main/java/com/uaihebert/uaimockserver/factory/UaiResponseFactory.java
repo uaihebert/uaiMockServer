@@ -31,11 +31,14 @@ public final class UaiResponseFactory {
     public static UaiResponse create(final UaiResponseDTO response) {
         final int statusCode = response.getStatusCode();
 
+        final boolean bodyPointingToFile = response.isBodyPointingToFile();
+
         final String body = response.getBody();
+        final String bodyPath = response.getBodyPath();
         final String contentType = response.getContentType();
 
         final List<UaiHeader> headerList = UaiHeaderFactory.create(response.getHeaderList());
 
-        return new UaiResponse(statusCode, body, contentType, headerList);
+        return new UaiResponse(statusCode, body, contentType, headerList, bodyPath, bodyPointingToFile);
     }
 }

@@ -5,7 +5,10 @@ import java.util.List;
 public class UaiResponseDTO {
     private int statusCode;
 
+    private boolean bodyPointingToFile;
+
     private String body;
+    private String bodyPath;
     private String contentType;
 
     private List<UaiHeaderDTO> headerList;
@@ -40,5 +43,21 @@ public class UaiResponseDTO {
 
     public void setHeaderList(final List<UaiHeaderDTO> headerList) {
         this.headerList = headerList;
+    }
+
+    public String getBodyPath() {
+        return bodyPath;
+    }
+
+    public void setBodyPath(String bodyPath) {
+        this.bodyPath = bodyPath;
+    }
+
+    public boolean isBodyPointingToFile() {
+        return bodyPointingToFile;
+    }
+
+    public void setBodyPointingToFile(boolean bodyPointingToFile) {
+        this.bodyPointingToFile = bodyPointingToFile;
     }
 }

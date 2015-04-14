@@ -45,7 +45,7 @@ public final class UaiWebSocketLogManager {
         return uaiWebSocketLogDTO;
     }
 
-    public static void setResponse(final UaiResponse uaiResponse) {
+    public static void logResponse(final UaiResponse uaiResponse) {
         final UaiWebSocketLogResponseDTO logResponseDTO = UaiWebSocketLogResponseDTOFactory.create(uaiResponse);
         getCurrentLog().setLogResponse(logResponseDTO);
     }

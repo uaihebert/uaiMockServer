@@ -1,0 +1,34 @@
+{
+  "port" : "1234",
+  "host" : "localhost",
+  "fileLog" : "false",
+  "consoleLog" : "true",
+  "context" : "/uaiMockServer",
+  "defaultContentTypeResponse" : "text/html;charset=UTF-8",
+  "routeList" : [
+	{
+	  "request" : {
+		"path" : "/bodyInResponseJpg",
+		"method" : "GET"
+	  },
+	  "response" : {
+		"contentType" : "image/jpg",
+		"statusCode" : "200",
+		"bodyPointingToFile": true,
+		"bodyPath" : "sampleImage.jpg"
+	  }
+	},
+	{
+	  "request" : {
+		"path" : "/bodyInResponseJson",
+		"method" : "GET"
+	  },
+	  "response" : {
+		"contentType" : "application/json",
+		"statusCode" : "200",
+		"bodyPointingToFile": true,
+		"bodyPath" : "bodyPathTest.json"
+	  }
+	}
+  ]
+}
