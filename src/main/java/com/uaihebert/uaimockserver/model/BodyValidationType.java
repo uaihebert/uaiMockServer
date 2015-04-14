@@ -26,6 +26,8 @@ import org.skyscreamer.jsonassert.JSONCompareMode;
 import org.skyscreamer.jsonassert.JSONCompareResult;
 import org.skyscreamer.jsonassert.comparator.JSONComparator;
 
+import java.util.regex.Pattern;
+
 public enum BodyValidationType {
     VALIDATE_IF_PRESENT_ONLY {
         @Override
@@ -124,6 +126,28 @@ public enum BodyValidationType {
 
             result.abortTheRequest();
         }
+    },
+    BY_REGEX {
+        @Override
+        public void validate(final String body, final UaiRequest uaiRequest, final RequestValidatorFacade.RequestAnalysisResult result) {
+            VALIDATE_IF_PRESENT_ONLY.validate(body, uaiRequest, result);
+
+            if (result.isAbortTheRequest()) {
+                return;
+            }
+
+            final String delimiter = "\n";
+            final String[] textPatterns = uaiRequest.body.split(delimiter);
+
+            for(String textPattern : textPatterns){
+                final Pattern pattern = Pattern.compile(textPattern);
+                if(!pattern.matcher(body).find()){
+                    Log.warnFormatted(UNMATCHED_REGEX, body, textPattern);
+                    result.abortTheRequest();
+                }
+            }
+
+        }
     };
 
     private static final JSONComparator STRICT_COMPARATOR = new UaiJSONComparator(JSONCompareMode.STRICT);
@@ -135,6 +159,7 @@ public enum BodyValidationType {
     private static final String JSON_BODY_LENIENT_ERROR_MESSAGE = "%nUsing the JSON_MATCHING_ONLY_DEFINED_ATTRIBUTES validation we found an error with the attribute [%s]. %nWe was expecting [%s] but what we detected was ---> [%s] %n";
     private static final String WRONG_XML_BODY_WITH_STRICT_ATTRIBUTE_ORDER = "%nUsing the WRONG_XML_BODY_WITH_STRICT_ATTRIBUTE_ORDER validation we found and error with the XML that we received [%s]; the received XML is not equal to the expected body [%s]. Check the values and the attribute order. %n";
     private static final String WRONG_XML_BODY_WITHOUT_STRICT_ATTRIBUTE_ORDER = "%nUsing the WRONG_XML_BODY_WITHOUT_STRICT_ATTRIBUTE_ORDER validation we found and error with the XML that we received [%s]; the received XML is not equal to the expected body [%s]. Check the values and the attribute order. %n";
+    private static final String UNMATCHED_REGEX = "%nUsing the BY_REGEX validation we found and error with the body that we received [%s]; the received body does not match one of the regular expressions [%s]. %n";
 
     public abstract void validate(final String body, final UaiRequest uaiRequest, final RequestValidatorFacade.RequestAnalysisResult result);
 }
