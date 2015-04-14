@@ -79,9 +79,9 @@ class ResponseHandler {
 
             writer.flush();
         } finally {
-            writer.close();
             streamReader.close();
             bufferedReader.close();
+            writer.close();
         }
     }
 
