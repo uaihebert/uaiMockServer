@@ -15,6 +15,7 @@
  * */
 package com.uaihebert.uaimockserver.server;
 
+import com.uaihebert.uaimockserver.configuration.ProjectConfiguration;
 import com.uaihebert.uaimockserver.log.backend.Log;
 import com.uaihebert.uaimockserver.model.UaiHeader;
 import com.uaihebert.uaimockserver.model.UaiResponse;
@@ -24,7 +25,7 @@ import io.undertow.server.HttpServerExchange;
 import io.undertow.util.Headers;
 import io.undertow.util.HttpString;
 
-import java.nio.ByteBuffer;
+import java.io.*;
 
 class ResponseHandler {
     public void process(final HttpServerExchange exchange, final UaiResponse uaiResponse) {
@@ -46,10 +47,14 @@ class ResponseHandler {
         }
 
         if (uaiResponse.isBodyPointingToFile() && StringUtils.isNotBlank(uaiResponse.getBodyPath())) {
-            final ByteBuffer wrap = FileUtil.getFileAsByteBuffer(uaiResponse.getBodyPath());
+            final File file = FileUtil.findFile(uaiResponse.getBodyPath());
 
-            exchange.startBlocking();
-            exchange.getResponseSender().send(wrap);
+            try {
+                exchange.startBlocking();
+                printResource(exchange.getOutputStream(), new FileInputStream(file));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -60,4 +65,22 @@ class ResponseHandler {
             }
         }
     }
+
+    void printResource(final OutputStream writer, final InputStream inputStream) throws IOException {
+        final InputStreamReader streamReader = new InputStreamReader(inputStream, ProjectConfiguration.ENCODING.value);
+        final BufferedReader bufferedReader = new BufferedReader(streamReader);
+
+        try {
+            byte[] buf = new byte[1024];
+            int count;
+            while ((count = inputStream.read(buf)) >= 0) {
+                writer.write(buf, 0, count);
+            }
+        } finally {
+            writer.close();
+            streamReader.close();
+            bufferedReader.close();
+        }
+    }
+
 }
