@@ -76,7 +76,9 @@ public final class UaiRouteFactory {
                 .bodyValidationType(request.getBodyValidationType())
                 .requiredContentType(request.requiredContentType)
                 .requiredHeaderList(request.getRequiredHeaderList())
+                .optionalHeaderList(request.getOptionalHeaderList())
                 .requiredQueryParamList(request.getRequiredQueryParamList())
+                .optionalQueryParamList(request.getOptionalQueryParamList())
                 .build();
 
         return new UaiRoute(uaiRoute.getUaiFile(), clonedRequest, uaiRoute.getResponse(), uaiRoute.getProject());

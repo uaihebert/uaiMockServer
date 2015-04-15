@@ -73,6 +73,26 @@ app.controller('routeController', function($scope, $http, growl, $location) {
                             request.headerList.push(header);
                         }
                     }
+                    
+                    request.queryParamList = [];
+
+                    if (request.requiredQueryParamList) {
+                        for (var j = 0; j < request.requiredQueryParamList.length; j++) {
+                            var queryParam = request.requiredQueryParamList[j];
+                            queryParam.required = true;
+
+                            request.queryParamList.push(queryParam);
+                        }
+                    }
+
+                    if (request.optionalQueryParamList) {
+                        for (var j = 0; j < request.optionalQueryParamList.length; j++) {
+                            var queryParam = request.optionalQueryParamList[j];
+                            queryParam.required = false;
+
+                            request.queryParamList.push(queryParam);
+                        }
+                    }
 
                     $scope.routeRowList.push(routeRow);
                 }
@@ -176,8 +196,22 @@ app.controller('routeController', function($scope, $http, growl, $location) {
             }
         }
 
-        $scope.selectedRouteRow.route.request.requiredQueryParamList = $scope.convertStringToList($scope.selectedRouteRow.route.request.requiredQueryParamList);
-        $scope.selectedRouteRow.route.request.optionalQueryParamList = $scope.convertStringToList($scope.selectedRouteRow.route.request.optionalQueryParamList);
+        $scope.selectedRouteRow.route.request.requiredQueryParamList = [];
+        $scope.selectedRouteRow.route.request.optionalQueryParamList = [];
+
+        var queryParamList = $scope.convertStringToList($scope.selectedRouteRow.route.request.queryParamList);
+
+        if (queryParamList) {
+            for (var i = 0; i < queryParamList.length; i++) {
+                var queryParam = queryParamList[i];
+                if (queryParam.required) {
+                    $scope.selectedRouteRow.route.request.requiredQueryParamList.push(queryParam);
+                } else {
+                    $scope.selectedRouteRow.route.request.optionalQueryParamList.push(queryParam);
+                }
+            }
+        }
+
         $scope.selectedRouteRow.route.response.headerList = $scope.convertStringToList($scope.selectedRouteRow.route.response.headerList);
 
         var errorText = $scope.getErrorText($scope.selectedRouteRow.route);
@@ -256,6 +290,8 @@ app.controller('routeController', function($scope, $http, growl, $location) {
         $scope.selectedRouteRow = {};
         $scope.selectedRouteRow.route = {};
         $scope.selectedRouteRow.route.request = {};
+        $scope.selectedRouteRow.route.request.headerList = [];
+        $scope.selectedRouteRow.route.request.queryParamList = [];
         $scope.selectedRouteRow.route.request.path = "/";
         $scope.selectedRouteRow.route.response = {};
         $scope.selectedRouteRow.route.response.contentType = $scope.rootConfiguration.defaultContentType;
@@ -290,19 +326,7 @@ app.controller('routeController', function($scope, $http, growl, $location) {
     }
 
     $scope.addNewQueryParamRequest = function (request) {
-        if (request.requiredQueryParamList == null) {
-            request.requiredQueryParamList = [];
-        }
-
-        request.requiredQueryParamList.push({name:"", valueList: []});
-    }
-
-    $scope.addOptionalQueryParamRequest = function (request) {
-        if (request.optionalQueryParamList == null) {
-            request.optionalQueryParamList = [];
-        }
-
-        request.optionalQueryParamList.push({name:"", valueList: []});
+        request.queryParamList.push({name:"", required: true, valueList: []});
     }
 
     $scope.delete = function () {
