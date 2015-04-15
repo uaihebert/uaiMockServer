@@ -41,19 +41,38 @@ app.controller('routeController', function($scope, $http, growl, $location) {
                     $scope.projectList =  $scope.projectList.concat(data.projectList);
                 }
 
-                console.log(">>>>>")
-                console.log(data.routeList)
-
                 for (var i = 0; i < data.routeList.length; i++) {
                     var routeRow = {};
 
-                    routeRow.requestName = data.routeList[i].request.name;
-                    routeRow.requestMethod = data.routeList[i].request.method;
                     routeRow.requestPath = data.routeList[i].request.path;
                     routeRow.responseCode = data.routeList[i].response.statusCode;
+                    routeRow.requestName = data.routeList[i].request.name;
+                    routeRow.requestMethod = data.routeList[i].request.method;
                     routeRow.responseContentType = data.routeList[i].response.contentType;
 
                     routeRow.route = data.routeList[i];
+
+                    var request = routeRow.route.request;
+
+                    request.headerList = [];
+
+                    if (request.requiredHeaderList) {
+                        for (var j = 0; j < request.requiredHeaderList.length; j++) {
+                            var header = request.requiredHeaderList[j];
+                            header.required = true;
+
+                            request.headerList.push(header);
+                        }
+                    }
+
+                    if (request.optionalHeaderList) {
+                        for (var j = 0; j < request.optionalHeaderList.length; j++) {
+                            var header = request.optionalHeaderList[j];
+                            header.required = false;
+
+                            request.headerList.push(header);
+                        }
+                    }
 
                     $scope.routeRowList.push(routeRow);
                 }
@@ -119,9 +138,10 @@ app.controller('routeController', function($scope, $http, growl, $location) {
             error.errorHtml += "<li>response.contentType was not found</li>";
         }
 
-        // todo ver como validar optional values
         $scope.hasErrorInList("Request ---> HeaderList", route.request.requiredHeaderList, error);
+        $scope.hasErrorInList("Request ---> HeaderList", route.request.optionalHeaderList, error);
         $scope.hasErrorInList("Request ---> QueryParamList", route.request.requiredQueryParamList, error);
+        $scope.hasErrorInList("Request ---> QueryParamList", route.request.optionalQueryParamList, error);
 
         $scope.hasErrorInList("Response ---> HeaderList", route.response.headerList, error);
 
@@ -140,8 +160,22 @@ app.controller('routeController', function($scope, $http, growl, $location) {
     }
 
     $scope.saveRoute = function() {
-        $scope.selectedRouteRow.route.request.requiredHeaderList = $scope.convertStringToList($scope.selectedRouteRow.route.request.requiredHeaderList);
-        $scope.selectedRouteRow.route.request.optionalHeaderList = $scope.convertStringToList($scope.selectedRouteRow.route.request.optionalHeaderList);
+        $scope.selectedRouteRow.route.request.requiredHeaderList = [];
+        $scope.selectedRouteRow.route.request.optionalHeaderList = [];
+
+        var headerList = $scope.convertStringToList($scope.selectedRouteRow.route.request.headerList);
+
+        if (headerList) {
+            for (var i = 0; i < headerList.length; i++) {
+                var header = headerList[i];
+                if (header.required) {
+                    $scope.selectedRouteRow.route.request.requiredHeaderList.push(header);
+                } else {
+                    $scope.selectedRouteRow.route.request.optionalHeaderList.push(header);
+                }
+            }
+        }
+
         $scope.selectedRouteRow.route.request.requiredQueryParamList = $scope.convertStringToList($scope.selectedRouteRow.route.request.requiredQueryParamList);
         $scope.selectedRouteRow.route.request.optionalQueryParamList = $scope.convertStringToList($scope.selectedRouteRow.route.request.optionalQueryParamList);
         $scope.selectedRouteRow.route.response.headerList = $scope.convertStringToList($scope.selectedRouteRow.route.response.headerList);
@@ -244,19 +278,7 @@ app.controller('routeController', function($scope, $http, growl, $location) {
     }
 
     $scope.addNewHeaderRequest = function (request) {
-        if (request.requiredHeaderList == null) {
-            request.requiredHeaderList = [];
-        }
-
-        request.requiredHeaderList.push({name:"", valueList: []});
-    }
-
-    $scope.addOptionalHeaderRequest = function (request) {
-        if (request.optionalHeaderList == null) {
-            request.optionalHeaderList = [];
-        }
-
-        request.optionalHeaderList.push({name:"", valueList: []});
+        request.headerList.push({name:"", required: true, valueList: []});
     }
 
     $scope.addNewHeaderResponse = function (response) {

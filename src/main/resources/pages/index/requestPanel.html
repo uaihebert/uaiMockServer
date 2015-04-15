@@ -46,7 +46,7 @@
     <div class="panel-heading" role="tab" id="headingRequestTwo">
       <h4 class="panel-title">
         <a class="collapsed" data-toggle="collapse" data-parent="#accordionRequest" href="#collapseRequestTwo" aria-expanded="false" aria-controls="collapseRequestTwo">
-          [Required] Header List
+          Header List
         </a>
       </h4>
     </div>
@@ -61,15 +61,16 @@
             </thead>
             <tbody>
                 <button class="btn btn-success" ng-click="addNewHeaderRequest(selectedRouteRow.route.request)">Add New</button>
-                <tr ng-repeat="header in selectedRouteRow.route.request.requiredHeaderList">
+                <tr ng-repeat="header in selectedRouteRow.route.request.headerList">
                     <td>
                         <input type="text" class="form-control" ng-model="header.name" placeholder="The name of the header"/><br />
                         <h6>You must split the Array values with a comma ","</h6>
                     </td>
                     <td>
+                        Required: <input type="checkbox" ng-model="header.required" /><br />
                         <textarea class="form-control" rows="3" ng-model="header.valueList" placeholder="A list like VALUE or VALUE1,VALUE2"></textarea>
                         <br/>
-                        <button class="btn btn-danger" ng-click="selectedRouteRow.route.request.requiredHeaderList.splice($index,1)">Delete (no confirmation)</button>
+                        <button class="btn btn-danger" ng-click="selectedRouteRow.route.request.headerList.splice($index,1)">Delete (no confirmation)</button>
                     </td>
                 </tr>
             </tbody>
@@ -105,41 +106,6 @@
                         <textarea class="form-control" rows="3" ng-model="queryParam.valueList" placeholder="A list like VALUE or VALUE1,VALUE2"></textarea>
                         <br/>
                         <button class="btn btn-danger" ng-click="selectedRouteRow.route.request.requiredQueryParamList.splice($index,1)">Delete (no confirmation)</button>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-      </div>
-    </div>
-  </div>
-  <div class="panel panel-default">
-    <div class="panel-heading" role="tab" id="headingRequestFour">
-      <h4 class="panel-title">
-        <a data-toggle="collapse" data-parent="#accordionRequest" href="#collapseRequestFour" aria-expanded="false" aria-controls="collapseRequestFour">
-          [Optional] Header List
-        </a>
-      </h4>
-    </div>
-    <div id="collapseRequestFour" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingRequestFour">
-      <div class="panel-body">
-        <table class="table table-hover pointer">
-            <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Value List</th>
-                </tr>
-            </thead>
-            <tbody>
-                <button class="btn btn-success" ng-click="addOptionalHeaderRequest(selectedRouteRow.route.request)">Add New</button>
-                <tr ng-repeat="header in selectedRouteRow.route.request.optionalHeaderList">
-                    <td>
-                        <input type="text" class="form-control" ng-model="header.name" placeholder="The name of the header"/><br />
-                        <h6>You must split the Array values with a comma ","</h6>
-                    </td>
-                    <td>
-                        <textarea class="form-control" rows="3" ng-model="header.valueList" placeholder="A list like VALUE or VALUE1,VALUE2"></textarea>
-                        <br/>
-                        <button class="btn btn-danger" ng-click="selectedRouteRow.route.request.optionalHeaderList.splice($index,1)">Delete (no confirmation)</button>
                     </td>
                 </tr>
             </tbody>
