@@ -381,4 +381,8 @@ app.controller('routeController', function($scope, $http, growl, $location) {
                $scope.selectedRouteRow.route.request.bodyValidationType != "" &&
                $scope.selectedRouteRow.route.request.bodyValidationType != 'VALIDATE_IF_PRESENT_ONLY'
     }
+
+    $scope.addWildCard = function(object) {
+        object.valueList = "UAI_*"
+    }
 });

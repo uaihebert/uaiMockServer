@@ -53,24 +53,16 @@
     <div id="collapseRequestTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingRequestTwo">
       <div class="panel-body">
         <table class="table table-hover pointer">
-            <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Value List</th>
-                </tr>
-            </thead>
             <tbody>
                 <button class="btn btn-success" ng-click="addNewHeaderRequest(selectedRouteRow.route.request)">Add New</button>
                 <tr ng-repeat="header in selectedRouteRow.route.request.headerList">
                     <td>
-                        <input type="text" class="form-control" ng-model="header.name" placeholder="The name of the header"/><br />
-                        <h6>You must split the Array values with a comma ","</h6>
-                    </td>
-                    <td>
-                        Required: <input type="checkbox" ng-model="header.required" /><br />
+                        Name: <input type="text" class="form-control" ng-model="header.name" placeholder="The header name"/><br />
+                        Required: <input type="checkbox" ng-model="header.required" > <h6 class="pull-right" style="display: inline;">You must split the Array values with a comma ","</h6>
+
                         <textarea class="form-control" rows="3" ng-model="header.valueList" placeholder="A list like VALUE or VALUE1,VALUE2"></textarea>
                         <br/>
-                        <button class="btn btn-danger" ng-click="selectedRouteRow.route.request.headerList.splice($index,1)">Delete (no confirmation)</button>
+                        <button class="btn btn-info" ng-click="addWildCard(header)">Use Wild Card</button> <button class="btn btn-danger pull-right" ng-click="selectedRouteRow.route.request.headerList.splice($index,1)">Delete (no confirmation)</button>
                     </td>
                 </tr>
             </tbody>
@@ -89,24 +81,16 @@
     <div id="collapseRequestThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingRequestThree">
       <div class="panel-body">
           <table class="table table-hover pointer">
-            <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Value List</th>
-                </tr>
-            </thead>
             <tbody>
                 <button class="btn btn-success" ng-click="addNewQueryParamRequest(selectedRouteRow.route.request)">Add New</button>
                 <tr ng-repeat="queryParam in selectedRouteRow.route.request.queryParamList">
                     <td>
-                        <input type="text" class="form-control" ng-model="queryParam.name" placeholder="The name of the Query Parameter"/><br />
-                        <h6>You must split the Array values with a comma ","</h6>
-                    </td>
-                    <td>
-                        Required: <input type="checkbox" ng-model="queryParam.required" /><br />
+                        Name: <input type="text" class="form-control" ng-model="queryParam.name" placeholder="The queryParam name"/><br />
+                        Required: <input type="checkbox" ng-model="queryParam.required" > <h6 class="pull-right" style="display: inline;">You must split the Array values with a comma ","</h6>
+
                         <textarea class="form-control" rows="3" ng-model="queryParam.valueList" placeholder="A list like VALUE or VALUE1,VALUE2"></textarea>
                         <br/>
-                        <button class="btn btn-danger" ng-click="selectedRouteRow.route.request.requiredQueryParamList.splice($index,1)">Delete (no confirmation)</button>
+                        <button class="btn btn-info" ng-click="addWildCard(queryParam)">Use Wild Card</button> <button class="btn btn-danger pull-right" ng-click="selectedRouteRow.route.request.queryParamList.splice($index,1)">Delete (no confirmation)</button>
                     </td>
                 </tr>
             </tbody>

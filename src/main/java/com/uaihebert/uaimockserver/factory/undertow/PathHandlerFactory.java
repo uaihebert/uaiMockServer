@@ -25,7 +25,7 @@ import static io.undertow.servlet.Servlets.servlet;
 
 public final class PathHandlerFactory {
     private static final String SERVLET_CONTEXT_PATH = "/uaiGui/";
-    private static final String WEBSOCKET_CONTEXT_PATH = "/uaiGui-ws";
+    private static final String WEB_SOCKET_CONTEXT_PATH = "/uaiGui-ws";
 
     private PathHandlerFactory() {
     }
@@ -33,7 +33,7 @@ public final class PathHandlerFactory {
     public static PathHandler create() throws ServletException {
         return Handlers.path(Handlers.redirect(SERVLET_CONTEXT_PATH))
                 .addPrefixPath(SERVLET_CONTEXT_PATH, createHtmlManager())
-                .addPrefixPath(WEBSOCKET_CONTEXT_PATH, Handlers.websocket(new UaiWebSocketCallback()))
+                .addPrefixPath(WEB_SOCKET_CONTEXT_PATH, Handlers.websocket(new UaiWebSocketCallback()))
                 .addPrefixPath("/", new UaiMockServerHandler());
     }
 
