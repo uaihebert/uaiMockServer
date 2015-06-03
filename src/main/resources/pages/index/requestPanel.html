@@ -17,7 +17,13 @@
                 <option value='' disabled>- The HTTP method that will be sent -</option>
             </select><br />
             <p class="requiredAttribute">* </p>Path:
-            <input type="text" class="form-control" ng-model="selectedRouteRow.route.request.path" placeholder="A request path like: /hello"/><br />
+            <div>
+                <input type="text" class="form-control" ng-model="selectedRouteRow.route.request.path" placeholder="A request path like: /hello"/>
+                <h6 class="alert-info">
+                    The full url will be:<br/>
+                    http://{{rootConfiguration.host}}:{{rootConfiguration.port}}{{rootConfiguration.context}}{{selectedRouteRow.route.request.path}}
+                </h6>
+            </div><br />
             Description:
             <textarea class="form-control" rows="3" ng-model="selectedRouteRow.route.request.description" placeholder="A request description if needed"></textarea><br />
             <p class="requiredAttribute">* </p>Content Type:
