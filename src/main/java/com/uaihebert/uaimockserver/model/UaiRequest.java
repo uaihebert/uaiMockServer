@@ -115,7 +115,11 @@ public final class UaiRequest {
     }
 
     public BodyValidationType getBodyValidationType() {
-        if (isBodyRequired != null && isBodyRequired && bodyValidationType == null) {
+        if (isBodyRequired == null) {
+            return null;
+        }
+
+        if (isBodyRequired && bodyValidationType == null) {
             bodyValidationType = BodyValidationType.VALIDATE_IF_PRESENT_ONLY;
         }
 

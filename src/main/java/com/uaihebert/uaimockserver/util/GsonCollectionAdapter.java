@@ -11,8 +11,9 @@ import java.util.Collection;
 public class GsonCollectionAdapter implements JsonSerializer<Collection<?>> {
     @Override
     public JsonElement serialize(Collection<?> source, Type typeOfSrc, JsonSerializationContext context) {
-        if (source == null || source.isEmpty())
+        if (source == null || source.isEmpty()){
             return null;
+        }
 
         final JsonArray array = new JsonArray();
 
