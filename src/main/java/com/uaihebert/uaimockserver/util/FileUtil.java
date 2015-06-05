@@ -2,6 +2,7 @@ package com.uaihebert.uaimockserver.util;
 
 import com.uaihebert.uaimockserver.context.UaiMockServerContext;
 import com.uaihebert.uaimockserver.log.backend.Log;
+import com.uaihebert.uaimockserver.model.BackUpStrategy;
 import com.uaihebert.uaimockserver.model.UaiMockServerConfig;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
@@ -80,9 +81,27 @@ public final class FileUtil {
     }
 
     private static void createFileBackUp(final String fullPath) throws IOException {
+        final BackUpStrategy backUpStrategy = UaiMockServerContext.getInstance().uaiMockServerConfig.getBackUpStrategy();
+
+        if (BackUpStrategy.NO_BACKUP.equals(backUpStrategy)) {
+            return;
+        }
+
+        final String backUpName = getBackUpFileName(fullPath);
+
+        FileUtils.copyFile(new File(fullPath), new File(backUpName));
+    }
+
+    private static String getBackUpFileName(String fullPath) {
+        final BackUpStrategy backUpStrategy = UaiMockServerContext.getInstance().uaiMockServerConfig.getBackUpStrategy();
+
+        if (BackUpStrategy.ONLY_ONE_FILE.equals(backUpStrategy)) {
+            return fullPath.replace(".json", ".json.back");
+        }
+
         final String formattedDate = new SimpleDateFormat("yyyy_MM_dd_hh_mm_ss_sss").format(new Date());
 
-        FileUtils.copyFile(new File(fullPath), new File(fullPath.replace(".json", "_" + formattedDate + ".back.json")));
+        return fullPath.replace(".json", "_" + formattedDate + ".back.json");
     }
 
     public static ByteBuffer getFileAsByteBuffer(String bodyPath) {

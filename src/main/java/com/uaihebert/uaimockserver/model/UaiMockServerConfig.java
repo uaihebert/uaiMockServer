@@ -32,6 +32,7 @@ public final class UaiMockServerConfig {
 
     private String host;
     private String context;
+    private BackUpStrategy backUpStrategy;
     private String defaultContentTypeResponse;
 
     private List<UaiRoute> routeList;
@@ -145,5 +146,17 @@ public final class UaiMockServerConfig {
 
     public UaiFile getUaiFile() {
         return uaiFile;
+    }
+
+    public BackUpStrategy getBackUpStrategy() {
+        if (backUpStrategy == null) {
+            backUpStrategy = BackUpStrategy.ONLY_ONE_FILE;
+        }
+
+        return backUpStrategy;
+    }
+
+    public void setBackUpStrategy(BackUpStrategy backUpStrategy) {
+        this.backUpStrategy = backUpStrategy;
     }
 }
