@@ -12,7 +12,7 @@
         "method" : "POST",
         "body": "{id:1,age:33}",
         "isBodyRequired": "true",
-        "bodyValidationType":"JSON_MATCHING_ALL_RECEIVED_ATTRIBUTES"
+        "bodyValidationType": "JSON_VALIDATE_DEFINED_BODY_AGAINST_ALL_ATTRIBUTES_RECEIVED"
       },
       "response" : {
         "contentType" : "application/json;charset=UTF-8",
@@ -25,7 +25,7 @@
         "method" : "POST",
         "body": "{id:1,age:33}",
         "isBodyRequired": "true",
-        "bodyValidationType":"JSON_MATCHING_ONLY_DEFINED_ATTRIBUTES"
+        "bodyValidationType": "JSON_VALIDATE_ONLY_DEFINED_ATTRIBUTES_IN_BODY"
       },
       "response" : {
         "contentType" : "application/json;charset=UTF-8",
