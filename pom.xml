@@ -21,6 +21,15 @@
                 <role>founder</role>
             </roles>
         </contributor>
+        <contributor>
+            <email>rodrigopsasaki@gmail.com</email>
+            <name>Rodrigo Perez Sasaki</name>
+            <organization>rodrigosasaki</organization>
+            <organizationUrl>http://rodrigosasaki.com</organizationUrl>
+            <roles>
+                <role>developer</role>
+            </roles>
+        </contributor>
     </contributors>
 
     <licenses>
@@ -36,7 +45,7 @@
         <connection>scm:git:git://github.com/uaihebert/uaiMockServer.git</connection>
         <developerConnection>scm:git:git@github.com:uaihebert/uaiMockServer.git</developerConnection>
         <url>https://github.com/uaihebert/uaiMockServer</url>
-  </scm>
+    </scm>
 
     <properties>
         <undertow>1.1.3.Final</undertow>
