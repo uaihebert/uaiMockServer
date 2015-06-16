@@ -17,6 +17,7 @@ public final class UaiRootContextService {
         mainConfig.setConsoleLog(uaiRouteConfigDTO.getConsoleLog());
         mainConfig.setFileLog(uaiRouteConfigDTO.getFileLog());
         mainConfig.setDefaultContentTypeResponse(uaiRouteConfigDTO.getDefaultContentType());
+        mainConfig.setBackUpStrategy(uaiRouteConfigDTO.getBackUpStrategy());
 
         flushData();
     }

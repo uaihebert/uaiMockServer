@@ -1,5 +1,10 @@
 package com.uaihebert.uaimockserver.dto.model;
 
+import com.uaihebert.uaimockserver.model.BackUpStrategy;
+
+import java.util.Arrays;
+import java.util.List;
+
 public class UaiRootConfigurationDTO {
     private Integer port;
 
@@ -9,6 +14,9 @@ public class UaiRootConfigurationDTO {
     private String host;
     private String context;
     private String defaultContentType;
+
+    private BackUpStrategy backUpStrategy;
+    private List<BackUpStrategy> backUpStrategyList = Arrays.asList(BackUpStrategy.values());
 
     private UaiFileDTO uaiMainFile;
 
@@ -69,5 +77,21 @@ public class UaiRootConfigurationDTO {
 
     public void setConsoleLog(final Boolean consoleLog) {
         this.consoleLog = consoleLog;
+    }
+
+    public BackUpStrategy getBackUpStrategy() {
+        return backUpStrategy;
+    }
+
+    public void setBackUpStrategy(BackUpStrategy backUpStrategy) {
+        this.backUpStrategy = backUpStrategy;
+    }
+
+    public List<BackUpStrategy> getBackUpStrategyList() {
+        return backUpStrategyList;
+    }
+
+    public void setBackUpStrategyList(List<BackUpStrategy> backUpStrategyList) {
+        this.backUpStrategyList = backUpStrategyList;
     }
 }

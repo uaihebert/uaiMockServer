@@ -19,6 +19,10 @@ app.controller('rootConfigController', function($scope, $location, $http, growl)
                 $scope.rootConfig.consoleLog = data.consoleLog;
                 $scope.rootConfig.defaultContentType = data.defaultContentType;
 
+                $scope.rootConfig.backUpStrategy = data.backUpStrategy;
+
+                $scope.backUpStrategyList = data.backUpStrategyList;
+
                 $scope.mainFilePath = data.uaiMainFile.fullPath;
             }
         ).error(function(){

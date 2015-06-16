@@ -46,6 +46,7 @@ public class UaiRootConfigurationsServlet extends AbstractServlet {
         configurationsDTO.setConsoleLog(mainConfig.isConsoleLog());
         configurationsDTO.setUaiMainFile(new UaiFileDTO(mainConfig.getUaiFile().getName(), mainConfig.getUaiFile().getFullPath()));
         configurationsDTO.setDefaultContentType(mainConfig.getDefaultContentTypeResponse());
+        configurationsDTO.setBackUpStrategy(mainConfig.getBackUpStrategy());
 
         return JsonUtil.toJson(configurationsDTO);
     }

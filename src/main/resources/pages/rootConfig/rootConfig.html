@@ -34,6 +34,10 @@
             Host: <input type="text" class="form-control" ng-model="rootConfig.host" placeholder="The IP that will be bound" /><br />
             Context: <input type="text" class="form-control" ng-model="rootConfig.context" placeholder="The url context e.g. http://IP/CONTEXT" /><br />
             Default Content-Type: <input type="text" class="form-control" ng-model="rootConfig.defaultContentType" placeholder="A default Content-Type to be returned" /><br />
+            BackUp Strategy:  <select class="form-control"
+                 ng-model="rootConfig.backUpStrategy"
+                 ng-options="strategy for strategy in backUpStrategyList">
+            </select><br />
         </div>
 
         <button type="button" class="btn btn-primary" ng-click="update()">Save changes</button>
