@@ -75,6 +75,9 @@ public class UaiRootConfigurationsServletTest extends TestAbstract {
 
         response = client.target(url).request().put(Entity.entity(JsonUtil.toJson(configurationsDTO), MediaType.APPLICATION_JSON_TYPE));
 
+        // avoid problem in reading the response
+        response.readEntity(String.class);
+
         assertEquals("the return should be 204", 204, response.getStatus());
     }
 }
