@@ -58,21 +58,20 @@ public final class FileUtil {
     public static void writeUpdatesToFile() {
         final UaiMockServerConfig mainConfig = UaiMockServerContext.getInstance().uaiMockServerConfig;
 
-        final String mainJson = JsonUtil.toJsonWithNoEscaping(mainConfig);
-
         try {
-            writeInFile(mainConfig, mainJson);
+            writeInFile(mainConfig);
 
             for (UaiMockServerConfig secondaryConfig : UaiMockServerContext.getInstance().secondaryMappingList) {
-                final String secondaryJson = JsonUtil.toJsonWithNoEscaping(secondaryConfig);
-                writeInFile(secondaryConfig, secondaryJson);
+                writeInFile(secondaryConfig);
             }
         } catch (IOException ex) {
             throw new IllegalStateException("There was a problem when writing in the config files: " + ex.getMessage(), ex);
         }
     }
 
-    private static void writeInFile(final UaiMockServerConfig configFile, final String jsonConfigContent) throws IOException {
+    private static void writeInFile(final UaiMockServerConfig configFile) throws IOException {
+        final String jsonConfigContent = JsonUtil.toJsonWithNoEscaping(configFile);
+
         createFileBackUp(configFile.getUaiFile().getFullPath());
 
         FileUtils.writeStringToFile(new File(configFile.getUaiFile().getFullPath()), jsonConfigContent);

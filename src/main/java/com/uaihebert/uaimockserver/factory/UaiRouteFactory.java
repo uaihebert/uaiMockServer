@@ -40,10 +40,23 @@ public final class UaiRouteFactory {
         final UaiFile uaiFile = new UaiFile(uaiRouteDTO.getUaiFile().getName(), uaiRouteDTO.getUaiFile().getFullPath());
 
         if (StringUtils.isBlank(uaiRouteDTO.getId())) {
-            return new UaiRoute(uaiFile, uaiRequest, uaiResponse, uaiRouteDTO.getProject());
+            final UaiRoute uaiRoute = new UaiRoute(uaiFile, uaiRequest, uaiResponse, uaiRouteDTO.getProject());
+
+            setTemporaryData(uaiRouteDTO, uaiRoute);
+
+            return uaiRoute;
         }
 
-        return new UaiRoute(uaiRouteDTO.getId(), uaiFile, uaiRequest, uaiResponse, uaiRouteDTO.getProject());
+        final UaiRoute uaiRoute = new UaiRoute(uaiRouteDTO.getId(), uaiFile, uaiRequest, uaiResponse, uaiRouteDTO.getProject());
+
+        setTemporaryData(uaiRouteDTO, uaiRoute);
+
+        return uaiRoute;
+    }
+
+    private static void setTemporaryData(UaiRouteDTO uaiRouteDTO, UaiRoute uaiRoute) {
+        uaiRoute.setTemporary(uaiRouteDTO.isTemporary());
+        uaiRoute.setTemporaryRepliesTotal(uaiRouteDTO.getTemporaryRepliesTotal());
     }
 
     public static void setDTOValueToEntity(final UaiRoute uaiRoute, final UaiRouteDTO uaiRouteDTO) {

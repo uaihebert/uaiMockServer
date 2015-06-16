@@ -40,6 +40,8 @@ public final class UaiRouteDTOFactory {
         uaiRouteDTO.setUaiFile(uaiFileDTO);
         uaiRouteDTO.setRequest(uaiRequestDTO);
         uaiRouteDTO.setResponse(uaiResponseDTO);
+        uaiRouteDTO.setTemporary(uaiRoute.isTemporary());
+        uaiRouteDTO.setTemporaryRepliesTotal(uaiRoute.getTemporaryRepliesTotal());
 
         return uaiRouteDTO;
     }

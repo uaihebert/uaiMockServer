@@ -15,6 +15,8 @@
  * */
 package com.uaihebert.uaimockserver.model;
 
+import com.uaihebert.uaimockserver.service.UaiRouteService;
+
 import java.util.UUID;
 
 /**
@@ -27,6 +29,11 @@ public class UaiRoute {
     private UaiFile uaiFile;
     private UaiRequest request;
     private UaiResponse response;
+
+    private boolean temporary;
+
+    private int temporaryRepliesLeft;
+    private int temporaryRepliesTotal;
 
     public UaiRoute() {
 
@@ -101,5 +108,34 @@ public class UaiRoute {
 
     public void setProject(final String project) {
         this.project = project;
+    }
+
+    public boolean isTemporary() {
+        return temporary;
+    }
+
+    public void setTemporary(boolean temporary) {
+        this.temporary = temporary;
+    }
+
+    public int getTemporaryRepliesTotal() {
+        return temporaryRepliesTotal;
+    }
+
+    public void setTemporaryRepliesTotal(int temporaryRepliesTotal) {
+        this.temporaryRepliesLeft = temporaryRepliesTotal;
+        this.temporaryRepliesTotal = temporaryRepliesTotal;
+    }
+
+    public void finishRequest() {
+        if (!temporary) {
+            return;
+        }
+
+        temporaryRepliesLeft--;
+
+        if (temporaryRepliesLeft <= 0) {
+            UaiRouteService.deleteRoute(getId());
+        }
     }
 }

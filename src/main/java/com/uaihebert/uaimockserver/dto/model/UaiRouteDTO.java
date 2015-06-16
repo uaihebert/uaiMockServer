@@ -3,9 +3,14 @@ package com.uaihebert.uaimockserver.dto.model;
 public class UaiRouteDTO {
     private String id;
     private String project;
+
     private UaiFileDTO uaiFile;
     private UaiRequestDTO request;
     private UaiResponseDTO response;
+
+    private boolean temporary;
+
+    private int temporaryRepliesTotal;
 
     public UaiRouteDTO() {
     }
@@ -48,5 +53,21 @@ public class UaiRouteDTO {
 
     public void setProject(final String project) {
         this.project = project;
+    }
+
+    public boolean isTemporary() {
+        return temporary;
+    }
+
+    public void setTemporary(boolean temporary) {
+        this.temporary = temporary;
+    }
+
+    public int getTemporaryRepliesTotal() {
+        return temporaryRepliesTotal;
+    }
+
+    public void setTemporaryRepliesTotal(int temporaryRepliesTotal) {
+        this.temporaryRepliesTotal = temporaryRepliesTotal;
     }
 }

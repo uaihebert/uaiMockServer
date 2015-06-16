@@ -46,7 +46,6 @@ public final class UaiWebSocketLogDTOFactory {
 
         createQueryParamList(exchange, logRequestDTO);
 
-
         return logRequestDTO;
     }
 

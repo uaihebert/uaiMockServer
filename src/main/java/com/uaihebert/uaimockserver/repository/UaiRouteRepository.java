@@ -35,13 +35,21 @@ public final class UaiRouteRepository {
 
         UaiMockServerContext.getInstance().addRoute(uaiRoute);
 
+        flushIfNecessary(uaiRoute);
+    }
+
+    private static void flushIfNecessary(final UaiRoute uaiRoute) {
+        if (uaiRoute.isTemporary()) {
+            return;
+        }
+
         flushData();
     }
 
-    public static void update() {
+    public static void update(final UaiRoute uaiRoute) {
         UaiRouteMapper.updateRoute();
 
-        flushData();
+        flushIfNecessary(uaiRoute);
     }
 
     public static void delete(final String routeId) {
@@ -49,7 +57,7 @@ public final class UaiRouteRepository {
 
         UaiMockServerContext.getInstance().deleteRoute(routeToDelete);
 
-        flushData();
+        flushIfNecessary(routeToDelete);
     }
 
     private static void flushData() {

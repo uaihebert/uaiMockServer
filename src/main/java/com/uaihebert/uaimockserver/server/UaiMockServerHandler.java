@@ -18,7 +18,6 @@ package com.uaihebert.uaimockserver.server;
 import com.uaihebert.uaimockserver.log.backend.Log;
 import com.uaihebert.uaimockserver.log.gui.UaiWebSocketLogManager;
 import com.uaihebert.uaimockserver.model.UaiRoute;
-import com.uaihebert.uaimockserver.util.RequestHolder;
 import com.uaihebert.uaimockserver.util.RouteFinderUtil;
 import io.undertow.server.HttpHandler;
 import io.undertow.server.HttpServerExchange;
@@ -36,6 +35,7 @@ import java.io.OutputStream;
  */
 public class UaiMockServerHandler implements HttpHandler {
     private final ResponseHandler responseHandler = new ResponseHandler();
+    private final RequestHandler requestHandler = new RequestHandler();
 
     @Override
     public void handleRequest(final HttpServerExchange exchange) throws Exception {
@@ -52,7 +52,7 @@ public class UaiMockServerHandler implements HttpHandler {
 
             final UaiRoute uaiRoute = RouteFinderUtil.findValidRoute(exchange);
 
-            RequestHolder.holdTheRequest(uaiRoute.getRequest().holdTheRequestInMilli);
+            requestHandler.processRequest(uaiRoute);
 
             responseHandler.process(exchange, uaiRoute.getResponse());
 
