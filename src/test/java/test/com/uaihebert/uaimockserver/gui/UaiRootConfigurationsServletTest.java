@@ -39,6 +39,9 @@ public class UaiRootConfigurationsServletTest extends TestAbstract {
         final Client client = ClientBuilder.newClient();
         final Response response = client.target(url).request().get();
 
+        // must read the entity or an NIOException will raise
+        response.readEntity(String.class);
+
         assertEquals(MediaType.APPLICATION_JSON, response.getMediaType().toString());
     }
 
@@ -67,17 +70,17 @@ public class UaiRootConfigurationsServletTest extends TestAbstract {
         final String url = AbstractTestServletTests.GUI_URL +  "rootConfigurations";
 
         Client client = ClientBuilder.newClient();
-        Response response = client.target(url).request().get();
+        final Response fristRequest = client.target(url).request().get();
 
-        final String bodyAsString = response.readEntity(String.class);
+        final String bodyAsString = fristRequest.readEntity(String.class);
 
         final UaiRootConfigurationDTO configurationsDTO = new Gson().fromJson(bodyAsString, UaiRootConfigurationDTO.class);
 
-        response = client.target(url).request().put(Entity.entity(JsonUtil.toJson(configurationsDTO), MediaType.APPLICATION_JSON_TYPE));
+        Response secondRequest = client.target(url).request().put(Entity.entity(JsonUtil.toJson(configurationsDTO), MediaType.APPLICATION_JSON_TYPE));
 
-        // avoid problem in reading the response
-        response.readEntity(String.class);
+        // must read the entity or an NIOException will raise
+        secondRequest.readEntity(String.class);
 
-        assertEquals("the return should be 204", 204, response.getStatus());
+        assertEquals("the return should be 204", 204, secondRequest.getStatus());
     }
 }
