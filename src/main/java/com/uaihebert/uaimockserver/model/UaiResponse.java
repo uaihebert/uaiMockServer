@@ -37,13 +37,13 @@ public final class UaiResponse {
     public UaiResponse() {
     }
 
-    public UaiResponse(final int statusCode, final String body, final String contentType, final List<UaiHeader> headerList, final String bodyPath, final boolean bodyPointingToFile) {
-        this.statusCode = statusCode;
+    public UaiResponse(final int statusCode, final String body, final String contentType, final List<UaiHeader> headerList, final String bodyPath) {
         this.body = body;
         this.bodyPath = bodyPath;
-        this.contentType = contentType;
         this.headerList = headerList;
-        this.bodyPointingToFile = bodyPointingToFile;
+        this.statusCode = statusCode;
+        this.contentType = contentType;
+        this.bodyPointingToFile = StringUtils.isNotBlank(bodyPath);
     }
 
     @Override

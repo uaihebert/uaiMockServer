@@ -20,6 +20,10 @@ public final class UaiRouteService {
     public static void createRoute(final UaiRouteDTO uaiRouteDTO) {
         final UaiRoute uaiRoute = UaiRouteFactory.create(uaiRouteDTO);
 
+        createRoute(uaiRoute);
+    }
+
+    public static void createRoute(final UaiRoute uaiRoute) {
         UaiRouteRepository.create(uaiRoute);
     }
 

@@ -15,7 +15,6 @@
  * */
 package com.uaihebert.uaimockserver.factory;
 
-import com.uaihebert.uaimockserver.constants.ValidatorConstants;
 import com.uaihebert.uaimockserver.dto.model.UaiQueryParamDTO;
 import com.uaihebert.uaimockserver.model.UaiQueryParam;
 
@@ -38,9 +37,7 @@ public final class UaiQueryParamFactory {
         final List<UaiQueryParam> uaiQueryParamList = new ArrayList<UaiQueryParam>();
 
         for (UaiQueryParamDTO uaiQueryParamDTO : requiredQueryParamList) {
-            final boolean usingWildCard = uaiQueryParamDTO.getValueList().contains(ValidatorConstants.VALID_WILD_CARD.text);
-
-            final UaiQueryParam uaiQueryParam = new UaiQueryParam(uaiQueryParamDTO.getName(), usingWildCard, uaiQueryParamDTO.getValueList());
+            final UaiQueryParam uaiQueryParam = new UaiQueryParam(uaiQueryParamDTO.getName(), uaiQueryParamDTO.getValueList());
             uaiQueryParamList.add(uaiQueryParam);
         }
 

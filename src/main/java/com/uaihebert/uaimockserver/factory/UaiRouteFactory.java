@@ -66,6 +66,8 @@ public final class UaiRouteFactory {
 
         final UaiFile uaiFile = new UaiFile(uaiRouteDTO.getUaiFile().getName(), uaiRouteDTO.getUaiFile().getFullPath());
 
+        uaiRoute.setTemporary(uaiRouteDTO.isTemporary());
+        uaiRoute.setTemporaryRepliesTotal(uaiRouteDTO.getTemporaryRepliesTotal());
         uaiRoute.setRequest(uaiRequest);
         uaiRoute.setResponse(uaiResponse);
         uaiRoute.setUaiFile(uaiFile);

@@ -15,7 +15,6 @@
  * */
 package com.uaihebert.uaimockserver.factory;
 
-import com.uaihebert.uaimockserver.constants.ValidatorConstants;
 import com.uaihebert.uaimockserver.dto.model.UaiHeaderDTO;
 import com.uaihebert.uaimockserver.model.UaiHeader;
 
@@ -38,9 +37,7 @@ public final class UaiHeaderFactory {
         final List<UaiHeader> uaiHeaderList = new ArrayList<UaiHeader>();
 
         for (UaiHeaderDTO uaiHeaderDTO : requiredHeaderList) {
-            final boolean usingWildCard = uaiHeaderDTO.getValueList().contains(ValidatorConstants.VALID_WILD_CARD.text);
-
-            final UaiHeader uaiHeader = new UaiHeader(uaiHeaderDTO.getName(), usingWildCard, uaiHeaderDTO.getValueList());
+            final UaiHeader uaiHeader = new UaiHeader(uaiHeaderDTO.getName(), uaiHeaderDTO.getValueList());
             uaiHeaderList.add(uaiHeader);
         }
 

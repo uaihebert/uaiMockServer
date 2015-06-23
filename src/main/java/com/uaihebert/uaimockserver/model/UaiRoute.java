@@ -32,8 +32,8 @@ public class UaiRoute {
 
     private boolean temporary;
 
-    private int temporaryRepliesLeft;
-    private int temporaryRepliesTotal;
+    private Integer temporaryRepliesLeft;
+    private Integer temporaryRepliesTotal;
 
     public UaiRoute() {
 
@@ -118,11 +118,11 @@ public class UaiRoute {
         this.temporary = temporary;
     }
 
-    public int getTemporaryRepliesTotal() {
+    public Integer getTemporaryRepliesTotal() {
         return temporaryRepliesTotal;
     }
 
-    public void setTemporaryRepliesTotal(int temporaryRepliesTotal) {
+    public void setTemporaryRepliesTotal(Integer temporaryRepliesTotal) {
         this.temporaryRepliesLeft = temporaryRepliesTotal;
         this.temporaryRepliesTotal = temporaryRepliesTotal;
     }
@@ -134,7 +134,7 @@ public class UaiRoute {
 
         temporaryRepliesLeft--;
 
-        if (temporaryRepliesLeft <= 0) {
+        if (temporaryRepliesLeft < 1) {
             UaiRouteService.deleteRoute(getId());
         }
     }

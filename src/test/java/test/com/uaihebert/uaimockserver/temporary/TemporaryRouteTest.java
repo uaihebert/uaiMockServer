@@ -48,7 +48,7 @@ public class TemporaryRouteTest {
 
     private void validateThatThereIsNoRequestRecorded() {
         for (UaiRoute uaiRoute : UaiRouteRepository.listAllRoutes()) {
-            if (uaiRoute.isTemporary() && uaiRoute.getTemporaryRepliesTotal() == totalTemporaryReplies) {
+            if (uaiRoute.isTemporary()) {
                 fail("it should have none temporary request");
             }
         }

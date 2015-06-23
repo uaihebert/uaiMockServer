@@ -25,7 +25,7 @@ public class RouteComparatorTest {
         first.createId();
         final UaiRequest firstRequest = new UaiRequest
                 .UaiRequestBuilder()
-                .requiredHeaderList(Arrays.asList(new UaiHeader("first", false, Arrays.asList("VAL"))))
+                .requiredHeaderList(Arrays.asList(new UaiHeader("first", Arrays.asList("VAL"))))
                 .build();
 
         first.setRequest(firstRequest);
@@ -35,8 +35,8 @@ public class RouteComparatorTest {
         final UaiRequest secondRequest = new UaiRequest
                 .UaiRequestBuilder()
                 .requiredHeaderList(Arrays.asList(
-                        new UaiHeader("second_01", false, Arrays.asList("VAL")),
-                        new UaiHeader("second_02", false, Arrays.asList("VAL"))
+                        new UaiHeader("second_01", Arrays.asList("VAL")),
+                        new UaiHeader("second_02", Arrays.asList("VAL"))
                 ))
                 .build();
 

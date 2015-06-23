@@ -15,6 +15,8 @@
  * */
 package com.uaihebert.uaimockserver.model;
 
+import com.uaihebert.uaimockserver.constants.ValidatorConstants;
+
 import java.util.Collections;
 import java.util.List;
 
@@ -27,9 +29,9 @@ public class UaiHeader {
     private boolean usingWildCard;
     private List<String> valueList;
 
-    public UaiHeader(final String name, final boolean usingWildCard, final List<String> valueList) {
+    public UaiHeader(final String name, final List<String> valueList) {
         this.name = name;
-        this.usingWildCard = usingWildCard;
+        this.usingWildCard = valueList.contains(ValidatorConstants.VALID_WILD_CARD.text);
         this.valueList = valueList;
     }
 

@@ -10,7 +10,7 @@ public class UaiRouteDTO {
 
     private boolean temporary;
 
-    private int temporaryRepliesTotal;
+    private Integer temporaryRepliesTotal;
 
     public UaiRouteDTO() {
     }
@@ -63,11 +63,11 @@ public class UaiRouteDTO {
         this.temporary = temporary;
     }
 
-    public int getTemporaryRepliesTotal() {
+    public Integer getTemporaryRepliesTotal() {
         return temporaryRepliesTotal;
     }
 
-    public void setTemporaryRepliesTotal(int temporaryRepliesTotal) {
+    public void setTemporaryRepliesTotal(Integer temporaryRepliesTotal) {
         this.temporaryRepliesTotal = temporaryRepliesTotal;
     }
 }
