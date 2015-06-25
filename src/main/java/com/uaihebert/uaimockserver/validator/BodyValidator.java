@@ -15,13 +15,10 @@
  * */
 package com.uaihebert.uaimockserver.validator;
 
-import com.uaihebert.uaimockserver.configuration.ProjectConfiguration;
 import com.uaihebert.uaimockserver.facade.RequestValidatorFacade;
 import com.uaihebert.uaimockserver.log.backend.Log;
 import com.uaihebert.uaimockserver.model.UaiRequest;
 import io.undertow.server.HttpServerExchange;
-
-import java.util.Scanner;
 
 /**
  * Will validate all the request body if needed
@@ -32,7 +29,7 @@ public final class BodyValidator implements RequestDataValidator {
 
     @Override
     public void validate(final UaiRequest uaiRequest, final HttpServerExchange exchange, final RequestValidatorFacade.RequestAnalysisResult result) {
-        final String body = extractBody(exchange);
+        final String body = result.currentBody;
 
         final boolean requestHasNoBody = exchange == null || exchange.getRequestContentLength() < 1;
 
@@ -47,21 +44,5 @@ public final class BodyValidator implements RequestDataValidator {
         }
 
         uaiRequest.getBodyValidationType().validate(body, uaiRequest, result);
-    }
-
-    private String extractBody(final HttpServerExchange exchange) {
-        if (exchange == null) {
-            return null;
-        }
-
-        exchange.startBlocking();
-
-        final Scanner scanner = new Scanner(exchange.getInputStream(), ProjectConfiguration.ENCODING.value).useDelimiter("\\A");
-
-        if (!scanner.hasNext()) {
-            return null;
-        }
-
-        return scanner.next();
     }
 }

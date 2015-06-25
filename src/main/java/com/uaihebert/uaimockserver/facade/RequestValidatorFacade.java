@@ -18,6 +18,11 @@ public final class RequestValidatorFacade {
     private static final List<RequestDataValidator> REQUEST_DATA_VALIDATOR_LIST = new ArrayList<RequestDataValidator>();
 
     static {
+        reload();
+    }
+
+    private static void reload() {
+        REQUEST_DATA_VALIDATOR_LIST.clear();
         REQUEST_DATA_VALIDATOR_LIST.add(new BodyValidator());
         REQUEST_DATA_VALIDATOR_LIST.add(new ContentTypeValidator());
         REQUEST_DATA_VALIDATOR_LIST.add(new OptionalHeaderValidator());
@@ -29,8 +34,10 @@ public final class RequestValidatorFacade {
     private RequestValidatorFacade() {
     }
 
-    public static RequestAnalysisResult isValidRequest(final UaiRequest uaiRequest, final HttpServerExchange exchange) {
-        final RequestAnalysisResult requestAnalysisResult = new RequestAnalysisResult();
+    public static RequestAnalysisResult isValidRequest(final UaiRequest uaiRequest, final HttpServerExchange exchange, final String requestBody) {
+        reload();
+
+        final RequestAnalysisResult requestAnalysisResult = new RequestAnalysisResult(requestBody);
 
         for (RequestDataValidator requestDataValidator : REQUEST_DATA_VALIDATOR_LIST) {
             requestDataValidator.validate(uaiRequest, exchange, requestAnalysisResult);
@@ -40,8 +47,14 @@ public final class RequestValidatorFacade {
     }
 
     public static class RequestAnalysisResult {
+        public final String currentBody;
+
         private boolean valid = true;
         private boolean abortTheRequest;
+
+        public RequestAnalysisResult(final String currentBody) {
+            this.currentBody = currentBody;
+        }
 
         public boolean isValid() {
             return valid;

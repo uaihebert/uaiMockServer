@@ -1,5 +1,6 @@
 package com.uaihebert.uaimockserver.util;
 
+import com.uaihebert.uaimockserver.configuration.ProjectConfiguration;
 import com.uaihebert.uaimockserver.facade.RequestValidatorFacade;
 import com.uaihebert.uaimockserver.log.backend.Log;
 import com.uaihebert.uaimockserver.model.UaiRequest;
@@ -10,6 +11,7 @@ import io.undertow.server.HttpServerExchange;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Scanner;
 import java.util.Set;
 
 public final class RouteFinderUtil {
@@ -40,9 +42,10 @@ public final class RouteFinderUtil {
             ExceptionUtil.logBeforeThrowing(new IllegalArgumentException(errorText));
         }
 
-        for (UaiRoute uaiRoute : orderedList) {
+        final String requestBody = extractBody(httpServerExchange);
 
-            final RequestValidatorFacade.RequestAnalysisResult validRequest = RequestValidatorFacade.isValidRequest(uaiRoute.getRequest(), httpServerExchange);
+        for (UaiRoute uaiRoute : orderedList) {
+            final RequestValidatorFacade.RequestAnalysisResult validRequest = RequestValidatorFacade.isValidRequest(uaiRoute.getRequest(), httpServerExchange, requestBody);
 
             if (validRequest.isValid()) {
                 return uaiRoute;
@@ -134,5 +137,17 @@ public final class RouteFinderUtil {
         }
 
         return false;
+    }
+
+    private static String extractBody(final HttpServerExchange exchange) {
+        exchange.startBlocking();
+
+        final Scanner scanner = new Scanner(exchange.getInputStream(), ProjectConfiguration.ENCODING.value).useDelimiter("\\A");
+
+        if (!scanner.hasNext()) {
+            return null;
+        }
+
+        return scanner.next();
     }
 }

@@ -9,7 +9,12 @@ import static org.junit.Assert.assertNotNull;
 
 public class UaiQueryParamTest {
     @Test
-    public void isReturningNonNullList() {
+    public void isReturningNonNullListWithEmpty() {
         assertNotNull(new UaiQueryParam("null", Collections.<String>emptyList()).getValueList());
+    }
+
+    @Test
+    public void isReturningNonNullListWithNull() {
+        assertNotNull(new UaiQueryParam("null", null).getValueList());
     }
 }

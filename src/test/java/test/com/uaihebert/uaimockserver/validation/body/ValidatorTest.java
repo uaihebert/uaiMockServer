@@ -13,7 +13,7 @@ public class ValidatorTest {
     @Test
     public void isWorkingWhenConfigIsNull() {
         final UaiRequest uaiRequest = new UaiRequest.UaiRequestBuilder().build();
-        final RequestValidatorFacade.RequestAnalysisResult result = new RequestValidatorFacade.RequestAnalysisResult();
+        final RequestValidatorFacade.RequestAnalysisResult result = new RequestValidatorFacade.RequestAnalysisResult(null);
 
         bodyValidator.validate(uaiRequest, null, result);
 
@@ -23,7 +23,7 @@ public class ValidatorTest {
     @Test
     public void isWorkingWhenConfigIsFalse() {
         final UaiRequest uaiRequest = new UaiRequest.UaiRequestBuilder().isBodyRequired(false).build();
-        final RequestValidatorFacade.RequestAnalysisResult result = new RequestValidatorFacade.RequestAnalysisResult();
+        final RequestValidatorFacade.RequestAnalysisResult result = new RequestValidatorFacade.RequestAnalysisResult("aaaa");
 
         bodyValidator.validate(uaiRequest, null, result);
 

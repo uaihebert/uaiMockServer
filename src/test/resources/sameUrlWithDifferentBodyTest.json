@@ -1,0 +1,36 @@
+{
+  "port" : "1234",
+  "host" : "localhost",
+  "fileLog" : "false",
+  "consoleLog" : "true",
+  "context" : "/uaiMockServer",
+  "defaultContentTypeResponse" : "text/html;charset=UTF-8",
+  "routeList" : [
+    {
+      "request" : {
+        "path" : "/sameUrlWithDifferentBody",
+        "method" : "POST",
+        "body": "{id:1,age:33}",
+        "isBodyRequired": "true",
+        "bodyValidationType": "JSON_VALIDATE_ONLY_DEFINED_ATTRIBUTES_IN_BODY"
+      },
+      "response" : {
+        "contentType" : "application/json;charset=UTF-8",
+        "statusCode" : "200"
+      }
+    },
+    {
+      "request" : {
+        "path" : "/sameUrlWithDifferentBody",
+        "method" : "POST",
+        "body": "{id:1,age:34}",
+        "isBodyRequired": "true",
+        "bodyValidationType": "JSON_VALIDATE_ONLY_DEFINED_ATTRIBUTES_IN_BODY"
+      },
+      "response" : {
+        "contentType" : "application/json;charset=UTF-8",
+        "statusCode" : "204"
+      }
+    }
+  ]
+}

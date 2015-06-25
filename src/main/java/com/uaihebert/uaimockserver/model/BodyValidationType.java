@@ -37,7 +37,7 @@ public enum BodyValidationType {
             }
 
             Log.warnFormatted(BODY_VALIDATOR_ERROR_MESSAGE, uaiRequest.method, uaiRequest.path);
-            result.abortTheRequest();
+            result.setInvalid();
         }
     },
     RAW_TEXT {
@@ -48,7 +48,7 @@ public enum BodyValidationType {
             }
 
             Log.warnFormatted(WRONG_RAW_TEXT_BODY, body, uaiRequest.body);
-            result.abortTheRequest();
+            result.setInvalid();
         }
     },
     JSON_VALIDATE_DEFINED_BODY_AGAINST_ALL_ATTRIBUTES_RECEIVED {
@@ -56,7 +56,7 @@ public enum BodyValidationType {
         public void validate(final String body, final UaiRequest uaiRequest, final RequestValidatorFacade.RequestAnalysisResult result) {
             VALIDATE_IF_PRESENT_ONLY.validate(body, uaiRequest, result);
 
-            if (result.isAbortTheRequest()) {
+            if (!result.isValid()) {
                 return;
             }
 
@@ -68,7 +68,7 @@ public enum BodyValidationType {
 
             UaiJsonFieldFailureLogger.logFailure(JSON_BODY_STRICT_ERROR_MESSAGE, jsonResult);
 
-            result.abortTheRequest();
+            result.setInvalid();
         }
     },
     JSON_VALIDATE_ONLY_DEFINED_ATTRIBUTES_IN_BODY {
@@ -76,7 +76,7 @@ public enum BodyValidationType {
         public void validate(final String body, final UaiRequest uaiRequest, final RequestValidatorFacade.RequestAnalysisResult result) {
             VALIDATE_IF_PRESENT_ONLY.validate(body, uaiRequest, result);
 
-            if (result.isAbortTheRequest()) {
+            if (!result.isValid()) {
                 return;
             }
 
@@ -88,7 +88,7 @@ public enum BodyValidationType {
 
             UaiJsonFieldFailureLogger.logFailure(JSON_BODY_LENIENT_ERROR_MESSAGE, jsonResult);
 
-            result.abortTheRequest();
+            result.setInvalid();
         }
     },
     XML_BODY_WITH_STRICT_ATTRIBUTE_ORDER {
@@ -96,7 +96,7 @@ public enum BodyValidationType {
         public void validate(final String body, final UaiRequest uaiRequest, final RequestValidatorFacade.RequestAnalysisResult result) {
             VALIDATE_IF_PRESENT_ONLY.validate(body, uaiRequest, result);
 
-            if (result.isAbortTheRequest()) {
+            if (!result.isValid()) {
                 return;
             }
 
@@ -106,7 +106,7 @@ public enum BodyValidationType {
 
             Log.warnFormatted(WRONG_XML_BODY_WITH_STRICT_ATTRIBUTE_ORDER, body, uaiRequest.body);
 
-            result.abortTheRequest();
+            result.setInvalid();
         }
     },
     XML_BODY_WITHOUT_STRICT_ATTRIBUTE_ORDER {
@@ -114,7 +114,7 @@ public enum BodyValidationType {
         public void validate(final String body, final UaiRequest uaiRequest, final RequestValidatorFacade.RequestAnalysisResult result) {
             VALIDATE_IF_PRESENT_ONLY.validate(body, uaiRequest, result);
 
-            if (result.isAbortTheRequest()) {
+            if (!result.isValid()) {
                 return;
             }
 
@@ -124,7 +124,7 @@ public enum BodyValidationType {
 
             Log.warnFormatted(WRONG_XML_BODY_WITHOUT_STRICT_ATTRIBUTE_ORDER, body, uaiRequest.body);
 
-            result.abortTheRequest();
+            result.setInvalid();
         }
     },
     BY_REGEX {
@@ -132,7 +132,7 @@ public enum BodyValidationType {
         public void validate(final String body, final UaiRequest uaiRequest, final RequestValidatorFacade.RequestAnalysisResult result) {
             VALIDATE_IF_PRESENT_ONLY.validate(body, uaiRequest, result);
 
-            if (result.isAbortTheRequest()) {
+            if (!result.isValid()) {
                 return;
             }
 
@@ -143,7 +143,7 @@ public enum BodyValidationType {
                 final Pattern pattern = Pattern.compile(textPattern);
                 if(!pattern.matcher(body).find()){
                     Log.warnFormatted(UNMATCHED_REGEX, body, textPattern);
-                    result.abortTheRequest();
+                    result.setInvalid();
                 }
             }
 

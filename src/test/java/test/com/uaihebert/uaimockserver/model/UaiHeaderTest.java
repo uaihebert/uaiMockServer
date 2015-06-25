@@ -8,8 +8,14 @@ import java.util.Collections;
 import static org.junit.Assert.assertNotNull;
 
 public class UaiHeaderTest {
+
     @Test
-    public void isReturningNonNullList() {
+    public void isReturningNonNullListWithEmpty() {
         assertNotNull(new UaiHeader("null", Collections.<String>emptyList()).getValueList());
+    }
+
+    @Test
+    public void isReturningNonNullListWithNull() {
+        assertNotNull(new UaiHeader("null", null).getValueList());
     }
 }

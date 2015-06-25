@@ -32,8 +32,11 @@ public class UaiQueryParam {
 
     public UaiQueryParam(final String name, final List<String> valueList) {
         this.name = name;
-        this.usingWildCard = valueList.contains(ValidatorConstants.VALID_WILD_CARD.text);
-        this.valueList = valueList;
+
+        if (valueList != null) {
+            this.valueList = valueList;
+            this.usingWildCard = valueList.contains(ValidatorConstants.VALID_WILD_CARD.text);
+        }
     }
 
     public String getName() {
