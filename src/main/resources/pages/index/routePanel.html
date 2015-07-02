@@ -1,0 +1,19 @@
+<div class="panel-group" id="accordionRequest" role="tablist" aria-multiselectable="true">
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingRequestOne">
+      <h4 class="panel-title">
+          Route Configuration
+      </h4>
+    </div>
+    <div class="panel-body">
+        <form name="requestForm" class="css-form">
+            <h6 class="alert-info">
+                A temporary URL will not be written in the config file.
+            </h6>
+            Temporary Route? <input type="checkbox" ng-model="selectedRouteRow.route.temporary" ng-click="validateTemporaryTotalLeft()" ><br />
+            Reply Total: <br />
+            <input type="text" ng-disabled="!selectedRouteRow.route.temporary" class="form-control" ng-model="selectedRouteRow.route.temporaryRepliesTotal" placeholder="Will reply how many times? 1, 2 or 153?"/><br />
+        </form>
+    </div>
+  </div>
+</div>

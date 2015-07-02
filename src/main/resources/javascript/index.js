@@ -180,6 +180,7 @@ app.controller('routeController', function($scope, $http, growl, $location) {
     }
 
     $scope.saveRoute = function() {
+        console.log($scope.selectedRouteRow.route);
         $scope.selectedRouteRow.route.request.requiredHeaderList = [];
         $scope.selectedRouteRow.route.request.optionalHeaderList = [];
 
@@ -384,5 +385,11 @@ app.controller('routeController', function($scope, $http, growl, $location) {
 
     $scope.addWildCard = function(object) {
         object.valueList = "UAI_*"
+    }
+
+    $scope.validateTemporaryTotalLeft = function() {
+        if ($scope.selectedRouteRow.route.temporary) {
+            $scope.selectedRouteRow.route.temporaryRepliesTotal = null;
+        }
     }
 });
