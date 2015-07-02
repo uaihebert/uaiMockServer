@@ -51,355 +51,71 @@ import com.uaihebert.uaimockserver.util.RouteFinderUtil;
 import com.uaihebert.uaimockserver.util.RouteMapKeyUtil;
 import com.uaihebert.uaimockserver.util.StringUtils;
 import com.uaihebert.uaimockserver.validator.body.UaiJSONCompareWrapper;
-import com.uaihebert.uaimockserver.validator.body.XmlUnitWrapper;
 import com.uaihebert.uaimockserver.validator.body.UaiJsonFieldFailureLogger;
+import com.uaihebert.uaimockserver.validator.body.XmlUnitWrapper;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 import java.lang.reflect.Constructor;
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.Assert.assertNotNull;
 
 public class PrivateConstructorTest {
 
-    @Test
-    public void testUaiRouteFactoryConstructor() throws Exception {
-        final Constructor<UaiRouteFactory> constructor = UaiRouteFactory.class.getDeclaredConstructor(new Class[0]);
-        constructor.setAccessible(true);
+    private static final List<Class> CLASSES_TO_TEST = new ArrayList<Class>();
 
-        final UaiRouteFactory createdObject = constructor.newInstance(new Object[0]);
-        assertNotNull(createdObject);
+    @BeforeClass
+    public static void beforeClass() {
+        CLASSES_TO_TEST.add(Log.class);
+        CLASSES_TO_TEST.add(FileUtil.class);
+        CLASSES_TO_TEST.add(JsonUtil.class);
+        CLASSES_TO_TEST.add(LogBuilder.class);
+        CLASSES_TO_TEST.add(StringUtils.class);
+        CLASSES_TO_TEST.add(ExceptionUtil.class);
+        CLASSES_TO_TEST.add(RequestHolder.class);
+        CLASSES_TO_TEST.add(XmlUnitWrapper.class);
+        CLASSES_TO_TEST.add(HttpServerUtil.class);
+        CLASSES_TO_TEST.add(UaiRouteMapper.class);
+        CLASSES_TO_TEST.add(RouteMapKeyUtil.class);
+        CLASSES_TO_TEST.add(UaiRouteFactory.class);
+        CLASSES_TO_TEST.add(RouteFinderUtil.class);
+        CLASSES_TO_TEST.add(UaiRouteService.class);
+        CLASSES_TO_TEST.add(UaiHeaderFactory.class);
+        CLASSES_TO_TEST.add(UaiRequestFactory.class);
+        CLASSES_TO_TEST.add(UaiFileDTOFactory.class);
+        CLASSES_TO_TEST.add(PathHandlerFactory.class);
+        CLASSES_TO_TEST.add(UaiResponseFactory.class);
+        CLASSES_TO_TEST.add(UaiRouteRepository.class);
+        CLASSES_TO_TEST.add(UaiRouteDTOFactory.class);
+        CLASSES_TO_TEST.add(UaiWebSocketContext.class);
+        CLASSES_TO_TEST.add(UaiHeaderDTOFactory.class);
+        CLASSES_TO_TEST.add(UaiMockServerConfig.class);
+        CLASSES_TO_TEST.add(UaiQueryParamFactory.class);
+        CLASSES_TO_TEST.add(UaiRequestDTOFactory.class);
+        CLASSES_TO_TEST.add(RequestBodyExtractor.class);
+        CLASSES_TO_TEST.add(UaiRootContextService.class);
+        CLASSES_TO_TEST.add(UaiJSONCompareWrapper.class);
+        CLASSES_TO_TEST.add(UaiResponseDTOFactory.class);
+        CLASSES_TO_TEST.add(UaiWebSocketLogManager.class);
+        CLASSES_TO_TEST.add(RequestValidatorFacade.class);
+        CLASSES_TO_TEST.add(UaiQueryParamDTOFactory.class);
+        CLASSES_TO_TEST.add(UaiJsonFieldFailureLogger.class);
+        CLASSES_TO_TEST.add(UaiWebSocketLogDTOFactory.class);
+        CLASSES_TO_TEST.add(UaiMockServerConfigFactory.class);
+        CLASSES_TO_TEST.add(UaiBasicConfigurationDTOFactory.class);
+        CLASSES_TO_TEST.add(UaiWebSocketLogResponseDTOFactory.class);
     }
 
     @Test
-    public void testUaiRequestFactoryConstructor() throws Exception {
-        final Constructor<UaiRequestFactory> constructor = UaiRequestFactory.class.getDeclaredConstructor(new Class[0]);
-        constructor.setAccessible(true);
-
-        final UaiRequestFactory createdObject = constructor.newInstance(new Object[0]);
-        assertNotNull(createdObject);
-    }
-
-    @Test
-    public void testHttpServerUtilConstructor() throws Exception {
-        final Constructor<HttpServerUtil> constructor = HttpServerUtil.class.getDeclaredConstructor(new Class[0]);
-        constructor.setAccessible(true);
-
-        final HttpServerUtil createdObject = constructor.newInstance(new Object[0]);
-        assertNotNull(createdObject);
-    }
-
-    @Test
-    public void testUaiResponseFactoryConstructor() throws Exception {
-        final Constructor<UaiResponseFactory> constructor = UaiResponseFactory.class.getDeclaredConstructor(new Class[0]);
-        constructor.setAccessible(true);
-
-        final UaiResponseFactory createdObject = constructor.newInstance(new Object[0]);
-        assertNotNull(createdObject);
-    }
-
-    @Test
-    public void testUaiHeaderFactoryConstructor() throws Exception {
-        final Constructor<UaiHeaderFactory> constructor = UaiHeaderFactory.class.getDeclaredConstructor(new Class[0]);
-        constructor.setAccessible(true);
-
-        final UaiHeaderFactory createdObject = constructor.newInstance(new Object[0]);
-        assertNotNull(createdObject);
-    }
-
-    @Test
-    public void testUaiQueryParamFactoryConstructor() throws Exception {
-        final Constructor<UaiQueryParamFactory> constructor = UaiQueryParamFactory.class.getDeclaredConstructor(new Class[0]);
-        constructor.setAccessible(true);
-
-        final UaiQueryParamFactory createdObject = constructor.newInstance(new Object[0]);
-        assertNotNull(createdObject);
-    }
-
-    @Test
-    public void testRouteMapKeyUtilConstructor() throws Exception {
-        final Constructor<RouteMapKeyUtil> constructor = RouteMapKeyUtil.class.getDeclaredConstructor(new Class[0]);
-        constructor.setAccessible(true);
-
-        final RouteMapKeyUtil createdObject = constructor.newInstance(new Object[0]);
-        assertNotNull(createdObject);
-    }
-
-    @Test
-    public void testLogFactoryConstructor() throws Exception {
-        final Constructor<LogBuilder> constructor = LogBuilder.class.getDeclaredConstructor(new Class[0]);
-        constructor.setAccessible(true);
-
-        final LogBuilder createdObject = constructor.newInstance(new Object[0]);
-        assertNotNull(createdObject);
-    }
-
-    @Test
-    public void testExceptionUtilConstructor() throws Exception {
-        final Constructor<ExceptionUtil> constructor = ExceptionUtil.class.getDeclaredConstructor(new Class[0]);
-        constructor.setAccessible(true);
-
-        final ExceptionUtil createdObject = constructor.newInstance(new Object[0]);
-        assertNotNull(createdObject);
-    }
-
-    @Test
-    public void testRouteFinderUtilConstructor() throws Exception {
-        final Constructor<RouteFinderUtil> constructor = RouteFinderUtil.class.getDeclaredConstructor(new Class[0]);
-        constructor.setAccessible(true);
-
-        final RouteFinderUtil createdObject = constructor.newInstance(new Object[0]);
-        assertNotNull(createdObject);
-    }
-
-    @Test
-    public void testRequestValidatorFacadeConstructor() throws Exception {
-        final Constructor<RequestValidatorFacade> constructor = RequestValidatorFacade.class.getDeclaredConstructor(new Class[0]);
-        constructor.setAccessible(true);
-
-        final RequestValidatorFacade createdObject = constructor.newInstance(new Object[0]);
-        assertNotNull(createdObject);
-    }
-
-    @Test
-    public void testRequestHolderConstructor() throws Exception {
-        final Constructor<RequestHolder> constructor = RequestHolder.class.getDeclaredConstructor(new Class[0]);
-        constructor.setAccessible(true);
-
-        final RequestHolder createdObject = constructor.newInstance(new Object[0]);
-        assertNotNull(createdObject);
-    }
-
-    @Test
-    public void testUaiRequestDTOFactoryConstructor() throws Exception {
-        final Constructor<UaiRequestDTOFactory> constructor = UaiRequestDTOFactory.class.getDeclaredConstructor(new Class[0]);
-        constructor.setAccessible(true);
-
-        final UaiRequestDTOFactory createdObject = constructor.newInstance(new Object[0]);
-        assertNotNull(createdObject);
-    }
-    
-    @Test
-    public void testUaiQueryParamDTOFactoryConstructor() throws Exception {
-        final Constructor<UaiQueryParamDTOFactory> constructor = UaiQueryParamDTOFactory.class.getDeclaredConstructor(new Class[0]);
-        constructor.setAccessible(true);
-
-        final UaiQueryParamDTOFactory createdObject = constructor.newInstance(new Object[0]);
-        assertNotNull(createdObject);
-    }
-
-    @Test
-    public void testUaiHeaderDTOFactoryConstructor() throws Exception {
-        final Constructor<UaiHeaderDTOFactory> constructor = UaiHeaderDTOFactory.class.getDeclaredConstructor(new Class[0]);
-        constructor.setAccessible(true);
-
-        final UaiHeaderDTOFactory createdObject = constructor.newInstance(new Object[0]);
-        assertNotNull(createdObject);
-    }
-
-    @Test
-    public void testUaiResponseDTOFactoryConstructor() throws Exception {
-        final Constructor<UaiResponseDTOFactory> constructor = UaiResponseDTOFactory.class.getDeclaredConstructor(new Class[0]);
-        constructor.setAccessible(true);
-
-        final UaiResponseDTOFactory createdObject = constructor.newInstance(new Object[0]);
-        assertNotNull(createdObject);
-    }
-
-    @Test
-    public void testUaiRouteDTOFactoryConstructor() throws Exception {
-        final Constructor<UaiRouteDTOFactory> constructor = UaiRouteDTOFactory.class.getDeclaredConstructor(new Class[0]);
-        constructor.setAccessible(true);
-
-        final UaiRouteDTOFactory createdObject = constructor.newInstance(new Object[0]);
-        assertNotNull(createdObject);
-    }
-
-    @Test
-    public void testStringUtilConstructor() throws Exception {
-        final Constructor<StringUtils> constructor = StringUtils.class.getDeclaredConstructor(new Class[0]);
-        constructor.setAccessible(true);
-
-        final StringUtils createdObject = constructor.newInstance(new Object[0]);
-        assertNotNull(createdObject);
-    }
-
-    @Test
-    public void testLogConstructor() throws Exception {
-        final Constructor<Log> constructor = Log.class.getDeclaredConstructor(new Class[0]);
-        constructor.setAccessible(true);
-
-        final Log createdObject = constructor.newInstance(new Object[0]);
-        assertNotNull(createdObject);
-    }
-
-    @Test
-    public void testFileUtilConstructor() throws Exception {
-        final Constructor<FileUtil> constructor = FileUtil.class.getDeclaredConstructor(new Class[0]);
-        constructor.setAccessible(true);
-
-        final FileUtil createdObject = constructor.newInstance(new Object[0]);
-        assertNotNull(createdObject);
-    }
-
-    @Test
-    public void testUaiFileDTOFactoryConstructor() throws Exception {
-        final Constructor<UaiFileDTOFactory> constructor = UaiFileDTOFactory.class.getDeclaredConstructor(new Class[0]);
-        constructor.setAccessible(true);
-
-        final UaiFileDTOFactory createdObject = constructor.newInstance(new Object[0]);
-        assertNotNull(createdObject);
-    }
-
-    @Test
-    public void testRequestBodyExtractorConstructor() throws Exception {
-        final Constructor<RequestBodyExtractor> constructor = RequestBodyExtractor.class.getDeclaredConstructor(new Class[0]);
-        constructor.setAccessible(true);
-
-        final RequestBodyExtractor createdObject = constructor.newInstance(new Object[0]);
-        assertNotNull(createdObject);
-    }
-
-    @Test
-    public void testUaiRouteHelperConstructor() throws Exception {
-        final Constructor<UaiRouteService> constructor = UaiRouteService.class.getDeclaredConstructor(new Class[0]);
-        constructor.setAccessible(true);
-
-        final UaiRouteService createdObject = constructor.newInstance(new Object[0]);
-        assertNotNull(createdObject);
-    }
-
-    @Test
-    public void testUaiMockServerConfigConstructor() throws Exception {
-        final Constructor<UaiMockServerConfig> constructor = UaiMockServerConfig.class.getDeclaredConstructor(new Class[0]);
-        constructor.setAccessible(true);
-
-        final UaiMockServerConfig createdObject = constructor.newInstance(new Object[0]);
-        assertNotNull(createdObject);
-    }
-
-    @Test
-    public void testBasicConfigurationDTOFactoryConstructor() throws Exception {
-        final Constructor<UaiBasicConfigurationDTOFactory> constructor = UaiBasicConfigurationDTOFactory.class.getDeclaredConstructor(new Class[0]);
-        constructor.setAccessible(true);
-
-        final UaiBasicConfigurationDTOFactory createdObject = constructor.newInstance(new Object[0]);
-        assertNotNull(createdObject);
-    }
-
-    @Test
-    public void testUaiMockServerConfigFactoryConstructor() throws Exception {
-        final Constructor<UaiMockServerConfigFactory> constructor = UaiMockServerConfigFactory.class.getDeclaredConstructor(new Class[0]);
-        constructor.setAccessible(true);
-
-        final UaiMockServerConfigFactory createdObject = constructor.newInstance(new Object[0]);
-        assertNotNull(createdObject);
-    }
-
-    @Test
-    public void testUaiRouteMapperConstructor() throws Exception {
-        final Constructor<UaiRouteMapper> constructor = UaiRouteMapper.class.getDeclaredConstructor(new Class[0]);
-        constructor.setAccessible(true);
-
-        final UaiRouteMapper createdObject = constructor.newInstance(new Object[0]);
-        assertNotNull(createdObject);
-    }
-
-    @Test
-    public void testUaiRouteRepositoryConstructor() throws Exception {
-        final Constructor<UaiRouteRepository> constructor = UaiRouteRepository.class.getDeclaredConstructor(new Class[0]);
-        constructor.setAccessible(true);
-
-        final UaiRouteRepository createdObject = constructor.newInstance(new Object[0]);
-        assertNotNull(createdObject);
-    }
-
-    @Test
-    public void testUaiWebSocketContextConstructor() throws Exception {
-        final Constructor<UaiWebSocketContext> constructor = UaiWebSocketContext.class.getDeclaredConstructor(new Class[0]);
-        constructor.setAccessible(true);
-
-        final UaiWebSocketContext createdObject = constructor.newInstance(new Object[0]);
-        assertNotNull(createdObject);
-    }
-
-    @Test
-    public void testLogDTOFactoryConstructor() throws Exception {
-        final Constructor<UaiWebSocketLogDTOFactory> constructor = UaiWebSocketLogDTOFactory.class.getDeclaredConstructor(new Class[0]);
-        constructor.setAccessible(true);
-
-        final UaiWebSocketLogDTOFactory createdObject = constructor.newInstance(new Object[0]);
-        assertNotNull(createdObject);
-    }
-
-    @Test
-    public void testWebSocketLogConstructor() throws Exception {
-        final Constructor<UaiWebSocketLogManager> constructor = UaiWebSocketLogManager.class.getDeclaredConstructor(new Class[0]);
-        constructor.setAccessible(true);
-
-        final UaiWebSocketLogManager createdObject = constructor.newInstance(new Object[0]);
-        assertNotNull(createdObject);
-    }
-
-    @Test
-    public void testUaiWebSocketResponseDTOFactoryConstructor() throws Exception {
-        final Constructor<UaiWebSocketLogResponseDTOFactory> constructor = UaiWebSocketLogResponseDTOFactory.class.getDeclaredConstructor(new Class[0]);
-        constructor.setAccessible(true);
-
-        final UaiWebSocketLogResponseDTOFactory createdObject = constructor.newInstance(new Object[0]);
-        assertNotNull(createdObject);
-    }
-
-    @Test
-    public void testUaiRootContextServiceConstructor() throws Exception {
-        final Constructor<UaiRootContextService> constructor = UaiRootContextService.class.getDeclaredConstructor(new Class[0]);
-        constructor.setAccessible(true);
-
-        final UaiRootContextService createdObject = constructor.newInstance(new Object[0]);
-        assertNotNull(createdObject);
-    }
-
-    @Test
-    public void testUaiPathHandlerFactoryConstructor() throws Exception {
-        final Constructor<PathHandlerFactory> constructor = PathHandlerFactory.class.getDeclaredConstructor(new Class[0]);
-        constructor.setAccessible(true);
-
-        final PathHandlerFactory createdObject = constructor.newInstance(new Object[0]);
-        assertNotNull(createdObject);
-    }
-
-    @Test
-    public void testJsonUtilConstructor() throws Exception {
-        final Constructor<JsonUtil> constructor = JsonUtil.class.getDeclaredConstructor(new Class[0]);
-        constructor.setAccessible(true);
-
-        final JsonUtil createdObject = constructor.newInstance(new Object[0]);
-        assertNotNull(createdObject);
-    }
-
-    @Test
-    public void testUaiJSONCompareWrapperConstructor() throws Exception {
-        final Constructor<UaiJSONCompareWrapper> constructor = UaiJSONCompareWrapper.class.getDeclaredConstructor(new Class[0]);
-        constructor.setAccessible(true);
-
-        final UaiJSONCompareWrapper createdObject = constructor.newInstance(new Object[0]);
-        assertNotNull(createdObject);
-    }
-
-    @Test
-    public void testXmlUnitWrapperConstructor() throws Exception {
-        final Constructor<XmlUnitWrapper> constructor = XmlUnitWrapper.class.getDeclaredConstructor(new Class[0]);
-        constructor.setAccessible(true);
-
-        final XmlUnitWrapper createdObject = constructor.newInstance(new Object[0]);
-        assertNotNull(createdObject);
-    }
-
-    @Test
-    public void testUaiJsonFieldFailureLoggerConstructor() throws Exception {
-        final Constructor<UaiJsonFieldFailureLogger> constructor = UaiJsonFieldFailureLogger.class.getDeclaredConstructor(new Class[0]);
-        constructor.setAccessible(true);
-
-        final UaiJsonFieldFailureLogger createdObject = constructor.newInstance(new Object[0]);
-        assertNotNull(createdObject);
+    public void testConstructorList() throws Exception {
+        for (Class<? extends Object> aClass : CLASSES_TO_TEST) {
+            final Constructor<?> constructor = aClass.getDeclaredConstructor(new Class[0]);
+            constructor.setAccessible(true);
+
+            final Object createdObject = constructor.newInstance(new Object[0]);
+            assertNotNull(createdObject);
+        }
     }
 }
