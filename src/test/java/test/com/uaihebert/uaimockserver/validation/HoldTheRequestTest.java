@@ -15,13 +15,18 @@
  * */
 package test.com.uaihebert.uaimockserver.validation;
 
+import com.uaihebert.uaimockserver.model.UaiRequest;
+import com.uaihebert.uaimockserver.model.UaiRoute;
+import com.uaihebert.uaimockserver.repository.UaiRouteRepository;
 import com.uaihebert.uaimockserver.runner.UaiMockServerRunner;
 import com.uaihebert.uaimockserver.runner.UaiRunnerMockServerConfiguration;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import test.com.uaihebert.uaimockserver.model.UaiResponseInFileTest;
 
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
+import java.lang.reflect.Field;
 import java.util.Date;
 
 import static org.junit.Assert.assertTrue;
@@ -31,7 +36,32 @@ import static org.junit.Assert.assertTrue;
 public class HoldTheRequestTest {
 
     private static final String ASSERTING_TEXT = "asserting that the time lapse with hold [%s] is >= than regular request [%s]";
-    private static final int MIN_TIME_WAITING = 490;
+    private static final long MIN_TIME_WAITING;
+
+    static {
+        if (UaiResponseInFileTest.isAutomaticIntegration()) {
+            MIN_TIME_WAITING = 1000L;
+        } else {
+            MIN_TIME_WAITING = 20L;
+        }
+
+        setValueInRunTime();
+    }
+
+    private static void setValueInRunTime() {
+        try {
+            final UaiRoute uaiRoute = UaiRouteRepository.listAllRoutes().get(0);
+
+            final UaiRequest request = uaiRoute.getRequest();
+
+            final Field field = request.getClass().getDeclaredField("holdTheRequestInMilli");
+
+            field.setAccessible(true);
+            field.set(request, MIN_TIME_WAITING);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
 
     @Test
     public void isHoldingRequest() {

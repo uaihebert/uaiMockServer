@@ -28,14 +28,28 @@ import static org.junit.Assert.assertTrue;
 @RunWith(UaiMockServerRunner.class)
 @UaiRunnerMockServerConfiguration(configurationFile = "bodyPathTest.json")
 public class UaiResponseInFileTest {
-    private static final String IS_DRONE_IO = "/home/ubuntu/src/github.com/";
+    public static final String DRONE_IO_PATH = "/home/ubuntu/src/github.com/";
+
+    public static boolean isDroneIOEnvironment() {
+        final String projectDir = UaiResponseInFileTest.class.getProtectionDomain().getCodeSource().getLocation().getPath();
+
+        return projectDir.startsWith(DRONE_IO_PATH);
+    }
+
+    public static boolean isAutomaticIntegration() {
+        return isDroneIOEnvironment() || isTravis();
+    }
+
+    public static boolean isTravis() {
+        final String projectDir = UaiResponseInFileTest.class.getProtectionDomain().getCodeSource().getLocation().getPath();
+
+        return Thread.currentThread().getName().contains("travis") || projectDir.contains("travis");
+    }
 
     @Test
     public void isReturningImage() throws IOException {
-        final String projectDir = UaiResponseInFileTest.class.getProtectionDomain().getCodeSource().getLocation().getPath();
-
         // drone io is breaking this test for some dark and obscure reason
-        if (projectDir.startsWith(IS_DRONE_IO)) {
+        if (isDroneIOEnvironment()) {
             return;
         }
 
