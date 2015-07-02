@@ -26,10 +26,10 @@
             </div><br />
             Description:
             <textarea class="form-control" rows="3" ng-model="selectedRouteRow.route.request.description" placeholder="A request description if needed"></textarea><br />
-            <p class="requiredAttribute">* </p>Content Type:
+            Content Type:
             <input type="text" class="form-control" ng-model="selectedRouteRow.route.request.requiredContentType" placeholder="A required Content-Type: application/json"/><br />
             Hold the Request in Milli:
-            <input type="text" class="form-control" ng-model="selectedRouteRow.route.request.holdTheRequestInMilli" placeholder="For how long you want to hold the request?"/><br />
+            <input type="text" class="form-control" ng-model="selectedRouteRow.route.request.holdRequestInMilli" placeholder="For how long you want to hold the request?"/><br />
             Is Body Required:
             <input type="checkbox" ng-model="selectedRouteRow.route.request.isBodyRequired" ng-change="bodyRequired()" /><br />
             <div ng-show="selectedRouteRow.route.request.isBodyRequired">

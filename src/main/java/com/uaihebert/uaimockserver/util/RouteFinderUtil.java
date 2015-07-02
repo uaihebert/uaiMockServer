@@ -17,7 +17,7 @@ import java.util.Set;
 public final class RouteFinderUtil {
     private static final String INVALID_DATA_MESSAGE = "It was not possible to validate the sent data against the routes in the config file. Check the log.";
 
-    private static final String URI_NOT_FOUND_MESSAGE = "%nWe could not find the requested URI [%s] with the method [%s]. %n " +
+    private static final String URI_NOT_FOUND_MESSAGE = "%n%nWe could not find the requested URI [%s] with the method [%s]. %n " +
             "Check the config file and try to find the mapping. A \\ in the end of the URI will affect the result. %n " +
             "Also check if all the required query param and/header were sent. %n";
 
