@@ -35,14 +35,14 @@ import static org.junit.Assert.assertTrue;
 @UaiRunnerMockServerConfiguration(configurationFile = "holdRequest.json")
 public class HoldTheRequestTest {
 
-    private static final String ASSERTING_TEXT = "asserting that the time lapse with hold [%s] is >= than regular request [%s]";
+    private static final String ASSERTING_TEXT = "asserting that the time lapse with hold [%s] is > than regular request [%s]";
     private static final long MIN_TIME_WAITING;
 
     static {
         if (UaiResponseInFileTest.isAutomaticIntegration()) {
             MIN_TIME_WAITING = 1000L;
         } else {
-            MIN_TIME_WAITING = 20L;
+            MIN_TIME_WAITING = 93L;
         }
 
         setValueInRunTime();
@@ -71,9 +71,7 @@ public class HoldTheRequestTest {
         final long timeLapseRegularRequest = getRequestLapseWithNoHold();
         final long timeLapseRequestWithHold = getRequestLapseWithHold();
 
-        final long regularRequestWithHoldTime = timeLapseRegularRequest + MIN_TIME_WAITING;
-
-        assertTrue(String.format(ASSERTING_TEXT, timeLapseRequestWithHold, regularRequestWithHoldTime), timeLapseRequestWithHold >= regularRequestWithHoldTime);
+        assertTrue(String.format(ASSERTING_TEXT, timeLapseRegularRequest, timeLapseRequestWithHold), timeLapseRequestWithHold > timeLapseRegularRequest);
     }
 
     private long getRequestLapseWithNoHold() {
