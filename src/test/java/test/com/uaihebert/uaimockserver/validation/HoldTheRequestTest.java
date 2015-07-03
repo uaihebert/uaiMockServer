@@ -71,7 +71,9 @@ public class HoldTheRequestTest {
         final long timeLapseRegularRequest = getRequestLapseWithNoHold();
         final long timeLapseRequestWithHold = getRequestLapseWithHold();
 
-        assertTrue(String.format(ASSERTING_TEXT, timeLapseRequestWithHold, timeLapseRegularRequest), timeLapseRequestWithHold > timeLapseRegularRequest);
+        final boolean comparisonResult = timeLapseRequestWithHold > timeLapseRegularRequest;
+
+        assertTrue(String.format(ASSERTING_TEXT, timeLapseRequestWithHold, timeLapseRegularRequest), comparisonResult);
     }
 
     private long getRequestLapseWithNoHold() {

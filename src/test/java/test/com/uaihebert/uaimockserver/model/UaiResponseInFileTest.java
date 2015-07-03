@@ -33,8 +33,6 @@ public class UaiResponseInFileTest {
     public static boolean isDroneIOEnvironment() {
         final String projectDir = UaiResponseInFileTest.class.getProtectionDomain().getCodeSource().getLocation().getPath();
 
-        System.out.println(">>>> is drone IO " + projectDir + " >>>> " + projectDir.startsWith(DRONE_IO_PATH));
-
         return projectDir.startsWith(DRONE_IO_PATH);
     }
 
@@ -45,9 +43,7 @@ public class UaiResponseInFileTest {
     public static boolean isTravis() {
         final String projectDir = UaiResponseInFileTest.class.getProtectionDomain().getCodeSource().getLocation().getPath();
 
-        System.out.println(">>>> is Travis " + projectDir + " >>>> " + projectDir.contains("travis") + " thread >>>> " +  Thread.currentThread().getName() + " >>> " +  Thread.currentThread().getId());
-
-        return Thread.currentThread().getName().contains("travis") || projectDir.contains("travis");
+        return projectDir.contains("travis");
     }
 
     @Test
