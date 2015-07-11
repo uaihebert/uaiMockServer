@@ -15,27 +15,19 @@ import java.util.List;
 
 public final class RequestValidatorFacade {
 
-    private static final List<RequestDataValidator> REQUEST_DATA_VALIDATOR_LIST = new ArrayList<RequestDataValidator>();
 
-    static {
-        reload();
+    private RequestValidatorFacade() {
     }
 
-    private static void reload() {
-        REQUEST_DATA_VALIDATOR_LIST.clear();
+    public static RequestAnalysisResult isValidRequest(final UaiRequest uaiRequest, final HttpServerExchange exchange, final String requestBody) {
+        final List<RequestDataValidator> REQUEST_DATA_VALIDATOR_LIST = new ArrayList<RequestDataValidator>();
+
         REQUEST_DATA_VALIDATOR_LIST.add(new BodyValidator());
         REQUEST_DATA_VALIDATOR_LIST.add(new ContentTypeValidator());
         REQUEST_DATA_VALIDATOR_LIST.add(new OptionalHeaderValidator());
         REQUEST_DATA_VALIDATOR_LIST.add(new RequiredHeaderValidator());
         REQUEST_DATA_VALIDATOR_LIST.add(new OptionalQueryParamValidator());
         REQUEST_DATA_VALIDATOR_LIST.add(new RequiredQueryParamValidator());
-    }
-
-    private RequestValidatorFacade() {
-    }
-
-    public static RequestAnalysisResult isValidRequest(final UaiRequest uaiRequest, final HttpServerExchange exchange, final String requestBody) {
-        reload();
 
         final RequestAnalysisResult requestAnalysisResult = new RequestAnalysisResult(requestBody);
 

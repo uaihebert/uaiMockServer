@@ -11,6 +11,7 @@ app.controller('webSocketController', function($scope, $location) {
     $scope.webSocketLog.logRequestList = [];
     $scope.connectToWebSocket = function() {
         if (window.WebSocket) {
+            // todo fix here. when is running in another server, this is not working
             $scope.socket = new WebSocket("ws://localhost:1234/uaiGui-ws");
             $scope.socket.onmessage = function (event) {
                 $scope.$apply(function() {
