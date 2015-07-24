@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="uaiMockServerApp">
+    <head>
+        <meta charset="utf-8">
+
+        <link rel="stylesheet" href="/uaiGui/css?fileName=bootstrap" />
+        <link rel="stylesheet" href="/uaiGui/css?fileName=tableSort" />
+        <link rel="stylesheet" href="/uaiGui/css?fileName=index" />
+        <link rel="stylesheet" href="/uaiGui/css?fileName=growl" />
+
+        <script type="application/javascript" src="/uaiGui/javascript?fileName=angular"></script>
+        <script type="application/javascript" src="/uaiGui/javascript?fileName=angular-animate"></script>
+        <script type="application/javascript" src="/uaiGui/javascript?fileName=tableSort"></script>
+        <script type="application/javascript" src="/uaiGui/javascript?fileName=jquery"></script>
+        <script type="application/javascript" src="/uaiGui/javascript?fileName=bootstrap"></script>
+        <script type="application/javascript" src="/uaiGui/javascript?fileName=angular-growl"></script>
+        <script type="application/javascript" src="/uaiGui/javascript?fileName=angular-sanitize"></script>
+        <script type="application/javascript" src="/uaiGui/javascript?fileName=ui-bootstrap-tpls"></script>
+        <script type="application/javascript" src="/uaiGui/javascript?fileName=angular-bootstrap-select"></script>
+
+        <script type="application/javascript" src="/uaiGui/javascript?fileName=ZeroClipboard"></script>
+        <script type="application/javascript" src="/uaiGui/javascript?fileName=ngClip"></script>
+
+        <style>
+            select {
+                border: 1px solid #111;
+                background: transparent;
+                font-size: 16px;
+                border: 1px solid #ccc;
+                -webkit-appearance: none;
+                -moz-appearance: none;
+                appearance: none;
+            }
+        </style>
+
+        <title>
+            UaiMockServer - GUI
+        </title>
+    </head>
+    <body ng-controller="dummyController" class="container">
+        <div ng-include="'/uaiGui/page?fileName=common/headerMenu'"></div>
+
+        <div class="page-header">
+            <h4>You will be able to generate mock data using the [uaiDummy Framework]</h4>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h5 class="panel-title">Credit Card Generator</h5>
+                        </div>
+                        <div class="panel-body" style="min-height:300px !important;">
+                            <select ng-options="cardType as cardType for cardType in creditCardTypeList" ng-model="selectedCardType"></select>
+                            <button type="button" class="btn btn-primary" ng-click="loadData()">Generate</button> <p style="display: inline">Click in the value to copy it</p>
+                            <h6>About the copy: <br/>
+                                * Work better on Firefox <br/>
+                                * Need of internet connection
+                            </h6>
+                            <div class="row">
+                                <div class="col-sm-5">
+                                    <ul class="list-group">
+                                        <a href="#" clip-copy="getTextToCopy(pan)" class="list-group-item" ng-repeat="pan in generatedPanList track by $index">{{pan}}</a>
+                                    </ul>
+                                </div>
+                                <div class="col-sm-3">
+                                    <ul class="list-group">
+                                        <a href="#" clip-copy="getTextToCopy(cvv)" class="list-group-item" ng-repeat="cvv in generatedCvvList track by $index">{{cvv}}</a>
+                                    </ul>
+                                </div>
+                                <div class="col-sm-4">
+                                    <ul class="list-group">
+                                        <a href="#" clip-copy="getTextToCopy(date)" class="list-group-item" ng-repeat="date in generatedExpirationDateList track by $index">{{date}}</a>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h5 class="panel-title">Name Generator</h5>
+                        </div>
+                        <div class="panel-body" style="min-height:300px !important;">
+                            insert name panel here
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+    <script type="application/javascript" src="/uaiGui/javascript?fileName=dummy"></script>
+</html>

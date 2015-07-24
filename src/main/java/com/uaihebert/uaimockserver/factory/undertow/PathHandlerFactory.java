@@ -2,15 +2,7 @@ package com.uaihebert.uaimockserver.factory.undertow;
 
 import com.uaihebert.uaimockserver.model.UaiWebSocketCallback;
 import com.uaihebert.uaimockserver.server.UaiMockServerHandler;
-import com.uaihebert.uaimockserver.servlet.UAiAngularMapServlet;
-import com.uaihebert.uaimockserver.servlet.UaiCssMapServlet;
-import com.uaihebert.uaimockserver.servlet.UaiCssServlet;
-import com.uaihebert.uaimockserver.servlet.UaiJavascriptServlet;
-import com.uaihebert.uaimockserver.servlet.UaiIndexServlet;
-import com.uaihebert.uaimockserver.servlet.UaiPageServlet;
-import com.uaihebert.uaimockserver.servlet.UaiRootConfigurationsServlet;
-import com.uaihebert.uaimockserver.servlet.UaiRouteCloneServlet;
-import com.uaihebert.uaimockserver.servlet.UaiRouteServlet;
+import com.uaihebert.uaimockserver.servlet.*;
 import com.uaihebert.uaimockserver.util.HttpServerUtil;
 import io.undertow.Handlers;
 import io.undertow.server.HttpHandler;
@@ -50,6 +42,7 @@ public final class PathHandlerFactory {
                         servlet("CssMapServlet", UaiCssMapServlet.class).addMapping("/bootstrap.css.map"),
                         servlet("AngularMapServlet", UAiAngularMapServlet.class).addMapping("/angular.js.map"),
                         servlet("UaiRouteServlet", UaiRouteServlet.class).addMapping("/uaiRoute"),
+                        servlet("UaiDummyServlet", UaiDummyServlet.class).addMapping("/dummy"),
                         servlet("UaiRouteCloneServlet", UaiRouteCloneServlet.class).addMapping("/uaiRoute/clone"),
                         servlet("UaiRootConfigurationsServlet", UaiRootConfigurationsServlet.class).addMapping("/rootConfigurations")
                 );

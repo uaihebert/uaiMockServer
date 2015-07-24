@@ -42,7 +42,8 @@ app.controller('rootConfigController', function($scope, $location, $http, growl)
     }
 
     $scope.isActive = function(route) {
-        if ($location.path().indexOf(route) > -1) {
+        var queryParam = $location.search().fileName;
+        if ($location.path().indexOf(route) > -1 || (queryParam != null && queryParam.indexOf(route) > -1)) {
             return 'active';
         }
 

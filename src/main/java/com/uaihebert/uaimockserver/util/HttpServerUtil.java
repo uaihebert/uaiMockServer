@@ -18,6 +18,7 @@ package com.uaihebert.uaimockserver.util;
 import com.uaihebert.uaimockserver.context.UaiMockServerContext;
 import com.uaihebert.uaimockserver.factory.undertow.PathHandlerFactory;
 import io.undertow.Undertow;
+import io.undertow.UndertowOptions;
 import io.undertow.server.handlers.PathHandler;
 
 /**
@@ -36,6 +37,7 @@ public final class HttpServerUtil {
             httpServer = Undertow.builder()
                     .addHttpListener(UaiMockServerContext.getInstance().uaiMockServerConfig.getPort(), UaiMockServerContext.getInstance().uaiMockServerConfig.getHost())
                     .setHandler(path)
+                    .setServerOption(UndertowOptions.URL_CHARSET, "utf-8")
                     .build();
 
             httpServer.start();

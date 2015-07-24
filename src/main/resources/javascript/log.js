@@ -79,7 +79,8 @@ app.controller('webSocketController', function($scope, $location) {
     }
 
     $scope.isActive = function(route) {
-        if ($location.path().indexOf(route) > -1) {
+        var queryParam = $location.search().fileName;
+        if ($location.path().indexOf(route) > -1 || (queryParam != null && queryParam.indexOf(route) > -1)) {
             return 'active';
         }
 
