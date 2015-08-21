@@ -42,7 +42,7 @@ public final class HttpServerUtil {
 
             httpServer.start();
         } catch (final Exception ex) {
-            throw new IllegalStateException("Could not start the uaiMockServer.", ex);
+            throw new IllegalStateException("Could not start the uaiMockServer. " + ex.getMessage(), ex);
         }
 
         return httpServer;

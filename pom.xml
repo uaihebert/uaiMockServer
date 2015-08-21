@@ -4,7 +4,7 @@
 
     <groupId>uaihebert.com</groupId>
     <artifactId>uaiMockServer</artifactId>
-    <version>1.2.2</version>
+    <version>1.3.0-SNAPSHOT</version>
 
     <name>uaiMockServer</name>
     <description>uaiMockServer project that helps with http tests, mocking the services using only a config file

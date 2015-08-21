@@ -24,16 +24,10 @@ import io.undertow.Undertow;
  * Class that will start/shutdown ServletServer implementation
  */
 public final class UaiMockServer {
-
-    private final Undertow httpServer;
-
-    private UaiMockServer(final Undertow httpServer) {
-        this.httpServer = httpServer;
-    }
+    private static Undertow jvmInstance;
 
     public void shutdown() {
         UaiRouteRepository.clearData();
-        httpServer.stop();
     }
 
     public static UaiMockServer start() {
@@ -49,8 +43,23 @@ public final class UaiMockServer {
     }
 
     private static UaiMockServer createServer() {
-        final Undertow undertow = HttpServerUtil.startHttpServer();
+            if (jvmInstance != null) {
+                synchronized (jvmInstance) {
+                    try {
+                        jvmInstance.stop();
+                    } catch (Exception ex){
 
-        return new UaiMockServer(undertow);
+                    }
+                }
+            }
+
+        final Undertow undertow = HttpServerUtil.startHttpServer();
+        jvmInstance = undertow;
+
+        return new UaiMockServer();
+    }
+
+    public static boolean hasInstanceRunning() {
+        return jvmInstance != null;
     }
 }

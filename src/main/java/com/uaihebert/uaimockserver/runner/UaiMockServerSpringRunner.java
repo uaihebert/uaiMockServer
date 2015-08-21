@@ -16,19 +16,19 @@ public class UaiMockServerSpringRunner extends SpringJUnit4ClassRunner {
 
     @Override
     public void run(final RunNotifier notifier) {
-        final UaiMockServer uaiMockServer = startServer();
-        try {
-            super.run(notifier);
-        } finally {
-            uaiMockServer.shutdown();
+        if (!UaiMockServer.hasInstanceRunning()) {
+            startServer();
         }
+
+        super.run(notifier);
     }
 
-    private UaiMockServer startServer() {
+    private void startServer() {
         if (configuration == null) {
-            return UaiMockServer.start();
+            UaiMockServer.start();
+            return;
         }
 
-        return UaiMockServer.start(configuration.configurationFile());
+        UaiMockServer.start(configuration.configurationFile());
     }
 }
