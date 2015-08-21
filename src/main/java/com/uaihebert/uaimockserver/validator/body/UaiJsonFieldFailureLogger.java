@@ -14,7 +14,7 @@ public final class UaiJsonFieldFailureLogger {
         final List<FieldComparisonFailure> failureList = jsonResult.getFieldFailures();
 
         for (FieldComparisonFailure failure : failureList) {
-            Log.warnFormatted(errorText, failure.getField(), failure.getExpected(), failure.getActual());
+            Log.warn(errorText, failure.getField(), failure.getExpected(), failure.getActual());
         }
     }
 }

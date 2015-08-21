@@ -37,7 +37,7 @@ public class OptionalHeaderValidator implements RequestDataValidator{
         }
 
         if (!headerValueList.containsAll(uaiHeader.getValueList())) {
-            Log.warnFormatted(HEADER_VALUE_NOT_FOUND_MESSAGE, uaiHeader.getValueList(), uaiHeader.getName());
+            Log.warn(HEADER_VALUE_NOT_FOUND_MESSAGE, uaiHeader.getValueList(), uaiHeader.getName());
             result.abortTheRequest();
         }
     }

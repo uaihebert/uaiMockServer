@@ -36,7 +36,7 @@ public enum BodyValidationType {
                 return;
             }
 
-            Log.warnFormatted(BODY_VALIDATOR_ERROR_MESSAGE, uaiRequest.method, uaiRequest.path);
+            Log.warn(BODY_VALIDATOR_ERROR_MESSAGE, uaiRequest.method, uaiRequest.path);
             result.setInvalid();
         }
     },
@@ -47,7 +47,7 @@ public enum BodyValidationType {
                 return;
             }
 
-            Log.warnFormatted(WRONG_RAW_TEXT_BODY, body, uaiRequest.body);
+            Log.warn(WRONG_RAW_TEXT_BODY, body, uaiRequest.body);
             result.setInvalid();
         }
     },
@@ -104,7 +104,7 @@ public enum BodyValidationType {
                 return;
             }
 
-            Log.warnFormatted(WRONG_XML_BODY_WITH_STRICT_ATTRIBUTE_ORDER, body, uaiRequest.body);
+            Log.warn(WRONG_XML_BODY_WITH_STRICT_ATTRIBUTE_ORDER, body, uaiRequest.body);
 
             result.setInvalid();
         }
@@ -122,7 +122,7 @@ public enum BodyValidationType {
                 return;
             }
 
-            Log.warnFormatted(WRONG_XML_BODY_WITHOUT_STRICT_ATTRIBUTE_ORDER, body, uaiRequest.body);
+            Log.warn(WRONG_XML_BODY_WITHOUT_STRICT_ATTRIBUTE_ORDER, body, uaiRequest.body);
 
             result.setInvalid();
         }
@@ -142,7 +142,7 @@ public enum BodyValidationType {
             for(String textPattern : textPatterns){
                 final Pattern pattern = Pattern.compile(textPattern);
                 if(!pattern.matcher(body).find()){
-                    Log.warnFormatted(UNMATCHED_REGEX, body, textPattern);
+                    Log.warn(UNMATCHED_REGEX, body, textPattern);
                     result.setInvalid();
                 }
             }

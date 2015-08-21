@@ -16,6 +16,7 @@
 package com.uaihebert.uaimockserver.server;
 
 import com.uaihebert.uaimockserver.context.UaiMockServerContext;
+import com.uaihebert.uaimockserver.log.backend.Log;
 import com.uaihebert.uaimockserver.repository.UaiRouteRepository;
 import com.uaihebert.uaimockserver.util.HttpServerUtil;
 import io.undertow.Undertow;
@@ -48,7 +49,7 @@ public final class UaiMockServer {
                     try {
                         jvmInstance.stop();
                     } catch (Exception ex){
-
+                        Log.warn(ex);
                     }
                 }
             }

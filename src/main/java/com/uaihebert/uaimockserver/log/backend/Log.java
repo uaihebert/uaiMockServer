@@ -59,7 +59,7 @@ public final class Log {
     /**
      * Wil log a text with the WARN level. The text with be formatted using the String.format(...)
      */
-    public static void warnFormatted(final String text, Object... parameterArray) {
+    public static void warn(final String text, Object... parameterArray) {
         final String formattedText = String.format(text, parameterArray);
 
         INSTANCE.warn(formattedText);
@@ -70,7 +70,7 @@ public final class Log {
     /**
      * Wil log a text with the WARN level.
      */
-    public static void warnFormatted(final Exception exception) {
+    public static void warn(final Exception exception) {
         INSTANCE.warn(exception);
 
         UaiWebSocketLogManager.addLogText("[WARN] An exception just happened: " + exception.getMessage());
