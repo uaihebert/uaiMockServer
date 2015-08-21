@@ -40,7 +40,7 @@ public class HoldTheRequestTest {
 
     static {
         if (UaiResponseInFileTest.isAutomaticIntegration()) {
-            MIN_TIME_WAITING = 1000L;
+            MIN_TIME_WAITING = 5000L;
         } else {
             MIN_TIME_WAITING = 93L;
         }
