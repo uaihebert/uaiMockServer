@@ -41,6 +41,7 @@ public final class UaiRouteMapper {
         synchronized (ROUTE_MAP_BY_PATH) {
             ROUTE_MAP_BY_PATH.clear();
 
+            // todo ConcurrentModificationException is happening here
             for (UaiRoute uaiRoute : ROUTE_MAP_BY_ID.values()) {
                 final String key = RouteMapKeyUtil.createKey(uaiRoute.getRequest().method, uaiRoute.getRequest().path);
                 setInMapByPath(key, uaiRoute);
@@ -80,6 +81,19 @@ public final class UaiRouteMapper {
 
         return uaiRouteList;
     }
+
+    /**
+     * TODO there is a bug when  more than 1 request with
+     *          * same URL
+     *          * same queryParam/Header
+     *          * all with body
+     *              * request1 attribute1 = 'aaa'
+     *              * request2 attribute1 = 'aab'
+     *              * request3 attribute1 = 'aac'
+     *          * It is returning error if the last request arrives first
+     *
+     */
+
 
     public static List<UaiRoute> listAllRoutes(final String selectedProject) {
         if (!ROUTE_MAP_BY_APPLICATION.containsKey(selectedProject)) {
