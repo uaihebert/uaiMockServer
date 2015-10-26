@@ -38,14 +38,11 @@ public final class UaiRouteMapper {
     }
 
     public static void loadMapByKey() {
-        synchronized (ROUTE_MAP_BY_PATH) {
-            ROUTE_MAP_BY_PATH.clear();
+        ROUTE_MAP_BY_PATH.clear();
 
-            // todo ConcurrentModificationException is happening here
-            for (UaiRoute uaiRoute : ROUTE_MAP_BY_ID.values()) {
-                final String key = RouteMapKeyUtil.createKey(uaiRoute.getRequest().method, uaiRoute.getRequest().path);
-                setInMapByPath(key, uaiRoute);
-            }
+        for (UaiRoute uaiRoute : ROUTE_MAP_BY_ID.values()) {
+            final String key = RouteMapKeyUtil.createKey(uaiRoute.getRequest().method, uaiRoute.getRequest().path);
+            setInMapByPath(key, uaiRoute);
         }
     }
 
@@ -183,3 +180,6 @@ public final class UaiRouteMapper {
         return projectList;
     }
 }
+// todo create a method in build dsl to accept header like (string, string)
+// todo log received header/queryParam
+// todo validate if build dsl is using required header correctly
