@@ -20,7 +20,7 @@
 			"request" : {
 				"path" : "/holdTheRequest",
 				"method" : "GET",
-				"holdTheRequestInMilli" : "500"
+				"holdTheRequestInMilli" : "1000"
 			},
 			"response" : {
 				"contentType" : "application/json;charset=UTF-8",

@@ -17,6 +17,7 @@ package test.com.uaihebert.uaimockserver.validation;
 
 import com.uaihebert.uaimockserver.runner.UaiMockServerRunner;
 import com.uaihebert.uaimockserver.runner.UaiRunnerMockServerConfiguration;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -33,11 +34,15 @@ public class HoldTheRequestTest {
     private static final String ASSERTING_TEXT = "asserting that the time lapse with hold [%s] is >= than regular request [%s]";
     private static final int MIN_TIME_WAITING = 490;
 
+    @Before
+    public void before() {
+        // the first request is slower than the next requests
+        // this dummy request is just to activate the server
+        getRequestLapseWithNoHold();
+    }
+
     @Test
     public void isHoldingRequest() {
-        // the first request is slower than the next requests
-        getRequestLapseWithNoHold();
-
         final long timeLapseRegularRequest = getRequestLapseWithNoHold();
         final long timeLapseRequestWithHold = getRequestLapseWithHold();
 
