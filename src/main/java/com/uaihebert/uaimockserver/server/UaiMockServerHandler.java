@@ -39,6 +39,19 @@ public class UaiMockServerHandler implements HttpHandler {
 
     @Override
     public void handleRequest(final HttpServerExchange exchange) throws Exception {
+        /*
+           By far the most common use of HttpServerExchange.dispatch() is to move execution from an IO thread
+           where blocking is not allowed into a worker thread, which does allow for blocking operations.
+        */
+        if (exchange.isInIoThread()) {
+            exchange.dispatch(this);
+            return;
+        }
+
+        processRequest(exchange);
+    }
+
+    private void processRequest(HttpServerExchange exchange) throws IOException {
         // firefox will invoke this URL
         if ("/favicon.ico".equals(exchange.getRequestPath())) {
             sendFavIconInResponse(exchange);

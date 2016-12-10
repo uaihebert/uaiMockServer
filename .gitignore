@@ -2,5 +2,5 @@
 *.iml
 target/*
 uaiMockServer.log
-
+src/main/resources/uaiMockServer.json
 
