@@ -1,8 +1,8 @@
 # uaiMockServer
 
-[![Drone][drone-image]][drone-url] [![Travis][travis-image]][travis-url] [![Coverage][coverage-image]][coverage-url] [![Maven Central][maven-image]][maven-url]
+[![Travis][travis-image]][travis-url] [![Drone][drone-image]][drone-url] [![Coverage][coverage-image]][coverage-url] [![Maven Central][maven-image]][maven-url]
 
-[![License][license-image]][license-url] [![Gitter][gitter-image]][gitter-url]
+[![License][license-image]][license-url]
 
 ---------------------------------------------------------------
 
@@ -62,9 +62,6 @@ public class YourTestClass {
 
 [travis-url]: https://travis-ci.org/uaihebert/uaiMockServer
 [travis-image]: https://travis-ci.org/uaihebert/uaiMockServer.svg?branch=master
-
-[gitter-url]: https://gitter.im/uaihebert/uaiMockServer
-[gitter-image]: https://badges.gitter.im/Join%20Chat.svg
 
 [license-url]: https://gitter.im/uaihebert/uaiMockServer/blob/master/LICENSE
 [license-image]: https://img.shields.io/badge/license-MIT-blue.svg?style=flat
