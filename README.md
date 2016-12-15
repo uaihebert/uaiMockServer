@@ -16,7 +16,7 @@ This code can create a Standalone jar or you could add the project in your pom.x
 
 > The documentation/roadMap/etc can be found in here: http://uaimockserver.com
 
-> The most recent Standalone jar and the Config samples can be found in here: [![Download uaiMockServer](https://sourceforge.net/sflogo.php?type=16&group_id=2405235)](https://sourceforge.net/p/uaimockserver/)
+> The most recent Standalone jar and the Config samples can be found in here: https://github.com/uaihebert/uaiMockServer/tree/master/dist
 
 ####About the build
 * If you want just to create the project JAR, run the command: `mvn clean install`
