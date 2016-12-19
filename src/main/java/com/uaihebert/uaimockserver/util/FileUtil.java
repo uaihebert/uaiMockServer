@@ -12,8 +12,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.nio.ByteBuffer;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 public final class FileUtil {
     private static final String FILE_NOT_FOUND_EXCEPTION_MESSAGE = "We could not find the file: [%s]." +
@@ -80,9 +78,7 @@ public final class FileUtil {
     }
 
     private static void createFileBackUp(final String fullPath) throws IOException {
-        final String formattedDate = new SimpleDateFormat("yyyy_MM_dd_hh_mm_ss_sss").format(new Date());
-
-        FileUtils.copyFile(new File(fullPath), new File(fullPath.replace(".json", "_" + formattedDate + ".back.json")));
+        FileUtils.copyFile(new File(fullPath), new File(fullPath.replace(".json", ".back.json")));
     }
 
     public static ByteBuffer getFileAsByteBuffer(String bodyPath) {
