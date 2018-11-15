@@ -19,6 +19,6 @@ public class UaiMockServerSpringRunnerWithConfigTest {
 
     @Test
     public void isCreatingSpringContext() {
-        assertNotNull("A instance should be used inject", classToInject);
+        assertNotNull("An instance should be used inject", classToInject);
     }
 }
