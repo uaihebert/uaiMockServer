@@ -14,11 +14,11 @@ app.controller('routeController', function($scope, $http, growl, $location) {
 
         $scope.projectFilter = "";
 
-        if (selectedProject != null && selectedProject != "") {
+        if (selectedProject != null && selectedProject !== "") {
             $scope.currentProject = selectedProject;
         }
 
-        if ($scope.currentProject != "") {
+        if ($scope.currentProject !== "") {
             $scope.projectFilter = "?selectedProject=" + $scope.currentProject;
         }
 
@@ -31,7 +31,7 @@ app.controller('routeController', function($scope, $http, growl, $location) {
 
                 $scope.projectList = [];
 
-                if ($scope.currentProject == "") {
+                if ($scope.currentProject === "") {
                     $scope.currentProject = data.defaultProject;
                 }
 
@@ -58,39 +58,39 @@ app.controller('routeController', function($scope, $http, growl, $location) {
 
                     if (request.requiredHeaderList) {
                         for (var j = 0; j < request.requiredHeaderList.length; j++) {
-                            var header = request.requiredHeaderList[j];
-                            header.required = true;
+                            var requiredHeader = request.requiredHeaderList[j];
+                            requiredHeader.required = true;
 
-                            request.headerList.push(header);
+                            request.headerList.push(requiredHeader);
                         }
                     }
 
                     if (request.optionalHeaderList) {
-                        for (var j = 0; j < request.optionalHeaderList.length; j++) {
-                            var header = request.optionalHeaderList[j];
-                            header.required = false;
+                        for (var k = 0; k < request.optionalHeaderList.length; k++) {
+                            var optionalHeader = request.optionalHeaderList[k];
+                            optionalHeader.required = false;
 
-                            request.headerList.push(header);
+                            request.headerList.push(optionalHeader);
                         }
                     }
                     
                     request.queryParamList = [];
 
                     if (request.requiredQueryParamList) {
-                        for (var j = 0; j < request.requiredQueryParamList.length; j++) {
-                            var queryParam = request.requiredQueryParamList[j];
-                            queryParam.required = true;
+                        for (var l = 0; l < request.requiredQueryParamList.length; l++) {
+                            var requiredQueryParam = request.requiredQueryParamList[l];
+                            requiredQueryParam.required = true;
 
-                            request.queryParamList.push(queryParam);
+                            request.queryParamList.push(requiredQueryParam);
                         }
                     }
 
                     if (request.optionalQueryParamList) {
-                        for (var j = 0; j < request.optionalQueryParamList.length; j++) {
-                            var queryParam = request.optionalQueryParamList[j];
-                            queryParam.required = false;
+                        for (var m = 0; m < request.optionalQueryParamList.length; m++) {
+                            var optionalQueryParam = request.optionalQueryParamList[m];
+                            optionalQueryParam.required = false;
 
-                            request.queryParamList.push(queryParam);
+                            request.queryParamList.push(optionalQueryParam);
                         }
                     }
 
@@ -100,7 +100,7 @@ app.controller('routeController', function($scope, $http, growl, $location) {
         ).error(function(){
                 $scope.displayErrorGrowl();
         });
-    }
+    };
 
     $scope.loadTable();
 
@@ -111,39 +111,39 @@ app.controller('routeController', function($scope, $http, growl, $location) {
 
         for (var i = 0; i < listToCheck.length; i++) {
             var list = listToCheck[i];
-            if (list.name == "" && list.valueList != null && list.valueList.length > 0) {
+            if (list.name === "" && list.valueList != null && list.valueList.length > 0) {
                 error.hasError = true;
                 error.errorHtml += "<li>There is a value of " + type + " created, but has not name: " + list.valueList +" </li>";
             }
 
-            if ((list.name != null && list.name.trim() != "") && (list.valueList == null || list.valueList.length == 0)) {
+            if ((list.name != null && list.name.trim() !== "") && (list.valueList === null || list.valueList.length === 0)) {
                 error.hasError = true;
                 error.errorHtml += "<li>There is a value of " + type + " with the name: " + list.name + " but it has no value</li>";
             }
         }
-    }
+    };
 
     $scope.getErrorText = function(route) {
         var error = {};
         error.hasError = false;
         error.errorHtml = "<ul>";
 
-        if (route.request.name == null || route.request.name.trim() == "") {
+        if (route.request.name == null || route.request.name.trim() === "") {
             error.hasError = true;
             error.errorHtml += "<li>request.name was not found</li>";
         }
 
-        if (route.request.path == null || route.request.path.trim() == "") {
+        if (route.request.path == null || route.request.path.trim() === "") {
             error.hasError = true;
             error.errorHtml += "<li>request.path was not found</li>";
         }
 
-        if (route.request.path != null && route.request.path.indexOf("/") != 0) {
+        if (route.request.path != null && route.request.path.indexOf("/") !== 0) {
             error.hasError = true;
             error.errorHtml += "<li>request.path must start with /</li>";
         }
 
-        if (route.request.method == null || route.request.method.trim() == "") {
+        if (route.request.method == null || route.request.method.trim() === "") {
             error.hasError = true;
             error.errorHtml += "<li>request.method was not found</li>";
         }
@@ -153,7 +153,7 @@ app.controller('routeController', function($scope, $http, growl, $location) {
             error.errorHtml += "<li>response.statusCode was not found</li>";
         }
 
-        if (route.response.contentType == null || route.response.contentType.trim() == "") {
+        if (route.response.contentType === null || route.response.contentType.trim() === "") {
             error.hasError = true;
             error.errorHtml += "<li>response.contentType was not found</li>";
         }
@@ -171,13 +171,13 @@ app.controller('routeController', function($scope, $http, growl, $location) {
         }
 
         return null;
-    }
+    };
 
     $scope.finishWithSuccess = function() {
         $scope.loadTable();
         $('#routeModal').modal('toggle');
         $scope.displaySuccessGrowl();
-    }
+    };
 
     $scope.saveRoute = function() {
         $scope.selectedRouteRow.route.request.requiredHeaderList = [];
@@ -202,8 +202,8 @@ app.controller('routeController', function($scope, $http, growl, $location) {
         var queryParamList = $scope.convertStringToList($scope.selectedRouteRow.route.request.queryParamList);
 
         if (queryParamList) {
-            for (var i = 0; i < queryParamList.length; i++) {
-                var queryParam = queryParamList[i];
+            for (var j = 0; j < queryParamList.length; j++) {
+                var queryParam = queryParamList[j];
                 if (queryParam.required) {
                     $scope.selectedRouteRow.route.request.requiredQueryParamList.push(queryParam);
                 } else {
@@ -239,15 +239,15 @@ app.controller('routeController', function($scope, $http, growl, $location) {
                     $scope.displayErrorGrowl();
                 });
         }
-    }
+    };
 
     $scope.displaySuccessGrowl = function() {
         growl.addSuccessMessage("Operation Confirmed (:");
-    }
+    };
 
     $scope.displayErrorGrowl = function() {
         growl.addErrorMessage("Check the log, something went wrong :(");
-    }
+    };
 
     $scope.convertStringToList = function(requiredHeaderList) {
         if (requiredHeaderList == null) {
@@ -257,8 +257,8 @@ app.controller('routeController', function($scope, $http, growl, $location) {
         var listTrimmed = [];
 
         for (var i = 0; i < requiredHeaderList.length; i++) {
-            if (requiredHeaderList[i].name != null && requiredHeaderList[i].name.trim() == "") {
-                if (requiredHeaderList[i].valueList == null || requiredHeaderList[i].valueList.length == 0) {
+            if (requiredHeaderList[i].name != null && requiredHeaderList[i].name.trim() === "") {
+                if (requiredHeaderList[i].valueList == null || requiredHeaderList[i].valueList.length === 0) {
                     continue;
                 }
             }
@@ -271,7 +271,7 @@ app.controller('routeController', function($scope, $http, growl, $location) {
         }
 
         return listTrimmed;
-    }
+    };
 
     $scope.displaySelected = function (routeRow) {
         $scope.hasValidationErrors = false;
@@ -280,9 +280,9 @@ app.controller('routeController', function($scope, $http, growl, $location) {
         $scope.selectedRouteRow = {};
         angular.copy(routeRow, $scope.selectedRouteRow);
 
-        $('#myTab a:first').tab('show')
+        $('#myTab a:first').tab('show');
         $('#routeModal').modal('toggle');
-    }
+    };
 
     $scope.displayCreateNew = function () {
         $scope.action = 'create';
@@ -298,24 +298,24 @@ app.controller('routeController', function($scope, $http, growl, $location) {
         $scope.selectedRouteRow.route.uaiFile = {};
         $scope.selectedRouteRow.route.uaiFile.fullPath = $scope.rootConfiguration.uaiMainFile.fullPath;
 
-        $('#myTab a:first').tab('show')
+        $('#myTab a:first').tab('show');
         $('#routeModal').modal('toggle');
-    }
+    };
 
     $scope.deleteSelectedConfirmation = function () {
         $scope.action = 'delete';
         $('#routeModal').modal('toggle');
         $('#deleteRouteModal').modal('toggle');
-    }
+    };
 
     $scope.cancelDelete = function () {
         $('#deleteRouteModal').modal('toggle');
         $('#routeModal').modal('toggle');
-    }
+    };
 
     $scope.addNewHeaderRequest = function (request) {
         request.headerList.push({name:"", required: true, valueList: []});
-    }
+    };
 
     $scope.addNewHeaderResponse = function (response) {
         if (response.headerList == null) {
@@ -323,11 +323,11 @@ app.controller('routeController', function($scope, $http, growl, $location) {
         }
 
         response.headerList.push({name:"", valueList: []});
-    }
+    };
 
     $scope.addNewQueryParamRequest = function (request) {
         request.queryParamList.push({name:"", required: true, valueList: []});
-    }
+    };
 
     $scope.delete = function () {
         $http.delete('/uaiGui/uaiRoute?routeId='+$scope.selectedRouteRow.route.id).
@@ -339,15 +339,15 @@ app.controller('routeController', function($scope, $http, growl, $location) {
         ).error(function(){
                 $scope.displayErrorGrowl();
             });
-    }
+    };
 
     $scope.isActive = function(route) {
-        if ($location.path().indexOf(route) > -1) {
+        if ($location.url().indexOf(route) > -1) {
             return 'active';
         }
 
         return "";
-    }
+    };
 
     $scope.cloneIt = function($event, routeRow) {
         $event.stopPropagation();
@@ -360,7 +360,7 @@ app.controller('routeController', function($scope, $http, growl, $location) {
         ).error(function(){
                 $scope.displayErrorGrowl();
             });
-    }
+    };
 
     $scope.bodyRequired = function() {
         if (!$scope.selectedRouteRow.route.request.isBodyRequired) {
@@ -370,17 +370,17 @@ app.controller('routeController', function($scope, $http, growl, $location) {
         if ($scope.selectedRouteRow.route.request.bodyValidationType == null) {
             $scope.selectedRouteRow.route.request.bodyValidationType = 'VALIDATE_IF_PRESENT_ONLY'
         }
-    }
+    };
 
     $scope.displayRequestBody = function() {
         if ($scope.selectedRouteRow == null) {
             return false;
         }
 
-        return $scope.selectedRouteRow.route.request.bodyValidationType != null &&
-               $scope.selectedRouteRow.route.request.bodyValidationType != "" &&
-               $scope.selectedRouteRow.route.request.bodyValidationType != 'VALIDATE_IF_PRESENT_ONLY'
-    }
+        return $scope.selectedRouteRow.route.request.bodyValidationType !== null &&
+               $scope.selectedRouteRow.route.request.bodyValidationType !== "" &&
+               $scope.selectedRouteRow.route.request.bodyValidationType !== 'VALIDATE_IF_PRESENT_ONLY'
+    };
 
     $scope.addWildCard = function(object) {
         object.valueList = "UAI_*"

@@ -24,7 +24,7 @@ app.controller('rootConfigController', function($scope, $location, $http, growl)
         ).error(function(){
                 $scope.displayErrorGrowl();
             });
-    }
+    };
 
     $scope.update = function () {
         $http.put('/uaiGui/rootConfigurations', $scope.rootConfig).
@@ -35,23 +35,23 @@ app.controller('rootConfigController', function($scope, $location, $http, growl)
         ).error(function(){
                 $scope.displayErrorGrowl();
             });
-    }
+    };
 
     $scope.isActive = function(route) {
-        if ($location.path().indexOf(route) > -1) {
+        if ($location.url().indexOf(route) > -1) {
             return 'active';
         }
 
         return "";
-    }
+    };
 
     $scope.loadData();
 
     $scope.displaySuccessGrowl = function() {
         growl.addSuccessMessage("Operation Confirmed (:");
-    }
+    };
 
     $scope.displayErrorGrowl = function() {
         growl.addErrorMessage("Check the log, something went wrong :(");
-    }
-})
+    };
+});

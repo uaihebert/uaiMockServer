@@ -34,11 +34,11 @@ app.controller('webSocketController', function($scope, $location) {
         } else {
             alert("Your browser does not support Websockets. (Use FireFox or Chrome)");
         }
-    }
+    };
 
     $scope.disconnectToWebSocket = function() {
         $scope.socket.close();
-    }
+    };
 
     $scope.connectToWebSocket();
     $scope.getCalloutRequestClass = function (log) {
@@ -59,13 +59,13 @@ app.controller('webSocketController', function($scope, $location) {
 
     $scope.getConnectionStatus = function () {
         return $scope.connectionStatus;
-    }
+    };
 
     $scope.isActive = function(route) {
-        if ($location.path().indexOf(route) > -1) {
+        if ($location.url().indexOf(route) > -1) {
             return 'active';
         }
 
         return "";
     }
-})
+});
