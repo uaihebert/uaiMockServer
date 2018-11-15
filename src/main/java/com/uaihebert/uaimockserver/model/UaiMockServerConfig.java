@@ -54,6 +54,10 @@ public final class UaiMockServerConfig {
         routeList = new ArrayList<UaiRoute>(routeList);
     }
 
+    public String getFullUrl() {
+        return "http://" + host + ":" + port + context;
+    }
+
     private void configureRoutes(final UaiRoute uaiRoute) {
         uaiRoute.getResponse().configureContentType(defaultContentTypeResponse);
 
