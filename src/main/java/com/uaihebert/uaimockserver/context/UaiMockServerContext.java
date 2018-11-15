@@ -39,6 +39,8 @@ public final class UaiMockServerContext {
         UaiRouteRepository.configureRouteData();
 
         Log.infoFormatted("Configurations of the file [%s] was read with success", fileName);
+
+        Log.infoFormatted("Starting the server at: %s", uaiMockServerConfig.getFullUrl());
     }
 
     public void addRoute(final UaiRoute uaiRoute) {
