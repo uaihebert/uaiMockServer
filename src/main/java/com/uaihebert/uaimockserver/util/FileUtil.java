@@ -53,14 +53,14 @@ public final class FileUtil {
     }
 
     public static void writeUpdatesToFile() {
-        final UaiMockServerConfig mainConfig = UaiMockServerContext.getInstance().uaiMockServerConfig;
+        final UaiMockServerConfig mainConfig = UaiMockServerContext.getInstance().getUaiMockServerConfig();
 
         final String mainJson = JsonUtil.toJsonWithNoEscaping(mainConfig);
 
         try {
             writeInFile(mainConfig, mainJson);
 
-            for (UaiMockServerConfig secondaryConfig : UaiMockServerContext.getInstance().secondaryMappingList) {
+            for (UaiMockServerConfig secondaryConfig : UaiMockServerContext.getInstance().getSecondaryMappingList()) {
                 final String secondaryJson = JsonUtil.toJsonWithNoEscaping(secondaryConfig);
                 writeInFile(secondaryConfig, secondaryJson);
             }

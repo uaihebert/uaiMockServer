@@ -25,7 +25,11 @@ public class FileUtilTest {
     public void isThrowingExceptionWhenFileToWriteIsInvalid() {
         UaiMockServerContext.createInstance();
 
-        UaiMockServerContext.getInstance().uaiMockServerConfig.setUaiFile(new UaiFile("\\invalid", "\\invalid"));
+        UaiMockServerContext.getInstance()
+            .getUaiMockServerConfig()
+            .setUaiFile(
+                new UaiFile("\\invalid", "\\invalid")
+            );
 
         FileUtil.writeUpdatesToFile();
     }

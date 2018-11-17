@@ -123,7 +123,7 @@ public final class UaiRouteMapper {
     }
 
     private static void configureMainFile() {
-        final List<UaiRoute> routeList = UaiMockServerContext.getInstance().uaiMockServerConfig.getRouteList();
+        final List<UaiRoute> routeList = UaiMockServerContext.getInstance().getUaiMockServerConfig().getRouteList();
 
         for (UaiRoute uaiRoute : routeList) {
             UaiRouteRepository.addFromFile(uaiRoute);
@@ -131,7 +131,7 @@ public final class UaiRouteMapper {
     }
 
     private static void configureSecondaryFiles() {
-        for (UaiMockServerConfig secondaryConfigFile : UaiMockServerContext.getInstance().secondaryMappingList) {
+        for (UaiMockServerConfig secondaryConfigFile : UaiMockServerContext.getInstance().getSecondaryMappingList()) {
             for (UaiRoute uaiRoute : secondaryConfigFile.getRouteList()) {
                 UaiRouteRepository.addFromFile(uaiRoute);
             }

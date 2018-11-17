@@ -49,7 +49,7 @@
     <module name="SuppressWarningsFilter"/>
 
     <module name="TreeWalker">
-        <property name="cacheFile" value="${project_loc}/build/checkstyle-cachefile"/>
+        <property name="cacheFile" value="target/cachefile"/>
         <property name="tabWidth" value="4"/>
 
         <!-- Checks for Annotations - See http://checkstyle.sf.net/config_annotation.html -->
@@ -80,8 +80,7 @@
 
         <!-- Checks for Class Design - http://checkstyle.sf.net/config_design.html -->
         <module name="VisibilityModifier">
-            <property name="allowPublicFinalFields"
-                      value="true"/>
+            <property name="allowPublicImmutableFields" value="true"/>
         </module>
         <module name="FinalClass"/>
         <module name="InterfaceIsType"/>
@@ -131,10 +130,6 @@
         <module name="IllegalCatch"/>
         <module name="IllegalThrows"/>
         <module name="PackageDeclaration"/>
-        <module name="ReturnCount">
-            <property name="max" value="5"/>
-            <property name="maxForVoid" value="5"/>
-        </module>
         <module name="IllegalType"/>
         <module name="DeclarationOrder"/>
         <module name="ParameterAssignment"/>

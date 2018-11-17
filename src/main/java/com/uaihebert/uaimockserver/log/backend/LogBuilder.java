@@ -31,8 +31,8 @@ public final class LogBuilder {
     }
 
     public static void createInstance() {
-        final boolean fileLog = UaiMockServerContext.getInstance().uaiMockServerConfig.isFileLog();
-        final boolean consoleLog = UaiMockServerContext.getInstance().uaiMockServerConfig.isConsoleLog();
+        final boolean fileLog = UaiMockServerContext.getInstance().getUaiMockServerConfig().isFileLog();
+        final boolean consoleLog = UaiMockServerContext.getInstance().getUaiMockServerConfig().isConsoleLog();
 
         createInstance(fileLog, consoleLog);
     }

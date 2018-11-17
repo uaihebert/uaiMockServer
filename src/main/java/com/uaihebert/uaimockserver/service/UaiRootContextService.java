@@ -10,7 +10,7 @@ public final class UaiRootContextService {
     }
 
     public static void update(final UaiRootConfigurationDTO uaiRouteConfigDTO) {
-        final UaiMockServerConfig mainConfig = UaiMockServerContext.getInstance().uaiMockServerConfig;
+        final UaiMockServerConfig mainConfig = UaiMockServerContext.getInstance().getUaiMockServerConfig();
         mainConfig.setContext(uaiRouteConfigDTO.getContext());
         mainConfig.setPort(uaiRouteConfigDTO.getPort());
         mainConfig.setHost(uaiRouteConfigDTO.getHost());

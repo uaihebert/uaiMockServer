@@ -40,7 +40,7 @@ public class UaiRootConfigurationsServlet extends AbstractServlet {
     public String getRouteConfigurationBody() {
         final UaiRootConfigurationDTO configurationsDTO = new UaiRootConfigurationDTO();
 
-        final UaiMockServerConfig mainConfig = UaiMockServerContext.getInstance().uaiMockServerConfig;
+        final UaiMockServerConfig mainConfig = UaiMockServerContext.getInstance().getUaiMockServerConfig();
         configurationsDTO.setHost(mainConfig.getHost());
         configurationsDTO.setPort(mainConfig.getPort());
         configurationsDTO.setContext(mainConfig.getContext());

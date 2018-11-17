@@ -39,6 +39,6 @@ public final class RouteMapKeyUtil {
     }
 
     public static String createKey(final String method, final String path) {
-        return createKey(method, UaiMockServerContext.getInstance().uaiMockServerConfig.getContext(), path);
+        return createKey(method, UaiMockServerContext.getInstance().getUaiMockServerConfig().getContext(), path);
     }
 }

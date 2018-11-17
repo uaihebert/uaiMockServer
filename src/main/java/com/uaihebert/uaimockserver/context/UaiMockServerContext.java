@@ -16,9 +16,9 @@ public final class UaiMockServerContext {
     @SuppressWarnings("StaticVariableName")
     private static UaiMockServerContext INSTANCE;
 
-    public final UaiMockServerConfig uaiMockServerConfig;
+    private final UaiMockServerConfig uaiMockServerConfig;
 
-    public final List<UaiMockServerConfig> secondaryMappingList = new ArrayList<UaiMockServerConfig>();
+    private final List<UaiMockServerConfig> secondaryMappingList = new ArrayList<UaiMockServerConfig>();
 
     private UaiMockServerContext(final UaiMockServerConfig uaiMockServerConfig) {
         this.uaiMockServerConfig = uaiMockServerConfig;
@@ -67,5 +67,13 @@ public final class UaiMockServerContext {
 
     public static UaiMockServerContext getInstance() {
         return INSTANCE;
+    }
+
+    public UaiMockServerConfig getUaiMockServerConfig() {
+        return uaiMockServerConfig;
+    }
+
+    public List<UaiMockServerConfig> getSecondaryMappingList() {
+        return secondaryMappingList;
     }
 }

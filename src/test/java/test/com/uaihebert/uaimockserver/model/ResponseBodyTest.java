@@ -32,7 +32,7 @@ public class ResponseBodyTest {
     }
 
     private class ResponseTestWrapper {
-        public final MockBody mockBody;
+        private final MockBody mockBody;
 
         ResponseTestWrapper(final MockBody mockBody) {
             this.mockBody = mockBody;
@@ -40,7 +40,7 @@ public class ResponseBodyTest {
     }
 
     private class MockBody {
-        public final String title;
+        private final String title;
 
         MockBody(final String title) {
             this.title = title;

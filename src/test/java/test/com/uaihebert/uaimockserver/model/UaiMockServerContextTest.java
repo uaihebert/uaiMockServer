@@ -64,13 +64,13 @@ public class UaiMockServerContextTest {
         UaiMockServerContext.createInstance("uaiMockServer.json");
 
         final int totalBeforeDelete = UaiMockServerContext.getInstance()
-            .secondaryMappingList
+            .getSecondaryMappingList()
             .get(0)
             .getRouteList()
             .size();
 
         final UaiRoute uaiRoute = UaiMockServerContext.getInstance()
-            .secondaryMappingList
+            .getSecondaryMappingList()
             .get(0)
             .getRouteList()
             .get(0);
@@ -78,7 +78,7 @@ public class UaiMockServerContextTest {
         UaiMockServerContext.getInstance().deleteRoute(uaiRoute);
 
         final int totalAfterDelete = UaiMockServerContext.getInstance()
-            .secondaryMappingList
+            .getSecondaryMappingList()
             .get(0)
             .getRouteList()
             .size();
@@ -91,7 +91,7 @@ public class UaiMockServerContextTest {
         UaiMockServerContext.createInstance("configWithoutFileMapList.json");
 
         try {
-            final UaiRoute aRoute = UaiMockServerContext.getInstance().uaiMockServerConfig.getRouteList().get(0);
+            final UaiRoute aRoute = UaiMockServerContext.getInstance().getUaiMockServerConfig().getRouteList().get(0);
             UaiMockServerContext.getInstance().deleteRoute(aRoute);
         } catch (Exception ex) {
             Logger.info(ex);
