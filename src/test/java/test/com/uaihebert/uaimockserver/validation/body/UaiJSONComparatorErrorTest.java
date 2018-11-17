@@ -21,13 +21,21 @@ public class UaiJSONComparatorErrorTest {
 
     @Test
     public void isNotFailingWhenThereIsNoValue() throws JSONException {
-        final JSONCompareResult jsonCompareResult = UaiJSONCompareWrapper.compareJSON("{}", "{}", STRICT_COMPARATOR);
+        final JSONCompareResult jsonCompareResult = UaiJSONCompareWrapper.compareJSON(
+            "{}",
+            "{}",
+            STRICT_COMPARATOR
+        );
         assertFalse("should not fail", jsonCompareResult.failed());
     }
 
     @Test
     public void isListingWhenAttributeIsNotPresent() {
-        final JSONCompareResult jsonCompareResult = UaiJSONCompareWrapper.compareJSON("{id:1}", "{}", STRICT_COMPARATOR);
+        final JSONCompareResult jsonCompareResult = UaiJSONCompareWrapper.compareJSON(
+            "{id:1}",
+            "{}",
+            STRICT_COMPARATOR
+        );
 
         final List<FieldComparisonFailure> failureList = jsonCompareResult.getFieldFailures();
 
@@ -40,7 +48,11 @@ public class UaiJSONComparatorErrorTest {
 
     @Test
     public void isListingMoreThanOneNotPresentAttribute() {
-        final JSONCompareResult jsonCompareResult = UaiJSONCompareWrapper.compareJSON("{id:1, age:1, aNumber:1}", "{name:\"JC\"}", STRICT_COMPARATOR);
+        final JSONCompareResult jsonCompareResult = UaiJSONCompareWrapper.compareJSON(
+            "{id:1, age:1, aNumber:1}",
+            "{name:\"JC\"}",
+            STRICT_COMPARATOR
+        );
 
         final List<FieldComparisonFailure> failureList = jsonCompareResult.getFieldFailures();
 
@@ -60,7 +72,11 @@ public class UaiJSONComparatorErrorTest {
 
     @Test
     public void isListingErrorWithWrongValueInAttribute() {
-        final JSONCompareResult jsonCompareResult = UaiJSONCompareWrapper.compareJSON("{id:1}", "{id:2}", STRICT_COMPARATOR);
+        final JSONCompareResult jsonCompareResult = UaiJSONCompareWrapper.compareJSON(
+            "{id:1}",
+            "{id:2}",
+            STRICT_COMPARATOR
+        );
 
         final List<FieldComparisonFailure> failureList = jsonCompareResult.getFieldFailures();
 
@@ -70,12 +86,16 @@ public class UaiJSONComparatorErrorTest {
     @Test
     public void isComparingWithLine() {
         final String jsonWithoutLines = "{id:1,age:33}";
-        final String jsonWithLines = "" +
-                "{" +
-                "   id:1," +
-                "   age:33" +
-                "}";
-        final JSONCompareResult jsonCompareResult = UaiJSONCompareWrapper.compareJSON(jsonWithoutLines, jsonWithLines, STRICT_COMPARATOR);
+        final String jsonWithLines = "{"
+                + "   id:1,"
+                + "   age:33"
+                + "}";
+
+        final JSONCompareResult jsonCompareResult = UaiJSONCompareWrapper.compareJSON(
+            jsonWithoutLines,
+            jsonWithLines,
+            STRICT_COMPARATOR
+        );
 
         final List<FieldComparisonFailure> failureList = jsonCompareResult.getFieldFailures();
 

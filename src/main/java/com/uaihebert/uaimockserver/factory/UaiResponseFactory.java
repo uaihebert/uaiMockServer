@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  * */
+
 package com.uaihebert.uaimockserver.factory;
 
 import com.uaihebert.uaimockserver.dto.model.UaiResponseDTO;
@@ -22,7 +23,7 @@ import com.uaihebert.uaimockserver.model.UaiResponse;
 import java.util.List;
 
 /**
- * This factory will create an instance of the UaiResponse.java
+ * This factory will create an instance of the UaiResponse.java.
  */
 public final class UaiResponseFactory {
     private UaiResponseFactory() {

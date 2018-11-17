@@ -17,7 +17,7 @@ public final class UaiWebSocketContext {
     }
 
     public static void addClient(final WebSocketChannel newClient) {
-        synchronized (CLIENT_LIST){
+        synchronized (CLIENT_LIST) {
             CLIENT_LIST.add(newClient);
         }
     }

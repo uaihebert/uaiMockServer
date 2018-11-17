@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  * */
+
 package com.uaihebert.uaimockserver.server;
 
 import com.uaihebert.uaimockserver.log.backend.Log;
@@ -51,7 +52,8 @@ public class UaiMockServerHandler implements HttpHandler {
         processRequest(exchange);
     }
 
-    private void processRequest(HttpServerExchange exchange) throws IOException {
+    @SuppressWarnings("IllegalCatch")
+    private void processRequest(final HttpServerExchange exchange) throws IOException {
         // firefox will invoke this URL
         if ("/favicon.ico".equals(exchange.getRequestPath())) {
             sendFavIconInResponse(exchange);
@@ -61,7 +63,8 @@ public class UaiMockServerHandler implements HttpHandler {
         UaiWebSocketLogManager.start(exchange);
 
         try {
-            Log.infoFormatted("Incoming request: method [%s] URI [%s]", exchange.getRequestMethod(), exchange.getRequestURI());
+            final String message = "Incoming request: method [%s] URI [%s]";
+            Log.infoFormatted(message, exchange.getRequestMethod(), exchange.getRequestURI());
 
             final UaiRoute uaiRoute = RouteFinderUtil.findValidRoute(exchange);
 
@@ -73,7 +76,7 @@ public class UaiMockServerHandler implements HttpHandler {
         } catch (RuntimeException ex) {
             UaiWebSocketLogManager.exceptionDetected(ex.getMessage());
             throw ex;
-        }finally {
+        } finally {
             UaiWebSocketLogManager.log();
         }
     }

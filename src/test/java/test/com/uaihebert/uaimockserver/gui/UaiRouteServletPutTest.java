@@ -60,8 +60,8 @@ public class UaiRouteServletPutTest extends AbstractTestServletTests {
     }
 
     private UaiRouteDTO getRouteFromServer(final String routeName) {
-        Client client = ClientBuilder.newClient();
-        Response response = client.target(GUI_SERVLET_URL).request().get();
+        final Client client = ClientBuilder.newClient();
+        final Response response = client.target(GUI_SERVLET_URL).request().get();
 
         final String bodyAsString = response.readEntity(String.class);
 
@@ -75,5 +75,4 @@ public class UaiRouteServletPutTest extends AbstractTestServletTests {
 
         throw new IllegalArgumentException("route [" + routeName + "] not found");
     }
-
 }

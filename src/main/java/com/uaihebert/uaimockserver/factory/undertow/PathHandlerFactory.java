@@ -51,7 +51,8 @@ public final class PathHandlerFactory {
                         servlet("AngularMapServlet", UAiAngularMapServlet.class).addMapping("/angular.js.map"),
                         servlet("UaiRouteServlet", UaiRouteServlet.class).addMapping("/uaiRoute"),
                         servlet("UaiRouteCloneServlet", UaiRouteCloneServlet.class).addMapping("/uaiRoute/clone"),
-                        servlet("UaiRootConfigurationsServlet", UaiRootConfigurationsServlet.class).addMapping("/rootConfigurations")
+                        servlet("UaiRootConfigurationsServlet", UaiRootConfigurationsServlet.class)
+                            .addMapping("/rootConfigurations")
                 );
 
         final DeploymentManager manager = Servlets.defaultContainer().addDeployment(deploymentInfo);

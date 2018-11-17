@@ -13,12 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  * */
+
 package com.uaihebert.uaimockserver.util;
 
 import com.uaihebert.uaimockserver.log.backend.Log;
 
 /**
- * Class to help logging the exception
+ * Class to help logging the exception.
  */
 public final class ExceptionUtil {
     private ExceptionUtil() {

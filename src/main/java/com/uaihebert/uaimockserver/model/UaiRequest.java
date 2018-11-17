@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  * */
+
 package com.uaihebert.uaimockserver.model;
 
 import java.util.ArrayList;
@@ -20,16 +21,9 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * Class that will hold all the request data
+ * Class that will hold all the request data.
  */
 public final class UaiRequest {
-    private List<UaiHeader> optionalHeaderList;
-
-    private List<UaiHeader> requiredHeaderList;
-    private List<UaiQueryParam> optionalQueryParamList;
-
-    private List<UaiQueryParam> requiredQueryParamList;
-
     public final String name;
     public final String path;
     public final String body;
@@ -40,6 +34,12 @@ public final class UaiRequest {
     public final Long holdTheRequestInMilli;
 
     public final Boolean isBodyRequired;
+
+    private List<UaiHeader> optionalHeaderList;
+
+    private List<UaiHeader> requiredHeaderList;
+    private List<UaiQueryParam> optionalQueryParamList;
+    private List<UaiQueryParam> requiredQueryParamList;
 
     private BodyValidationType bodyValidationType;
 
@@ -73,7 +73,7 @@ public final class UaiRequest {
     }
 
     public List<UaiHeader> getAllHeadersList() {
-        List<UaiHeader> uaiHeaderList = new ArrayList<UaiHeader>();
+        final List<UaiHeader> uaiHeaderList = new ArrayList<UaiHeader>();
 
         uaiHeaderList.addAll(getOptionalHeaderList());
         uaiHeaderList.addAll(getRequiredHeaderList());
@@ -128,7 +128,7 @@ public final class UaiRequest {
 
     /**
      * Request Builder
-     * The only way to create an object of the UaiRequest type
+     * The only way to create an object of the UaiRequest type.
      */
     public static class UaiRequestBuilder {
         private String name;

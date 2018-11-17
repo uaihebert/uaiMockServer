@@ -1,5 +1,6 @@
 package test.com.uaihebert.uaimockserver.gui;
 
+import com.uaihebert.uaimockserver.model.HttpStatusCode;
 import com.uaihebert.uaimockserver.runner.UaiMockServerRunner;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -18,21 +19,21 @@ public class UaiPageServletTest {
     public void isReturning200OnAnyPage() {
         final String url = AbstractTestServletTests.GUI_URL + "page?fileName=index/indexTable";
 
-        Client client = ClientBuilder.newClient();
-        Response response = client.target(url).request().get();
+        final Client client = ClientBuilder.newClient();
+        final Response response = client.target(url).request().get();
 
         // must read the entity or an NIOException will raise
         response.readEntity(String.class);
 
-        assertEquals(200, response.getStatus());
+        assertEquals(HttpStatusCode.OK.code, response.getStatus());
     }
 
     @Test
     public void isReturningContentAsTextHtmlType() {
         final String url = AbstractTestServletTests.GUI_URL + "page?fileName=index/indexTable";
 
-        Client client = ClientBuilder.newClient();
-        Response response = client.target(url).request().get();
+        final Client client = ClientBuilder.newClient();
+        final Response response = client.target(url).request().get();
 
         // must read the entity or an NIOException will raise
         response.readEntity(String.class);

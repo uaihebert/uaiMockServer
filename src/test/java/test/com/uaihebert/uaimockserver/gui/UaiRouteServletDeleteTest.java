@@ -10,6 +10,7 @@ import org.junit.runner.RunWith;
 
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
+import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.Response;
 
 import static org.junit.Assert.assertEquals;
@@ -27,24 +28,13 @@ public class UaiRouteServletDeleteTest extends AbstractTestServletTests {
         return 0;
     }
 
-    private IndexResponseDTO listAll() {
-        final String url = AbstractTestServletTests.GUI_URL +  "uaiRoute";
-
-        Client client = ClientBuilder.newClient();
-        Response response = client.target(url).request().get();
-
-        final String bodyAsString = response.readEntity(String.class);
-
-        return new Gson().fromJson(bodyAsString, IndexResponseDTO.class);
-    }
-
     @Test
     public void isDeleting() {
         final long totalBeforeDelete = getTotalOfRoutesFound();
 
         final UaiRouteDTO deleted = listAll().getRouteList().get(0);
 
-        final String url = AbstractTestServletTests.GUI_URL +  "uaiRoute?routeId="+deleted.getId();
+        final String url = AbstractTestServletTests.GUI_URL + "uaiRoute?routeId=" + deleted.getId();
 
         final Client client = ClientBuilder.newClient();
         client.target(url).request().delete();
@@ -54,6 +44,17 @@ public class UaiRouteServletDeleteTest extends AbstractTestServletTests {
         // rollback
         executePost(deleted);
 
-        assertEquals("making sure that only one was deleted", (totalBeforeDelete - 1), totalAfterDelete);
+        assertEquals("making sure that only one was deleted", totalBeforeDelete - 1, totalAfterDelete);
+    }
+
+    private IndexResponseDTO listAll() {
+        final String url = AbstractTestServletTests.GUI_URL + "uaiRoute";
+
+        final WebTarget client = ClientBuilder.newClient().target(url);
+        final Response response = client.request().get();
+
+        final String bodyAsString = response.readEntity(String.class);
+
+        return new Gson().fromJson(bodyAsString, IndexResponseDTO.class);
     }
 }

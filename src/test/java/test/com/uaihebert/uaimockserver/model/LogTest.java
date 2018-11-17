@@ -13,8 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  * */
+
 package test.com.uaihebert.uaimockserver.model;
 
+import com.uaihebert.uaimockserver.model.HttpStatusCode;
 import com.uaihebert.uaimockserver.runner.UaiMockServerRunner;
 import com.uaihebert.uaimockserver.runner.UaiRunnerMockServerConfiguration;
 import org.junit.Test;
@@ -34,19 +36,19 @@ public class LogTest {
     public void invokingWarnMethodOnDeactivatedWarnForCoverage() {
         final String url = "http://localhost:1234/uaiMockServer/noLog";
 
-        Client client = ClientBuilder.newClient();
-        Response response = client.target(url).request().get();
+        final Client client = ClientBuilder.newClient();
+        final Response response = client.target(url).request().get();
 
-        assertEquals(500, response.getStatus());
+        assertEquals(HttpStatusCode.INTERNAL_SERVER_ERROR.code, response.getStatus());
     }
 
     @Test
     public void invokingWarnMethodOnDeactivatedWarnWithExceptionForCoverage() {
         final String url = "http://localhost:1234/uaiMockServer/noLogUnknownWithNoLog";
 
-        Client client = ClientBuilder.newClient();
-        Response response = client.target(url).request().get();
+        final Client client = ClientBuilder.newClient();
+        final Response response = client.target(url).request().get();
 
-        assertEquals(500, response.getStatus());
+        assertEquals(HttpStatusCode.INTERNAL_SERVER_ERROR.code, response.getStatus());
     }
 }

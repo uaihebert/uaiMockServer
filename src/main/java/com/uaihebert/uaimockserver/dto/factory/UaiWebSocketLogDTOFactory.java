@@ -1,7 +1,7 @@
 package com.uaihebert.uaimockserver.dto.factory;
 
-import com.uaihebert.uaimockserver.dto.model.UaiWebSocketLogDTO;
 import com.uaihebert.uaimockserver.dto.model.UaiLogPairValueDTO;
+import com.uaihebert.uaimockserver.dto.model.UaiWebSocketLogDTO;
 import com.uaihebert.uaimockserver.dto.model.UaiWebSocketLogRequestDTO;
 import io.undertow.server.HttpServerExchange;
 import io.undertow.util.HeaderValues;
@@ -20,7 +20,7 @@ public final class UaiWebSocketLogDTOFactory {
     }
 
     public static UaiWebSocketLogDTO create(final HttpServerExchange exchange) {
-        UaiWebSocketLogDTO uaiWebSocketLogDTO = new UaiWebSocketLogDTO();
+        final UaiWebSocketLogDTO uaiWebSocketLogDTO = new UaiWebSocketLogDTO();
 
         final UaiWebSocketLogRequestDTO logRequestDTO = createLogRequest(exchange);
 
@@ -50,7 +50,8 @@ public final class UaiWebSocketLogDTOFactory {
         return logRequestDTO;
     }
 
-    private static void createQueryParamList(final HttpServerExchange exchange, final UaiWebSocketLogRequestDTO logRequestDTO) {
+    private static void createQueryParamList(final HttpServerExchange exchange,
+                                             final UaiWebSocketLogRequestDTO logRequestDTO) {
         for (Map.Entry<String, Deque<String>> queryParamValue : exchange.getQueryParameters().entrySet()) {
             final String queryParamName = queryParamValue.getKey();
             final Deque<String> stringDeque = queryParamValue.getValue();
@@ -59,7 +60,7 @@ public final class UaiWebSocketLogDTOFactory {
 
             final Iterator<String> dequeIterator = stringDeque.iterator();
 
-            while(dequeIterator.hasNext()) {
+            while (dequeIterator.hasNext()) {
                 final String value = dequeIterator.next();
                 valueList.add(value);
             }
@@ -69,7 +70,8 @@ public final class UaiWebSocketLogDTOFactory {
         }
     }
 
-    private static void createHeaderList(final HttpServerExchange exchange, final UaiWebSocketLogRequestDTO logRequestDTO) {
+    private static void createHeaderList(final HttpServerExchange exchange,
+                                         final UaiWebSocketLogRequestDTO logRequestDTO) {
         for (HeaderValues headerValues : exchange.getRequestHeaders()) {
             final String headerName = headerValues.getHeaderName().toString();
 

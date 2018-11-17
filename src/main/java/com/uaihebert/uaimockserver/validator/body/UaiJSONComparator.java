@@ -14,12 +14,15 @@ import static org.skyscreamer.jsonassert.comparator.JSONCompareUtil.qualify;
 
 public class UaiJSONComparator extends DefaultComparator implements JSONComparator {
 
-    public UaiJSONComparator(JSONCompareMode mode) {
+    public UaiJSONComparator(final JSONCompareMode mode) {
         super(mode);
     }
 
     @Override
-    protected void checkJsonObjectKeysExpectedInActual(String prefix, JSONObject expected, JSONObject actual, JSONCompareResult result) throws JSONException {
+    protected void checkJsonObjectKeysExpectedInActual(final String prefix,
+                                                       final JSONObject expected,
+                                                       final JSONObject actual,
+                                                       final JSONCompareResult result) throws JSONException {
         final Set<String> expectedKeys = getKeys(expected);
         for (String key : expectedKeys) {
             final Object expectedValue = expected.get(key);
@@ -34,7 +37,10 @@ public class UaiJSONComparator extends DefaultComparator implements JSONComparat
     }
 
     @Override
-    protected void checkJsonObjectKeysActualInExpected(String prefix, JSONObject expected, JSONObject actual, JSONCompareResult result) {
+    protected void checkJsonObjectKeysActualInExpected(final String prefix,
+                                                       final JSONObject expected,
+                                                       final JSONObject actual,
+                                                       final JSONCompareResult result) {
         final Set<String> actualKeys = getKeys(actual);
 
         for (String key : actualKeys) {

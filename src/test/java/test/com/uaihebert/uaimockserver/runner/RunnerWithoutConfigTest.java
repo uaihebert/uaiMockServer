@@ -1,5 +1,6 @@
 package test.com.uaihebert.uaimockserver.runner;
 
+import com.uaihebert.uaimockserver.model.HttpStatusCode;
 import com.uaihebert.uaimockserver.runner.UaiMockServerRunner;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -14,22 +15,22 @@ import static org.junit.Assert.assertEquals;
 public class RunnerWithoutConfigTest {
 
     @Test
-    public void isDefaultConfigurationInvoked(){
+    public void isDefaultConfigurationInvoked() {
         final String url = "http://localhost:1234/uaiMockServer/";
 
-        Client client = ClientBuilder.newClient();
-        Response response = client.target(url).request().get();
+        final Client client = ClientBuilder.newClient();
+        final Response response = client.target(url).request().get();
 
-        assertEquals(200, response.getStatus());
+        assertEquals(HttpStatusCode.OK.code, response.getStatus());
     }
 
     @Test
-    public void isDefaultConfigurationInvoked2(){
+    public void isDefaultConfigurationInvoked2() {
         final String url = "http://localhost:1234/uaiMockServer/";
 
-        Client client = ClientBuilder.newClient();
-        Response response = client.target(url).request().get();
+        final Client client = ClientBuilder.newClient();
+        final Response response = client.target(url).request().get();
 
-        assertEquals(200, response.getStatus());
+        assertEquals(HttpStatusCode.OK.code, response.getStatus());
     }
 }

@@ -14,6 +14,9 @@ public class UaiWebSocketListenerTest extends UaiWebSocketListener {
     public void isClosingWithoutError() throws IOException {
         final UaiWebSocketListenerTest uaiWebSocketListenerTest = new UaiWebSocketListenerTest();
 
-        uaiWebSocketListenerTest.onClose(Mockito.mock(WebSocket07Channel.class), Mockito.mock(StreamSourceFrameChannel.class));
+        uaiWebSocketListenerTest.onClose(
+            Mockito.mock(WebSocket07Channel.class),
+            Mockito.mock(StreamSourceFrameChannel.class)
+        );
     }
 }

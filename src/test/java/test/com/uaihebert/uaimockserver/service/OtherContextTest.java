@@ -1,5 +1,6 @@
 package test.com.uaihebert.uaimockserver.service;
 
+import com.uaihebert.uaimockserver.model.HttpStatusCode;
 import com.uaihebert.uaimockserver.runner.UaiMockServerRunner;
 import com.uaihebert.uaimockserver.runner.UaiRunnerMockServerConfiguration;
 import org.junit.Test;
@@ -19,9 +20,9 @@ public class OtherContextTest {
     public void isInvokingOtherContext() {
         final String url = "http://localhost:1234/otherContext/otherContext";
 
-        Client client = ClientBuilder.newClient();
-        Response response = client.target(url).request().get();
+        final Client client = ClientBuilder.newClient();
+        final Response response = client.target(url).request().get();
 
-        assertEquals(204, response.getStatus());
+        assertEquals(HttpStatusCode.NO_CONTENT.code, response.getStatus());
     }
 }

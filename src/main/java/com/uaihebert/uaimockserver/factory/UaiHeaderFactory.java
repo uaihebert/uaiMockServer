@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  * */
+
 package com.uaihebert.uaimockserver.factory;
 
 import com.uaihebert.uaimockserver.constants.ValidatorConstants;
@@ -24,7 +25,7 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * This factory will create an instance of the UaiHeader.java
+ * This factory will create an instance of the UaiHeader.java.
  */
 public final class UaiHeaderFactory {
     private UaiHeaderFactory() {
@@ -37,10 +38,10 @@ public final class UaiHeaderFactory {
 
         final List<UaiHeader> uaiHeaderList = new ArrayList<UaiHeader>();
 
-        for (UaiHeaderDTO uaiHeaderDTO : requiredHeaderList) {
-            final boolean usingWildCard = uaiHeaderDTO.getValueList().contains(ValidatorConstants.VALID_WILD_CARD.text);
+        for (UaiHeaderDTO headerDTO : requiredHeaderList) {
+            final boolean usingWildCard = headerDTO.getValueList().contains(ValidatorConstants.VALID_WILD_CARD.text);
 
-            final UaiHeader uaiHeader = new UaiHeader(uaiHeaderDTO.getName(), usingWildCard, uaiHeaderDTO.getValueList());
+            final UaiHeader uaiHeader = new UaiHeader(headerDTO.getName(), usingWildCard, headerDTO.getValueList());
             uaiHeaderList.add(uaiHeader);
         }
 

@@ -1,15 +1,18 @@
 package com.uaihebert.uaimockserver.servlet;
 
 import com.uaihebert.uaimockserver.configuration.ProjectConfiguration;
+import com.uaihebert.uaimockserver.model.HttpStatusCode;
 
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletResponse;
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 
-class AbstractServlet extends HttpServlet {
+
+abstract class AbstractServlet extends HttpServlet {
     void writeInResponse(final HttpServletResponse httpResponse, final String text) throws IOException {
         httpResponse.setContentType("application/json");
 
@@ -23,7 +26,8 @@ class AbstractServlet extends HttpServlet {
     }
 
     void printResource(final OutputStream writer, final String resourcePath) throws IOException {
-        final InputStreamReader streamReader = new InputStreamReader(AbstractServlet.class.getResourceAsStream(resourcePath), ProjectConfiguration.ENCODING.value);
+        final InputStream stream = AbstractServlet.class.getResourceAsStream(resourcePath);
+        final InputStreamReader streamReader = new InputStreamReader(stream, ProjectConfiguration.ENCODING.value);
         final BufferedReader bufferedReader = new BufferedReader(streamReader);
 
         try {
@@ -42,7 +46,7 @@ class AbstractServlet extends HttpServlet {
 
     void send204Response(final HttpServletResponse httpResponse) throws IOException {
         httpResponse.setContentType("application/json");
-        httpResponse.setStatus(204);
+        httpResponse.setStatus(HttpStatusCode.NO_CONTENT.code);
 
         // have to send it or it will give an error in travis-ci
         writeInResponse(httpResponse, "{empty:body}");

@@ -2,6 +2,7 @@ package test.com.uaihebert.uaimockserver.gui;
 
 import com.google.gson.Gson;
 import com.uaihebert.uaimockserver.dto.response.IndexResponseDTO;
+import com.uaihebert.uaimockserver.model.HttpStatusCode;
 import com.uaihebert.uaimockserver.runner.UaiMockServerRunner;
 import com.uaihebert.uaimockserver.runner.UaiRunnerMockServerConfiguration;
 import org.junit.Test;
@@ -23,21 +24,21 @@ public class UaiRouteServletGetTest {
     public void isReturning200OnIndex() {
         final String url = AbstractTestServletTests.GUI_URL +  "uaiRoute";
 
-        Client client = ClientBuilder.newClient();
-        Response response = client.target(url).request().get();
+        final Client client = ClientBuilder.newClient();
+        final Response response = client.target(url).request().get();
 
         // must read the entity or an NIOException will raise
         response.readEntity(String.class);
 
-        assertEquals(200, response.getStatus());
+        assertEquals(HttpStatusCode.OK.code, response.getStatus());
     }
 
     @Test
     public void isReturningContentAsJsonType() {
         final String url = AbstractTestServletTests.GUI_URL +  "uaiRoute";
 
-        Client client = ClientBuilder.newClient();
-        Response response = client.target(url).request().get();
+        final Client client = ClientBuilder.newClient();
+        final Response response = client.target(url).request().get();
 
         // must read the entity or an NIOException will raise
         response.readEntity(String.class);
@@ -49,8 +50,8 @@ public class UaiRouteServletGetTest {
     public void isReturningABody() {
         final String url = AbstractTestServletTests.GUI_URL +  "uaiRoute";
 
-        Client client = ClientBuilder.newClient();
-        Response response = client.target(url).request().get();
+        final Client client = ClientBuilder.newClient();
+        final Response response = client.target(url).request().get();
 
         final String bodyAsString = response.readEntity(String.class);
 
@@ -63,8 +64,8 @@ public class UaiRouteServletGetTest {
     public void validatingIfAllRouteAttributesAreReturned() {
         final String url = AbstractTestServletTests.GUI_URL +  "uaiRoute";
 
-        Client client = ClientBuilder.newClient();
-        Response response = client.target(url).request().get();
+        final Client client = ClientBuilder.newClient();
+        final Response response = client.target(url).request().get();
 
         final String bodyAsString = response.readEntity(String.class);
 

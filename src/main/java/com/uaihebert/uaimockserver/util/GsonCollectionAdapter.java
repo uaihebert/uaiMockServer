@@ -10,15 +10,16 @@ import java.util.Collection;
 
 public class GsonCollectionAdapter implements JsonSerializer<Collection<?>> {
     @Override
-    public JsonElement serialize(Collection<?> source, Type typeOfSrc, JsonSerializationContext context) {
-        if (source == null || source.isEmpty()){
+    public JsonElement serialize(final Collection<?> source, final Type typeOfSrc,
+                                 final JsonSerializationContext context) {
+        if (source == null || source.isEmpty()) {
             return null;
         }
 
         final JsonArray array = new JsonArray();
 
         for (Object child : source) {
-            JsonElement element = context.serialize(child);
+            final JsonElement element = context.serialize(child);
             array.add(element);
         }
 

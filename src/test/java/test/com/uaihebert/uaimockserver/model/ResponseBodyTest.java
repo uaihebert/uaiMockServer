@@ -20,8 +20,8 @@ public class ResponseBodyTest {
     public void isExtractingJson() {
         final String url = "http://localhost:1234/uaiMockServer/giveMeABody";
 
-        Client client = ClientBuilder.newClient();
-        Response response = client.target(url).request().get();
+        final Client client = ClientBuilder.newClient();
+        final Response response = client.target(url).request().get();
 
         final String replace = response.readEntity(String.class);
         final ResponseTestWrapper wrapper = new Gson().fromJson(replace, ResponseTestWrapper.class);
@@ -34,7 +34,7 @@ public class ResponseBodyTest {
     private class ResponseTestWrapper {
         public final MockBody mockBody;
 
-        public ResponseTestWrapper(final MockBody mockBody) {
+        ResponseTestWrapper(final MockBody mockBody) {
             this.mockBody = mockBody;
         }
     }
@@ -42,7 +42,7 @@ public class ResponseBodyTest {
     private class MockBody {
         public final String title;
 
-        public MockBody(final String title) {
+        MockBody(final String title) {
             this.title = title;
         }
     }

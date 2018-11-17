@@ -3,36 +3,38 @@ package test.com.uaihebert.uaimockserver.websocket;
 import javax.websocket.ClientEndpoint;
 import javax.websocket.CloseReason;
 import javax.websocket.ContainerProvider;
+import javax.websocket.DeploymentException;
 import javax.websocket.OnClose;
 import javax.websocket.OnMessage;
 import javax.websocket.OnOpen;
 import javax.websocket.Session;
 import javax.websocket.WebSocketContainer;
+import java.io.IOException;
 import java.net.URI;
 
 @ClientEndpoint
 public class ChatClientEndpoint {
-    Session userSession = null;
+    private Session userSession;
     private MessageHandler messageHandler;
 
-    public ChatClientEndpoint(URI endpointURI) {
+    public ChatClientEndpoint(final URI endpointURI) {
         try {
-            WebSocketContainer container = ContainerProvider
-                    .getWebSocketContainer();
+            final WebSocketContainer container = ContainerProvider.getWebSocketContainer();
             container.connectToServer(this, endpointURI);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
+        } catch (DeploymentException ex) {
+            throw new RuntimeException(ex);
+        } catch (IOException ex) {
+            throw new RuntimeException(ex);
         }
     }
 
     /**
      * Callback hook for Connection open events.
      *
-     * @param userSession
-     *            the userSession which is opened.
+     * @param userSession the userSession which is opened.
      */
     @OnOpen
-    public void onOpen(Session userSession) {
+    public void onOpen(final Session userSession) {
         this.userSession = userSession;
     }
 
@@ -45,7 +47,7 @@ public class ChatClientEndpoint {
      *            the reason for connection close
      */
     @OnClose
-    public void onClose(Session userSession, CloseReason reason) {
+    public void onClose(final Session userSession, final CloseReason reason) {
         this.userSession = null;
     }
 
@@ -57,7 +59,7 @@ public class ChatClientEndpoint {
      *            The text message
      */
     @OnMessage
-    public void onMessage(String message) {
+    public void onMessage(final String message) {
         if (this.messageHandler != null) {
             this.messageHandler.handleMessage(message);
         }
@@ -65,11 +67,11 @@ public class ChatClientEndpoint {
     }
 
     /**
-     * register message handler
+     * register message handler.
      *
      * @param msgHandler
      */
-    public void addMessageHandler(MessageHandler msgHandler) {
+    public void addMessageHandler(final MessageHandler msgHandler) {
         this.messageHandler = msgHandler;
     }
 
@@ -78,16 +80,14 @@ public class ChatClientEndpoint {
      *
      * @param message
      */
-    public void sendMessage(String message) {
+    public void sendMessage(final String message) {
         this.userSession.getAsyncRemote().sendText(message);
     }
 
     /**
      * Message handler.
-     *
-     * @author Jiji_Sasidharan
      */
-    public static interface MessageHandler {
-        public void handleMessage(String message);
+    public interface MessageHandler {
+        void handleMessage(String message);
     }
 }

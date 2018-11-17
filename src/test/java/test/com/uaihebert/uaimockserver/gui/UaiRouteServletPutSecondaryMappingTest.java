@@ -38,8 +38,8 @@ public class UaiRouteServletPutSecondaryMappingTest extends AbstractTestServletT
     private UaiRouteDTO getRouteFromServer(final String routeName) {
         final String url = AbstractTestServletTests.GUI_URL + "uaiRoute";
 
-        Client client = ClientBuilder.newClient();
-        Response response = client.target(url).request().get();
+        final Client client = ClientBuilder.newClient();
+        final Response response = client.target(url).request().get();
 
         final String bodyAsString = response.readEntity(String.class);
 

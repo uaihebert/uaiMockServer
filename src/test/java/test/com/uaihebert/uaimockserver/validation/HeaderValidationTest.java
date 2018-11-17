@@ -13,8 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  * */
+
 package test.com.uaihebert.uaimockserver.validation;
 
+import com.uaihebert.uaimockserver.model.HttpStatusCode;
 import com.uaihebert.uaimockserver.runner.UaiMockServerRunner;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -29,18 +31,18 @@ import static org.junit.Assert.assertEquals;
 public class HeaderValidationTest {
 
     @Test
-    public void isGetWithoutRequiredHeaderReturningError(){
+    public void isGetWithoutRequiredHeaderReturningError() {
         final String url = "http://localhost:1234/uaiMockServer/requiredHeader";
 
         final Client client = ClientBuilder.newClient();
 
         final Response response = client.target(url).request().get();
 
-        assertEquals(500, response.getStatus());
+        assertEquals(HttpStatusCode.INTERNAL_SERVER_ERROR.code, response.getStatus());
     }
 
     @Test
-    public void isGetWithRequiredHeaderWithoutValueReturningError(){
+    public void isGetWithRequiredHeaderWithoutValueReturningError() {
         final String url = "http://localhost:1234/uaiMockServer/requiredHeader";
 
         final Client client = ClientBuilder.newClient();
@@ -52,11 +54,11 @@ public class HeaderValidationTest {
                 .header("X-API-VERSION", "     ")
                 .get();
 
-        assertEquals(500, response.getStatus());
+        assertEquals(HttpStatusCode.INTERNAL_SERVER_ERROR.code, response.getStatus());
     }
 
     @Test
-    public void isGetWithWrongRequiredHeaderValueWorking(){
+    public void isGetWithWrongRequiredHeaderValueWorking() {
         final String url = "http://localhost:1234/uaiMockServer/requiredHeader";
 
         final Client client = ClientBuilder.newClient();
@@ -70,11 +72,11 @@ public class HeaderValidationTest {
                 .header("X-API-VERSION", "REQUIRED_WRONG")
                 .get();
 
-        assertEquals(500, response.getStatus());
+        assertEquals(HttpStatusCode.INTERNAL_SERVER_ERROR.code, response.getStatus());
     }
 
     @Test
-    public void isGetWithRequiredHeaderWorking(){
+    public void isGetWithRequiredHeaderWorking() {
         final String url = "http://localhost:1234/uaiMockServer/requiredHeader";
 
         final Client client = ClientBuilder.newClient();
@@ -88,11 +90,11 @@ public class HeaderValidationTest {
                 .header("X-API-VERSION", "REQUIRED")
                 .get();
 
-        assertEquals(200, response.getStatus());
+        assertEquals(HttpStatusCode.OK.code, response.getStatus());
     }
 
     @Test
-    public void isGetWithWildCardHeaderWorking(){
+    public void isGetWithWildCardHeaderWorking() {
         final String url = "http://localhost:1234/uaiMockServer/wildCardIsWorkingWithHeader";
 
         final Client client = ClientBuilder.newClient();
@@ -104,6 +106,6 @@ public class HeaderValidationTest {
                 .header("X-API-VERSION", "RANDOM_VALUE")
                 .get();
 
-        assertEquals(200, response.getStatus());
+        assertEquals(HttpStatusCode.OK.code, response.getStatus());
     }
 }

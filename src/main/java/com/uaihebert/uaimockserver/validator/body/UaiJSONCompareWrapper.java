@@ -5,11 +5,13 @@ import org.skyscreamer.jsonassert.JSONCompare;
 import org.skyscreamer.jsonassert.JSONCompareResult;
 import org.skyscreamer.jsonassert.comparator.JSONComparator;
 
-public class UaiJSONCompareWrapper {
+public final class UaiJSONCompareWrapper {
     private UaiJSONCompareWrapper() {
     }
 
-    public static JSONCompareResult compareJSON(String expectedStr, String actualStr, JSONComparator comparator){
+    public static JSONCompareResult compareJSON(final String expectedStr,
+                                                final String actualStr,
+                                                final JSONComparator comparator) {
         try {
             return JSONCompare.compareJSON(expectedStr, actualStr, comparator);
         } catch (JSONException ex) {

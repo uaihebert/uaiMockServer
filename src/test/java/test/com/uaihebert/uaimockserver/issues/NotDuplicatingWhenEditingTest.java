@@ -43,8 +43,8 @@ public class NotDuplicatingWhenEditingTest extends AbstractTestServletTests {
 
 
     private UaiRouteDTO getRouteToBeEdited() {
-        Client client = ClientBuilder.newClient();
-        Response response = client.target(GUI_SERVLET_URL).request().get();
+        final Client client = ClientBuilder.newClient();
+        final Response response = client.target(GUI_SERVLET_URL).request().get();
 
         final String bodyAsString = response.readEntity(String.class);
 

@@ -1,5 +1,6 @@
 package test.com.uaihebert.uaimockserver.validation;
 
+import com.uaihebert.uaimockserver.model.HttpStatusCode;
 import com.uaihebert.uaimockserver.runner.UaiMockServerRunner;
 import com.uaihebert.uaimockserver.runner.UaiRunnerMockServerConfiguration;
 import org.junit.Test;
@@ -16,76 +17,76 @@ import static org.junit.Assert.assertEquals;
 public class RepeatedURLDifferentHeaderTest {
 
     @Test
-    public void isFindingUrlWithDifferentHeader01(){
+    public void isFindingUrlWithDifferentHeader01() {
         final String url = "http://localhost:1234/uaiMockServer/sameURLUsingHeader";
 
         final Client client = ClientBuilder.newClient();
 
         final Response response = client
-                .target(url)
-                .request()
-                .header("HEADER-01", "HEADER_VALUE_01")
-                .get();
+            .target(url)
+            .request()
+            .header("HEADER-01", "HEADER_VALUE_01")
+            .get();
 
-        assertEquals(201, response.getStatus());
+        assertEquals(HttpStatusCode.CREATED.code, response.getStatus());
     }
 
     @Test
-    public void isFindingUrlWithDifferentHeader02(){
+    public void isFindingUrlWithDifferentHeader02() {
         final String url = "http://localhost:1234/uaiMockServer/sameURLUsingHeader";
 
         final Client client = ClientBuilder.newClient();
 
         final Response response = client
-                .target(url)
-                .request()
-                .header("HEADER-02", "HEADER_VALUE_02")
-                .get();
+            .target(url)
+            .request()
+            .header("HEADER-02", "HEADER_VALUE_02")
+            .get();
 
-        assertEquals(202, response.getStatus());
+        assertEquals(HttpStatusCode.ACCEPTED.code, response.getStatus());
     }
 
     @Test
-    public void isFindingUrlWithDifferentHeader03(){
+    public void isFindingUrlWithDifferentHeader03() {
         final String url = "http://localhost:1234/uaiMockServer/sameURLUsingHeader";
 
         final Client client = ClientBuilder.newClient();
 
         final Response response = client
-                .target(url)
-                .request()
-                .header("HEADER-03", "HEADER_VALUE_0AAA")
-                .get();
+            .target(url)
+            .request()
+            .header("HEADER-03", "HEADER_VALUE_0AAA")
+            .get();
 
-        assertEquals(203, response.getStatus());
+        assertEquals(HttpStatusCode.NON_AUTHORITATIVE.code, response.getStatus());
     }
 
     @Test
-    public void isFindingUrlWithDifferentHeader04(){
+    public void isFindingUrlWithDifferentHeader04() {
         final String url = "http://localhost:1234/uaiMockServer/sameURLUsingHeader";
 
         final Client client = ClientBuilder.newClient();
 
         final Response response = client
-                .target(url)
-                .request()
-                .header("HEADER-03", "HEADER_VALUE_0BBB")
-                .get();
+            .target(url)
+            .request()
+            .header("HEADER-03", "HEADER_VALUE_0BBB")
+            .get();
 
-        assertEquals(204, response.getStatus());
+        assertEquals(HttpStatusCode.NO_CONTENT.code, response.getStatus());
     }
 
     @Test
-    public void isThrowingExceptionIfNoneIsFound(){
+    public void isThrowingExceptionIfNoneIsFound() {
         final String url = "http://localhost:1234/uaiMockServer/sameURLUsingHeader";
 
         final Client client = ClientBuilder.newClient();
 
         final Response response = client
-                .target(url)
-                .request()
-                .get();
+            .target(url)
+            .request()
+            .get();
 
-        assertEquals(500, response.getStatus());
+        assertEquals(HttpStatusCode.INTERNAL_SERVER_ERROR.code, response.getStatus());
     }
 }

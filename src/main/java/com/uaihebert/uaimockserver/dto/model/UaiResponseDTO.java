@@ -49,7 +49,7 @@ public class UaiResponseDTO {
         return bodyPath;
     }
 
-    public void setBodyPath(String bodyPath) {
+    public void setBodyPath(final String bodyPath) {
         this.bodyPath = bodyPath;
     }
 
@@ -57,7 +57,7 @@ public class UaiResponseDTO {
         return bodyPointingToFile;
     }
 
-    public void setBodyPointingToFile(boolean bodyPointingToFile) {
+    public void setBodyPointingToFile(final boolean bodyPointingToFile) {
         this.bodyPointingToFile = bodyPointingToFile;
     }
 }

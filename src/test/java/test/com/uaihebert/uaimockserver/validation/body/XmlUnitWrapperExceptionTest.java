@@ -26,7 +26,7 @@ public class XmlUnitWrapperExceptionTest {
     }
 
     @Test
-    public void isHandlingSAXException() throws NoSuchFieldException, IllegalAccessException, IOException, SAXException {
+    public void isHandlingSAXException() throws IOException, SAXException {
         PowerMockito.when(XMLUnit.compareXML(Mockito.anyString(), Mockito.anyString())).thenThrow(new SAXException());
 
         try {
@@ -39,7 +39,7 @@ public class XmlUnitWrapperExceptionTest {
     }
 
     @Test
-    public void isHandlingIOException() throws NoSuchFieldException, IllegalAccessException, IOException, SAXException {
+    public void isHandlingIOException() throws IOException, SAXException {
         PowerMockito.when(XMLUnit.compareXML(Mockito.anyString(), Mockito.anyString())).thenThrow(new IOException());
 
         try {

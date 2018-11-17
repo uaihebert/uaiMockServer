@@ -13,12 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  * */
+
 package test.com.uaihebert.uaimockserver.performance;
 
+import com.uaihebert.uaimockserver.model.HttpStatusCode;
 import com.uaihebert.uaimockserver.runner.UaiMockServerRunner;
 import com.uaihebert.uaimockserver.runner.UaiRunnerMockServerConfiguration;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.pmw.tinylog.Logger;
 
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
@@ -37,11 +40,12 @@ public class PerformanceTest {
         // just a metric to make sure that we are not slowing down the processing
         // this value will change after developers start giving feedback about the performance
         // this test might break if the pc is processing other stuff
-        System.out.println("============>       Starting performance test");
+        Logger.info("============>       Starting performance test");
 
         final long startTime = new Date().getTime();
 
-        for (int i = 0; i < 300; i++) {
+        final int maxLoops = 300;
+        for (int i = 0; i < maxLoops; i++) {
             executeGetRequest();
         }
 
@@ -49,15 +53,16 @@ public class PerformanceTest {
 
         final long timeLapse = endTime - startTime;
 
-        assertTrue("making sure that we have a fast response", timeLapse < 10000);
+        final int maxAcceptedTime = 10000;
+        assertTrue("making sure that we have a fast response", timeLapse < maxAcceptedTime);
     }
 
     private void executeGetRequest() {
         final String url = "http://localhost:1234/uaiMockServer/performanceTest";
 
-        Client client = ClientBuilder.newClient();
-        Response response = client.target(url).request().get();
+        final Client client = ClientBuilder.newClient();
+        final Response response = client.target(url).request().get();
 
-        assertEquals(204, response.getStatus());
+        assertEquals(HttpStatusCode.NO_CONTENT.code, response.getStatus());
     }
 }

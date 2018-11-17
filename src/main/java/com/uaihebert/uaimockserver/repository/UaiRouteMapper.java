@@ -51,7 +51,10 @@ public final class UaiRouteMapper {
     public static UaiRoute deleteRoute(final String routeId) {
         final UaiRoute routeToDelete = ROUTE_MAP_BY_ID.get(routeId);
 
-        final String key = RouteMapKeyUtil.createKey(routeToDelete.getRequest().method, routeToDelete.getRequest().path);
+        final String key = RouteMapKeyUtil.createKey(
+            routeToDelete.getRequest().method,
+            routeToDelete.getRequest().path
+        );
 
         final Set<UaiRoute> uaiRouteList = getRouteList(key);
         uaiRouteList.remove(routeToDelete);

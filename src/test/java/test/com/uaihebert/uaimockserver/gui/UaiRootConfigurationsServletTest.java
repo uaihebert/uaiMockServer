@@ -2,6 +2,7 @@ package test.com.uaihebert.uaimockserver.gui;
 
 import com.google.gson.Gson;
 import com.uaihebert.uaimockserver.dto.model.UaiRootConfigurationDTO;
+import com.uaihebert.uaimockserver.model.HttpStatusCode;
 import com.uaihebert.uaimockserver.util.JsonUtil;
 import com.uaihebert.uaimockserver.util.StringUtils;
 import org.junit.Test;
@@ -29,7 +30,7 @@ public class UaiRootConfigurationsServletTest extends TestAbstract {
         // must read the entity or an NIOException will raise
         response.readEntity(String.class);
 
-        assertEquals(200, response.getStatus());
+        assertEquals(HttpStatusCode.OK.code, response.getStatus());
     }
 
     @Test
@@ -46,12 +47,13 @@ public class UaiRootConfigurationsServletTest extends TestAbstract {
     public void isReturningContent() {
         final String url = AbstractTestServletTests.GUI_URL +  "rootConfigurations";
 
-        Client client = ClientBuilder.newClient();
-        Response response = client.target(url).request().get();
+        final Client client = ClientBuilder.newClient();
+        final Response response = client.target(url).request().get();
 
         final String bodyAsString = response.readEntity(String.class);
 
-        final UaiRootConfigurationDTO configurationsDTO = new Gson().fromJson(bodyAsString, UaiRootConfigurationDTO.class);
+        final UaiRootConfigurationDTO configurationsDTO = new Gson()
+            .fromJson(bodyAsString, UaiRootConfigurationDTO.class);
 
         assertNotNull(configurationsDTO);
         assertNotNull(configurationsDTO.getPort());
@@ -66,15 +68,17 @@ public class UaiRootConfigurationsServletTest extends TestAbstract {
     public void isWritingWithoutError() {
         final String url = AbstractTestServletTests.GUI_URL +  "rootConfigurations";
 
-        Client client = ClientBuilder.newClient();
+        final Client client = ClientBuilder.newClient();
         Response response = client.target(url).request().get();
 
         final String bodyAsString = response.readEntity(String.class);
 
-        final UaiRootConfigurationDTO configurationsDTO = new Gson().fromJson(bodyAsString, UaiRootConfigurationDTO.class);
+        final UaiRootConfigurationDTO configurationsDTO = new Gson()
+            .fromJson(bodyAsString, UaiRootConfigurationDTO.class);
 
-        response = client.target(url).request().put(Entity.entity(JsonUtil.toJson(configurationsDTO), MediaType.APPLICATION_JSON_TYPE));
+        final Entity<String> body = Entity.entity(JsonUtil.toJson(configurationsDTO), MediaType.APPLICATION_JSON_TYPE);
+        response = client.target(url).request().put(body);
 
-        assertEquals("the return should be 204", 204, response.getStatus());
+        assertEquals("the return should be 204", HttpStatusCode.NO_CONTENT.code, response.getStatus());
     }
 }

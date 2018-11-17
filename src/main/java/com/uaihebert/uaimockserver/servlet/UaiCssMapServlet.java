@@ -1,6 +1,5 @@
 package com.uaihebert.uaimockserver.servlet;
 
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -8,11 +7,11 @@ import java.io.IOException;
 public class UaiCssMapServlet extends AbstractServlet {
 
     @Override
-    protected void doGet(final HttpServletRequest httpRequest, final HttpServletResponse httpResponse) throws ServletException, IOException {
-        httpResponse.setContentType("text/plain");
+    protected void doGet(final HttpServletRequest request, final HttpServletResponse response) throws IOException {
+        response.setContentType("text/plain");
 
-        super.addDefaultHeaders(httpResponse);
+        super.addDefaultHeaders(response);
 
-        printResource(httpResponse.getOutputStream(), "/css/bootstrap.css.map");
+        printResource(response.getOutputStream(), "/css/bootstrap.css.map");
     }
 }

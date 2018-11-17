@@ -8,7 +8,6 @@ import com.uaihebert.uaimockserver.service.UaiRootContextService;
 import com.uaihebert.uaimockserver.util.JsonUtil;
 import com.uaihebert.uaimockserver.util.RequestBodyExtractor;
 
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -16,23 +15,26 @@ import java.io.IOException;
 public class UaiRootConfigurationsServlet extends AbstractServlet {
 
     @Override
-    protected void doGet(final HttpServletRequest httpRequest, final HttpServletResponse httpResponse) throws ServletException, IOException {
-        httpResponse.setContentType("application/json");
+    protected void doGet(final HttpServletRequest request, final HttpServletResponse response) throws IOException {
+        response.setContentType("application/json");
 
-        super.addDefaultHeaders(httpResponse);
+        super.addDefaultHeaders(response);
 
         final String body = getRouteConfigurationBody();
-        
-        writeInResponse(httpResponse, body);
+
+        writeInResponse(response, body);
     }
 
     @Override
-    protected void doPut(final HttpServletRequest httpRequest, final HttpServletResponse httpResponse) throws ServletException, IOException {
-        final UaiRootConfigurationDTO uaiRouteConfigDTO = RequestBodyExtractor.extract(httpRequest, UaiRootConfigurationDTO.class);
+    protected void doPut(final HttpServletRequest request, final HttpServletResponse response) throws IOException {
+        final UaiRootConfigurationDTO uaiRouteConfigDTO = RequestBodyExtractor.extract(
+            request,
+            UaiRootConfigurationDTO.class
+        );
 
         UaiRootContextService.update(uaiRouteConfigDTO);
 
-        send204Response(httpResponse);
+        send204Response(response);
     }
 
     public String getRouteConfigurationBody() {
@@ -44,7 +46,11 @@ public class UaiRootConfigurationsServlet extends AbstractServlet {
         configurationsDTO.setContext(mainConfig.getContext());
         configurationsDTO.setFileLog(mainConfig.isFileLog());
         configurationsDTO.setConsoleLog(mainConfig.isConsoleLog());
-        configurationsDTO.setUaiMainFile(new UaiFileDTO(mainConfig.getUaiFile().getName(), mainConfig.getUaiFile().getFullPath()));
+        final UaiFileDTO file = new UaiFileDTO(
+            mainConfig.getUaiFile().getName(),
+            mainConfig.getUaiFile().getFullPath()
+        );
+        configurationsDTO.setUaiMainFile(file);
         configurationsDTO.setDefaultContentType(mainConfig.getDefaultContentTypeResponse());
 
         return JsonUtil.toJson(configurationsDTO);

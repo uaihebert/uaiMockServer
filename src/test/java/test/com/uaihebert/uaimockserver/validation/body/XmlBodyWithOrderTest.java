@@ -1,5 +1,6 @@
 package test.com.uaihebert.uaimockserver.validation.body;
 
+import com.uaihebert.uaimockserver.model.HttpStatusCode;
 import com.uaihebert.uaimockserver.runner.UaiMockServerRunner;
 import com.uaihebert.uaimockserver.runner.UaiRunnerMockServerConfiguration;
 import org.junit.Test;
@@ -25,7 +26,7 @@ public class XmlBodyWithOrderTest {
 
         final Response response = client.target(url).request().post(Entity.entity("", MediaType.TEXT_PLAIN_TYPE));
 
-        assertEquals(500, response.getStatus());
+        assertEquals(HttpStatusCode.INTERNAL_SERVER_ERROR.code, response.getStatus());
     }
 
     @Test
@@ -34,9 +35,11 @@ public class XmlBodyWithOrderTest {
 
         final Client client = ClientBuilder.newClient();
 
-        final Response response = client.target(url).request().post(Entity.entity("<person> <id>32</id> <age>44</age> </person>", MediaType.TEXT_PLAIN_TYPE));
+        final String json = "<person> <id>32</id> <age>44</age> </person>";
+        final Entity<String> body = Entity.entity(json, MediaType.TEXT_PLAIN_TYPE);
+        final Response response = client.target(url).request().post(body);
 
-        assertEquals(500, response.getStatus());
+        assertEquals(HttpStatusCode.INTERNAL_SERVER_ERROR.code, response.getStatus());
     }
 
     @Test
@@ -45,9 +48,11 @@ public class XmlBodyWithOrderTest {
 
         final Client client = ClientBuilder.newClient();
 
-        final Response response = client.target(url).request().post(Entity.entity("<person> <id>1</id> <age>334</age> </person>", MediaType.TEXT_PLAIN_TYPE));
+        final String json = "<person> <id>1</id> <age>334</age> </person>";
+        final Entity<String> body = Entity.entity(json, MediaType.TEXT_PLAIN_TYPE);
+        final Response response = client.target(url).request().post(body);
 
-        assertEquals(500, response.getStatus());
+        assertEquals(HttpStatusCode.INTERNAL_SERVER_ERROR.code, response.getStatus());
     }
 
     @Test
@@ -56,9 +61,11 @@ public class XmlBodyWithOrderTest {
 
         final Client client = ClientBuilder.newClient();
 
-        final Response response = client.target(url).request().post(Entity.entity("<person> <age>33</age> <id>1</id> </person>", MediaType.TEXT_PLAIN_TYPE));
+        final String json = "<person> <age>33</age> <id>1</id> </person>";
+        final Entity<String> body = Entity.entity(json, MediaType.TEXT_PLAIN_TYPE);
+        final Response response = client.target(url).request().post(body);
 
-        assertEquals(500, response.getStatus());
+        assertEquals(HttpStatusCode.INTERNAL_SERVER_ERROR.code, response.getStatus());
     }
 
     @Test
@@ -67,8 +74,10 @@ public class XmlBodyWithOrderTest {
 
         final Client client = ClientBuilder.newClient();
 
-        final Response response = client.target(url).request().post(Entity.entity("<person> <id>1</id> <age>33</age> </person>", MediaType.TEXT_PLAIN_TYPE));
+        final String json = "<person> <id>1</id> <age>33</age> </person>";
+        final Entity<String> body = Entity.entity(json, MediaType.TEXT_PLAIN_TYPE);
+        final Response response = client.target(url).request().post(body);
 
-        assertEquals(204, response.getStatus());
+        assertEquals(HttpStatusCode.NO_CONTENT.code, response.getStatus());
     }
 }

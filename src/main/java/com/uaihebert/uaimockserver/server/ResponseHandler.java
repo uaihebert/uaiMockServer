@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  * */
+
 package com.uaihebert.uaimockserver.server;
 
 import com.uaihebert.uaimockserver.log.backend.Log;
@@ -39,7 +40,7 @@ class ResponseHandler {
         defineResponseBody(exchange, uaiResponse);
     }
 
-    private void defineResponseBody(HttpServerExchange exchange, UaiResponse uaiResponse) {
+    private void defineResponseBody(final HttpServerExchange exchange, final UaiResponse uaiResponse) {
         if (!uaiResponse.isBodyPointingToFile() && uaiResponse.getBody() != null) {
             exchange.getResponseSender().send(uaiResponse.getBody());
             return;

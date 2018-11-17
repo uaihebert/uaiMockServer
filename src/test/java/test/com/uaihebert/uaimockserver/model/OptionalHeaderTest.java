@@ -1,5 +1,6 @@
 package test.com.uaihebert.uaimockserver.model;
 
+import com.uaihebert.uaimockserver.model.HttpStatusCode;
 import com.uaihebert.uaimockserver.runner.UaiMockServerRunner;
 import com.uaihebert.uaimockserver.runner.UaiRunnerMockServerConfiguration;
 import org.junit.Test;
@@ -25,7 +26,7 @@ public class OptionalHeaderTest {
                 .request()
                 .get();
 
-        assertEquals(201, noHeaderResponse.getStatus());
+        assertEquals(HttpStatusCode.CREATED.code, noHeaderResponse.getStatus());
 
         final String url = "http://localhost:1234/uaiMockServer/optionalHeaderTest";
 
@@ -37,7 +38,7 @@ public class OptionalHeaderTest {
                 .header("OPTIONAL_02", "02")
                 .get();
 
-        assertEquals(204, response.getStatus());
+        assertEquals(HttpStatusCode.NO_CONTENT.code, response.getStatus());
     }
 
     @Test
@@ -51,7 +52,7 @@ public class OptionalHeaderTest {
                 .header("OPTIONAL_03", "ANY VALUE")
                 .get();
 
-        assertEquals(202, response.getStatus());
+        assertEquals(HttpStatusCode.ACCEPTED.code, response.getStatus());
     }
 
     @Test
@@ -66,6 +67,6 @@ public class OptionalHeaderTest {
                 .header("OPTIONAL_02", "INVALID")
                 .get();
 
-        assertEquals(500, response.getStatus());
+        assertEquals(HttpStatusCode.INTERNAL_SERVER_ERROR.code, response.getStatus());
     }
 }

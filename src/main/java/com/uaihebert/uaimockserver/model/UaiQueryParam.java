@@ -13,13 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  * */
+
 package com.uaihebert.uaimockserver.model;
 
 import java.util.Collections;
 import java.util.List;
 
 /**
- * Class that will hold all the query param data
+ * Class that will hold all the query param data.
  */
 public class UaiQueryParam {
     private String name;

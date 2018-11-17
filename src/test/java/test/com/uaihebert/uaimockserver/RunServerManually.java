@@ -13,13 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  * */
+
 package test.com.uaihebert.uaimockserver;
 
 import com.uaihebert.uaimockserver.server.UaiMockServer;
 
-public class RunServerManually {
+public final class RunServerManually {
 
-    public static void main(String[] args) throws Exception {
+    private RunServerManually() {
+    }
+
+    public static void main(final String[] args) throws Exception {
         UaiMockServer.start("uaiMockServer.json");
 
         Thread.currentThread().join();

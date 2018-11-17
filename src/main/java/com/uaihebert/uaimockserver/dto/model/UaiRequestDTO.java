@@ -116,11 +116,11 @@ public class UaiRequestDTO {
         return bodyValidationType;
     }
 
-    public void setBodyValidationType(BodyValidationType bodyValidationType) {
+    public void setBodyValidationType(final BodyValidationType bodyValidationType) {
         this.bodyValidationType = bodyValidationType;
     }
 
-    public void setIsBodyRequired(Boolean isBodyRequired) {
+    public void setIsBodyRequired(final Boolean isBodyRequired) {
         this.isBodyRequired = isBodyRequired;
     }
 

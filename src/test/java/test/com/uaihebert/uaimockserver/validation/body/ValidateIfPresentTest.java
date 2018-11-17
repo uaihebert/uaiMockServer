@@ -13,8 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  * */
+
 package test.com.uaihebert.uaimockserver.validation.body;
 
+import com.uaihebert.uaimockserver.model.HttpStatusCode;
 import org.junit.Test;
 import test.com.uaihebert.uaimockserver.TestAbstract;
 
@@ -36,7 +38,7 @@ public class ValidateIfPresentTest extends TestAbstract {
 
         final Response response = client.target(url).request().post(createEntityTO());
 
-        assertEquals(204, response.getStatus());
+        assertEquals(HttpStatusCode.NO_CONTENT.code, response.getStatus());
     }
 
     @Test
@@ -47,6 +49,6 @@ public class ValidateIfPresentTest extends TestAbstract {
 
         final Response response = client.target(url).request().post(Entity.entity("", MediaType.APPLICATION_JSON_TYPE));
 
-        assertEquals(500, response.getStatus());
+        assertEquals(HttpStatusCode.INTERNAL_SERVER_ERROR.code, response.getStatus());
     }
 }

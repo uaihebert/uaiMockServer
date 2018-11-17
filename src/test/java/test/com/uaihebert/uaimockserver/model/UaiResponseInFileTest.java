@@ -1,5 +1,6 @@
 package test.com.uaihebert.uaimockserver.model;
 
+import com.uaihebert.uaimockserver.model.HttpStatusCode;
 import com.uaihebert.uaimockserver.runner.UaiMockServerRunner;
 import com.uaihebert.uaimockserver.runner.UaiRunnerMockServerConfiguration;
 import com.uaihebert.uaimockserver.util.FileUtil;
@@ -28,24 +29,22 @@ import static org.junit.Assert.assertTrue;
 @RunWith(UaiMockServerRunner.class)
 @UaiRunnerMockServerConfiguration(configurationFile = "bodyPathTest.json")
 public class UaiResponseInFileTest {
-    private static final String IS_DRONE_IO = "/home/ubuntu/src/github.com/";
-
     @Test
     public void isReturningImage() throws IOException {
-        final String projectDir = UaiResponseInFileTest.class.getProtectionDomain().getCodeSource().getLocation().getPath();
-
-        // drone io is breaking this test for some dark and obscure reason
-        if (projectDir.startsWith(IS_DRONE_IO)) {
-            return;
-        }
+        final String projectDir =
+            UaiResponseInFileTest.class.getProtectionDomain().getCodeSource().getLocation().getPath();
 
         final String url = "http://localhost:1234/uaiMockServer/bodyInResponseJpg";
 
         final Client client = ClientBuilder.newClient();
         final Response response = client.register(new ImageIconMessageBodyReader()).target(url).request().get();
 
-        assertEquals("asserting success in the response", 200, response.getStatus());
-        assertEquals("asserting that response the content-type is correct", "image/jpg", response.getHeaderString("Content-Type"));
+        assertEquals("asserting success in the response", HttpStatusCode.OK.code, response.getStatus());
+        assertEquals(
+            "asserting that response the content-type is correct",
+            "image/jpg",
+            response.getHeaderString("Content-Type")
+        );
 
         final InputStream receivedImage = response.readEntity(InputStream.class);
 
@@ -55,10 +54,11 @@ public class UaiResponseInFileTest {
 
         final BufferedImage read2 = ImageIO.read(desiredImage);
 
-        assertTrue(String.format("the image must be the same.", desiredImage, receivedImage), imagesAreEqual(read1, read2));
+        final String assertMessage = String.format("the image must be the same.", desiredImage, receivedImage);
+        assertTrue(assertMessage, imagesAreEqual(read1, read2));
     }
 
-    private boolean imagesAreEqual(BufferedImage image1, BufferedImage image2) {
+    private boolean imagesAreEqual(final BufferedImage image1, final BufferedImage image2) {
         if (image1.getWidth() != image2.getWidth() || image1.getHeight() != image2.getHeight()) {
             return false;
         }
@@ -74,14 +74,18 @@ public class UaiResponseInFileTest {
 
 
     @Test
-    public void isReturningJson() throws IOException {
+    public void isReturningJson() {
         final String url = "http://localhost:1234/uaiMockServer/bodyInResponseJson";
 
         final Client client = ClientBuilder.newClient();
         final Response response = client.register(new ImageIconMessageBodyReader()).target(url).request().get();
 
-        assertEquals("asserting success in the response", 200, response.getStatus());
-        assertEquals("asserting that response the content-type is correct", "application/json", response.getHeaderString("Content-Type"));
+        assertEquals("asserting success in the response", HttpStatusCode.OK.code, response.getStatus());
+        assertEquals(
+            "asserting that response the content-type is correct",
+            "application/json",
+            response.getHeaderString("Content-Type")
+        );
 
         final String received = response.readEntity(String.class);
 
@@ -98,12 +102,20 @@ public class UaiResponseInFileTest {
     private class ImageIconMessageBodyReader implements MessageBodyReader {
 
         @Override
-        public boolean isReadable(Class aClass, Type type, Annotation[] annotations, MediaType mediaType) {
+        public boolean isReadable(final Class aClass,
+                                  final Type type,
+                                  final Annotation[] annotations,
+                                  final MediaType mediaType) {
             return mediaType.getType().equals("image");
         }
 
         @Override
-        public Object readFrom(Class aClass, Type type, Annotation[] annotations, MediaType mediaType, MultivaluedMap multivaluedMap, InputStream inputStream) throws IOException, WebApplicationException {
+        public Object readFrom(final Class aClass,
+                               final Type type,
+                               final Annotation[] annotations,
+                               final MediaType mediaType,
+                               final MultivaluedMap multivaluedMap,
+                               final InputStream inputStream) throws WebApplicationException {
             return inputStream;
         }
     }

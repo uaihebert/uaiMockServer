@@ -6,7 +6,7 @@ import com.uaihebert.uaimockserver.model.UaiRoute;
 import java.util.Comparator;
 
 /**
- * This will order the route with more queryParam and header first
+ * This will order the route with more queryParam and header first.
  */
 public class RouteComparator implements Comparator<UaiRoute> {
 
@@ -15,8 +15,8 @@ public class RouteComparator implements Comparator<UaiRoute> {
         final UaiRequest firstRequest = firstRoute.getRequest();
         final UaiRequest secondRequest = secondRoute.getRequest();
 
-        Integer totalFirstRequest = countTotalItemsOfRequest(firstRequest);
-        Integer totalSecondRequest = countTotalItemsOfRequest(secondRequest);
+        final Integer totalFirstRequest = countTotalItemsOfRequest(firstRequest);
+        final Integer totalSecondRequest = countTotalItemsOfRequest(secondRequest);
 
         return totalSecondRequest.compareTo(totalFirstRequest);
     }

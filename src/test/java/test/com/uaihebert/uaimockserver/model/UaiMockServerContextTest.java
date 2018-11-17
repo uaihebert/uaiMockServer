@@ -13,16 +13,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  * */
+
 package test.com.uaihebert.uaimockserver.model;
 
 import com.uaihebert.uaimockserver.model.UaiFile;
 import com.uaihebert.uaimockserver.context.UaiMockServerContext;
 import com.uaihebert.uaimockserver.model.UaiRoute;
 import org.junit.Test;
+import org.pmw.tinylog.Logger;
+
 
 import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.fail;
 
+@SuppressWarnings("IllegalCatch")
 public class UaiMockServerContextTest {
 
     @Test
@@ -40,7 +44,7 @@ public class UaiMockServerContextTest {
         try {
             UaiMockServerContext.createInstance("mainFileWithoutRoutes.json");
         } catch (final Exception ex) {
-            ex.printStackTrace();
+            Logger.info(ex);
             fail("should not fail because the file has no routes");
         }
     }
@@ -50,7 +54,7 @@ public class UaiMockServerContextTest {
         try {
             UaiMockServerContext.createInstance("configWithoutLog.json");
         } catch (final Exception ex) {
-            ex.printStackTrace();
+            Logger.info(ex);
             fail("should not fail because the file has no log");
         }
     }
@@ -59,13 +63,25 @@ public class UaiMockServerContextTest {
     public void isDeletingFromSecondaryMapping() {
         UaiMockServerContext.createInstance("uaiMockServer.json");
 
-        final int totalBeforeDelete = UaiMockServerContext.getInstance().secondaryMappingList.get(0).getRouteList().size();
+        final int totalBeforeDelete = UaiMockServerContext.getInstance()
+            .secondaryMappingList
+            .get(0)
+            .getRouteList()
+            .size();
 
-        final UaiRoute uaiRoute = UaiMockServerContext.getInstance().secondaryMappingList.get(0).getRouteList().get(0);
+        final UaiRoute uaiRoute = UaiMockServerContext.getInstance()
+            .secondaryMappingList
+            .get(0)
+            .getRouteList()
+            .get(0);
 
         UaiMockServerContext.getInstance().deleteRoute(uaiRoute);
 
-        final int totalAfterDelete = UaiMockServerContext.getInstance().secondaryMappingList.get(0).getRouteList().size();
+        final int totalAfterDelete = UaiMockServerContext.getInstance()
+            .secondaryMappingList
+            .get(0)
+            .getRouteList()
+            .size();
 
         assertNotSame("making sure that the route was deleted", totalBeforeDelete, totalAfterDelete);
     }
@@ -78,7 +94,7 @@ public class UaiMockServerContextTest {
             final UaiRoute aRoute = UaiMockServerContext.getInstance().uaiMockServerConfig.getRouteList().get(0);
             UaiMockServerContext.getInstance().deleteRoute(aRoute);
         } catch (Exception ex) {
-            ex.printStackTrace();
+            Logger.info(ex);
             fail("should be no error");
         }
     }
@@ -92,7 +108,7 @@ public class UaiMockServerContextTest {
             uaiRoute.setUaiFile(new UaiFile("any", "any"));
             UaiMockServerContext.getInstance().deleteRoute(uaiRoute);
         } catch (Exception ex) {
-            ex.printStackTrace();
+            Logger.info(ex);
             fail("should be no error");
         }
     }

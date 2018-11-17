@@ -1,5 +1,6 @@
 package test.com.uaihebert.uaimockserver.validation;
 
+import com.uaihebert.uaimockserver.model.HttpStatusCode;
 import org.junit.Test;
 import test.com.uaihebert.uaimockserver.TestAbstract;
 
@@ -19,7 +20,7 @@ public class RequestContentTypeValidationTest extends TestAbstract {
 
         final Response response = client.target(url).request().get();
 
-        assertEquals(500, response.getStatus());
+        assertEquals(HttpStatusCode.INTERNAL_SERVER_ERROR.code, response.getStatus());
     }
 
     @Test
@@ -34,6 +35,6 @@ public class RequestContentTypeValidationTest extends TestAbstract {
                                     .header("Content-Type", "application/json")
                                     .get();
 
-        assertEquals(204, response.getStatus());
+        assertEquals(HttpStatusCode.NO_CONTENT.code, response.getStatus());
     }
 }

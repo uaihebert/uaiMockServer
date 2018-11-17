@@ -10,7 +10,8 @@ import java.io.IOException;
 public class UaiWebSocketListener extends AbstractReceiveListener {
 
     @Override
-    protected void onClose(final WebSocketChannel webSocketChannel, final StreamSourceFrameChannel channel) throws IOException {
+    protected void onClose(final WebSocketChannel webSocketChannel,
+                           final StreamSourceFrameChannel channel) throws IOException {
         super.onClose(webSocketChannel, channel);
 
         UaiWebSocketContext.removeClosed();

@@ -13,13 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  * */
+
 package com.uaihebert.uaimockserver.model;
 
 import java.util.Collections;
 import java.util.List;
 
 /**
- * Class that will hold all the header data
+ * Class that will hold all the header data.
  */
 public class UaiHeader {
     private final String name;
@@ -55,10 +56,10 @@ public class UaiHeader {
 
     @Override
     public String toString() {
-        return "UaiHeader{" +
-                "name='" + name + '\'' +
-                ", usingWildCard=" + usingWildCard +
-                ", valueList=" + valueList +
-                '}';
+        return "UaiHeader{"
+            + "name='" + name + '\''
+            + ", usingWildCard=" + usingWildCard
+            + ", valueList=" + valueList
+            + '}';
     }
 }

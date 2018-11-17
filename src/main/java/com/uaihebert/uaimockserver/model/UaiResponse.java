@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  * */
+
 package com.uaihebert.uaimockserver.model;
 
 import com.uaihebert.uaimockserver.util.StringUtils;
@@ -21,7 +22,7 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * Class that will hold all the response data
+ * Class that will hold all the response data.
  */
 public final class UaiResponse {
     private int statusCode;
@@ -37,7 +38,12 @@ public final class UaiResponse {
     public UaiResponse() {
     }
 
-    public UaiResponse(final int statusCode, final String body, final String contentType, final List<UaiHeader> headerList, final String bodyPath, final boolean bodyPointingToFile) {
+    public UaiResponse(final int statusCode,
+                       final String body,
+                       final String contentType,
+                       final List<UaiHeader> headerList,
+                       final String bodyPath,
+                       final boolean bodyPointingToFile) {
         this.statusCode = statusCode;
         this.body = body;
         this.bodyPath = bodyPath;
@@ -48,12 +54,12 @@ public final class UaiResponse {
 
     @Override
     public String toString() {
-        return "UaiResponse{" +
-                "statusCode=" + statusCode +
-                ", body='" + body + '\'' +
-                ", contentType='" + contentType + '\'' +
-                ", headerList=" + headerList +
-                '}';
+        return "UaiResponse{"
+            + "statusCode=" + statusCode
+            + ", body='" + body + '\''
+            + ", contentType='" + contentType + '\''
+            + ", headerList=" + headerList
+            + '}';
     }
 
     public int getStatusCode() {

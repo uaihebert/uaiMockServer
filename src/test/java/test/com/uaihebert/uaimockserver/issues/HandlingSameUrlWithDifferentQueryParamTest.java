@@ -1,5 +1,6 @@
 package test.com.uaihebert.uaimockserver.issues;
 
+import com.uaihebert.uaimockserver.model.HttpStatusCode;
 import com.uaihebert.uaimockserver.runner.UaiMockServerRunner;
 import com.uaihebert.uaimockserver.runner.UaiRunnerMockServerConfiguration;
 import org.junit.Test;
@@ -27,7 +28,7 @@ public class HandlingSameUrlWithDifferentQueryParamTest {
                 .get();
 
         // must be 500 because the headers were not sent
-        assertEquals(500, firstResponse.getStatus());
+        assertEquals(HttpStatusCode.INTERNAL_SERVER_ERROR.code, firstResponse.getStatus());
 
         final String url = "http://localhost:1234/uaiMockServer/queryParamAmountTest?param01=a&param02=b";
 
@@ -37,6 +38,6 @@ public class HandlingSameUrlWithDifferentQueryParamTest {
                 .request()
                 .get();
 
-        assertEquals(201, secondResponse.getStatus());
+        assertEquals(HttpStatusCode.CREATED.code, secondResponse.getStatus());
     }
 }

@@ -1,5 +1,6 @@
 package test.com.uaihebert.uaimockserver.gui;
 
+import com.uaihebert.uaimockserver.model.HttpStatusCode;
 import org.junit.Test;
 import test.com.uaihebert.uaimockserver.TestAbstract;
 
@@ -15,18 +16,18 @@ public class UaiFaviconServletTest extends TestAbstract {
     public void isReturning200OnIndex() {
         final String url = "http://localhost:1234/favicon.ico";
 
-        Client client = ClientBuilder.newClient();
-        Response response = client.target(url).request().get();
+        final Client client = ClientBuilder.newClient();
+        final Response response = client.target(url).request().get();
 
-        assertEquals(200, response.getStatus());
+        assertEquals(HttpStatusCode.OK.code, response.getStatus());
     }
 
     @Test
     public void isReturningContentAsPngType() {
         final String url = "http://localhost:1234/favicon.ico";
 
-        Client client = ClientBuilder.newClient();
-        Response response = client.target(url).request().get();
+        final Client client = ClientBuilder.newClient();
+        final Response response = client.target(url).request().get();
 
         assertEquals("image/png", response.getMediaType().toString());
     }

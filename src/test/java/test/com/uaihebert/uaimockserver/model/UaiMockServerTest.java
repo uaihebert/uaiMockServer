@@ -13,8 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  * */
+
 package test.com.uaihebert.uaimockserver.model;
 
+import com.uaihebert.uaimockserver.model.HttpStatusCode;
 import io.undertow.util.Headers;
 import org.junit.Test;
 import test.com.uaihebert.uaimockserver.TestAbstract;
@@ -35,59 +37,68 @@ public class UaiMockServerTest extends TestAbstract {
     public void isGetRootReturning200() {
         final String url = "http://localhost:1234/uaiMockServer/";
 
-        Client client = ClientBuilder.newClient();
-        Response response = client.target(url).request().get();
+        final Client client = ClientBuilder.newClient();
+        final Response response = client.target(url).request().get();
 
-        assertEquals(200, response.getStatus());
+        assertEquals(HttpStatusCode.OK.code, response.getStatus());
     }
 
     @Test
     public void isPutReturning201() {
         final String url = "http://localhost:1234/uaiMockServer/customer";
 
-        Client client = ClientBuilder.newClient();
-        Response response = client.target(url).request().put(createEntityTO());
+        final Client client = ClientBuilder.newClient();
+        final Response response = client.target(url).request().put(createEntityTO());
 
-        assertEquals(201, response.getStatus());
+        assertEquals(HttpStatusCode.CREATED.code, response.getStatus());
     }
 
     @Test
     public void isReturningDefaultContentType() {
         final String url = "http://localhost:1234/uaiMockServer/noResponseContentTypeConfigured";
 
-        Client client = ClientBuilder.newClient();
-        Response response = client.target(url).request().get();
+        final Client client = ClientBuilder.newClient();
+        final Response response = client.target(url).request().get();
 
-        assertEquals(204, response.getStatus());
-        assertEquals("making sure that the defaultContentTypeWasReturned", "text/html;charset=UTF-8", response.getHeaderString(Headers.CONTENT_TYPE.toString()));
+        assertEquals(HttpStatusCode.NO_CONTENT.code, response.getStatus());
+        assertEquals(
+            "making sure that the defaultContentTypeWasReturned",
+            "text/html;charset=UTF-8",
+            response.getHeaderString(Headers.CONTENT_TYPE.toString())
+        );
     }
 
     @Test
     public void isReturningHeaderWithOneValue() {
         final String url = "http://localhost:1234/uaiMockServer/responseHeaderTest";
 
-        Client client = ClientBuilder.newClient();
-        Response response = client.target(url).request().get();
+        final Client client = ClientBuilder.newClient();
+        final Response response = client.target(url).request().get();
 
-        assertEquals(204, response.getStatus());
-        assertEquals("making sure that the server returned the header", "RETURNED_HEADER-01", response.getHeaderString("HEADER-01"));
+        assertEquals(HttpStatusCode.NO_CONTENT.code, response.getStatus());
+        assertEquals(
+            "making sure that the server returned the header",
+            "RETURNED_HEADER-01",
+            response.getHeaderString("HEADER-01")
+        );
     }
 
     @Test
     public void isReturningHeaderWithValueList() {
         final String url = "http://localhost:1234/uaiMockServer/responseHeaderTest";
 
-        Client client = ClientBuilder.newClient();
-        Response response = client.target(url).request().get();
+        final Client client = ClientBuilder.newClient();
+        final Response response = client.target(url).request().get();
 
-        assertEquals(204, response.getStatus());
+        assertEquals(HttpStatusCode.NO_CONTENT.code, response.getStatus());
 
         final MultivaluedMap<String, Object> headerMap = response.getHeaders();
         final List<Object> headerList = headerMap.get("HEADER-02");
 
         final List<String> expectedResponse = Arrays.asList("LIST_01", "LIST_02");
 
-        assertTrue("making sure that the server returned the header", expectedResponse.contains(headerList.get(0)));
-        assertTrue("making sure that the server returned the header", expectedResponse.contains(headerList.get(1)));
+        final String validationMessage = "making sure that the server returned the header";
+        assertTrue(validationMessage, expectedResponse.contains(headerList.get(0)));
+        assertTrue(validationMessage, expectedResponse.contains(headerList.get(1)));
     }
 }

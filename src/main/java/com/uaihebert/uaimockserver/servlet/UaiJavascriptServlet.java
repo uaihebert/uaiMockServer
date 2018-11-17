@@ -1,6 +1,5 @@
 package com.uaihebert.uaimockserver.servlet;
 
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -8,13 +7,13 @@ import java.io.IOException;
 public class UaiJavascriptServlet extends AbstractServlet {
 
     @Override
-    protected void doGet(final HttpServletRequest httpRequest, final HttpServletResponse httpResponse) throws ServletException, IOException {
-        httpResponse.setContentType("application/javascript");
+    protected void doGet(final HttpServletRequest request, final HttpServletResponse response) throws IOException {
+        response.setContentType("application/javascript");
 
-        super.addDefaultHeaders(httpResponse);
+        super.addDefaultHeaders(response);
 
-        final String fileName = httpRequest.getParameter("fileName");
+        final String fileName = request.getParameter("fileName");
 
-        printResource(httpResponse.getOutputStream(), "/javascript/" + fileName + ".js");
+        printResource(response.getOutputStream(), "/javascript/" + fileName + ".js");
     }
 }

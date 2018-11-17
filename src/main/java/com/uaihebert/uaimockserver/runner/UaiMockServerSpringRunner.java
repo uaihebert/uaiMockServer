@@ -8,7 +8,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 public class UaiMockServerSpringRunner extends SpringJUnit4ClassRunner {
     private final UaiRunnerMockServerConfiguration configuration;
 
-    public UaiMockServerSpringRunner(Class<?> testClass) throws InitializationError {
+    public UaiMockServerSpringRunner(final Class<?> testClass) throws InitializationError {
         super(testClass);
 
         configuration = testClass.getAnnotation(UaiRunnerMockServerConfiguration.class);

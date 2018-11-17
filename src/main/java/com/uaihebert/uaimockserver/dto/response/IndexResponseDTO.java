@@ -58,7 +58,7 @@ public class IndexResponseDTO {
         return bodyValidationTypeList;
     }
 
-    public void setBodyValidationTypeList(List<BodyValidationType> bodyValidationTypeList) {
+    public void setBodyValidationTypeList(final List<BodyValidationType> bodyValidationTypeList) {
         this.bodyValidationTypeList = bodyValidationTypeList;
     }
 }

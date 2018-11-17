@@ -13,6 +13,7 @@ import java.util.List;
 public final class UaiMockServerContext {
     private static final String DEFAULT_CONFIGURATION_FILE_NAME = "uaiMockServer.json";
 
+    @SuppressWarnings("StaticVariableName")
     private static UaiMockServerContext INSTANCE;
 
     public final UaiMockServerConfig uaiMockServerConfig;
@@ -31,7 +32,8 @@ public final class UaiMockServerContext {
         final UaiMockServerConfig uaiMockServerConfig = UaiMockServerConfigFactory.create(fileName);
         INSTANCE = new UaiMockServerContext(uaiMockServerConfig);
 
-        final List<UaiMockServerConfig> secondaryMappingList = UaiMockServerConfigFactory.create(INSTANCE.uaiMockServerConfig.getMappingRoutesFileList());
+        final List<String> routesFIleList = INSTANCE.uaiMockServerConfig.getMappingRoutesFileList();
+        final List<UaiMockServerConfig> secondaryMappingList = UaiMockServerConfigFactory.create(routesFIleList);
         INSTANCE.secondaryMappingList.addAll(secondaryMappingList);
 
         LogBuilder.createInstance();

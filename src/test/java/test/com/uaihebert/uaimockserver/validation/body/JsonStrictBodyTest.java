@@ -1,5 +1,6 @@
 package test.com.uaihebert.uaimockserver.validation.body;
 
+import com.uaihebert.uaimockserver.model.HttpStatusCode;
 import com.uaihebert.uaimockserver.runner.UaiMockServerRunner;
 import com.uaihebert.uaimockserver.runner.UaiRunnerMockServerConfiguration;
 import org.junit.Test;
@@ -25,7 +26,7 @@ public class JsonStrictBodyTest {
 
         final Response response = client.target(url).request().post(Entity.entity("", MediaType.TEXT_PLAIN_TYPE));
 
-        assertEquals(500, response.getStatus());
+        assertEquals(HttpStatusCode.INTERNAL_SERVER_ERROR.code, response.getStatus());
     }
 
     @Test
@@ -34,9 +35,10 @@ public class JsonStrictBodyTest {
 
         final Client client = ClientBuilder.newClient();
 
-        final Response response = client.target(url).request().post(Entity.entity("{id:12,age:334}", MediaType.TEXT_PLAIN_TYPE));
+        final Entity<String> body = Entity.entity("{id:12,age:334}", MediaType.TEXT_PLAIN_TYPE);
+        final Response response = client.target(url).request().post(body);
 
-        assertEquals(500, response.getStatus());
+        assertEquals(HttpStatusCode.INTERNAL_SERVER_ERROR.code, response.getStatus());
     }
 
     @Test
@@ -45,9 +47,10 @@ public class JsonStrictBodyTest {
 
         final Client client = ClientBuilder.newClient();
 
-        final Response response = client.target(url).request().post(Entity.entity("{id:1,age:334}", MediaType.TEXT_PLAIN_TYPE));
+        final Entity<String> body = Entity.entity("{id:1,age:334}", MediaType.TEXT_PLAIN_TYPE);
+        final Response response = client.target(url).request().post(body);
 
-        assertEquals(500, response.getStatus());
+        assertEquals(HttpStatusCode.INTERNAL_SERVER_ERROR.code, response.getStatus());
     }
 
     @Test
@@ -56,9 +59,10 @@ public class JsonStrictBodyTest {
 
         final Client client = ClientBuilder.newClient();
 
-        final Response response = client.target(url).request().post(Entity.entity("{id:1,age:33}", MediaType.TEXT_PLAIN_TYPE));
+        final Entity<String> body = Entity.entity("{id:1,age:33}", MediaType.TEXT_PLAIN_TYPE);
+        final Response response = client.target(url).request().post(body);
 
-        assertEquals(204, response.getStatus());
+        assertEquals(HttpStatusCode.NO_CONTENT.code, response.getStatus());
     }
 
     @Test
@@ -67,8 +71,9 @@ public class JsonStrictBodyTest {
 
         final Client client = ClientBuilder.newClient();
 
-        final Response response = client.target(url).request().post(Entity.entity("{id:1,age:33,aNumber:3333}", MediaType.TEXT_PLAIN_TYPE));
+        final Entity<String> body = Entity.entity("{id:1,age:33,aNumber:3333}", MediaType.TEXT_PLAIN_TYPE);
+        final Response response = client.target(url).request().post(body);
 
-        assertEquals(500, response.getStatus());
+        assertEquals(HttpStatusCode.INTERNAL_SERVER_ERROR.code, response.getStatus());
     }
 }

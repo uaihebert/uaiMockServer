@@ -6,7 +6,7 @@ import com.uaihebert.uaimockserver.model.UaiResponse;
 
 import java.util.List;
 
-public class UaiResponseDTOFactory {
+public final class UaiResponseDTOFactory {
     private UaiResponseDTOFactory() {
     }
 

@@ -13,9 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  * */
+
 package com.uaihebert.uaimockserver.validator;
 
-import com.uaihebert.uaimockserver.facade.RequestValidatorFacade;
+import com.uaihebert.uaimockserver.facade.RequestValidatorFacade.RequestAnalysisResult;
 import com.uaihebert.uaimockserver.log.backend.Log;
 import com.uaihebert.uaimockserver.model.UaiQueryParam;
 import com.uaihebert.uaimockserver.model.UaiRequest;
@@ -25,15 +26,23 @@ import java.util.Deque;
 import java.util.Map;
 
 /**
- * Will validate all the request query params if needed
+ * Will validate all the request query params if needed.
  */
 public final class RequiredQueryParamValidator implements RequestDataValidator {
+
+    @SuppressWarnings("LineLength")
     private static final String WILD_CARD_TEXT = "The header [%s] is using the wildcard. Its content will not be checked.";
+
+    @SuppressWarnings("LineLength")
     private static final String QUERY_PARAM_NOT_FOUND_MESSAGE = "%nThe required queryParam [%s] was not found in the request";
+
+    @SuppressWarnings("LineLength")
     private static final String QUERY_PARAM_VALUE_NOT_FOUND_MESSAGE = "%nThe required queryParamList [%s] has not the required values: [%s]";
 
     @Override
-    public void validate(final UaiRequest uaiRequest, final HttpServerExchange exchange, final RequestValidatorFacade.RequestAnalysisResult result) {
+    public void validate(final UaiRequest uaiRequest,
+                         final HttpServerExchange exchange,
+                         final RequestAnalysisResult result) {
         for (UaiQueryParam uaiQueryParam : uaiRequest.getRequiredQueryParamList()) {
             final Map<String, Deque<String>> queryParameterMap = exchange.getQueryParameters();
 
@@ -41,7 +50,9 @@ public final class RequiredQueryParamValidator implements RequestDataValidator {
         }
     }
 
-    private void validatedQueryParam(final UaiQueryParam uaiQueryParam, final Map<String, Deque<String>> queryParameterMap, final RequestValidatorFacade.RequestAnalysisResult result) {
+    private void validatedQueryParam(final UaiQueryParam uaiQueryParam,
+                                     final Map<String, Deque<String>> queryParameterMap,
+                                     final RequestAnalysisResult result) {
         final Deque<String> valueDeque = queryParameterMap.get(uaiQueryParam.getName());
 
         if (valueDeque == null) {
@@ -56,7 +67,11 @@ public final class RequiredQueryParamValidator implements RequestDataValidator {
         }
 
         if (!valueDeque.containsAll(uaiQueryParam.getValueList())) {
-            Log.warnFormatted(QUERY_PARAM_VALUE_NOT_FOUND_MESSAGE, uaiQueryParam.getValueList(), uaiQueryParam.getName());
+            Log.warnFormatted(
+                QUERY_PARAM_VALUE_NOT_FOUND_MESSAGE,
+                uaiQueryParam.getValueList(),
+                uaiQueryParam.getName()
+            );
             result.setInvalid();
         }
     }

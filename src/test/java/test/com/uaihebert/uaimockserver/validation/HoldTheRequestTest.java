@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  * */
+
 package test.com.uaihebert.uaimockserver.validation;
 
 import com.uaihebert.uaimockserver.runner.UaiMockServerRunner;
@@ -31,6 +32,7 @@ import static org.junit.Assert.assertTrue;
 @UaiRunnerMockServerConfiguration(configurationFile = "holdRequest.json")
 public class HoldTheRequestTest {
 
+    @SuppressWarnings("LineLength")
     private static final String ASSERTING_TEXT = "asserting that the time lapse with hold [%s] is >= than regular request [%s]";
     private static final int MIN_TIME_WAITING = 490;
 
@@ -48,7 +50,8 @@ public class HoldTheRequestTest {
 
         final long regularRequestWithHoldTime = timeLapseRegularRequest + MIN_TIME_WAITING;
 
-        assertTrue(String.format(ASSERTING_TEXT, timeLapseRequestWithHold, regularRequestWithHoldTime), timeLapseRequestWithHold >= regularRequestWithHoldTime);
+        final String expected = String.format(ASSERTING_TEXT, timeLapseRequestWithHold, regularRequestWithHoldTime);
+        assertTrue(expected, timeLapseRequestWithHold >= regularRequestWithHoldTime);
     }
 
     private long getRequestLapseWithNoHold() {
@@ -56,7 +59,7 @@ public class HoldTheRequestTest {
 
         final String url = "http://localhost:1234/uaiMockServer/doNotHoldTheRequest";
 
-        Client client = ClientBuilder.newClient();
+        final Client client = ClientBuilder.newClient();
 
         client.target(url).request().get();
 
@@ -70,7 +73,7 @@ public class HoldTheRequestTest {
 
         final String url = "http://localhost:1234/uaiMockServer/holdTheRequest";
 
-        Client client = ClientBuilder.newClient();
+        final Client client = ClientBuilder.newClient();
 
         client.target(url).request().get();
 

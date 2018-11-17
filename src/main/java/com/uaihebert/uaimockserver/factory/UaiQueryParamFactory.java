@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  * */
+
 package com.uaihebert.uaimockserver.factory;
 
 import com.uaihebert.uaimockserver.constants.ValidatorConstants;
@@ -24,7 +25,7 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * This factory will create an instance of the UaiQueryParam.java
+ * This factory will create an instance of the UaiQueryParam.java.
  */
 public final class UaiQueryParamFactory {
     private UaiQueryParamFactory() {
@@ -38,9 +39,15 @@ public final class UaiQueryParamFactory {
         final List<UaiQueryParam> uaiQueryParamList = new ArrayList<UaiQueryParam>();
 
         for (UaiQueryParamDTO uaiQueryParamDTO : requiredQueryParamList) {
-            final boolean usingWildCard = uaiQueryParamDTO.getValueList().contains(ValidatorConstants.VALID_WILD_CARD.text);
+            final boolean usingWildCard = uaiQueryParamDTO.getValueList().contains(
+                ValidatorConstants.VALID_WILD_CARD.text
+            );
 
-            final UaiQueryParam uaiQueryParam = new UaiQueryParam(uaiQueryParamDTO.getName(), usingWildCard, uaiQueryParamDTO.getValueList());
+            final UaiQueryParam uaiQueryParam = new UaiQueryParam(
+                uaiQueryParamDTO.getName(),
+                usingWildCard,
+                uaiQueryParamDTO.getValueList()
+            );
             uaiQueryParamList.add(uaiQueryParam);
         }
 

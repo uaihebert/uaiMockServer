@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  * */
+
 package com.uaihebert.uaimockserver.log.backend;
 
 import com.uaihebert.uaimockserver.context.UaiMockServerContext;
@@ -21,7 +22,7 @@ import org.pmw.tinylog.writers.ConsoleWriter;
 import org.pmw.tinylog.writers.FileWriter;
 
 /**
- * This builder will create an instance of the Log
+ * This builder will create an instance of the Log.
  * If the log is deactivated, a class will be created that executes no actions
  * It is not necessary to do if (log.isActive) around the code
  */
@@ -36,7 +37,7 @@ public final class LogBuilder {
         createInstance(fileLog, consoleLog);
     }
 
-    public static void createInstance(boolean fileLog, boolean consoleLog) {
+    public static void createInstance(final boolean fileLog, final boolean consoleLog) {
         if (!fileLog && !consoleLog) {
             Log.setInstance(new DeactivatedLog());
             return;

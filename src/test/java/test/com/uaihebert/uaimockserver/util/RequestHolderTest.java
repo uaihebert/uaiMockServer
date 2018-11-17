@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  * */
+
 package test.com.uaihebert.uaimockserver.util;
 
 import com.uaihebert.uaimockserver.log.backend.LogBuilder;
@@ -29,7 +30,7 @@ import org.powermock.modules.junit4.PowerMockRunner;
 public class RequestHolderTest {
 
     @Test(expected = IllegalStateException.class)
-    public void isThrowingExceptionWhenThreadSleepRaisesError() throws NoSuchMethodException, InterruptedException {
+    public void isThrowingExceptionWhenThreadSleepRaisesError() throws InterruptedException {
         PowerMockito.spy(Thread.class);
 
         PowerMockito.doThrow(new InterruptedException()).when(Thread.class);

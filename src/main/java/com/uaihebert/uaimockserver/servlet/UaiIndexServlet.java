@@ -1,6 +1,5 @@
 package com.uaihebert.uaimockserver.servlet;
 
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -8,9 +7,9 @@ import java.io.IOException;
 public class UaiIndexServlet extends AbstractServlet {
 
     @Override
-    protected void doGet(final HttpServletRequest httpRequest, final HttpServletResponse httpResponse) throws ServletException, IOException {
-        httpResponse.setContentType("text/html");
+    protected void doGet(final HttpServletRequest request, final HttpServletResponse response) throws IOException {
+        response.setContentType("text/html");
 
-        printResource(httpResponse.getOutputStream(), "/pages/index/index.html");
+        printResource(response.getOutputStream(), "/pages/index/index.html");
     }
 }

@@ -19,7 +19,7 @@ public class ClientTest {
 
     private final String[] log = {NO_RESULT_RECEIVED};
 
-    private int giveUp = 0;
+    private int giveUp;
 
     @Test
     public void isReceivingMessage() throws Exception {
@@ -27,18 +27,21 @@ public class ClientTest {
 
         executeRequestToGenerateLog();
 
-        while (NO_RESULT_RECEIVED.equals(log[0]) && giveUp < 5) {
-            Thread.sleep(75);
+        final int maxExpectedTries = 5;
+        final int waitFor = 75;
+
+        while (NO_RESULT_RECEIVED.equals(log[0]) && giveUp < maxExpectedTries) {
+            Thread.sleep(waitFor);
             ++giveUp;
         }
-        
+
         assertNotSame("must have an result", NO_RESULT_RECEIVED, log[0]);
     }
 
     private void executeRequestToGenerateLog() {
         final String url = "http://localhost:1234/uaiMockServer/";
 
-        Client client = ClientBuilder.newClient();
+        final Client client = ClientBuilder.newClient();
         client.target(url).request().get();
     }
 
@@ -46,7 +49,7 @@ public class ClientTest {
         final ChatClientEndpoint clientEndPoint = new ChatClientEndpoint(new URI(WS_URL));
 
         clientEndPoint.addMessageHandler(new ChatClientEndpoint.MessageHandler() {
-            public void handleMessage(String message) {
+            public void handleMessage(final String message) {
                 log[0] = message;
             }
         });

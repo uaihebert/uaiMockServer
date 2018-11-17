@@ -13,10 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  * */
+
 package com.uaihebert.uaimockserver.validator;
 
 import com.uaihebert.uaimockserver.configuration.ProjectConfiguration;
-import com.uaihebert.uaimockserver.facade.RequestValidatorFacade;
+import com.uaihebert.uaimockserver.facade.RequestValidatorFacade.RequestAnalysisResult;
 import com.uaihebert.uaimockserver.log.backend.Log;
 import com.uaihebert.uaimockserver.model.UaiRequest;
 import io.undertow.server.HttpServerExchange;
@@ -24,14 +25,16 @@ import io.undertow.server.HttpServerExchange;
 import java.util.Scanner;
 
 /**
- * Will validate all the request body if needed
+ * Will validate all the request body if needed.
  */
 public final class BodyValidator implements RequestDataValidator {
     private static final String NO_BODY_MESSAGE = "No Request Body was detected in the request";
     private static final String RECEIVED_BODY_MESSAGE = "We received the following body: [%s]";
 
     @Override
-    public void validate(final UaiRequest uaiRequest, final HttpServerExchange exchange, final RequestValidatorFacade.RequestAnalysisResult result) {
+    public void validate(final UaiRequest uaiRequest,
+                         final HttpServerExchange exchange,
+                         final RequestAnalysisResult result) {
         final String body = extractBody(exchange);
 
         final boolean requestHasNoBody = exchange == null || exchange.getRequestContentLength() < 1;
@@ -56,7 +59,8 @@ public final class BodyValidator implements RequestDataValidator {
 
         exchange.startBlocking();
 
-        final Scanner scanner = new Scanner(exchange.getInputStream(), ProjectConfiguration.ENCODING.value).useDelimiter("\\A");
+        final Scanner scanner = new Scanner(exchange.getInputStream(), ProjectConfiguration.ENCODING.value)
+            .useDelimiter("\\A");
 
         if (!scanner.hasNext()) {
             return null;

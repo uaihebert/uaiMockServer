@@ -13,8 +13,12 @@ public final class UaiBasicConfigurationDTOFactory {
         uaiRootConfigurationDTO.setPort(UaiMockServerContext.getInstance().uaiMockServerConfig.getPort());
         uaiRootConfigurationDTO.setHost(UaiMockServerContext.getInstance().uaiMockServerConfig.getHost());
         uaiRootConfigurationDTO.setContext(UaiMockServerContext.getInstance().uaiMockServerConfig.getContext());
-        uaiRootConfigurationDTO.setDefaultContentType(UaiMockServerContext.getInstance().uaiMockServerConfig.getDefaultContentTypeResponse());
-        uaiRootConfigurationDTO.setUaiMainFile(UaiFileDTOFactory.create(UaiMockServerContext.getInstance().uaiMockServerConfig.getUaiFile()));
+        uaiRootConfigurationDTO.setDefaultContentType(
+            UaiMockServerContext.getInstance().uaiMockServerConfig.getDefaultContentTypeResponse()
+        );
+        uaiRootConfigurationDTO.setUaiMainFile(UaiFileDTOFactory.create(
+            UaiMockServerContext.getInstance().uaiMockServerConfig.getUaiFile())
+        );
 
         return uaiRootConfigurationDTO;
     }

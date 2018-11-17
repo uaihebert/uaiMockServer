@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  * */
+
 package com.uaihebert.uaimockserver.factory;
 
 import com.uaihebert.uaimockserver.dto.model.UaiRouteDTO;
@@ -23,7 +24,7 @@ import com.uaihebert.uaimockserver.model.UaiRoute;
 import com.uaihebert.uaimockserver.util.StringUtils;
 
 /**
- * This factory will create an instance of the UaiRoute.java
+ * This factory will create an instance of the UaiRoute.java.
  */
 public final class UaiRouteFactory {
     public static final String CLONE_PREFIX = "[CLONED] ";

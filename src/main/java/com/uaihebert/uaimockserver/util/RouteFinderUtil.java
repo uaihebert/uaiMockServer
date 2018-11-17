@@ -1,6 +1,6 @@
 package com.uaihebert.uaimockserver.util;
 
-import com.uaihebert.uaimockserver.facade.RequestValidatorFacade;
+import com.uaihebert.uaimockserver.facade.RequestValidatorFacade.RequestAnalysisResult;
 import com.uaihebert.uaimockserver.log.backend.Log;
 import com.uaihebert.uaimockserver.model.UaiRequest;
 import com.uaihebert.uaimockserver.model.UaiRoute;
@@ -12,18 +12,24 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
+import static com.uaihebert.uaimockserver.facade.RequestValidatorFacade.isValidRequest;
+
 public final class RouteFinderUtil {
+
+    @SuppressWarnings("LineLength")
     private static final String INVALID_DATA_MESSAGE = "It was not possible to validate the sent data against the routes in the config file. Check the log.";
 
-    private static final String URI_NOT_FOUND_MESSAGE = "%nWe could not find the requested URI [%s] with the method [%s]. %n " +
-            "Check the config file and try to find the mapping. A \\ in the end of the URI will affect the result. %n " +
-            "Also check if all the required query param and/header were sent. %n";
+
+    @SuppressWarnings("LineLength")
+    private static final String URI_NOT_FOUND_MESSAGE = "%nWe could not find the requested URI [%s] with the method [%s]. %n "
+        + "Check the config file and try to find the mapping. A \\ in the end of the URI will affect the result. %n "
+        + "Also check if all the required query param and/header were sent. %n";
 
     private RouteFinderUtil() {
     }
 
     /**
-     * This method will return the route of the received request
+     * This method will return the route of the received request.
      * It will check for the same queryParam and header
      * We can have URLs like:
      * http://uaimockserver.com?queryParam=A returns 201
@@ -36,13 +42,17 @@ public final class RouteFinderUtil {
         final List<UaiRoute> orderedList = getSortedRouteByKey(httpServerExchange);
 
         if (orderedList.isEmpty()) {
-            final String errorText = String.format(URI_NOT_FOUND_MESSAGE, httpServerExchange.getRequestURI(), httpServerExchange.getRequestMethod());
+            final String errorText = String.format(
+                URI_NOT_FOUND_MESSAGE,
+                httpServerExchange.getRequestURI(),
+                httpServerExchange.getRequestMethod()
+            );
             ExceptionUtil.logBeforeThrowing(new IllegalArgumentException(errorText));
         }
 
         for (UaiRoute uaiRoute : orderedList) {
 
-            final RequestValidatorFacade.RequestAnalysisResult validRequest = RequestValidatorFacade.isValidRequest(uaiRoute.getRequest(), httpServerExchange);
+            final RequestAnalysisResult validRequest = isValidRequest(uaiRoute.getRequest(), httpServerExchange);
 
             if (validRequest.isValid()) {
                 return uaiRoute;
@@ -75,7 +85,7 @@ public final class RouteFinderUtil {
     }
 
     private static List<UaiRoute> filterByHeader(final List<UaiRoute> orderedList) {
-        boolean hasRequiredHeader = hasRequiredHeader(orderedList);
+        final boolean hasRequiredHeader = hasRequiredHeader(orderedList);
 
         if (!hasRequiredHeader) {
             return orderedList;
@@ -95,7 +105,7 @@ public final class RouteFinderUtil {
     }
 
     private static List<UaiRoute> filterByQueryParam(final List<UaiRoute> orderedList) {
-        boolean hasRequiredQueryParam = hasRequiredQueryParam(orderedList);
+        final boolean hasRequiredQueryParam = hasRequiredQueryParam(orderedList);
 
         if (!hasRequiredQueryParam) {
             return orderedList;

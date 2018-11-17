@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  * */
+
 package test.com.uaihebert.uaimockserver;
 
 import com.uaihebert.uaimockserver.server.UaiMockServer;
@@ -22,6 +23,7 @@ import org.junit.BeforeClass;
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.core.MediaType;
 
+@SuppressWarnings("AbstractClassName")
 public abstract class TestAbstract {
 
     private static UaiMockServer uaiMockServer;
@@ -36,7 +38,7 @@ public abstract class TestAbstract {
         uaiMockServer.shutdown();
     }
 
-    public Entity<String> createEntityTO(){
+    public Entity<String> createEntityTO() {
         return Entity.entity("{'name':'joseph'}", MediaType.APPLICATION_JSON_TYPE);
     }
 }

@@ -19,7 +19,10 @@ public final class UaiWebSocketLogResponseDTOFactory {
         logResponseDTO.setStatusCode(uaiResponse.getStatusCode());
 
         for (UaiHeader uaiHeader : uaiResponse.getHeaderList()) {
-            final UaiLogPairValueDTO pairValueDTO = new UaiLogPairValueDTO(uaiHeader.getName(), uaiHeader.getValueList());
+            final UaiLogPairValueDTO pairValueDTO = new UaiLogPairValueDTO(
+                uaiHeader.getName(),
+                uaiHeader.getValueList()
+            );
             logResponseDTO.getHeaderValueList().add(pairValueDTO);
         }
 

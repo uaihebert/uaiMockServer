@@ -18,7 +18,11 @@ public class UaiJSONComparatorSuccessTest {
 
     @Test
     public void isComparingWithSuccess() {
-        final JSONCompareResult jsonCompareResult = UaiJSONCompareWrapper.compareJSON("{id:1}", "{id:1}", STRICT_COMPARATOR);
+        final JSONCompareResult jsonCompareResult = UaiJSONCompareWrapper.compareJSON(
+            "{id:1}",
+            "{id:1}",
+            STRICT_COMPARATOR
+        );
 
         final List<FieldComparisonFailure> failureList = jsonCompareResult.getFieldFailures();
 
@@ -27,7 +31,11 @@ public class UaiJSONComparatorSuccessTest {
 
     @Test
     public void isIgnoringWhenNotRequired() {
-        final JSONCompareResult jsonCompareResult = UaiJSONCompareWrapper.compareJSON("{id:1}", "{id:1, age:33}", LENIENT_COMPARATOR);
+        final JSONCompareResult jsonCompareResult = UaiJSONCompareWrapper.compareJSON(
+            "{id:1}",
+            "{id:1, age:33}",
+            LENIENT_COMPARATOR
+        );
 
         final List<FieldComparisonFailure> failureList = jsonCompareResult.getFieldFailures();
 

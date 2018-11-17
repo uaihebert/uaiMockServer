@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  * */
+
 package com.uaihebert.uaimockserver.server;
 
 import com.uaihebert.uaimockserver.context.UaiMockServerContext;
@@ -21,7 +22,7 @@ import com.uaihebert.uaimockserver.util.HttpServerUtil;
 import io.undertow.Undertow;
 
 /**
- * Class that will start/shutdown ServletServer implementation
+ * Class that will start/shutdown ServletServer implementation.
  */
 public final class UaiMockServer {
 

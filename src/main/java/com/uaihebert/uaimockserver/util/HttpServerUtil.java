@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  * */
+
 package com.uaihebert.uaimockserver.util;
 
 import com.uaihebert.uaimockserver.context.UaiMockServerContext;
@@ -21,8 +22,10 @@ import io.undertow.Undertow;
 import io.undertow.server.handlers.PathHandler;
 
 /**
- * This class is responsible for the servlet server instantiation
+ * This class is responsible for the servlet server instantiation.
  */
+// this is required because Undertow wraps the exception inside a runtime
+@SuppressWarnings("IllegalCatch")
 public final class HttpServerUtil {
     private HttpServerUtil() {
     }
@@ -33,8 +36,9 @@ public final class HttpServerUtil {
         try {
             final PathHandler path = PathHandlerFactory.create();
 
+            final Integer port = UaiMockServerContext.getInstance().uaiMockServerConfig.getPort();
             httpServer = Undertow.builder()
-                    .addHttpListener(UaiMockServerContext.getInstance().uaiMockServerConfig.getPort(), UaiMockServerContext.getInstance().uaiMockServerConfig.getHost())
+                    .addHttpListener(port, UaiMockServerContext.getInstance().uaiMockServerConfig.getHost())
                     .setHandler(path)
                     .build();
 

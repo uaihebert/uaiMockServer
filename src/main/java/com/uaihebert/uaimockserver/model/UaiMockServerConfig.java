@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  * */
+
 package com.uaihebert.uaimockserver.model;
 
 import com.uaihebert.uaimockserver.constants.ValidatorConstants;
@@ -22,7 +23,7 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * Class that will hold all the project configurations
+ * Class that will hold all the project configurations.
  */
 public final class UaiMockServerConfig {
     private Integer port;
@@ -67,7 +68,8 @@ public final class UaiMockServerConfig {
 
     private void defineIfRequestQueryParamUsingWildCard(final UaiRoute uaiRoute) {
         for (UaiQueryParam uaiQueryParam : uaiRoute.getRequest().getAllQueryParam()) {
-            final boolean usingWildCard = uaiQueryParam.getValueList().contains(ValidatorConstants.VALID_WILD_CARD.text);
+            final boolean usingWildCard =
+                uaiQueryParam.getValueList().contains(ValidatorConstants.VALID_WILD_CARD.text);
             uaiQueryParam.setUsingWildCard(usingWildCard);
         }
     }

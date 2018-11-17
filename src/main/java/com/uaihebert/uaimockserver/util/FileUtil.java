@@ -14,10 +14,10 @@ import java.net.URL;
 import java.nio.ByteBuffer;
 
 public final class FileUtil {
-    private static final String FILE_NOT_FOUND_EXCEPTION_MESSAGE = "We could not find the file: [%s]." +
-            "We looked into the same folder of the jar and we could not find it. %n" +
-            "Check if the is in the test/resources folder or in the same folder of the jar. %n" +
-            "If you want you can use the full the file path.";
+    private static final String FILE_NOT_FOUND_EXCEPTION_MESSAGE = "We could not find the file: [%s]."
+        + "We looked into the same folder of the jar and we could not find it. %n"
+        + "Check if the is in the test/resources folder or in the same folder of the jar. %n"
+        + "If you want you can use the full the file path.";
 
     private FileUtil() {
     }
@@ -65,23 +65,27 @@ public final class FileUtil {
                 writeInFile(secondaryConfig, secondaryJson);
             }
         } catch (IOException ex) {
-            throw new IllegalStateException("There was a problem when writing in the config files: " + ex.getMessage(), ex);
+            final String errorMessage = "There was a problem when writing in the config files: " + ex.getMessage();
+            throw new IllegalStateException(errorMessage, ex);
         }
     }
 
-    private static void writeInFile(final UaiMockServerConfig configFile, final String jsonConfigContent) throws IOException {
+    private static void writeInFile(final UaiMockServerConfig configFile, final String jsonContent) throws IOException {
         createFileBackUp(configFile.getUaiFile().getFullPath());
 
-        FileUtils.writeStringToFile(new File(configFile.getUaiFile().getFullPath()), jsonConfigContent);
+        FileUtils.writeStringToFile(new File(configFile.getUaiFile().getFullPath()), jsonContent);
 
-        Log.infoFormatted("The updates has been written in the config file [%s]", configFile.getUaiFile().getFullPath());
+        Log.infoFormatted(
+            "The updates has been written in the config file [%s]",
+            configFile.getUaiFile().getFullPath()
+        );
     }
 
     private static void createFileBackUp(final String fullPath) throws IOException {
         FileUtils.copyFile(new File(fullPath), new File(fullPath.replace(".json", ".back.json")));
     }
 
-    public static ByteBuffer getFileAsByteBuffer(String bodyPath) {
+    public static ByteBuffer getFileAsByteBuffer(final String bodyPath) {
         try {
             final File file = findFile(bodyPath);
 

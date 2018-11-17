@@ -13,9 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  * */
+
 package com.uaihebert.uaimockserver.validator;
 
-import com.uaihebert.uaimockserver.facade.RequestValidatorFacade;
+import com.uaihebert.uaimockserver.facade.RequestValidatorFacade.RequestAnalysisResult;
 import com.uaihebert.uaimockserver.log.backend.Log;
 import com.uaihebert.uaimockserver.model.UaiHeader;
 import com.uaihebert.uaimockserver.model.UaiRequest;
@@ -24,15 +25,23 @@ import io.undertow.util.HeaderMap;
 import io.undertow.util.HeaderValues;
 
 /**
- * Will validate all the request headers if needed
+ * Will validate all the request headers if needed.
  */
 public final class RequiredHeaderValidator implements RequestDataValidator {
+
+    @SuppressWarnings("LineLength")
     private static final String WILD_CARD_USED = "The header [%s] is using the wildcard. Its content will not be checked.";
+
+    @SuppressWarnings("LineLength")
     private static final String REQUIRED_HEADER_NOT_FOUND = "The required header [%s] was not found in the request";
+
+    @SuppressWarnings("LineLength")
     private static final String HEADER_VALUE_NOT_FOUND_MESSAGE = "%nThe required value %s was not found in the header [%s]";
 
     @Override
-    public void validate(final UaiRequest uaiRequest, final HttpServerExchange exchange, final RequestValidatorFacade.RequestAnalysisResult result) {
+    public void validate(final UaiRequest uaiRequest,
+                         final HttpServerExchange exchange,
+                         final RequestAnalysisResult result) {
         for (UaiHeader uaiHeader : uaiRequest.getRequiredHeaderList()) {
             final HeaderMap requestHeaderMap = exchange.getRequestHeaders();
 
@@ -40,7 +49,9 @@ public final class RequiredHeaderValidator implements RequestDataValidator {
         }
     }
 
-    private void validateHeader(final UaiHeader uaiHeader, final HeaderMap requestHeaderMap, final RequestValidatorFacade.RequestAnalysisResult result) {
+    private void validateHeader(final UaiHeader uaiHeader,
+                                final HeaderMap requestHeaderMap,
+                                final RequestAnalysisResult result) {
         final HeaderValues headerValueList = requestHeaderMap.get(uaiHeader.getName());
 
         if (headerValueList == null) {

@@ -24,7 +24,7 @@ public final class XmlUnitWrapper {
     }
 
     /**
-     * This method will compare both XMLs and validate its attribute order
+     * This method will compare both XMLs and validate its attribute order.
      *
      * @param expected what are we expecting
      * @param actual what we receive
@@ -37,7 +37,7 @@ public final class XmlUnitWrapper {
     }
 
     /**
-     * This method will compare both XMLs and WILL NOT validate its attribute order
+     * This method will compare both XMLs and WILL NOT validate its attribute order.
      *
      * @param expected what are we expecting
      * @param actual what we receive
@@ -49,7 +49,9 @@ public final class XmlUnitWrapper {
         return diff.similar();
     }
 
-    private static Diff createDiffResult(final String expected, final String actual, final boolean ignoreAttributeOrder) {
+    private static Diff createDiffResult(final String expected,
+                                         final String actual,
+                                         final boolean ignoreAttributeOrder) {
         XMLUnit.setIgnoreAttributeOrder(ignoreAttributeOrder);
         try {
             return XMLUnit.compareXML(expected, actual);

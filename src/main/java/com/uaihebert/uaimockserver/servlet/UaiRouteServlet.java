@@ -12,7 +12,6 @@ import com.uaihebert.uaimockserver.service.UaiRouteService;
 import com.uaihebert.uaimockserver.util.JsonUtil;
 import com.uaihebert.uaimockserver.util.RequestBodyExtractor;
 
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -22,14 +21,14 @@ import java.util.List;
 public class UaiRouteServlet extends AbstractServlet {
 
     @Override
-    protected void doGet(final HttpServletRequest httpRequest, final HttpServletResponse httpResponse) throws ServletException, IOException {
-        final String selectedProject = httpRequest.getParameter("selectedProject");
+    protected void doGet(final HttpServletRequest request, final HttpServletResponse response) throws IOException {
+        final String selectedProject = request.getParameter("selectedProject");
 
-        super.addDefaultHeaders(httpResponse);
+        super.addDefaultHeaders(response);
 
         final String body = createIndexGetResponse(selectedProject);
 
-        writeInResponse(httpResponse, body);
+        writeInResponse(response, body);
     }
 
     private String createIndexGetResponse(final String selectedProject) {
@@ -47,29 +46,29 @@ public class UaiRouteServlet extends AbstractServlet {
     }
 
     @Override
-    protected void doPut(final HttpServletRequest httpRequest, final HttpServletResponse httpResponse) throws ServletException, IOException {
-        final UaiRouteDTO uaiRouteDTO = RequestBodyExtractor.extract(httpRequest, UaiRouteDTO.class);
+    protected void doPut(final HttpServletRequest request, final HttpServletResponse response) throws IOException {
+        final UaiRouteDTO uaiRouteDTO = RequestBodyExtractor.extract(request, UaiRouteDTO.class);
 
         UaiRouteService.editRoute(uaiRouteDTO);
 
-        send204Response(httpResponse);
+        send204Response(response);
     }
 
     @Override
-    protected void doPost(final HttpServletRequest httpRequest, final HttpServletResponse httpResponse) throws ServletException, IOException {
-        final UaiRouteDTO uaiRouteDTO = RequestBodyExtractor.extract(httpRequest, UaiRouteDTO.class);
+    protected void doPost(final HttpServletRequest request, final HttpServletResponse response) throws IOException {
+        final UaiRouteDTO uaiRouteDTO = RequestBodyExtractor.extract(request, UaiRouteDTO.class);
 
         UaiRouteService.createRoute(uaiRouteDTO);
 
-        send204Response(httpResponse);
+        send204Response(response);
     }
 
     @Override
-    protected void doDelete(final HttpServletRequest httpRequest, final HttpServletResponse httpResponse) throws ServletException, IOException {
-        final String routeId = httpRequest.getParameter("routeId");
+    protected void doDelete(final HttpServletRequest request, final HttpServletResponse response) throws IOException {
+        final String routeId = request.getParameter("routeId");
 
         UaiRouteService.deleteRoute(routeId);
 
-        send204Response(httpResponse);
+        send204Response(response);
     }
 }

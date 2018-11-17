@@ -1,5 +1,6 @@
 package test.com.uaihebert.uaimockserver.runner;
 
+import com.uaihebert.uaimockserver.model.HttpStatusCode;
 import com.uaihebert.uaimockserver.runner.UaiMockServerRunner;
 import com.uaihebert.uaimockserver.runner.UaiRunnerMockServerConfiguration;
 import org.junit.Test;
@@ -13,39 +14,39 @@ import static org.junit.Assert.assertEquals;
 
 /**
  * Will test for several requests in the runner and making sure that
- * it will not mix configurations with the RunnerWithConfig01Test.class
+ * it will not mix configurations with the RunnerWithConfig01Test.class.
  */
 @RunWith(UaiMockServerRunner.class)
 @UaiRunnerMockServerConfiguration(configurationFile = "runnerWithConfigTest02.json")
 public class RunnerWithConfig02Test {
 
     @Test
-    public void isDefaultConfigurationInvoked01(){
+    public void isDefaultConfigurationInvoked01() {
         final String url = "http://localhost:1234/uaiMockServer/runnerWithConfig02";
 
-        Client client = ClientBuilder.newClient();
-        Response response = client.target(url).request().get();
+        final Client client = ClientBuilder.newClient();
+        final Response response = client.target(url).request().get();
 
-        assertEquals(204, response.getStatus());
+        assertEquals(HttpStatusCode.NO_CONTENT.code, response.getStatus());
     }
 
     @Test
-    public void isDefaultConfigurationInvoked02(){
+    public void isDefaultConfigurationInvoked02() {
         final String url = "http://localhost:1234/uaiMockServer/runnerWithConfig02";
 
-        Client client = ClientBuilder.newClient();
-        Response response = client.target(url).request().get();
+        final Client client = ClientBuilder.newClient();
+        final Response response = client.target(url).request().get();
 
-        assertEquals(204, response.getStatus());
+        assertEquals(HttpStatusCode.NO_CONTENT.code, response.getStatus());
     }
 
     @Test
-    public void isDefaultConfigurationInvoked03(){
+    public void isDefaultConfigurationInvoked03() {
         final String url = "http://localhost:1234/uaiMockServer/runnerWithConfig02";
 
-        Client client = ClientBuilder.newClient();
-        Response response = client.target(url).request().get();
+        final Client client = ClientBuilder.newClient();
+        final Response response = client.target(url).request().get();
 
-        assertEquals(204, response.getStatus());
+        assertEquals(HttpStatusCode.NO_CONTENT.code, response.getStatus());
     }
 }

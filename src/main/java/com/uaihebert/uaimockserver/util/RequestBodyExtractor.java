@@ -7,11 +7,10 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 
 public final class RequestBodyExtractor {
-    private RequestBodyExtractor() {
+    private RequestBodyExtractor() { }
 
-    }
-
-    public static <T> T extract(final HttpServletRequest httpServletRequest, Class<T> classToReturn) throws IOException {
+    public static <T> T extract(final HttpServletRequest httpServletRequest,
+                                final Class<T> classToReturn) throws IOException {
         final String body = IOUtils.toString(httpServletRequest.getInputStream(), ProjectConfiguration.ENCODING.value);
 
         return JsonUtil.fromJson(body, classToReturn);

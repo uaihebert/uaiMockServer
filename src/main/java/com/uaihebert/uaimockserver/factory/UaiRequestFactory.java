@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  * */
+
 package com.uaihebert.uaimockserver.factory;
 
 import com.uaihebert.uaimockserver.dto.model.UaiRequestDTO;
@@ -24,7 +25,7 @@ import com.uaihebert.uaimockserver.model.UaiRequest;
 import java.util.List;
 
 /**
- * This factory will create an instance of the UaiRequest.java
+ * This factory will create an instance of the UaiRequest.java.
  */
 public final class UaiRequestFactory {
     private UaiRequestFactory() {
@@ -45,8 +46,12 @@ public final class UaiRequestFactory {
 
         final List<UaiHeader> requiredHeaderList = UaiHeaderFactory.create(request.getRequiredHeaderList());
         final List<UaiHeader> optionalHeaderList = UaiHeaderFactory.create(request.getOptionalHeaderList());
-        final List<UaiQueryParam> requiredQueryParamList = UaiQueryParamFactory.create(request.getRequiredQueryParamList());
-        final List<UaiQueryParam> optionalQueryParamList = UaiQueryParamFactory.create(request.getOptionalQueryParamList());
+        final List<UaiQueryParam> requiredQueryParamList = UaiQueryParamFactory.create(
+            request.getRequiredQueryParamList()
+        );
+        final List<UaiQueryParam> optionalQueryParamList = UaiQueryParamFactory.create(
+            request.getOptionalQueryParamList()
+        );
 
         return new UaiRequest.UaiRequestBuilder()
                 .isBodyRequired(bodyRequired)

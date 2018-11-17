@@ -8,7 +8,7 @@ import org.junit.runners.model.InitializationError;
 public class UaiMockServerRunner extends BlockJUnit4ClassRunner {
     private final UaiRunnerMockServerConfiguration configuration;
 
-    public UaiMockServerRunner(Class<?> testClass) throws InitializationError {
+    public UaiMockServerRunner(final Class<?> testClass) throws InitializationError {
         super(testClass);
 
         configuration = testClass.getAnnotation(UaiRunnerMockServerConfiguration.class);

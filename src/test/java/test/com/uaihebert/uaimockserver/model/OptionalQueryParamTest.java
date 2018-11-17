@@ -1,5 +1,6 @@
 package test.com.uaihebert.uaimockserver.model;
 
+import com.uaihebert.uaimockserver.model.HttpStatusCode;
 import com.uaihebert.uaimockserver.runner.UaiMockServerRunner;
 import com.uaihebert.uaimockserver.runner.UaiRunnerMockServerConfiguration;
 import org.junit.Test;
@@ -25,7 +26,7 @@ public class OptionalQueryParamTest {
                 .request()
                 .get();
 
-        assertEquals(201, noQueryParamResponse.getStatus());
+        assertEquals(HttpStatusCode.CREATED.code, noQueryParamResponse.getStatus());
 
         final String url = "http://localhost:1234/uaiMockServer/optionalQueryParamTest?OPTIONAL_01=01&OPTIONAL_02=02";
 
@@ -35,7 +36,7 @@ public class OptionalQueryParamTest {
                 .request()
                 .get();
 
-        assertEquals(204, response.getStatus());
+        assertEquals(HttpStatusCode.NO_CONTENT.code, response.getStatus());
     }
 
     @Test
@@ -48,7 +49,7 @@ public class OptionalQueryParamTest {
                 .request()
                 .get();
 
-        assertEquals(500, response.getStatus());
+        assertEquals(HttpStatusCode.INTERNAL_SERVER_ERROR.code, response.getStatus());
     }
 
     @Test
@@ -61,6 +62,6 @@ public class OptionalQueryParamTest {
                 .request()
                 .get();
 
-        assertEquals(202, response.getStatus());
+        assertEquals(HttpStatusCode.ACCEPTED.code, response.getStatus());
     }
 }

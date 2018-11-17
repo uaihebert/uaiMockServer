@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  * */
+
 package com.uaihebert.uaimockserver.main;
 
 import com.uaihebert.uaimockserver.server.UaiMockServer;
@@ -21,13 +22,16 @@ import com.uaihebert.uaimockserver.server.UaiMockServer;
  * Only a bootstrap class.
  * Right now there is no need to test it
  */
-public class UaiMockServerMain {
+public final class UaiMockServerMain {
+    private UaiMockServerMain() {
+    }
+
 
     /**
      * It is possible just with a default file named 'uaiMockServer.config'
-     * Or pass the name of the file like: java -jar uaiMockServer.jar myConfigFile.config
+     * or pass the name of the file like: java -jar uaiMockServer.jar myConfigFile.config.
      */
-    public static void main(String[] args) throws InterruptedException {
+    public static void main(final String[] args) throws InterruptedException {
         startServer(args);
 
         Thread.currentThread().join();

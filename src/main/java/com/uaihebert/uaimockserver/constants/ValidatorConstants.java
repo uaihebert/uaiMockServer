@@ -13,10 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  * */
+
 package com.uaihebert.uaimockserver.constants;
 
 /**
- * Constants to be used in the Validators classes
+ * Constants to be used in the Validators classes.
  */
 public enum ValidatorConstants {
     VALID_WILD_CARD("UAI_*");

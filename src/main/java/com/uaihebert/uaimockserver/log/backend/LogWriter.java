@@ -1,13 +1,13 @@
 package com.uaihebert.uaimockserver.log.backend;
 
 /**
- * Will be the responsible for print the log data
+ * Will be the responsible for print the log data.
  */
 interface LogWriter {
 
-    public abstract void info(final String text);
+    void info(String text);
 
-    public abstract void warn(final String text);
+    void warn(String text);
 
-    public abstract void warn(final Exception exception);
+    void warn(Exception exception);
 }

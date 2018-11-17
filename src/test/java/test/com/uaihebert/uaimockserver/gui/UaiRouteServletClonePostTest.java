@@ -2,6 +2,7 @@ package test.com.uaihebert.uaimockserver.gui;
 
 import com.uaihebert.uaimockserver.context.UaiMockServerContext;
 import com.uaihebert.uaimockserver.factory.UaiRouteFactory;
+import com.uaihebert.uaimockserver.model.HttpStatusCode;
 import com.uaihebert.uaimockserver.model.UaiFile;
 import com.uaihebert.uaimockserver.model.UaiRequest;
 import com.uaihebert.uaimockserver.model.UaiResponse;
@@ -48,7 +49,7 @@ public class UaiRouteServletClonePostTest {
         // if we do not read the return, an error might be thrown
         post.readEntity(String.class);
 
-        assertEquals(204, post.getStatus());
+        assertEquals(HttpStatusCode.NO_CONTENT.code, post.getStatus());
 
         final List<UaiRoute> routeList = UaiMockServerContext.getInstance().uaiMockServerConfig.getRouteList();
 
