@@ -1,6 +1,6 @@
 package com.uaihebert.uaimockserver.constants;
 
-public enum HttpMethod {
+public enum UaiHttpMethod {
     OPTIONS,
     GET,
     HEAD,
