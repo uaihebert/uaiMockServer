@@ -77,7 +77,8 @@ public class WebServerSimulator {
 
             reader = new BufferedReader(new InputStreamReader(client.getInputStream()));
             writer = new PrintWriter(client.getOutputStream());
-            printResponse(writer, reader);
+            extractReceivedData(reader);
+            writeResponse(writer, reader);
 
             requestReceived = true;
         } catch (IOException ex) {
@@ -89,12 +90,34 @@ public class WebServerSimulator {
         }
     }
 
-    private void printResponse(final PrintWriter writer, final BufferedReader reader) throws IOException {
+    private void writeResponse(final PrintWriter writer, final BufferedReader reader) throws IOException {
         writer.print("HTTP/1.1 " + statusCodeToReturn + " \r\n");
         writer.print("Content-Type: application/json\r\n");
         writer.print("Connection: close\r\n");
         writer.print("\r\n");
+    }
 
+    private void extractReceivedData(final BufferedReader reader) throws IOException {
+        final StringBuilder incomingRequest = extractRequestMetadata(reader);
+
+        extractReceivedBody(reader, incomingRequest);
+
+        receivedRequest = incomingRequest.toString();
+
+        Logger.getAnonymousLogger().info("we received the request: " + receivedRequest);
+    }
+
+    private void extractReceivedBody(final BufferedReader reader, final StringBuilder receivedBody) throws IOException {
+        final StringBuilder payload = new StringBuilder();
+
+        while (reader.ready()) {
+            payload.append((char) reader.read());
+        }
+
+        receivedBody.append(payload);
+    }
+
+    private StringBuilder extractRequestMetadata(final BufferedReader reader) throws IOException {
         final StringBuilder receivedBody = new StringBuilder();
         String line;
 
@@ -105,7 +128,7 @@ public class WebServerSimulator {
 
             receivedBody.append(line).append("\r\n");
         }
-
-        receivedRequest = receivedBody.toString();
+        
+        return receivedBody;
     }
 }
