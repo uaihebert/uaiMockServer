@@ -7,7 +7,9 @@ import com.mashape.unirest.http.exceptions.UnirestException;
 import com.mashape.unirest.request.GetRequest;
 import com.uaihebert.uaimockserver.log.backend.Log;
 import com.uaihebert.uaimockserver.model.UaiCallback;
+import com.uaihebert.uaimockserver.model.UaiHeader;
 import com.uaihebert.uaimockserver.model.UaiQueryParam;
+import org.apache.commons.lang3.StringUtils;
 
 public final class UaiCallbackService {
     private UaiCallbackService() {
@@ -39,6 +41,11 @@ public final class UaiCallbackService {
 
         for (final UaiQueryParam queryParam : callback.getQueryParamList()) {
             request.queryString(queryParam.getName(), queryParam.getValueList());
+        }
+
+        for (final UaiHeader header : callback.getHeaderList()) {
+            final String value = StringUtils.join(header.getValueList(), ",");
+            request.header(header.getName(), value);
         }
 
         return request.asJson();
