@@ -1,5 +1,6 @@
 package test.com.uaihebert.uaimockserver.service;
 
+import com.uaihebert.uaimockserver.constants.UaiHttpMethod;
 import com.uaihebert.uaimockserver.log.backend.LogBuilder;
 import com.uaihebert.uaimockserver.model.UaiCallback;
 import com.uaihebert.uaimockserver.model.UaiHeader;
@@ -7,6 +8,7 @@ import com.uaihebert.uaimockserver.model.UaiQueryParam;
 import com.uaihebert.uaimockserver.service.UaiCallbackService;
 import org.junit.Before;
 import org.junit.Test;
+import test.com.uaihebert.uaimockserver.factory.UnirestRequestFactoryTest;
 import test.com.uaihebert.uaimockserver.util.WebServerSimulator;
 
 import java.io.IOException;
@@ -34,6 +36,7 @@ public class UaiCallbackServiceTest {
         webServer.waitForRequest();
 
         final UaiCallback callback = new UaiCallback();
+        callback.setHttpMethod(UaiHttpMethod.GET);
         callback.setCompleteUrlToCall("http://localhost:" + webServer.getLocalPort() + "/");
 
         UaiCallbackService.executeCallBack(callback);
@@ -47,6 +50,7 @@ public class UaiCallbackServiceTest {
         webServer.waitForRequest();
 
         final UaiCallback callback = new UaiCallback();
+        callback.setHttpMethod(UaiHttpMethod.GET);
         callback.setCompleteUrlToCall("http://localhost:" + webServer.getLocalPort() + "/");
 
         final List<String> values = new ArrayList<String>();
@@ -73,6 +77,7 @@ public class UaiCallbackServiceTest {
         webServer.waitForRequest();
 
         final UaiCallback callback = new UaiCallback();
+        callback.setHttpMethod(UaiHttpMethod.GET);
         callback.setCompleteUrlToCall("http://localhost:" + webServer.getLocalPort() + "/");
 
         final List<String> values = new ArrayList<String>();
@@ -96,8 +101,27 @@ public class UaiCallbackServiceTest {
     @Test
     public void isNotThrowingExceptionUpInCaseOfError() {
         final UaiCallback callback = new UaiCallback();
+        callback.setHttpMethod(UaiHttpMethod.GET);
         callback.setCompleteUrlToCall("http://localhost:3787/");
 
         UaiCallbackService.executeCallBack(callback);
+    }
+
+    @Test
+    public void isSendingRequestWithBody() throws IOException {
+        for (final UaiHttpMethod method : UnirestRequestFactoryTest.BODY_ALLOWED) {
+            final WebServerSimulator webServer = new WebServerSimulator();
+            webServer.waitForRequest();
+
+            final UaiCallback callback = new UaiCallback();
+            callback.setCompleteUrlToCall("http://localhost:" + webServer.getLocalPort() + "/");
+            callback.setHttpMethod(method);
+            callback.setBodyToSend("{\"testBody\":1234}");
+
+            UaiCallbackService.executeCallBack(callback);
+
+            assertTrue(webServer.hasReceivedRequest());
+            assertTrue(webServer.receivedRequestContains("{\"testBody\":1234}"));
+        }
     }
 }
