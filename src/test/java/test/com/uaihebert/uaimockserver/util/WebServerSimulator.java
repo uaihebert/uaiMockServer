@@ -24,6 +24,8 @@ public class WebServerSimulator {
 
     private volatile boolean requestReceived;
 
+    private volatile String receivedRequest;
+
     public WebServerSimulator() throws IOException {
         this(DEFAULT_STATUS_CODE);
     }
@@ -42,8 +44,6 @@ public class WebServerSimulator {
      * To check if the request was received, you can check the attribute #requestReceived
      * <p>
      * Right now, it only returns 204, make no distinction of URLs, and add no body on the response
-     *
-     * @throws IOException
      */
     public void waitForRequest() {
         final Thread thread = new Thread() {
@@ -53,6 +53,18 @@ public class WebServerSimulator {
         };
 
         thread.start();
+    }
+
+    public int getLocalPort() {
+        return serverSocket.getLocalPort();
+    }
+
+    public boolean hasReceivedRequest() {
+        return requestReceived;
+    }
+
+    public boolean receivedRequestContains(final String text) {
+        return receivedRequest.contains(text);
     }
 
     private void startServerInBackground() {
@@ -77,20 +89,13 @@ public class WebServerSimulator {
         }
     }
 
-    public int getLocalPort() {
-        return serverSocket.getLocalPort();
-    }
-
-    public boolean hasReceivedRequest() {
-        return requestReceived;
-    }
-
     private void printResponse(final PrintWriter writer, final BufferedReader reader) throws IOException {
         writer.print("HTTP/1.1 " + statusCodeToReturn + " \r\n");
         writer.print("Content-Type: application/json\r\n");
         writer.print("Connection: close\r\n");
         writer.print("\r\n");
 
+        final StringBuilder receivedBody = new StringBuilder();
         String line;
 
         while ((line = reader.readLine()) != null) {
@@ -98,7 +103,9 @@ public class WebServerSimulator {
                 break;
             }
 
-            writer.print(line + "\r\n");
+            receivedBody.append(line).append("\r\n");
         }
+
+        receivedRequest = receivedBody.toString();
     }
 }
