@@ -4,8 +4,10 @@ import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.JsonNode;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
+import com.mashape.unirest.request.GetRequest;
 import com.uaihebert.uaimockserver.log.backend.Log;
 import com.uaihebert.uaimockserver.model.UaiCallback;
+import com.uaihebert.uaimockserver.model.UaiQueryParam;
 
 public final class UaiCallbackService {
     private UaiCallbackService() {
@@ -33,6 +35,12 @@ public final class UaiCallbackService {
     }
 
     private static HttpResponse<JsonNode> callback(final UaiCallback callback) throws UnirestException {
-        return Unirest.get(callback.getCompleteUrlToCall()).asJson();
+        final GetRequest request = Unirest.get(callback.getCompleteUrlToCall());
+
+        for (final UaiQueryParam queryParam : callback.getQueryParamList()) {
+            request.queryString(queryParam.getName(), queryParam.getValueList());
+        }
+
+        return request.asJson();
     }
 }
