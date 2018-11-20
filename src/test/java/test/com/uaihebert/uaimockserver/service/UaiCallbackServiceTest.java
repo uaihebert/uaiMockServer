@@ -27,31 +27,35 @@ public class UaiCallbackServiceTest {
 
     @Test
     public void ifNoCallbackIsProvidedNoExceptionIsThrown() {
-        UaiCallbackService.executeCallBack(null);
+        UaiCallbackService.executeCallback(null);
     }
 
     @Test
-    public void isExecutingBasicGet() throws IOException {
+    public void isExecutingBasicGet() throws IOException, InterruptedException {
         final WebServerSimulator webServer = new WebServerSimulator();
         webServer.waitForRequest();
 
         final UaiCallback callback = new UaiCallback();
         callback.setHttpMethod(UaiHttpMethod.GET);
         callback.setCompleteUrlToCall("http://localhost:" + webServer.getLocalPort() + "/");
+        callback.setDelayInMilli(0);
 
-        UaiCallbackService.executeCallBack(callback);
+        UaiCallbackService.executeCallback(callback);
+
+        waitForAsyncThreads();
 
         assertTrue(webServer.hasReceivedRequest());
     }
 
     @Test
-    public void isExecutingGetWithQueryParams() throws IOException {
+    public void isExecutingGetWithQueryParams() throws IOException, InterruptedException {
         final WebServerSimulator webServer = new WebServerSimulator();
         webServer.waitForRequest();
 
         final UaiCallback callback = new UaiCallback();
         callback.setHttpMethod(UaiHttpMethod.GET);
         callback.setCompleteUrlToCall("http://localhost:" + webServer.getLocalPort() + "/");
+        callback.setDelayInMilli(0);
 
         final List<String> values = new ArrayList<String>();
         values.add("ValueA");
@@ -62,7 +66,9 @@ public class UaiCallbackServiceTest {
         callback.getQueryParamList().add(queryParamA);
         callback.getQueryParamList().add(queryParamB);
 
-        UaiCallbackService.executeCallBack(callback);
+        UaiCallbackService.executeCallback(callback);
+
+        waitForAsyncThreads();
 
         assertTrue(webServer.hasReceivedRequest());
         assertTrue(webServer.receivedRequestContains(queryParamA.getName()));
@@ -72,13 +78,14 @@ public class UaiCallbackServiceTest {
     }
 
     @Test
-    public void isExecutingGetWithHeaders() throws IOException {
+    public void isExecutingGetWithHeaders() throws IOException, InterruptedException {
         final WebServerSimulator webServer = new WebServerSimulator();
         webServer.waitForRequest();
 
         final UaiCallback callback = new UaiCallback();
         callback.setHttpMethod(UaiHttpMethod.GET);
         callback.setCompleteUrlToCall("http://localhost:" + webServer.getLocalPort() + "/");
+        callback.setDelayInMilli(0);
 
         final List<String> values = new ArrayList<String>();
         values.add("ValueA");
@@ -89,7 +96,9 @@ public class UaiCallbackServiceTest {
         callback.getHeaderList().add(headerA);
         callback.getHeaderList().add(headerB);
 
-        UaiCallbackService.executeCallBack(callback);
+        UaiCallbackService.executeCallback(callback);
+
+        waitForAsyncThreads();
 
         assertTrue(webServer.hasReceivedRequest());
         assertTrue(webServer.receivedRequestContains(headerA.getName()));
@@ -99,29 +108,43 @@ public class UaiCallbackServiceTest {
     }
 
     @Test
-    public void isNotThrowingExceptionUpInCaseOfError() {
+    public void isNotThrowingExceptionUpInCaseOfError() throws InterruptedException {
         final UaiCallback callback = new UaiCallback();
         callback.setHttpMethod(UaiHttpMethod.GET);
         callback.setCompleteUrlToCall("http://localhost:3787/");
+        callback.setDelayInMilli(0);
 
-        UaiCallbackService.executeCallBack(callback);
+        UaiCallbackService.executeCallback(callback);
+
+        waitForAsyncThreads();
     }
 
     @Test
-    public void isSendingRequestWithBody() throws IOException {
+    public void isSendingRequestWithBody() throws IOException, InterruptedException {
         for (final UaiHttpMethod method : UnirestRequestFactoryTest.BODY_ALLOWED) {
             final WebServerSimulator webServer = new WebServerSimulator();
             webServer.waitForRequest();
 
             final UaiCallback callback = new UaiCallback();
+            callback.setDelayInMilli(0);
             callback.setCompleteUrlToCall("http://localhost:" + webServer.getLocalPort() + "/");
             callback.setHttpMethod(method);
             callback.setBodyToSend("{\"testBody\":1234}");
 
-            UaiCallbackService.executeCallBack(callback);
+            UaiCallbackService.executeCallback(callback);
+
+            waitForAsyncThreads();
 
             assertTrue(webServer.hasReceivedRequest());
             assertTrue(webServer.receivedRequestContains("{\"testBody\":1234}"));
         }
+    }
+
+    // we now have 2 async threads running.
+    // 1) WebServerSimulator
+    // 2) Callback execution
+    // we need a sleep here to wait for those threads to finish the proces
+    private void waitForAsyncThreads() throws InterruptedException {
+        Thread.sleep(600);
     }
 }

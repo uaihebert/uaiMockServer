@@ -15,25 +15,40 @@ public final class UaiCallbackService {
     private UaiCallbackService() {
     }
 
-    public static void executeCallBack(final UaiCallback callback) {
+    // Skipping it here because it makes no sense of throwing an exception up on a separated thread
+    @SuppressWarnings("IllegalCatch")
+    public static void executeCallback(final UaiCallback callback) {
         if (callback == null) {
             return;
         }
 
-        try {
-            final HttpResponse<JsonNode> result = callback(callback);
+        final Thread thread = new Thread() {
+            @Override
+            public void run() {
+                try {
+                    runProcess(callback);
+                } catch (Exception ex) {
+                    Log.warnFormatted(ex);
+                }
+            }
+        };
 
-            final String logText = new StringBuilder()
-                .append("Callback executed. \n")
-                .append("We called the url " + callback.getCompleteUrlToCall() +  "\n")
-                .append("The returned Http Status Code was: " + result.getStatus() + ". \n")
-                .append("The returned Response Body is: " + result.getBody() + ". \n")
-                .toString();
+        thread.start();
+    }
 
-            Log.infoFormatted(logText);
-        } catch (UnirestException ex) {
-            Log.warnFormatted(ex);
-        }
+    private static void runProcess(final UaiCallback callback) throws InterruptedException, UnirestException {
+        Thread.sleep(callback.getDelayInMilli());
+
+        final HttpResponse<JsonNode> result = callback(callback);
+
+        final String logText = new StringBuilder()
+            .append("Callback executed. \n")
+            .append("We called the url " + callback.getCompleteUrlToCall() + "\n")
+            .append("The returned Http Status Code was: " + result.getStatus() + ". \n")
+            .append("The returned Response Body is: " + result.getBody() + ". \n")
+            .toString();
+
+        Log.infoFormatted(logText);
     }
 
     private static HttpResponse<JsonNode> callback(final UaiCallback callback) throws UnirestException {
