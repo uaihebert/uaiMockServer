@@ -115,8 +115,8 @@
                     <debuglevel>lines,vars,source</debuglevel>
                     <source>1.6</source>
                     <target>1.6</target>
-                    <compilerArgument>-g:vars</compilerArgument>
-                    <testCompilerArgument>-g:vars</testCompilerArgument>
+                    <compilerArgument>-g:lines,vars,source</compilerArgument>
+                    <testCompilerArgument>-g:lines,vars,source</testCompilerArgument>
                     <fork>true</fork>
                 </configuration>
             </plugin>
