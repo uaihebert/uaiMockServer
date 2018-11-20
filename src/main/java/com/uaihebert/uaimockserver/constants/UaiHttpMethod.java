@@ -7,5 +7,6 @@ public enum UaiHttpMethod {
     POST,
     PUT,
     DELETE,
-    TRACE
+    TRACE,
+    PATCH
 }
