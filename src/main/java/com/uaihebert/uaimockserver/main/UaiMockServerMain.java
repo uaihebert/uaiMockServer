@@ -26,7 +26,6 @@ public final class UaiMockServerMain {
     private UaiMockServerMain() {
     }
 
-
     /**
      * It is possible just with a default file named 'uaiMockServer.config'
      * or pass the name of the file like: java -jar uaiMockServer.jar myConfigFile.config.

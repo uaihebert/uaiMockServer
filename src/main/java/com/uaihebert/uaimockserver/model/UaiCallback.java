@@ -32,8 +32,8 @@ public class UaiCallback {
 
     private UaiHttpMethod httpMethod;
 
-    private final List<UaiHeader> headerList = new ArrayList<UaiHeader>();
-    private final List<UaiQueryParam> queryParamList = new ArrayList<UaiQueryParam>();
+    private List<UaiHeader> headerList;
+    private List<UaiQueryParam> queryParamList;
 
     public String getBodyToSend() {
         return bodyToSend;
@@ -52,10 +52,18 @@ public class UaiCallback {
     }
 
     public List<UaiHeader> getHeaderList() {
+        if (headerList == null) {
+            headerList = new ArrayList<UaiHeader>();
+        }
+
         return headerList;
     }
 
     public List<UaiQueryParam> getQueryParamList() {
+        if (queryParamList == null) {
+            queryParamList = new ArrayList<UaiQueryParam>();
+        }
+
         return queryParamList;
     }
 
@@ -73,5 +81,13 @@ public class UaiCallback {
 
     public void setHttpMethod(final UaiHttpMethod httpMethod) {
         this.httpMethod = httpMethod;
+    }
+
+    public void setHeaderList(final List<UaiHeader> headerList) {
+        this.headerList = headerList;
+    }
+
+    public void setQueryParamList(final List<UaiQueryParam> queryParamList) {
+        this.queryParamList = queryParamList;
     }
 }

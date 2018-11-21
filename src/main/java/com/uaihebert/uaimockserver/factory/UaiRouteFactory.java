@@ -58,18 +58,18 @@ public final class UaiRouteFactory {
 
     public static void setDTOValueToEntity(final UaiRoute uaiRoute, final UaiRouteDTO uaiRouteDTO) {
         final UaiRequest uaiRequest = UaiRequestFactory.create(uaiRouteDTO.getRequest());
+        uaiRoute.setRequest(uaiRequest);
 
         final UaiCallback uaiCallback = UaiCallbackFactory.create(uaiRouteDTO.getCallback());
+        uaiRoute.setCallback(uaiCallback);
 
         final UaiResponse uaiResponse = UaiResponseFactory.create(uaiRouteDTO.getResponse());
+        uaiRoute.setResponse(uaiResponse);
 
         final UaiFile uaiFile = new UaiFile(uaiRouteDTO.getUaiFile().getName(), uaiRouteDTO.getUaiFile().getFullPath());
-
-        uaiRoute.setRequest(uaiRequest);
-        uaiRoute.setResponse(uaiResponse);
         uaiRoute.setUaiFile(uaiFile);
+
         uaiRoute.setProject(uaiRouteDTO.getProject());
-        uaiRoute.setCallback(uaiCallback);
     }
 
     public static UaiRoute clone(final UaiRoute uaiRoute) {

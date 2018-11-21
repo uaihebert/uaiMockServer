@@ -2,10 +2,10 @@ package com.uaihebert.uaimockserver.dto.model;
 
 import com.uaihebert.uaimockserver.constants.UaiHttpMethod;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class UaiCallbackDTO {
+    // todo, add ContentType
     private int delayInMilli;
 
     private String bodyToSend;
@@ -13,8 +13,8 @@ public class UaiCallbackDTO {
 
     private UaiHttpMethod httpMethod;
 
-    private final List<UaiHeaderDTO> headerList = new ArrayList<UaiHeaderDTO>();
-    private final List<UaiQueryParamDTO> queryParamList = new ArrayList<UaiQueryParamDTO>();
+    private List<UaiHeaderDTO> headerList;
+    private List<UaiQueryParamDTO> queryParamList;
 
     public int getDelayInMilli() {
         return delayInMilli;
@@ -54,5 +54,13 @@ public class UaiCallbackDTO {
 
     public List<UaiQueryParamDTO> getQueryParamList() {
         return queryParamList;
+    }
+
+    public void setHeaderList(final List<UaiHeaderDTO> headerList) {
+        this.headerList = headerList;
+    }
+
+    public void setQueryParamList(final List<UaiQueryParamDTO> queryParamList) {
+        this.queryParamList = queryParamList;
     }
 }
