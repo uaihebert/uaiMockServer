@@ -18,6 +18,7 @@ package test.com.uaihebert.uaimockserver.util;
 
 import com.uaihebert.uaimockserver.context.UaiWebSocketContext;
 import com.uaihebert.uaimockserver.dto.factory.UaiBasicConfigurationDTOFactory;
+import com.uaihebert.uaimockserver.dto.factory.UaiCallbackDTOFactory;
 import com.uaihebert.uaimockserver.dto.factory.UaiFileDTOFactory;
 import com.uaihebert.uaimockserver.dto.factory.UaiHeaderDTOFactory;
 import com.uaihebert.uaimockserver.dto.factory.UaiQueryParamDTOFactory;
@@ -79,6 +80,7 @@ public class PrivateConstructorTest {
         UaiWebSocketLogDTOFactory.class, UaiJsonFieldFailureLogger.class, UaiMockServerConfigFactory.class,
         UaiBasicConfigurationDTOFactory.class, UaiWebSocketLogResponseDTOFactory.class, RunServerManually.class,
         UaiMockServerMain.class, UaiCallbackService.class, UnirestRequestFactory.class, UaiCallbackFactory.class,
+        UaiCallbackDTOFactory.class,
     };
 
     @Test
