@@ -27,6 +27,7 @@ import com.uaihebert.uaimockserver.dto.factory.UaiRouteDTOFactory;
 import com.uaihebert.uaimockserver.dto.factory.UaiWebSocketLogDTOFactory;
 import com.uaihebert.uaimockserver.dto.factory.UaiWebSocketLogResponseDTOFactory;
 import com.uaihebert.uaimockserver.facade.RequestValidatorFacade;
+import com.uaihebert.uaimockserver.factory.UaiCallbackFactory;
 import com.uaihebert.uaimockserver.factory.UaiHeaderFactory;
 import com.uaihebert.uaimockserver.factory.UaiMockServerConfigFactory;
 import com.uaihebert.uaimockserver.factory.UaiQueryParamFactory;
@@ -77,7 +78,7 @@ public class PrivateConstructorTest {
         UaiWebSocketLogManager.class, RequestValidatorFacade.class, UaiQueryParamDTOFactory.class,
         UaiWebSocketLogDTOFactory.class, UaiJsonFieldFailureLogger.class, UaiMockServerConfigFactory.class,
         UaiBasicConfigurationDTOFactory.class, UaiWebSocketLogResponseDTOFactory.class, RunServerManually.class,
-        UaiMockServerMain.class, UaiCallbackService.class, UnirestRequestFactory.class,
+        UaiMockServerMain.class, UaiCallbackService.class, UnirestRequestFactory.class, UaiCallbackFactory.class,
     };
 
     @Test
