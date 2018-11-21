@@ -1,6 +1,8 @@
 package test.com.uaihebert.uaimockserver.gui;
 
 import com.google.gson.Gson;
+import com.uaihebert.uaimockserver.constants.UaiHttpMethod;
+import com.uaihebert.uaimockserver.dto.model.UaiCallbackDTO;
 import com.uaihebert.uaimockserver.dto.model.UaiFileDTO;
 import com.uaihebert.uaimockserver.dto.model.UaiRequestDTO;
 import com.uaihebert.uaimockserver.dto.model.UaiResponseDTO;
@@ -76,6 +78,14 @@ public class UaiRouteServletPostTest {
 
         uaiRouteDTO.setRequest(request);
         uaiRouteDTO.setResponse(new UaiResponseDTO());
+
+        final UaiCallbackDTO callback = new UaiCallbackDTO();
+        callback.setBodyToSend("{\"body\": \"to send\"}}");
+        callback.setCompleteUrlToCall("http://uaiMockServer.com");
+        callback.setDelayInMilli(1);
+        callback.setHttpMethod(UaiHttpMethod.POST);
+
+        uaiRouteDTO.setCallback(callback);
 
         return new Gson().toJson(uaiRouteDTO);
     }

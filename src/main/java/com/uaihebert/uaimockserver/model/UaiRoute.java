@@ -27,30 +27,38 @@ public class UaiRoute {
     private String project;
     private UaiFile uaiFile;
     private UaiRequest request;
+    private UaiCallback callback;
     private UaiResponse response;
 
     public UaiRoute() {
 
     }
 
-    public UaiRoute(final UaiFile uaiFile, final UaiRequest request, final UaiResponse response, final String project) {
+    public UaiRoute(final UaiFile uaiFile,
+                    final UaiRequest request,
+                    final UaiResponse response,
+                    final String project,
+                    final UaiCallback callback) {
         createId();
         this.uaiFile = uaiFile;
         this.request = request;
         this.response = response;
         this.project = project;
+        this.callback = callback;
     }
 
     public UaiRoute(final String id,
                     final UaiFile uaiFile,
                     final UaiRequest request,
                     final UaiResponse response,
-                    final String project) {
+                    final String project,
+                    final UaiCallback callback) {
         this.id = id;
         this.uaiFile = uaiFile;
         this.request = request;
         this.response = response;
         this.project = project;
+        this.callback = callback;
     }
 
     public void createId() {
@@ -106,5 +114,13 @@ public class UaiRoute {
 
     public void setProject(final String project) {
         this.project = project;
+    }
+
+    public UaiCallback getCallback() {
+        return callback;
+    }
+
+    public void setCallback(final UaiCallback callback) {
+        this.callback = callback;
     }
 }

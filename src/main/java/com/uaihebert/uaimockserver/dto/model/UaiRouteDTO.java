@@ -5,6 +5,7 @@ public class UaiRouteDTO {
     private String project;
     private UaiFileDTO uaiFile;
     private UaiRequestDTO request;
+    private UaiCallbackDTO callback;
     private UaiResponseDTO response;
 
     public UaiRouteDTO() {
@@ -48,5 +49,13 @@ public class UaiRouteDTO {
 
     public void setProject(final String project) {
         this.project = project;
+    }
+
+    public UaiCallbackDTO getCallback() {
+        return callback;
+    }
+
+    public void setCallback(final UaiCallbackDTO callback) {
+        this.callback = callback;
     }
 }

@@ -31,20 +31,6 @@ public class UaiRouteServlet extends AbstractServlet {
         writeInResponse(response, body);
     }
 
-    private String createIndexGetResponse(final String selectedProject) {
-        final List<UaiRoute> uaiRouteList = UaiRouteRepository.listAllRoutes(selectedProject);
-
-        final IndexResponseDTO indexResponseDTO = new IndexResponseDTO();
-
-        indexResponseDTO.setRouteList(UaiRouteDTOFactory.create(uaiRouteList));
-        indexResponseDTO.setDefaultProject(UaiRouteMapper.ALL_PROJECT);
-        indexResponseDTO.setProjectList(UaiRouteMapper.extractProjectFromRoutes());
-        indexResponseDTO.setRootConfiguration(UaiBasicConfigurationDTOFactory.create());
-        indexResponseDTO.setBodyValidationTypeList(Arrays.asList(BodyValidationType.values()));
-
-        return JsonUtil.toJson(indexResponseDTO);
-    }
-
     @Override
     protected void doPut(final HttpServletRequest request, final HttpServletResponse response) throws IOException {
         final UaiRouteDTO uaiRouteDTO = RequestBodyExtractor.extract(request, UaiRouteDTO.class);
@@ -70,5 +56,19 @@ public class UaiRouteServlet extends AbstractServlet {
         UaiRouteService.deleteRoute(routeId);
 
         send204Response(response);
+    }
+
+    private String createIndexGetResponse(final String selectedProject) {
+        final List<UaiRoute> uaiRouteList = UaiRouteRepository.listAllRoutes(selectedProject);
+
+        final IndexResponseDTO indexResponseDTO = new IndexResponseDTO();
+
+        indexResponseDTO.setRouteList(UaiRouteDTOFactory.create(uaiRouteList));
+        indexResponseDTO.setDefaultProject(UaiRouteMapper.ALL_PROJECT);
+        indexResponseDTO.setProjectList(UaiRouteMapper.extractProjectFromRoutes());
+        indexResponseDTO.setRootConfiguration(UaiBasicConfigurationDTOFactory.create());
+        indexResponseDTO.setBodyValidationTypeList(Arrays.asList(BodyValidationType.values()));
+
+        return JsonUtil.toJson(indexResponseDTO);
     }
 }

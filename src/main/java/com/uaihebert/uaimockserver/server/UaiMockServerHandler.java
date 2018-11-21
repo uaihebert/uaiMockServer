@@ -33,7 +33,7 @@ import java.io.OutputStream;
 /**
  * This class is the responsible for handling a incoming request.
  * The request will be validated and if it is correctly configured its response will be sent.
- * If there request is not found or have any kind of error, an InternalServerError will be sent
+ * If there request is a not found or any kind of error, an InternalServerError will be sent
  */
 public class UaiMockServerHandler implements HttpHandler {
     private final ResponseHandler responseHandler = new ResponseHandler();

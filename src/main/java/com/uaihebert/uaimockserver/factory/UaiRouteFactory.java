@@ -17,6 +17,7 @@
 package com.uaihebert.uaimockserver.factory;
 
 import com.uaihebert.uaimockserver.dto.model.UaiRouteDTO;
+import com.uaihebert.uaimockserver.model.UaiCallback;
 import com.uaihebert.uaimockserver.model.UaiFile;
 import com.uaihebert.uaimockserver.model.UaiRequest;
 import com.uaihebert.uaimockserver.model.UaiResponse;
@@ -36,19 +37,29 @@ public final class UaiRouteFactory {
     public static UaiRoute create(final UaiRouteDTO uaiRouteDTO) {
         final UaiRequest uaiRequest = UaiRequestFactory.create(uaiRouteDTO.getRequest());
 
+        final UaiCallback uaiCallback = UaiCallbackFactory.create(uaiRouteDTO.getCallback());
+
         final UaiResponse uaiResponse = UaiResponseFactory.create(uaiRouteDTO.getResponse());
 
         final UaiFile uaiFile = new UaiFile(uaiRouteDTO.getUaiFile().getName(), uaiRouteDTO.getUaiFile().getFullPath());
 
         if (StringUtils.isBlank(uaiRouteDTO.getId())) {
-            return new UaiRoute(uaiFile, uaiRequest, uaiResponse, uaiRouteDTO.getProject());
+            return new UaiRoute(uaiFile, uaiRequest, uaiResponse, uaiRouteDTO.getProject(), uaiCallback);
         }
 
-        return new UaiRoute(uaiRouteDTO.getId(), uaiFile, uaiRequest, uaiResponse, uaiRouteDTO.getProject());
+        return new UaiRoute(uaiRouteDTO.getId(),
+            uaiFile,
+            uaiRequest,
+            uaiResponse,
+            uaiRouteDTO.getProject(),
+            uaiCallback
+        );
     }
 
     public static void setDTOValueToEntity(final UaiRoute uaiRoute, final UaiRouteDTO uaiRouteDTO) {
         final UaiRequest uaiRequest = UaiRequestFactory.create(uaiRouteDTO.getRequest());
+
+        final UaiCallback uaiCallback = UaiCallbackFactory.create(uaiRouteDTO.getCallback());
 
         final UaiResponse uaiResponse = UaiResponseFactory.create(uaiRouteDTO.getResponse());
 
@@ -58,6 +69,7 @@ public final class UaiRouteFactory {
         uaiRoute.setResponse(uaiResponse);
         uaiRoute.setUaiFile(uaiFile);
         uaiRoute.setProject(uaiRouteDTO.getProject());
+        uaiRoute.setCallback(uaiCallback);
     }
 
     public static UaiRoute clone(final UaiRoute uaiRoute) {
@@ -82,6 +94,11 @@ public final class UaiRouteFactory {
                 .optionalQueryParamList(request.getOptionalQueryParamList())
                 .build();
 
-        return new UaiRoute(uaiRoute.getUaiFile(), clonedRequest, uaiRoute.getResponse(), uaiRoute.getProject());
+        return new UaiRoute(uaiRoute.getUaiFile(),
+            clonedRequest,
+            uaiRoute.getResponse(),
+            uaiRoute.getProject(),
+            uaiRoute.getCallback()
+        );
     }
 }
