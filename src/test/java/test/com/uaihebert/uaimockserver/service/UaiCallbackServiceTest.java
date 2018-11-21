@@ -145,6 +145,7 @@ public class UaiCallbackServiceTest {
     // 2) Callback execution
     // we need a sleep here to wait for those threads to finish the proces
     private void waitForAsyncThreads() throws InterruptedException {
-        Thread.sleep(600);
+        final int waitTimeInMillis = 600;
+        Thread.sleep(waitTimeInMillis);
     }
 }

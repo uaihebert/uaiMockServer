@@ -128,7 +128,7 @@ public class WebServerSimulator {
 
             receivedBody.append(line).append("\r\n");
         }
-        
+
         return receivedBody;
     }
 }
