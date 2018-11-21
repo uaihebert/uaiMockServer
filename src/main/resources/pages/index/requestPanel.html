@@ -10,7 +10,7 @@
     <div id="collapseRequestOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingRequestOne">
       <div class="panel-body">
         <form name="requestForm" class="css-form">
-            Name:
+            <p class="requiredAttribute">* </p>Name:
             <input type="text" class="form-control" ng-model="selectedRouteRow.route.request.name" placeholder="A name to make easier to identify the request" /><br />
             <p class="requiredAttribute">* </p>Method:
             <select class="form-control" ng-model="selectedRouteRow.route.request.method" ng-options="httpMethod for httpMethod in httpMethodArray">

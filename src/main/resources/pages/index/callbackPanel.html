@@ -1,0 +1,88 @@
+<!-- todo, create a button here that would allow to create/delete a callback. otherwise the validation would fail all the time -->
+<div class="panel-group" id="accordionCallback" role="tablist" aria-multiselectable="true" xmlns="http://www.w3.org/1999/html">
+    <div class="panel panel-default">
+        <div class="panel-heading" role="tab" id="headingCallbackOne">
+            <h4 class="panel-title">
+                <a data-toggle="collapse" data-parent="#accordionCallback" href="#collapseCallbackOne"
+                   aria-expanded="false" aria-controls="collapseCallbackOne">
+                    Callback Data
+                </a>
+            </h4>
+        </div>
+        <div id="collapseCallbackOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingCallbackOne">
+            <div class="panel-body">
+                <form novalidate class="css-form">
+                    <p class="requiredAttribute">* </p>Delay In Milli:
+                    <input type="number" class="form-control" ng-model="selectedRouteRow.route.callback.delayInMilli" placeholder="How long until we send your callback."/><br/>
+                    <p class="requiredAttribute">* </p>HTTP Method:
+                    <select class="form-control" ng-model="selectedRouteRow.route.callback.httpMethod">
+                        <option value="DELETE">DELETE</option>
+                        <option value="GET">GET</option>
+                        <option value="HEAD">HEAD</option>
+                        <option value="POST">POST</option>
+                        <option value="PATCH">PATCH</option>
+                        <option value="PUT">PUT</option>
+                    </select><br/>
+                    Body to Send:
+                    <textarea class="form-control" rows="3" ng-model="selectedRouteRow.route.callback.bodyToSend" placeholder='The body to be returned, e.g.: {"mockBody":{"title":"Hello World"}}'></textarea><br/>
+                    <p class="requiredAttribute">* </p>Complete URL to Call:
+                    <input type="text" class="form-control" ng-model="selectedRouteRow.route.callback.completeUrlToCall" placeholder="e.g.: http://localhost:8080/yourAwesomeProject/callBackHere"/><br/>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-heading" role="tab" id="headingCallbackTwo">
+            <h4 class="panel-title">
+                <a class="collapsed" data-toggle="collapse" data-parent="#accordionCallback" href="#collapseCallbackTwo" aria-expanded="false" aria-controls="collapseCallbackTwo">
+                    Header List
+                </a>
+            </h4>
+        </div>
+        <div id="collapseCallbackTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingCallbackTwo">
+            <div class="panel-body">
+                <table class="table table-hover pointer">
+                    <tbody>
+                    <button class="btn btn-success" ng-click="addNewHeaderCallback(selectedRouteRow.route.callback)">Add New</button>
+                    <tr ng-repeat="header in selectedRouteRow.route.callback.headerList">
+                        <td>
+                            Name: <input type="text" class="form-control" ng-model="header.name" placeholder="The header name"/><br/>
+
+                            <textarea class="form-control" rows="3" ng-model="header.valueList" placeholder="A list like VALUE or VALUE1,VALUE2"></textarea>
+                            <br/>
+                            <button class="btn btn-danger pull-right" ng-click="selectedRouteRow.route.callback.headerList.splice($index,1)">Delete (no confirmation)</button>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-heading" role="tab" id="headingCallbackThree">
+            <h4 class="panel-title">
+                <a class="collapsed" data-toggle="collapse" data-parent="#accordionCallback" href="#collapseCallbackThree" aria-expanded="false" aria-controls="collapseCallbackThree">
+                    Query Param List
+                </a>
+            </h4>
+        </div>
+        <div id="collapseCallbackThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingCallbackThree">
+            <div class="panel-body">
+                <table class="table table-hover pointer">
+                    <tbody>
+                    <button class="btn btn-success" ng-click="addNewQueryParamCallback(selectedRouteRow.route.callback)">Add New</button>
+                    <tr ng-repeat="queryParam in selectedRouteRow.route.callback.queryParamList">
+                        <td>
+                            Name: <input type="text" class="form-control" ng-model="queryParam.name" placeholder="The queryParam name"/><br/>
+
+                            <textarea class="form-control" rows="3" ng-model="queryParam.valueList" placeholder="A list like VALUE or VALUE1,VALUE2"></textarea>
+                            <br/>
+                            <button class="btn btn-danger pull-right" ng-click="selectedRouteRow.route.callback.queryParamList.splice($index,1)">Delete (no confirmation)</button>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

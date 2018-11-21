@@ -1,4 +1,4 @@
-var app = angular.module('uaiMockServerApp', ['tableSort', 'angular-growl', 'ngAnimate'], function($locationProvider){
+const app = angular.module('uaiMockServerApp', ['tableSort', 'angular-growl', 'ngAnimate'], function ($locationProvider) {
     $locationProvider.html5Mode(true);
 });
 
@@ -41,8 +41,8 @@ app.controller('routeController', function($scope, $http, growl, $location) {
                     $scope.projectList =  $scope.projectList.concat(data.projectList);
                 }
 
-                for (var i = 0; i < data.routeList.length; i++) {
-                    var routeRow = {};
+                for (let i = 0; i < data.routeList.length; i++) {
+                    let routeRow = {};
 
                     routeRow.requestPath = data.routeList[i].request.path;
                     routeRow.responseCode = data.routeList[i].response.statusCode;
@@ -52,13 +52,13 @@ app.controller('routeController', function($scope, $http, growl, $location) {
 
                     routeRow.route = data.routeList[i];
 
-                    var request = routeRow.route.request;
+                    let request = routeRow.route.request;
 
                     request.headerList = [];
 
                     if (request.requiredHeaderList) {
-                        for (var j = 0; j < request.requiredHeaderList.length; j++) {
-                            var requiredHeader = request.requiredHeaderList[j];
+                        for (let j = 0; j < request.requiredHeaderList.length; j++) {
+                            const requiredHeader = request.requiredHeaderList[j];
                             requiredHeader.required = true;
 
                             request.headerList.push(requiredHeader);
@@ -66,8 +66,8 @@ app.controller('routeController', function($scope, $http, growl, $location) {
                     }
 
                     if (request.optionalHeaderList) {
-                        for (var k = 0; k < request.optionalHeaderList.length; k++) {
-                            var optionalHeader = request.optionalHeaderList[k];
+                        for (let k = 0; k < request.optionalHeaderList.length; k++) {
+                            const optionalHeader = request.optionalHeaderList[k];
                             optionalHeader.required = false;
 
                             request.headerList.push(optionalHeader);
@@ -77,8 +77,8 @@ app.controller('routeController', function($scope, $http, growl, $location) {
                     request.queryParamList = [];
 
                     if (request.requiredQueryParamList) {
-                        for (var l = 0; l < request.requiredQueryParamList.length; l++) {
-                            var requiredQueryParam = request.requiredQueryParamList[l];
+                        for (let l = 0; l < request.requiredQueryParamList.length; l++) {
+                            const requiredQueryParam = request.requiredQueryParamList[l];
                             requiredQueryParam.required = true;
 
                             request.queryParamList.push(requiredQueryParam);
@@ -86,8 +86,8 @@ app.controller('routeController', function($scope, $http, growl, $location) {
                     }
 
                     if (request.optionalQueryParamList) {
-                        for (var m = 0; m < request.optionalQueryParamList.length; m++) {
-                            var optionalQueryParam = request.optionalQueryParamList[m];
+                        for (let m = 0; m < request.optionalQueryParamList.length; m++) {
+                            const optionalQueryParam = request.optionalQueryParamList[m];
                             optionalQueryParam.required = false;
 
                             request.queryParamList.push(optionalQueryParam);
@@ -109,8 +109,8 @@ app.controller('routeController', function($scope, $http, growl, $location) {
             return false;
         }
 
-        for (var i = 0; i < listToCheck.length; i++) {
-            var list = listToCheck[i];
+        for (let i = 0; i < listToCheck.length; i++) {
+            const list = listToCheck[i];
             if (list.name === "" && list.valueList != null && list.valueList.length > 0) {
                 error.hasError = true;
                 error.errorHtml += "<li>There is a value of " + type + " created, but has not name: " + list.valueList +" </li>";
@@ -124,7 +124,7 @@ app.controller('routeController', function($scope, $http, growl, $location) {
     };
 
     $scope.getErrorText = function(route) {
-        var error = {};
+        const error = {};
         error.hasError = false;
         error.errorHtml = "<ul>";
 
@@ -165,6 +165,28 @@ app.controller('routeController', function($scope, $http, growl, $location) {
 
         $scope.hasErrorInList("Response ---> HeaderList", route.response.headerList, error);
 
+        let callback = route.callback;
+
+        if (callback !== null) {
+            if (!Number.isInteger(callback.delayInMilli)) {
+                error.hasError = true;
+                error.errorHtml += "<li>callback.delayInMilli should be a valid int</li>";
+            } else if (callback.delayInMilli < 0 ) {
+                error.hasError = true;
+                error.errorHtml += "<li>callback.delayInMilli should be >= 0</li>";
+            }
+
+            if (callback.completeUrlToCall === null || callback.completeUrlToCall.trim() === "") {
+                error.hasError = true;
+                error.errorHtml += "<li>callback.completeUrlToCall was not found</li>";
+            }
+
+            //completeUrlToCall
+
+            $scope.hasErrorInList("Callback ---> HeaderList", callback.headerList, error);
+            $scope.hasErrorInList("Callback ---> QueryParamList", callback.queryParamList, error);
+        }
+
         if (error.hasError) {
             error.errorHtml += "</ul>";
             return error.errorHtml;
@@ -183,11 +205,11 @@ app.controller('routeController', function($scope, $http, growl, $location) {
         $scope.selectedRouteRow.route.request.requiredHeaderList = [];
         $scope.selectedRouteRow.route.request.optionalHeaderList = [];
 
-        var headerList = $scope.convertStringToList($scope.selectedRouteRow.route.request.headerList);
+        const headerList = $scope.convertStringToList($scope.selectedRouteRow.route.request.headerList);
 
         if (headerList) {
-            for (var i = 0; i < headerList.length; i++) {
-                var header = headerList[i];
+            for (let i = 0; i < headerList.length; i++) {
+                const header = headerList[i];
                 if (header.required) {
                     $scope.selectedRouteRow.route.request.requiredHeaderList.push(header);
                 } else {
@@ -199,11 +221,11 @@ app.controller('routeController', function($scope, $http, growl, $location) {
         $scope.selectedRouteRow.route.request.requiredQueryParamList = [];
         $scope.selectedRouteRow.route.request.optionalQueryParamList = [];
 
-        var queryParamList = $scope.convertStringToList($scope.selectedRouteRow.route.request.queryParamList);
+        const queryParamList = $scope.convertStringToList($scope.selectedRouteRow.route.request.queryParamList);
 
         if (queryParamList) {
-            for (var j = 0; j < queryParamList.length; j++) {
-                var queryParam = queryParamList[j];
+            for (let j = 0; j < queryParamList.length; j++) {
+                const queryParam = queryParamList[j];
                 if (queryParam.required) {
                     $scope.selectedRouteRow.route.request.requiredQueryParamList.push(queryParam);
                 } else {
@@ -214,7 +236,10 @@ app.controller('routeController', function($scope, $http, growl, $location) {
 
         $scope.selectedRouteRow.route.response.headerList = $scope.convertStringToList($scope.selectedRouteRow.route.response.headerList);
 
-        var errorText = $scope.getErrorText($scope.selectedRouteRow.route);
+        $scope.selectedRouteRow.route.callback.headerList = $scope.convertStringToList($scope.selectedRouteRow.route.callback.headerList);
+        $scope.selectedRouteRow.route.callback.queryParamList = $scope.convertStringToList($scope.selectedRouteRow.route.callback.queryParamList);
+
+        const errorText = $scope.getErrorText($scope.selectedRouteRow.route);
 
         if (errorText != null) {
             $scope.hasValidationErrors = true;
@@ -254,9 +279,9 @@ app.controller('routeController', function($scope, $http, growl, $location) {
             return;
         }
 
-        var listTrimmed = [];
+        const listTrimmed = [];
 
-        for (var i = 0; i < requiredHeaderList.length; i++) {
+        for (let i = 0; i < requiredHeaderList.length; i++) {
             if (requiredHeaderList[i].name != null && requiredHeaderList[i].name.trim() === "") {
                 if (requiredHeaderList[i].valueList == null || requiredHeaderList[i].valueList.length === 0) {
                     continue;
@@ -317,6 +342,10 @@ app.controller('routeController', function($scope, $http, growl, $location) {
         request.headerList.push({name:"", required: true, valueList: []});
     };
 
+    $scope.addNewHeaderCallback = function (callback) {
+        callback.headerList.push({name:"", required: true, valueList: []});
+    };
+
     $scope.addNewHeaderResponse = function (response) {
         if (response.headerList == null) {
             response.headerList = [];
@@ -327,6 +356,10 @@ app.controller('routeController', function($scope, $http, growl, $location) {
 
     $scope.addNewQueryParamRequest = function (request) {
         request.queryParamList.push({name:"", required: true, valueList: []});
+    };
+
+    $scope.addNewQueryParamCallback = function (callback) {
+        callback.queryParamList.push({name:"", required: true, valueList: []});
     };
 
     $scope.delete = function () {

@@ -16,6 +16,7 @@
                     <ul class="nav nav-tabs" role="tablist" id="myTab">
                         <li role="presentation" class="active"><a href="#request" aria-controls="request" role="tab" data-toggle="tab">Request</a></li>
                         <li role="presentation"><a href="#response" aria-controls="response" role="tab" data-toggle="tab">Response</a></li>
+                        <li role="presentation"><a href="#callback" aria-controls="callback" role="tab" data-toggle="tab">Callback</a></li>
                     </ul>
 
                     <!-- Tab panes -->
@@ -27,6 +28,10 @@
 
                         <div role="tabpanel" class="tab-pane" id="response">
                             <div ng-include="'/uaiGui/page?fileName=index/responsePanel'"></div>
+                        </div>
+
+                        <div role="tabpanel" class="tab-pane" id="callback">
+                            <div ng-include="'/uaiGui/page?fileName=index/callbackPanel'"></div>
                         </div>
                     </div>
                 </div>
