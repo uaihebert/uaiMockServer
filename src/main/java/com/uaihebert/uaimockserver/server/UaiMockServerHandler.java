@@ -19,6 +19,7 @@ package com.uaihebert.uaimockserver.server;
 import com.uaihebert.uaimockserver.log.backend.Log;
 import com.uaihebert.uaimockserver.log.gui.UaiWebSocketLogManager;
 import com.uaihebert.uaimockserver.model.UaiRoute;
+import com.uaihebert.uaimockserver.service.UaiCallbackService;
 import com.uaihebert.uaimockserver.util.RequestHolder;
 import com.uaihebert.uaimockserver.util.RouteFinderUtil;
 import io.undertow.server.HttpHandler;
@@ -71,6 +72,8 @@ public class UaiMockServerHandler implements HttpHandler {
             RequestHolder.holdTheRequest(uaiRoute.getRequest().holdTheRequestInMilli);
 
             responseHandler.process(exchange, uaiRoute.getResponse());
+
+            UaiCallbackService.executeCallback(uaiRoute.getCallback());
 
             UaiWebSocketLogManager.logResponse(uaiRoute.getResponse());
         } catch (RuntimeException ex) {
