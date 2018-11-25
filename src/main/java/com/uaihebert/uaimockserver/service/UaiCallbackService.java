@@ -6,6 +6,7 @@ import com.mashape.unirest.http.exceptions.UnirestException;
 import com.mashape.unirest.request.HttpRequest;
 import com.uaihebert.uaimockserver.factory.UnirestRequestFactory;
 import com.uaihebert.uaimockserver.log.backend.Log;
+import com.uaihebert.uaimockserver.log.gui.UaiWebSocketLogManager;
 import com.uaihebert.uaimockserver.model.UaiCallback;
 import com.uaihebert.uaimockserver.model.UaiHeader;
 import com.uaihebert.uaimockserver.model.UaiQueryParam;
@@ -22,14 +23,20 @@ public final class UaiCallbackService {
             return;
         }
 
+        Log.info("Scheduling callback to run in: " + callback.getDelayInMilli());
+
         final Thread thread = new Thread() {
             @Override
             public void run() {
                 try {
                     // todo, add this callback call to the UI log
+                    UaiWebSocketLogManager.start(callback);
                     runProcess(callback);
                 } catch (Exception ex) {
                     Log.warnFormatted(ex);
+                    UaiWebSocketLogManager.exceptionDetected("Error executing callback" + ex.getMessage());
+                } finally {
+                    UaiWebSocketLogManager.finishLog();
                 }
             }
         };
@@ -38,6 +45,8 @@ public final class UaiCallbackService {
     }
 
     private static void runProcess(final UaiCallback callback) throws InterruptedException, UnirestException {
+        Log.info("Holding callback execution for: " + callback.getDelayInMilli() + "ms");
+
         Thread.sleep(callback.getDelayInMilli());
 
         final HttpResponse<JsonNode> result = callback(callback);
@@ -49,10 +58,12 @@ public final class UaiCallbackService {
             .append("The returned Response Body is: " + result.getBody() + ". \n")
             .toString();
 
-        Log.infoFormatted(logText);
+        Log.info(logText);
     }
 
     private static HttpResponse<JsonNode> callback(final UaiCallback callback) throws UnirestException {
+        Log.info("Executing callback. The invoked URL will be: " + callback.getCompleteUrlToCall());
+
         final HttpRequest request = UnirestRequestFactory.create(callback);
 
         setHeader(callback, request);
