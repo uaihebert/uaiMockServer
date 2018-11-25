@@ -167,7 +167,7 @@ app.controller('routeController', function($scope, $http, growl, $location) {
 
         let callback = route.callback;
 
-        if (callback !== null) {
+        if (callback !== undefined && callback !== null) {
             if (!Number.isInteger(callback.delayInMilli)) {
                 error.hasError = true;
                 error.errorHtml += "<li>callback.delayInMilli should be a valid int</li>";
@@ -236,8 +236,12 @@ app.controller('routeController', function($scope, $http, growl, $location) {
 
         $scope.selectedRouteRow.route.response.headerList = $scope.convertStringToList($scope.selectedRouteRow.route.response.headerList);
 
-        $scope.selectedRouteRow.route.callback.headerList = $scope.convertStringToList($scope.selectedRouteRow.route.callback.headerList);
-        $scope.selectedRouteRow.route.callback.queryParamList = $scope.convertStringToList($scope.selectedRouteRow.route.callback.queryParamList);
+        let callback = $scope.selectedRouteRow.route.callback;
+
+        if (callback !== undefined && callback !== null) {
+            callback.headerList = $scope.convertStringToList(callback.headerList);
+            callback.queryParamList = $scope.convertStringToList(callback.queryParamList);
+        }
 
         const errorText = $scope.getErrorText($scope.selectedRouteRow.route);
 
