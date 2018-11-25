@@ -15,6 +15,7 @@ app.controller('webSocketController', function($scope, $location) {
             $scope.socket.onmessage = function (event) {
                 $scope.$apply(function() {
                     var jsonObj = JSON.parse(event.data);
+                    jsonObj['isCallback'] = (jsonObj['logCallback'] !== null && jsonObj['logCallback'] !== undefined);
 
                     $scope.webSocketLog.logRequestList.push(jsonObj);
                 });
