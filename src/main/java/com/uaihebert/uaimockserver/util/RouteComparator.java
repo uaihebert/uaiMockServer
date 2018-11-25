@@ -21,8 +21,8 @@ public class RouteComparator implements Comparator<UaiRoute> {
         return totalSecondRequest.compareTo(totalFirstRequest);
     }
 
-    private Integer countTotalItemsOfRequest(final UaiRequest firstRequest) {
-        Integer total = 0;
+    private int countTotalItemsOfRequest(final UaiRequest firstRequest) {
+        int total = 0;
 
         total += firstRequest.getRequiredHeaderList().size();
         total += firstRequest.getRequiredQueryParamList().size();

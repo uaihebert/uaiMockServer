@@ -26,7 +26,7 @@ public final class UaiCallbackService {
             @Override
             public void run() {
                 try {
-                    // todo, add this callback call to the UI
+                    // todo, add this callback call to the UI log
                     runProcess(callback);
                 } catch (Exception ex) {
                     Log.warnFormatted(ex);

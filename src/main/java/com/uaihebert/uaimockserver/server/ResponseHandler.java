@@ -33,7 +33,7 @@ class ResponseHandler {
 
         exchange.getResponseHeaders().put(Headers.CONTENT_TYPE, uaiResponse.getContentType());
 
-        exchange.setResponseCode(uaiResponse.getStatusCode());
+        exchange.setStatusCode(uaiResponse.getStatusCode());
 
         setResponseHeaders(uaiResponse, exchange);
 

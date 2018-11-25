@@ -6,7 +6,7 @@ import com.google.gson.FieldAttributes;
 import java.util.Arrays;
 import java.util.List;
 
-public class GsonAttributesToIgnore implements ExclusionStrategy {
+class GsonAttributesToIgnore implements ExclusionStrategy {
 
     private static final List<String> ALWAYS_TO_SKIP_ATTRIBUTES = Arrays.asList("usingWildCard", "uaiFile", "id");
 

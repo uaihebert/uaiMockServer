@@ -29,7 +29,7 @@ public final class UaiWebSocketLogManager {
         getCurrentLog().addTextLog(text);
     }
 
-    public static void log() {
+    public static void finishLog() {
         final UaiWebSocketLogDTO uaiWebSocketLogDTO = getCurrentLog();
 
         THREAD_LOCAL.remove();

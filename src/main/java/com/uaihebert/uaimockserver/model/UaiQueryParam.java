@@ -23,7 +23,7 @@ import java.util.List;
  * Class that will hold all the query param data.
  */
 public class UaiQueryParam {
-    private String name;
+    private final String name;
 
     private boolean usingWildCard;
 

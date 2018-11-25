@@ -1,11 +1,11 @@
 package com.uaihebert.uaimockserver.configuration;
 
 public enum ProjectConfiguration {
-    ENCODING("UTF-8");
+    ENCODING();
 
     public final String value;
 
-    ProjectConfiguration(final String value) {
-        this.value = value;
+    ProjectConfiguration() {
+        this.value = "UTF-8";
     }
 }

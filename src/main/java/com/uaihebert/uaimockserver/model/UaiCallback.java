@@ -22,8 +22,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UaiCallback {
+    // todo, apply default timeout
     public static final long TIMEOUT_IN_MILLIS = 1000L;
-    public static final int DEFAULT_DELAY_IN_MILLIS = 500;
+    private static final int DEFAULT_DELAY_IN_MILLIS = 500;
 
     private int delayInMilli = DEFAULT_DELAY_IN_MILLIS;
 

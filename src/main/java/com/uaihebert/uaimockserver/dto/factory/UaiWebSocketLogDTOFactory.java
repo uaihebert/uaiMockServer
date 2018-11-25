@@ -11,7 +11,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.Deque;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -38,14 +37,14 @@ public final class UaiWebSocketLogDTOFactory {
 
         logRequestDTO.setPath(exchange.getRequestPath());
 
-        if (exchange.getRequestHeaders().get("Content-Type") != null) {
-            logRequestDTO.setContentType(exchange.getRequestHeaders().get("Content-Type").getFirst());
+        final HeaderValues contentType = exchange.getRequestHeaders().get("Content-Type");
+        if (contentType != null) {
+            logRequestDTO.setContentType(contentType.getFirst());
         }
 
         createHeaderList(exchange, logRequestDTO);
 
         createQueryParamList(exchange, logRequestDTO);
-
 
         return logRequestDTO;
     }
@@ -56,14 +55,7 @@ public final class UaiWebSocketLogDTOFactory {
             final String queryParamName = queryParamValue.getKey();
             final Deque<String> stringDeque = queryParamValue.getValue();
 
-            final List<String> valueList = new ArrayList<String>();
-
-            final Iterator<String> dequeIterator = stringDeque.iterator();
-
-            while (dequeIterator.hasNext()) {
-                final String value = dequeIterator.next();
-                valueList.add(value);
-            }
+            final List<String> valueList = new ArrayList<String>(stringDeque);
 
             final UaiLogPairValueDTO pairValueDTO = new UaiLogPairValueDTO(queryParamName, valueList);
             logRequestDTO.getQueryParamValueList().add(pairValueDTO);

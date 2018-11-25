@@ -80,7 +80,7 @@ public class UaiMockServerHandler implements HttpHandler {
             UaiWebSocketLogManager.exceptionDetected(ex.getMessage());
             throw ex;
         } finally {
-            UaiWebSocketLogManager.log();
+            UaiWebSocketLogManager.finishLog();
         }
     }
 
@@ -92,7 +92,7 @@ public class UaiMockServerHandler implements HttpHandler {
         writeFavIco(exchange.getOutputStream());
     }
 
-    public void writeFavIco(final OutputStream outputStream) throws IOException {
+    private void writeFavIco(final OutputStream outputStream) throws IOException {
         final BufferedImage bufferedImage = ImageIO.read(getClass().getResourceAsStream("/images/favicon.png"));
 
         ImageIO.write(bufferedImage, "png", outputStream);

@@ -20,11 +20,11 @@ package com.uaihebert.uaimockserver.constants;
  * Constants to be used in the Validators classes.
  */
 public enum ValidatorConstants {
-    VALID_WILD_CARD("UAI_*");
+    VALID_WILD_CARD();
 
     public final String text;
 
-    ValidatorConstants(final String text) {
-        this.text = text;
+    ValidatorConstants() {
+        this.text = "UAI_*";
     }
 }
