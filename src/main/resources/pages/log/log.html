@@ -36,6 +36,7 @@
                         <th>Request Time (yyyy-MM-dd HH:mm:ss.SSS)</th>
                         <th>Request IP Source</th>
                         <th>Response Code</th>
+                        <th>Type</th>
                         <th>Returned as Expected?</th>
                         <th></th>
                     </tr>
@@ -46,6 +47,14 @@
                         <td>{{log.logRequest.whoInvokedAddress}}</td>
                         <td>{{log.logResponse.statusCode}}</td>
                         <td>
+                            <div ng-if="log.isCallback">
+                                Callback executed
+                            </div>
+                            <div ng-if="!log.isCallback">
+                                Received Request
+                            </div>
+                        </td>
+                        <td>
                             <span ng-class="{'label label-success': log.finishedWithError == false, 'label label-danger':  log.finishedWithError == true}">{{getResponseText(log)}}</span>
                         </td>
                         <td><button type="button" class="btn btn-danger" ng-click="webSocketLog.logRequestList.splice($index,1)">Delete (no confirmation)</button> </td>
@@ -53,7 +62,7 @@
                     <tr ng-repeat-end="">
                         <td colspan="5" style="padding: 0">
                             <div collapse="isCollapsed">
-                                <div ng-class="getCalloutRequestClass(log)">
+                                <div ng-class="getCalloutRequestClass(log)" ng-if="!log.isCallback">
                                     <h4>Request Data</h4>
                                     <table class="table table-bordered table-striped">
                                         <thead>
@@ -102,7 +111,7 @@
                                         </tbody>
                                     </table>
                                 </div>
-                                <div ng-class="getCalloutRequestClass(log)">
+                                <div ng-class="getCalloutRequestClass(log)" ng-if="!log.isCallback">
                                     <h4>Response Sent</h4>
                                     <table class="table table-bordered table-striped">
                                         <thead>
@@ -129,6 +138,52 @@
                                                 <td>
                                                     <ul>
                                                         <li ng-repeat="header in log.logResponse.headerValueList">{{header.key}}: {{header.valueList}}</li>
+                                                    </ul>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div ng-class="getCalloutRequestClass(log)" ng-if="log.isCallback">
+                                    <h4>Executed Callback</h4>
+                                    <table class="table table-bordered table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th>Attribute</th>
+                                                <th>Value</th>
+                                            </tr>
+                                        </thead>
+                                        <!-- todo, add content-type here -->
+                                        <tbody>
+                                            <tr>
+                                                <td>Delay (In Milli)</td>
+                                                <td>{{log.logCallback.delayInMilli}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Invoked URL</td>
+                                                <td>{{log.logCallback.completeUrlToCall}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>HttpMethod</td>
+                                                <td>{{log.logCallback.httpMethod}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Body</td>
+                                                <td>{{log.logCallback.bodyToSend}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Header List</td>
+                                                <td>
+                                                    <ul>
+                                                        <li ng-repeat="header in log.logCallback.headerList">{{header.name}}: {{header.valueList}}</li>
+                                                    </ul>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>Query Param List</td>
+                                                <td>
+                                                    <ul>
+                                                        <li ng-repeat="queryParam in log.logCallback.queryParamList">{{queryParam.name}}: {{queryParam.valueList}}</li>
                                                     </ul>
                                                 </td>
                                             </tr>
