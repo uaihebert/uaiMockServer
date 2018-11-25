@@ -1,8 +1,10 @@
 package com.uaihebert.uaimockserver.dto.factory;
 
 import com.uaihebert.uaimockserver.dto.model.UaiLogPairValueDTO;
+import com.uaihebert.uaimockserver.dto.model.UaiWebSocketLogCallbackDTO;
 import com.uaihebert.uaimockserver.dto.model.UaiWebSocketLogDTO;
 import com.uaihebert.uaimockserver.dto.model.UaiWebSocketLogRequestDTO;
+import com.uaihebert.uaimockserver.model.UaiCallback;
 import io.undertow.server.HttpServerExchange;
 import io.undertow.util.HeaderValues;
 
@@ -16,6 +18,25 @@ import java.util.Map;
 
 public final class UaiWebSocketLogDTOFactory {
     private UaiWebSocketLogDTOFactory() {
+    }
+
+    public static UaiWebSocketLogDTO create(final UaiCallback callback) {
+        final UaiWebSocketLogCallbackDTO logDTO = new UaiWebSocketLogCallbackDTO();
+        logDTO.setBodyToSend(callback.getBodyToSend());
+        logDTO.setCompleteUrlToCall(callback.getCompleteUrlToCall());
+        logDTO.setDelayInMilli(callback.getDelayInMilli());
+        logDTO.setHttpMethod(callback.getHttpMethod());
+        logDTO.setHeaderList(UaiHeaderDTOFactory.create(callback.getHeaderList()));
+        logDTO.setQueryParamList(UaiQueryParamDTOFactory.create(callback.getQueryParamList()));
+
+        final UaiWebSocketLogRequestDTO logRequestDTO = new UaiWebSocketLogRequestDTO();
+        logRequestDTO.setArrivedAt(getFormattedDate());
+
+        final UaiWebSocketLogDTO uaiWebSocket = new UaiWebSocketLogDTO();
+        uaiWebSocket.setLogCallback(logDTO);
+        uaiWebSocket.setLogRequest(logRequestDTO);
+
+        return uaiWebSocket;
     }
 
     public static UaiWebSocketLogDTO create(final HttpServerExchange exchange) {
@@ -32,7 +53,7 @@ public final class UaiWebSocketLogDTOFactory {
         final UaiWebSocketLogRequestDTO logRequestDTO = new UaiWebSocketLogRequestDTO();
 
         logRequestDTO.setMethod(exchange.getRequestMethod().toString());
-        logRequestDTO.setArrivedAt(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS").format(new Date()));
+        logRequestDTO.setArrivedAt(getFormattedDate());
         logRequestDTO.setWhoInvokedAddress(exchange.getSourceAddress().getAddress().toString());
 
         logRequestDTO.setPath(exchange.getRequestPath());
@@ -47,6 +68,10 @@ public final class UaiWebSocketLogDTOFactory {
         createQueryParamList(exchange, logRequestDTO);
 
         return logRequestDTO;
+    }
+
+    private static String getFormattedDate() {
+        return new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS").format(new Date());
     }
 
     private static void createQueryParamList(final HttpServerExchange exchange,

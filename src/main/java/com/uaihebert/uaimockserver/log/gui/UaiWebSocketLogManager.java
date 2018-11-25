@@ -6,6 +6,7 @@ import com.uaihebert.uaimockserver.dto.factory.UaiWebSocketLogResponseDTOFactory
 import com.uaihebert.uaimockserver.dto.model.UaiWebSocketLogDTO;
 import com.uaihebert.uaimockserver.dto.model.UaiWebSocketLogResponseDTO;
 import com.uaihebert.uaimockserver.model.HttpStatusCode;
+import com.uaihebert.uaimockserver.model.UaiCallback;
 import com.uaihebert.uaimockserver.model.UaiResponse;
 import io.undertow.server.HttpServerExchange;
 
@@ -21,6 +22,12 @@ public final class UaiWebSocketLogManager {
 
     public static void start(final HttpServerExchange exchange) {
         final UaiWebSocketLogDTO uaiWebSocketLogDTO = UaiWebSocketLogDTOFactory.create(exchange);
+
+        THREAD_LOCAL.set(uaiWebSocketLogDTO);
+    }
+
+    public static void start(final UaiCallback callback) {
+        final UaiWebSocketLogDTO uaiWebSocketLogDTO = UaiWebSocketLogDTOFactory.create(callback);
 
         THREAD_LOCAL.set(uaiWebSocketLogDTO);
     }
