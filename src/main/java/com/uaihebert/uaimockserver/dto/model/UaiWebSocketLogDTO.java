@@ -7,6 +7,7 @@ import java.util.List;
 public class UaiWebSocketLogDTO {
     private boolean finishedWithError;
     private UaiWebSocketLogRequestDTO logRequest;
+    private UaiWebSocketLogCallbackDTO logCallback;
     private UaiWebSocketLogResponseDTO logResponse;
     private final List<String> logList = new ArrayList<String>();
 
@@ -30,6 +31,10 @@ public class UaiWebSocketLogDTO {
         return logResponse;
     }
 
+    public UaiWebSocketLogCallbackDTO getLogCallback() {
+        return logCallback;
+    }
+
     public void setLogResponse(final UaiWebSocketLogResponseDTO logResponse) {
         this.logResponse = logResponse;
     }
@@ -40,5 +45,9 @@ public class UaiWebSocketLogDTO {
 
     public void setFinishedWithError() {
         this.finishedWithError = true;
+    }
+
+    public void setLogCallback(final UaiWebSocketLogCallbackDTO logCallback) {
+        this.logCallback = logCallback;
     }
 }
