@@ -29,7 +29,6 @@ public final class UaiCallbackService {
             @Override
             public void run() {
                 try {
-                    // todo, add this callback call to the UI log
                     UaiWebSocketLogManager.start(callback);
                     runProcess(callback);
                 } catch (Exception ex) {

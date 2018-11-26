@@ -16,6 +16,8 @@
 
 package com.uaihebert.uaimockserver.main;
 
+import com.mashape.unirest.http.Unirest;
+import com.uaihebert.uaimockserver.model.UaiCallback;
 import com.uaihebert.uaimockserver.server.UaiMockServer;
 
 /**
@@ -31,6 +33,8 @@ public final class UaiMockServerMain {
      * or pass the name of the file like: java -jar uaiMockServer.jar myConfigFile.config.
      */
     public static void main(final String[] args) throws InterruptedException {
+        Unirest.setTimeouts(UaiCallback.TIMEOUT_IN_MILLIS, UaiCallback.TIMEOUT_IN_MILLIS);
+
         startServer(args);
 
         Thread.currentThread().join();
